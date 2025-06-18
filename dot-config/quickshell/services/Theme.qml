@@ -7,10 +7,11 @@ Singleton {
   id: root
 
   readonly property Color color: Color {}
-  readonly property int rounding: 6
+  readonly property int rounding: 8
   readonly property int border: 4
   readonly property Font font: Font {}
   readonly property Anim anim: Anim {}
+  readonly property url wallpaper: "root:/assets/frieren.png"
 
   component Color: QtObject {
     readonly property string bg: "#222436"

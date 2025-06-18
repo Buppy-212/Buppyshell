@@ -3,7 +3,6 @@ import Quickshell.Wayland
 import QtQuick
 import QtQuick.Effects
 import "root:/services"
-import "root:/windows"
 
 Variants {
   model: Quickshell.screens

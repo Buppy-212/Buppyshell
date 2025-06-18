@@ -3,6 +3,7 @@ import Quickshell
 
 Rectangle {
   id: root
+  property bool disabled: false
   implicitWidth: 30
   implicitHeight: 24
   color: "transparent"

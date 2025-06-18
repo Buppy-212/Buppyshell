@@ -9,7 +9,7 @@ BarBlock {
   BarText {
     id: text
     text: Hyprland.activeClient?.title ?? qsTr("Desktop")
-    anchors.centerIn: NULL
+    anchors.centerIn: undefined
   }
   readonly property var process: Process {
     command: ["rofi", "-show", "window", "-config", "~/.config/rofi/menu.rasi"]

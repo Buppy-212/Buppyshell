@@ -5,10 +5,12 @@ import Quickshell.Io
 import QtQuick
 
 BarBlock {
-  BarText {
-    text: ""
-    font.pointSize: Theme.font.size.large
-    color: Theme.color.blue
+  Image {
+    fillMode: Image.PreserveAspectCrop
+    sourceSize.width: 22
+    sourceSize.height: 22
+    anchors.centerIn: parent
+    source: Qt.resolvedUrl("root:/assets/archlinux.svg")
   }
   readonly property var process: Process {
     command: ["rofi", "-show", "drun", "-config", "~/.config/rofi/menu.rasi"]

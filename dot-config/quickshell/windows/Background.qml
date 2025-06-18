@@ -2,6 +2,7 @@ import Quickshell
 import QtQuick
 import Quickshell.Wayland
 import Quickshell.Hyprland
+import QtMultimedia
 import "root:/services"
 
 Scope {
@@ -24,13 +25,16 @@ Scope {
         id: image
         anchors.fill: parent
         fillMode: Image.PreserveAspectCrop
-        source: Qt.resolvedUrl("root:/assets/Frieren.png")
+        source: Theme.wallpaper
       }
       Rectangle {
         id: rect
         readonly property int size: Screen.name === "eDP-1" ? Theme.font.size.extraLarge : Theme.font.size.huge
-        x: Screen.name === "eDP-1" ? Screen.width * 0.86 : Screen.width * 0.83
+        x: Screen.name === "eDP-1" ? Screen.width * 0.865 : Screen.width * 0.83
         anchors.verticalCenter: parent.verticalCenter
+        implicitWidth: 1
+        implicitHeight: 1
+        color: "transparent"
         Text {
           id: day
           text: Time.day
