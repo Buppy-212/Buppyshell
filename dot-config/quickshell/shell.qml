@@ -5,5 +5,5 @@ import "windows"
 ShellRoot {
   Bar {}
   Background {}
-  // NotificationPanel {}
+  Border {}
 }
