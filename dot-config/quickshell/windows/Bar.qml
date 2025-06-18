@@ -24,7 +24,7 @@ Variants {
           id: leftBlocks
           Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
           Os {}
-          Title {}
+          Title {Layout.topMargin: 2}
         }
         RowLayout {
           id: rightBlocks
@@ -48,6 +48,7 @@ Variants {
         ColumnLayout {
           id: topBlocks
           Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
+          Layout.topMargin: 2
           Workspaces {}
         }
         ColumnLayout {

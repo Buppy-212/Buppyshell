@@ -19,6 +19,7 @@ Variants {
           right: true
         }
         exclusionMode: ExclusionMode.Normal
+        WlrLayershell.namespace: "border"
         color: "transparent"
         aboveWindows: false
         Rectangle {
