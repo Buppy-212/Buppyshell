@@ -7,7 +7,7 @@ import "root:/widgets"
 
 ColumnLayout {
   Column {
-    spacing: 8
+    spacing: 4
     Repeater {
       model: 10
       BarBlock {

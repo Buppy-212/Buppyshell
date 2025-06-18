@@ -2,14 +2,14 @@ import Quickshell
 import QtQuick.Layouts
 import "root:/modules/bar"
 import "root:/services"
-
-Scope {
-  Variants {
-    model: Quickshell.screens
+Variants {
+  model: Quickshell.screens
+  Scope {
+    id: scope
+    property var modelData
     PanelWindow {
+    screen: scope.modelData
       id: bar
-      property var modelData
-      screen: modelData
       anchors {
         top: true
         left: true
@@ -33,12 +33,8 @@ Scope {
         }
       }
     }
-  }
-  Variants {
-    model: Quickshell.screens
     PanelWindow {
-      property var modelData
-      screen: modelData
+      screen: scope.modelData
       anchors {
         top: true
         left: true
