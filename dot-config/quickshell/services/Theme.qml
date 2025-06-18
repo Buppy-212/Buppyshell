@@ -29,10 +29,13 @@ Singleton {
     readonly property string sans: "Adwaita Sans"
     readonly property string mono: "JetBrainsMono Nerd Font"
     readonly property string material: "Material Symbols Rounded"
+    readonly property string serif: "Z003"
   }
   component FontSize: QtObject {
     readonly property int normal: 13
     readonly property int large: 15
+    readonly property int extraLarge: 46
+    readonly property int huge: 54
   }
   component Font: QtObject {
     readonly property FontFamily family: FontFamily {}
