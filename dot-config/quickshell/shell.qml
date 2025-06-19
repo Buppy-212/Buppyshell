@@ -1,5 +1,4 @@
 //@ pragma UseQApplication
-//@ pragma IconTheme Papirus-Dark
 
 import Quickshell
 import "windows"
