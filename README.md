@@ -12,9 +12,9 @@
 - [x] Updates
 - [ ] Popouts
 - [ ] Toggles (gamemode, idle)
-- [ ] Volume
+- [x] Volume
 - [ ] Brightness
-- [ ] Tooltips
+- [x] Tooltips kinda?
 - [ ] Keybinds
 
 ## Notifications

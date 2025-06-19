@@ -66,10 +66,10 @@ ListView {
         visible: source !== ""
       }
     }
-    MouseArea {  
-      anchors.fill: parent  
+    MouseArea {
+      anchors.fill: parent
       cursorShape: Qt.PointingHandCursor
-      onClicked: modelData.dismiss()  
+      onClicked: modelData.dismiss()
     } 
   }
 }

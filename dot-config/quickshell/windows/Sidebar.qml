@@ -1,4 +1,5 @@
 import Quickshell
+import Quickshell.Hyprland
 import Quickshell.Wayland
 import QtQuick
 import "root:/services"
@@ -31,10 +32,10 @@ Scope {
       radius: Theme.rounding
       color: Theme.color.black
       anchors.fill: parent
-      MouseArea {  
-        anchors.fill: parent  
+      MouseArea {
+        anchors.fill: parent
         cursorShape: Qt.PointingHandCursor
-        onClicked:{ 
+        onClicked:{
           var notifications = notificationServer.trackedNotifications.values.slice()
           for (var i = 0; i < notifications.length; i++) {
             notifications[i].dismiss()
@@ -43,6 +44,15 @@ Scope {
         }
       } 
       List {notificationModel: notificationServer.trackedNotifications}
+    }
+  }
+  GlobalShortcut {
+    name: "toggleSidebar"
+    description: "Toggle sidebar"
+    triggerDescription: "Super+N"
+    appid: "buppyshell"
+    onPressed: {
+      root.visible = !root.visible
     }
   }
 }

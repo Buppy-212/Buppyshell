@@ -25,11 +25,6 @@ PanelWindow {
       }
     }
   }
-  function showNotification(notification) {
-    currentNotification = notification
-    visible = true
-    timeoutTimer.restart()
-  }
   color: "transparent"
   exclusiveZone: 0  
   implicitWidth: rect.width
