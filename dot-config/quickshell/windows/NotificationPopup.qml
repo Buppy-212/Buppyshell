@@ -37,8 +37,8 @@ PanelWindow {
   visible: false
   Rectangle {
     id: rect
-    implicitWidth: row.width*1.5 + 64 > 400 ? row.width*1.5 : 400
-    implicitHeight: row.height*1.5 > 100 ? row.height*1.5 : 100
+    implicitWidth: row.width > 400 ? row.width : 400
+    implicitHeight: row.height > 100 ? row.height : 100
     color: Theme.color.bg
     radius: Theme.rounding
     border.width: 2
