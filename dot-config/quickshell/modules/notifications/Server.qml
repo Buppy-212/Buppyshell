@@ -6,6 +6,8 @@ NotificationServer {
   bodySupported: true
   actionsSupported: true
   imageSupported: true
+  keepOnReload: false
+  persistenceSupported: true
 
   onNotification: notification => {
     notification.tracked = true

@@ -2,8 +2,8 @@
 
 ## Bar
 
-- [ ] Workspaces
-- - [ ] Show occupied workspaces
+- [x] Workspaces
+- - [x] Show occupied workspaces
 - [x] Launcher
 - [x] Clock
 - [x] Power

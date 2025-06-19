@@ -31,7 +31,6 @@ Scope {
       radius: Theme.rounding
       color: Theme.color.bg
       anchors.fill: parent
-      List {notificationModel: notificationServer.trackedNotifications}
       MouseArea {  
         anchors.fill: parent  
         cursorShape: Qt.PointingHandCursor
@@ -43,6 +42,7 @@ Scope {
           root.visible = false
         }
       } 
+      List {notificationModel: notificationServer.trackedNotifications}
     }
   }
 }

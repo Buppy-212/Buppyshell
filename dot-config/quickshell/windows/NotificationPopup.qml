@@ -20,7 +20,6 @@ PanelWindow {
     running: currentNotification !== null
     onTriggered: {
       if (currentNotification) {
-        currentNotification.expire()
         currentNotification = null
         visible = false
       }
@@ -38,13 +37,16 @@ PanelWindow {
   visible: false
   Rectangle {
     id: rect
-    implicitWidth: 400
-    implicitHeight: 100
+    implicitWidth: row.width*1.5 + 64 > 400 ? row.width*1.5 : 400
+    implicitHeight: row.height*1.5 > 100 ? row.height*1.5 : 100
     color: Theme.color.bg
     radius: Theme.rounding
     border.width: 2
     border.color: Theme.color.blue
     Row {
+      id: row
+      width: column.width
+      height: column.height
       x: 16
       anchors.verticalCenter: parent.verticalCenter
       Image {
@@ -54,6 +56,9 @@ PanelWindow {
         visible: source !== ""
       }
       Column {
+        id: column
+        width: summary.width > body.width ? summary.width : body.width
+        height: summary.height + body.height
         anchors.verticalCenter: parent.verticalCenter
         Text {
           id: summary
