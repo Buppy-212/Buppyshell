@@ -16,8 +16,8 @@ ListView {
   spacing: Theme.border
   delegate: Rectangle {
     id: rect
-    implicitWidth: row.width > 400 ? row.width : 400
-    implicitHeight: row.height > 100 ? row.height : 100
+    implicitWidth: 400
+    implicitHeight: row.height > 60 ? row.height + 20 : 80
     color: Theme.color.bg
     radius: Theme.rounding
     border.width: 2
@@ -25,22 +25,25 @@ ListView {
     Row {
       id: row
       x: 16
+      spacing: 16
       width: column.width
       height: column.height
       anchors.verticalCenter: parent.verticalCenter
       Image {
-        source: modelData.appIcon ?? ""
+        source: modelData.appIcon !== "" ? Quickshell.iconPath(modelData.appIcon) : ""
         width: 48
         height: 48
-        visible: source !== ""
+        visible: modelData.appIcon !== "" ? true : false
       }
       Column {
         id: column
-        width: summary.width > body.width ? summary.width : body.width
-        height: summary.height + body.height
+        width: 350
+        height: (summary.height + body.height) *1.05
         anchors.verticalCenter: parent.verticalCenter
         Text {
           id: summary
+          wrapMode: Text.Wrap
+          width: column.width
           text: modelData.summary ?? ""
           font.pointSize: Theme.font.size.large
           font.bold: true
@@ -48,6 +51,8 @@ ListView {
         }
         Text {
           id: body
+          wrapMode: Text.Wrap
+          width: column.width
           text: modelData.body ?? ""
           font.pointSize: Theme.font.size.normal
           color: Theme.color.fg

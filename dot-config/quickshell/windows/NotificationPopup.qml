@@ -11,8 +11,8 @@ PanelWindow {
     right: true
   }
   margins {
-    top: 4
-    right: 4
+    top: 2
+    right: 2
   }
   Timer {
     id: timeoutTimer
@@ -37,8 +37,8 @@ PanelWindow {
   visible: false
   Rectangle {
     id: rect
-    implicitWidth: row.width > 400 ? row.width : 400
-    implicitHeight: row.height > 100 ? row.height : 100
+    implicitWidth: 400
+    implicitHeight: row.height > 60 ? row.height + 20 : 80
     color: Theme.color.bg
     radius: Theme.rounding
     border.width: 2
@@ -47,21 +47,24 @@ PanelWindow {
       id: row
       width: column.width
       height: column.height
+      spacing: 16
       x: 16
       anchors.verticalCenter: parent.verticalCenter
       Image {
-        source: currentNotification?.appIcon ?? ""
+        source: currentNotification.appIcon !== "" ? Quickshell.iconPath(currentNotification.appIcon) : ""
         width: 48
         height: 48
-        visible: source !== ""
+        visible: currentNotification.appIcon !== "" ? true : false
       }
       Column {
         id: column
-        width: summary.width > body.width ? summary.width : body.width
-        height: summary.height + body.height
+        width: 320
+        height: (summary.height + body.height) *1.05
         anchors.verticalCenter: parent.verticalCenter
         Text {
           id: summary
+          wrapMode: Text.Wrap
+          width: column.width
           text: currentNotification?.summary ?? ""
           font.pointSize: Theme.font.size.large
           font.bold: true
@@ -69,6 +72,8 @@ PanelWindow {
         }
         Text {
           id: body
+          wrapMode: Text.Wrap
+          width: column.width
           text: currentNotification?.body ?? ""
           font.pointSize: Theme.font.size.normal
           color: Theme.color.fg

@@ -4,6 +4,7 @@ NotificationServer {
   id: notificationServer
   property int maxNotifications: 6
   bodySupported: true
+  bodyMarkupSupported: true
   actionsSupported: true
   imageSupported: true
   keepOnReload: false

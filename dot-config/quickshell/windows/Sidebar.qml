@@ -29,7 +29,7 @@ Scope {
     implicitWidth: 420
     Rectangle {
       radius: Theme.rounding
-      color: Theme.color.bg
+      color: Theme.color.black
       anchors.fill: parent
       MouseArea {  
         anchors.fill: parent  
