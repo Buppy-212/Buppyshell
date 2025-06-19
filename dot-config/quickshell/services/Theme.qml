@@ -8,7 +8,7 @@ Singleton {
 
   readonly property Color color: Color {}
   readonly property int rounding: 8
-  readonly property int border: 4
+  readonly property int border: 2
   readonly property Font font: Font {}
   readonly property Anim anim: Anim {}
   readonly property url wallpaper: "root:/assets/frieren.png"

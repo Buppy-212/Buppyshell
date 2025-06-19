@@ -9,11 +9,12 @@ ListView {
   id: notificationList
   required property var notificationModel
   anchors.top: parent.top
+  anchors.topMargin: Theme.border*4
   anchors.bottom: parent.bottom
   width: parent.width - 25
   anchors.horizontalCenter: parent.horizontalCenter
   model: notificationModel
-  spacing: Theme.border
+  spacing: Theme.border*2
   delegate: Rectangle {
     id: rect
     implicitWidth: 400
