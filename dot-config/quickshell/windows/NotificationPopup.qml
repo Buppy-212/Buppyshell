@@ -51,10 +51,10 @@ PanelWindow {
       x: 16
       anchors.verticalCenter: parent.verticalCenter
       Image {
-        source: currentNotification.appIcon !== "" ? Quickshell.iconPath(currentNotification.appIcon) : ""
+        source: currentNotification === null ? "" : currentNotification.appIcon !== "" ? Quickshell.iconPath(currentNotification.appIcon) : ""
         width: 48
         height: 48
-        visible: currentNotification.appIcon !== "" ? true : false
+        visible: currentNotification === null ? "" : currentNotification.appIcon !== "" ? true : false
       }
       Column {
         id: column

@@ -4,6 +4,7 @@ import Quickshell
 Rectangle {
   id: root
   property bool disabled: false
+  property bool containsMouse: mouse.containsMouse
   implicitWidth: 30
   implicitHeight: 24
   color: "transparent"
