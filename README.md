@@ -15,6 +15,7 @@
 - [ ] Volume
 - [ ] Brightness
 - [ ] Tooltips
+- [ ] Keybinds
 
 ## Notifications
 

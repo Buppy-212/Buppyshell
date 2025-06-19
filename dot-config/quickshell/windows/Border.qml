@@ -1,8 +1,8 @@
 import Quickshell
 import Quickshell.Wayland
 import QtQuick
-import QtQuick.Effects
 import "root:/services"
+import "root:/widgets"
 
 Variants {
   model: Quickshell.screens
@@ -21,33 +21,29 @@ Variants {
       WlrLayershell.namespace: "border"
       color: "transparent"
       aboveWindows: false
-      Rectangle {
-        id: rect
-        color: Theme.color.black
-        anchors.fill: parent
-        visible: false
+      RoundCorner {
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        size: Theme.rounding*1.5
+        corner: cornerEnum.bottomLeft
       }
-      Item {
-        id: mask
-
-        anchors.fill: parent
-        layer.enabled: true
-        visible: false
-
-        Rectangle {
-          anchors.fill: parent
-          anchors.margins: Theme.border
-          radius: Theme.rounding
-        }
+      RoundCorner {
+        anchors.bottom: parent.bottom
+        anchors.right: parent.right
+        size: Theme.rounding*1.5
+        corner: cornerEnum.bottomRight
       }
-      MultiEffect {
-        anchors.fill: parent
-        maskEnabled: true
-        maskInverted: true
-        maskSource: mask
-        source: rect
-        maskThresholdMin: 0.5
-        maskSpreadAtMin: 1
+      RoundCorner {
+        anchors.top: parent.top
+        anchors.left: parent.left
+        size: Theme.rounding*1.5
+        corner: cornerEnum.topLeft
+      }
+      RoundCorner {
+        anchors.top: parent.top
+        anchors.right: parent.right
+        size: Theme.rounding*1.5
+        corner: cornerEnum.topRight
       }
     }
   }
