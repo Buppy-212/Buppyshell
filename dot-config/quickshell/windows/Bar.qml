@@ -55,6 +55,7 @@ Variants {
         ColumnLayout {
           id: bottomBlocks
           Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
+          Volume {}
           Battery {}
           Update {}
           Clock {}
