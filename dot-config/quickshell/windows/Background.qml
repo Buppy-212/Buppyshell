@@ -2,7 +2,6 @@ import Quickshell
 import QtQuick
 import Quickshell.Wayland
 import Quickshell.Hyprland
-import QtMultimedia
 import "root:/services"
 
 Scope {
@@ -12,7 +11,6 @@ Scope {
       id: win
       required property ShellScreen modelData
       screen: modelData
-      WlrLayershell.exclusionMode: ExclusionMode.Ignore
       WlrLayershell.layer: WlrLayer.Background
       WlrLayershell.namespace: "bg"
       anchors {

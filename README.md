@@ -18,11 +18,11 @@
 
 ## Notifications
 
-- [ ] Notification Server
-- [ ] Notification panel
-- [ ] Dismissing
-- [ ] Clearing
-- [ ] Timeout
+- [x] Notification Server
+- [x] Notification panel
+- [x] Dismissing
+- [x] Clearing
+- [x] Timeout
 - [ ] Actions
 
 ## Volume Sliders

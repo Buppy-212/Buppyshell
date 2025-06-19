@@ -8,7 +8,7 @@ Variants {
     id: scope
     property var modelData
     PanelWindow {
-    screen: scope.modelData
+      screen: scope.modelData
       id: bar
       anchors {
         top: true
@@ -30,6 +30,7 @@ Variants {
           id: rightBlocks
           Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
           Tray {}
+          Bell {}
         }
       }
     }

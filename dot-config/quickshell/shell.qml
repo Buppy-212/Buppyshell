@@ -2,8 +2,10 @@
 
 import Quickshell
 import "windows"
+import "modules/notifications"
 ShellRoot {
   Bar {}
   Background {}
   Border {}
+  Popup {}
 }
