@@ -15,7 +15,7 @@ Item {
       font.pointSize: Theme.font.size.large
     }
     function onClicked(): void {
-      sidebar.visible = !sidebar.visible
+      Hyprland.dispatch("global buppyshell:toggleSidebar")
     }
     Sidebar {id: sidebar}
   }

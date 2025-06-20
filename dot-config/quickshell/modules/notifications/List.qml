@@ -17,7 +17,7 @@ ListView {
   spacing: Theme.border*2
   delegate: Rectangle {
     id: rect
-    implicitWidth: 400
+    implicitWidth: 420
     implicitHeight: row.height > 60 ? row.height + 20 : 80
     color: Theme.color.bg
     radius: Theme.rounding
@@ -35,10 +35,11 @@ ListView {
         width: 48
         height: 48
         visible: modelData.appIcon !== "" ? true : false
+        anchors.verticalCenter: column.verticalCenter
       }
       Column {
         id: column
-        width: 350
+        width: 250
         height: (summary.height + body.height) *1.05
         anchors.verticalCenter: parent.verticalCenter
         Text {
@@ -64,6 +65,7 @@ ListView {
         width: 48
         height: 48
         visible: source !== ""
+        anchors.verticalCenter: column.verticalCenter
       }
     }
     MouseArea {

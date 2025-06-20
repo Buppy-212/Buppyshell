@@ -32,7 +32,7 @@ PanelWindow {
   visible: false
   Rectangle {
     id: rect
-    implicitWidth: 400
+    implicitWidth: 420
     implicitHeight: row.height > 60 ? row.height + 20 : 80
     color: Theme.color.bg
     radius: Theme.rounding
@@ -50,10 +50,11 @@ PanelWindow {
         width: 48
         height: 48
         visible: currentNotification === null ? "" : currentNotification.appIcon !== "" ? true : false
+        anchors.verticalCenter: column.verticalCenter
       }
       Column {
         id: column
-        width: 320
+        width: 250
         height: (summary.height + body.height) *1.05
         anchors.verticalCenter: parent.verticalCenter
         Text {
@@ -79,6 +80,7 @@ PanelWindow {
         width: 48
         height: 48
         visible: source !== ""
+        anchors.verticalCenter: column.verticalCenter
       }
     }
     MouseArea {  

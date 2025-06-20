@@ -27,7 +27,7 @@ Scope {
     }
     color: "transparent"
     exclusiveZone: 0
-    implicitWidth: 420
+    implicitWidth: 440
     Rectangle {
       radius: Theme.rounding
       color: Theme.color.black
