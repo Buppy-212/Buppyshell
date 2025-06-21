@@ -21,9 +21,7 @@ Rectangle {
     x: 16
     anchors.verticalCenter: parent.verticalCenter
     Image {
-      source: {
-        return Quickshell.iconPath(notification?.appIcon) ?? ""
-      }
+      source: Quickshell.iconPath(notification?.appIcon, "")
       width: 48
       height: 48
       visible: notification === null ? "" : notification?.appIcon !== "" ? true : false

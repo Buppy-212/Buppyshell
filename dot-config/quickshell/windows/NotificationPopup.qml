@@ -1,4 +1,5 @@
 import Quickshell
+import Quickshell.Wayland
 import QtQuick
 import "root:/modules/notifications"
 
@@ -28,5 +29,7 @@ PanelWindow {
   implicitWidth: content.width
   implicitHeight: content.height
   visible: currentNotification === null ? false : true
+  WlrLayershell.namespace: "buppyshell:notification"
+  WlrLayershell.layer: WlrLayer.Overlay
   Content {id: content; notification: currentNotification}
 }

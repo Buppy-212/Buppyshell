@@ -2,7 +2,7 @@ import Quickshell.Services.Notifications
 
 NotificationServer {
   id: notificationServer
-  property int maxNotifications: 9
+  property int maxNotifications: 7
   bodySupported: true
   bodyMarkupSupported: true
   actionsSupported: true

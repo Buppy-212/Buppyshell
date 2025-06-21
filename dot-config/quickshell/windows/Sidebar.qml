@@ -8,28 +8,32 @@ import "root:/modules/notifications"
 Scope {
   id: root
   property bool visible: false
-  PanelWindow {
-    id: sidebar
-    visible: root.visible
-    WlrLayershell.layer: WlrLayer.Overlay
-    anchors {
-      right: true
-      top: true
-      bottom: true
-    }
-    margins {
-      right: Theme.border
-      top: Theme.border
-      bottom: Theme.border
-    }
-    color: "transparent"
-    exclusiveZone: 0
-    implicitWidth: 440
-    Rectangle {
-      radius: Theme.rounding
-      color: Theme.color.black
-      anchors.fill: parent
-      List {}
+  Loader {
+    id: loader
+    active: visible
+    sourceComponent: PanelWindow {
+      id: sidebar
+      visible: root.visible
+      WlrLayershell.layer: WlrLayer.Overlay
+      anchors {
+        right: true
+        top: true
+        bottom: true
+      }
+      margins {
+        right: Theme.border
+        top: Theme.border
+        bottom: Theme.border
+      }
+      color: "transparent"
+      exclusiveZone: 0
+      implicitWidth: 440
+      Rectangle {
+        radius: Theme.rounding
+        color: Theme.color.black
+        anchors.fill: parent
+        List {}
+      }
     }
   }
   GlobalShortcut {
