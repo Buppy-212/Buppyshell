@@ -5,10 +5,9 @@ import "root:/windows"
 import "./"
 
 Scope {
-  NotificationServer {
+  Server {
     id: notificationServer
     onNotification: notification => {
-      notification.tracked = true
       if (sidebar.visible === false) {notificationPopup.showNotification(notification)}
     }
   }
@@ -32,7 +31,6 @@ Scope {
           notifications[i].dismiss()
         }
       }
-      notificationPopup.visible = false
     }
   }
 }

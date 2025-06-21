@@ -18,11 +18,9 @@ PanelWindow {
     interval: 3000
     running: currentNotification !== null
     onTriggered: {
-      if (currentNotification.transient) {
-        currentNotification.expire()
-      } else {
+      if (currentNotification) {
         currentNotification = null
-      }
+      } 
     }
   }
   color: "transparent"

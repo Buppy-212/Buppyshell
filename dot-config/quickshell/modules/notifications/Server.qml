@@ -12,6 +12,11 @@ NotificationServer {
 
   onNotification: notification => {
     notification.tracked = true
+      for (var i = 0; i < trackedNotifications.values.length; i++) {
+        if (trackedNotifications.values[i].transient) {
+          trackedNotifications.values[i].dismiss()
+        }
+      }
     if (trackedNotifications.values.length > maxNotifications) {
       var excess = trackedNotifications.values.length - maxNotifications
       for (var i = 0; i < excess; i++) {
