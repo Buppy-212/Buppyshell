@@ -18,7 +18,9 @@ PanelWindow {
     interval: 3000
     running: currentNotification !== null
     onTriggered: {
-      if (currentNotification) {
+      if (currentNotification.transient) {
+        currentNotification.expire()
+      } else {
         currentNotification = null
       }
     }
