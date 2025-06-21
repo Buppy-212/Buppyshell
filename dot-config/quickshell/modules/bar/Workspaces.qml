@@ -16,7 +16,7 @@ ColumnLayout {
         required property int index
         property bool focused: Hyprland.activeWsId === (index + 1)
         property var clientIndex: Hyprland.workspaces.values[index].id
-        height: 30 + Hyprland.workspaces.values[index].lastIpcObject.windows * 30
+        height: 30 + Hyprland.workspaces.values[index].lastIpcObject.windows * 32
         width: 26
         BarBlock {
           implicitWidth: 26
