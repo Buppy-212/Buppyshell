@@ -14,7 +14,7 @@ ColumnLayout {
         id: workspaceCell
         required property int index
         property bool focused: Hyprland.activeWsId === (index + 1)
-        property bool occupied: Hyprland.workspaces[index].windows > 0
+        property bool occupied: Hyprland.workspaces.values[index].lastIpcObject.windows > 0
         implicitWidth: 26
         implicitHeight: 30
         radius: Theme.rounding

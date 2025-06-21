@@ -9,8 +9,7 @@ Singleton {
   id: root
 
   readonly property list<Client> clients: []
-  property var workspaces: null
-  // readonly property var workspaces: Hyprland.workspaces
+  readonly property var workspaces: Hyprland.workspaces
   readonly property var monitors: Hyprland.monitors
   property Client activeClient: null
   readonly property HyprlandWorkspace activeWorkspace: focusedMonitor?.activeWorkspace ?? null
@@ -23,7 +22,6 @@ Singleton {
     Hyprland.refreshMonitors();
     getClients.running = true;
     getActiveClient.running = true;
-    getWorkspaces.running = true;
   }
 
   function dispatch(request: string): void {
@@ -85,16 +83,6 @@ Singleton {
           rClient.destroy();
           root.activeClient = null;
         }
-      }
-    }
-  }
-
-  Process {
-    id: getWorkspaces
-    command: ["workspaces"]
-    stdout: StdioCollector {
-      onStreamFinished: {
-        root.workspaces = JSON.parse(text);
       }
     }
   }
