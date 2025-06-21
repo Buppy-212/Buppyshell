@@ -8,9 +8,6 @@ import "root:/modules/notifications"
 Scope {
   id: root
   property bool visible: false
-  Server {
-    id: notificationServer
-  }
   PanelWindow {
     id: sidebar
     visible: root.visible
@@ -32,7 +29,7 @@ Scope {
       radius: Theme.rounding
       color: Theme.color.black
       anchors.fill: parent
-      List {notificationModel: notificationServer.trackedNotifications}
+      List {}
     }
   }
   GlobalShortcut {

@@ -24,7 +24,7 @@ Variants {
           id: leftBlocks
           Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
           Os {}
-          Title {Layout.topMargin: 2}
+          Title {}
         }
         RowLayout {
           id: rightBlocks

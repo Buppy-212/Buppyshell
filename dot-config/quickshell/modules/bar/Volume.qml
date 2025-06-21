@@ -5,12 +5,12 @@ import "root:/services"
 import "root:/widgets"
 
 BarBlock {
-  property var defaultSink: Pipewire.defaultAudioSink
+  property PwNode defaultSink: Pipewire.defaultAudioSink
   PwObjectTracker {
-    objects: [Pipewire.defaultAudioSink]
+    objects: [defaultSink]
   }
   BarText {
-    text: defaultSink.audio.muted ? "" : defaultSink.audio.volume === 1 ? "" : Math.round(defaultSink.audio.volume * 100)
+    text: defaultSink?.audio.muted ? "" : defaultSink?.audio.volume === 1 ? "" : Math.round(defaultSink?.audio.volume * 100)
     color: Theme.color.blue
   }
   function onClicked(): void {

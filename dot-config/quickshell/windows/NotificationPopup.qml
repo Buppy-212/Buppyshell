@@ -1,7 +1,6 @@
 import Quickshell
 import QtQuick
-import "root:/services"
-import "root:/windows"
+import "root:/modules/notifications"
 
 PanelWindow {
   id: notificationPopup
@@ -27,70 +26,8 @@ PanelWindow {
   }
   color: "transparent"
   exclusiveZone: 0  
-  implicitWidth: rect.width
-  implicitHeight: rect.height
+  implicitWidth: content.width
+  implicitHeight: content.height
   visible: false
-  Rectangle {
-    id: rect
-    implicitWidth: 420
-    implicitHeight: row.height > 60 ? row.height + 20 : 80
-    color: Theme.color.bg
-    radius: Theme.rounding
-    border.width: 2
-    border.color: Theme.color.blue
-    Row {
-      id: row
-      width: column.width
-      height: column.height
-      spacing: 16
-      x: 16
-      anchors.verticalCenter: parent.verticalCenter
-      Image {
-        source: currentNotification === null ? "" : currentNotification.appIcon !== "" ? Quickshell.iconPath(currentNotification.appIcon) : ""
-        width: 48
-        height: 48
-        visible: currentNotification === null ? "" : currentNotification.appIcon !== "" ? true : false
-        anchors.verticalCenter: column.verticalCenter
-      }
-      Column {
-        id: column
-        width: 250
-        height: (summary.height + body.height) *1.05
-        anchors.verticalCenter: parent.verticalCenter
-        Text {
-          id: summary
-          wrapMode: Text.Wrap
-          width: column.width
-          text: currentNotification?.summary ?? ""
-          font.pointSize: Theme.font.size.large
-          font.bold: true
-          color: Theme.color.fg
-        }
-        Text {
-          id: body
-          wrapMode: Text.Wrap
-          width: column.width
-          text: currentNotification?.body ?? ""
-          font.pointSize: Theme.font.size.normal
-          color: Theme.color.fg
-        }
-      }
-      Image {
-        source: currentNotification?.image ?? ""
-        width: 48
-        height: 48
-        visible: source !== ""
-        anchors.verticalCenter: column.verticalCenter
-      }
-    }
-    MouseArea {  
-      anchors.fill: parent  
-      cursorShape: Qt.PointingHandCursor
-      onClicked:{ 
-        currentNotification.dismiss()
-        currentNotification = null
-        notificationPopup.visible = false
-      }
-    } 
-  }
+  Content {id: content; notification: currentNotification}
 }

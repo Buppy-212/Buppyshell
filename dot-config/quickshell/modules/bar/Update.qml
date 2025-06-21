@@ -29,7 +29,7 @@ BarBlock {
     color: Theme.color.fg
   }
   readonly property var process: Process {
-    command: ["kitty", "-e", "update"]
+    command: ["floatty", "update"]
   }
   function onClicked(): void {
     process.startDetached();
