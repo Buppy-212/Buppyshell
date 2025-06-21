@@ -34,7 +34,6 @@ ColumnLayout {
         }
         Repeater {
           id: repeater
-          height: image.height
           model: Hyprland.clients
           Image {
             id: image
