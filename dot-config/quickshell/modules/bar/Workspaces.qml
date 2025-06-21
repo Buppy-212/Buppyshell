@@ -35,6 +35,7 @@ Column {
         model: Hyprland.clients
         Image {
           id: image
+          property string wmClass: modelData.wmClass
           anchors.horizontalCenter: parent.horizontalCenter
           visible: false
           width: 32
@@ -42,7 +43,11 @@ Column {
           source: {
             if (modelData.workspace.id === workspaceCell.index +1) {
               visible = true
-              return Quickshell.iconPath(modelData.wmClass, symbolImgMap[modelData.wmClass] ?? modelData.wmClass.toLowerCase())
+              if (wmClass.startsWith("steam_app")) {
+                return Quickshell.iconPath("steam_app_0")
+              } else {
+                return Quickshell.iconPath(wmClass, symbolImgMap[wmClass] ?? wmClass.toLowerCase())
+              }
             } else
             visible = false
             return Quickshell.iconPath("image-loading")
@@ -61,5 +66,7 @@ Column {
   property var symbolImgMap: {
     "MuseScore4": "musescore",
     "via-nativia": "keyboard",
+    "steam_app_0": "input-gaming",
+    "StardewModdingAPI": "stardew-valley"
   }
 }
