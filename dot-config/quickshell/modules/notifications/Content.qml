@@ -21,10 +21,10 @@ Rectangle {
     x: 16
     anchors.verticalCenter: parent.verticalCenter
     Image {
-      source: Quickshell.iconPath(notification?.appIcon, "")
+      source: Quickshell.iconPath(notification?.appIcon, "image-loading")
       width: 48
       height: 48
-      visible: notification === null ? "" : notification?.appIcon !== "" ? true : false
+      visible: notification === null ? "" : notification?.appIcon !== "image-loading" ? true : false
       anchors.verticalCenter: column.verticalCenter
     }
     Column {
