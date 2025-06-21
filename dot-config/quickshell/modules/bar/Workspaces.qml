@@ -16,7 +16,7 @@ ColumnLayout {
         required property int index
         property bool focused: Hyprland.activeWsId === (index + 1)
         property var clientIndex: Hyprland.workspaces.values[index].id
-        height: 30 + Hyprland.workspaces.values[index].lastIpcObject.windows * 32
+        height: 30 + Hyprland.workspaces.values[index].lastIpcObject.windows * 34
         width: 26
         BarBlock {
           implicitWidth: 26
@@ -40,18 +40,22 @@ ColumnLayout {
             id: image
             anchors.horizontalCenter: parent.horizontalCenter
             visible: false
-            width: 30
-            height: 30
+            width: 32
+            height: 32
             source: {
               if (modelData.workspace.id === workspaceCell.index +1) {
                 visible = true
-                return Quickshell.iconPath(modelData.wmClass)
+                return Quickshell.iconPath(modelData.wmClass, symbolImgMap[modelData.wmClass] ?? modelData.wmClass.toLowerCase())
               }
-              return ""
+              return null
             }
           }
         }
       }
     }
+  }
+  property var symbolImgMap: {
+    "MuseScore4": "musescore",
+    "via-nativia": "keyboard",
   }
 }
