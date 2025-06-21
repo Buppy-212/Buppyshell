@@ -46,7 +46,7 @@ Column {
               if (wmClass.startsWith("steam_app")) {
                 return Quickshell.iconPath("steam_app_0")
               } else {
-                return Quickshell.iconPath(wmClass, symbolImgMap[wmClass] ?? wmClass.toLowerCase())
+                return Quickshell.iconPath(symbolImgMap[wmClass] ?? wmClass, wmClass.toLowerCase())
               }
             } else
             visible = false
@@ -65,6 +65,7 @@ Column {
   }
   property var symbolImgMap: {
     "MuseScore4": "musescore",
+    "zen": "zen-browser",
     "via-nativia": "keyboard",
     "steam_app_0": "input-gaming",
     "StardewModdingAPI": "stardew-valley"
