@@ -20,7 +20,6 @@ PanelWindow {
     onTriggered: {
       if (currentNotification) {
         currentNotification = null
-        visible = false
       }
     }
   }
@@ -28,6 +27,6 @@ PanelWindow {
   exclusiveZone: 0  
   implicitWidth: content.width
   implicitHeight: content.height
-  visible: false
+  visible: currentNotification === null ? false : true
   Content {id: content; notification: currentNotification}
 }

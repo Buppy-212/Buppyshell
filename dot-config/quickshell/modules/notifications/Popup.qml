@@ -16,7 +16,6 @@ Scope {
     id: notificationPopup
     function showNotification(notification) {
       currentNotification = notification
-      visible = true
     }
   }
   Sidebar {id: sidebar}

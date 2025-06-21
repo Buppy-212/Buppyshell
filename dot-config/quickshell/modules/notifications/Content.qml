@@ -1,6 +1,8 @@
 import Quickshell
 import QtQuick
+import Quickshell.Services.Notifications
 import "root:/services"
+import "root:/modules/notifications"
 
 Rectangle {
   id: rect
@@ -62,9 +64,7 @@ Rectangle {
     anchors.fill: parent
     cursorShape: Qt.PointingHandCursor
     onClicked:{
-      notification.dismiss()
-      notification = null
-      rect.visible = false
+      notification.actions?.invoke() ?? notification.dismiss()
     }
   }
 }
