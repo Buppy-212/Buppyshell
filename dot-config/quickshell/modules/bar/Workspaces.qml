@@ -46,8 +46,9 @@ ColumnLayout {
               if (modelData.workspace.id === workspaceCell.index +1) {
                 visible = true
                 return Quickshell.iconPath(modelData.wmClass, symbolImgMap[modelData.wmClass] ?? modelData.wmClass.toLowerCase())
-              }
-              return null
+              } else
+              visible = false
+              return Quickshell.iconPath("image-loading")
             }
           }
         }
