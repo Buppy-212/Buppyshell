@@ -6,7 +6,7 @@ BarBlock {
   implicitHeight: 48
   disabled: true
   function onClicked(): void{
-    undefined
+    undefined;
   }
   BarText {
     text: Time.time

@@ -42,7 +42,7 @@ Scope {
     triggerDescription: "Super+N"
     appid: "buppyshell"
     onPressed: {
-      root.visible = !root.visible
+      root.visible = !root.visible;
     }
   }
 }

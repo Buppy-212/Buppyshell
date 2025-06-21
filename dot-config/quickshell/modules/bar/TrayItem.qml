@@ -15,10 +15,11 @@ MouseArea {
   implicitWidth: icon.width
   implicitHeight: icon.height
   onClicked: event => {
-    if (event.button === Qt.LeftButton)
-    modelData.activate();
-    else if (modelData.hasMenu)
-    menu.open();
+    if (event.button === Qt.LeftButton) {
+      modelData.activate();
+    } else if (modelData.hasMenu) {
+      menu.open();
+    }
   }
     QsMenuAnchor {
         id: menu

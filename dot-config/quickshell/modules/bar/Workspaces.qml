@@ -27,7 +27,7 @@ Column {
           color: focused === true ? Theme.color.black : Theme.color.fg
         }
         function onClicked(): void {
-          Hyprland.dispatch(`workspace ${index+1}`)
+          Hyprland.dispatch(`workspace ${index+1}`);
         }
       }
       Repeater {
@@ -41,24 +41,23 @@ Column {
           width: 30
           height: 30
           source: {
-            if (modelData.workspace.id === workspaceCell.index +1) {
-              visible = true
+            if (modelData.workspace.id === workspaceCell.index + 1) {
+              visible = true;
               if (wmClass.startsWith("steam_app")) {
-                return Quickshell.iconPath("input-gaming")
+                return Quickshell.iconPath("input-gaming");
+              } else {
+                return Quickshell.iconPath(symbolImgMap[wmClass] ?? wmClass, wmClass.toLowerCase());
               }
-              else {
-                return Quickshell.iconPath(symbolImgMap[wmClass] ?? wmClass, wmClass.toLowerCase())
-              }
+            } else {
+              visible = false;
+              return Quickshell.iconPath("image-loading");
             }
-            else
-            visible = false
-            return Quickshell.iconPath("image-loading")
           }
           MouseArea {
             anchors.fill: parent
             cursorShape: Qt.PointingHandCursor
             onClicked:{
-              Hyprland.dispatch(`focuswindow address:${modelData.address}`)
+              Hyprland.dispatch(`focuswindow address:${modelData.address}`);
             }
           }
         }

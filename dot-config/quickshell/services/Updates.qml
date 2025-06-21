@@ -19,6 +19,6 @@ Singleton {
     interval: 5000
     running: true
     repeat: true
-    onTriggered: updateProc.running = true
+    onTriggered: updateProc.running = true;
   }
 }

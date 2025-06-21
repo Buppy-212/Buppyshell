@@ -20,7 +20,7 @@ PanelWindow {
     running: currentNotification !== null
     onTriggered: {
       if (currentNotification) {
-        currentNotification = null
+        currentNotification = null;
       } 
     }
   }

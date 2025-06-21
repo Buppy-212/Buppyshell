@@ -14,6 +14,6 @@ BarBlock {
     color: Theme.color.blue
   }
   function onClicked(): void {
-    defaultSink.audio.muted = !defaultSink.audio.muted
+    defaultSink.audio.muted = !defaultSink.audio.muted;
   }
 }
