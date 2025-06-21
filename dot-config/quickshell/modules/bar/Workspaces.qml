@@ -44,11 +44,13 @@ Column {
             if (modelData.workspace.id === workspaceCell.index +1) {
               visible = true
               if (wmClass.startsWith("steam_app")) {
-                return Quickshell.iconPath("steam_app_0")
-              } else {
+                return Quickshell.iconPath("input-gaming")
+              }
+              else {
                 return Quickshell.iconPath(symbolImgMap[wmClass] ?? wmClass, wmClass.toLowerCase())
               }
-            } else
+            }
+            else
             visible = false
             return Quickshell.iconPath("image-loading")
           }
@@ -67,7 +69,6 @@ Column {
     "MuseScore4": "musescore",
     "zen": "zen-browser",
     "via-nativia": "keyboard",
-    "steam_app_0": "input-gaming",
     "StardewModdingAPI": "stardew-valley"
   }
 }
