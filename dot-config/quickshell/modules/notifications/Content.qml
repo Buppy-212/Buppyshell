@@ -20,7 +20,6 @@ Rectangle {
     anchors.verticalCenter: parent.verticalCenter
     Image {
       source: {
-        console.log(notification)
         return Quickshell.iconPath(notification?.appIcon) ?? ""
       }
       width: 48
