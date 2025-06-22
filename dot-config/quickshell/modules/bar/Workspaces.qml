@@ -43,7 +43,7 @@ Column {
           width: 30
           height: 30
           source: {
-            if (modelData.workspace.id === workspaceCell.index + 1) {
+            if (modelData.workspace?.id === workspaceCell.index + 1) {
               visible = true;
               if (modelData.wayland?.appId.startsWith("steam_app")) {
                 return Quickshell.iconPath("input-gaming");
