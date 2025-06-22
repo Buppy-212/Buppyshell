@@ -8,7 +8,7 @@ BarBlock {
   implicitWidth: text.width
   BarText {
     id: text
-    text: Hyprland.activeClient?.title ?? qsTr("Desktop")
+    text: Hyprland.title ?? "Desktop"
     anchors.centerIn: undefined
   }
   readonly property var process: Process {

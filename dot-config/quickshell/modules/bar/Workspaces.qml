@@ -3,6 +3,7 @@ import QtQuick
 import Quickshell.Io
 import "root:/services"
 import "root:/widgets"
+import "root:/modules/bar"
 
 Column {
   spacing: 4
@@ -55,7 +56,14 @@ Column {
           }
           MouseArea {
             anchors.fill: parent
+            hoverEnabled: true
             cursorShape: Qt.PointingHandCursor
+            onEntered: {
+              Hyprland.overrideTitle(modelData.title)
+            }
+            onExited: {
+              Hyprland.overrideTitle(Hyprland.activeClient.title)
+            }
             onClicked:{
               Hyprland.dispatch(`focuswindow address:${modelData.address}`);
             }
