@@ -34,4 +34,7 @@ BarBlock {
   function onClicked(): void {
     process.startDetached();
   }
+  Behavior on implicitHeight {
+    animation: Theme.animation.elementMove.numberAnimation.createObject(this)
+  }
 }
