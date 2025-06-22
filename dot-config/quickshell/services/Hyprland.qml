@@ -41,7 +41,6 @@ Singleton {
     target: Hyprland
 
     function onRawEvent(event: HyprlandEvent): void {
-      console.log(event.name)
       if (!event.name.endsWith("v2")) {
         root.reload();
       }

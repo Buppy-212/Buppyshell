@@ -48,7 +48,7 @@ Column {
               if (modelData.wayland?.appId.startsWith("steam_app")) {
                 return Quickshell.iconPath("input-gaming");
               } else {
-                return Quickshell.iconPath(modelData.wayland?.appId, modelData.wayland?.appId.toLowerCase());
+                return Quickshell.iconPath(modelData.wayland?.appId ?? "image-loading", modelData.wayland?.appId.toLowerCase());
               }
             } else {
               visible = false;
