@@ -2,7 +2,6 @@ import "root:/services"
 import "root:/widgets"
 import Quickshell
 import Quickshell.Widgets
-import Quickshell.Io
 import QtQuick
 
 ClippingRectangle {
@@ -11,7 +10,7 @@ ClippingRectangle {
   color: "transparent"
   BarText {
     id: text
-    text: Hyprland.title === "" ? Hyprland.activeToplevel?.title : Hyprland.title
+    text: Hyprland.title
   }
   Behavior on width {
     animation: Theme.animation.elementMoveFast.numberAnimation.createObject(this)

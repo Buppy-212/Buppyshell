@@ -29,13 +29,13 @@ Singleton {
     Hyprland.dispatch(request);
   }
 
-
   Connections {
     target: Hyprland
 
     function onRawEvent(event: HyprlandEvent): void {
       if (!event.name.endsWith("v2"))
       root.reload();
+      root.title = root.activeToplevel?.title ?? "Desktop"
     }
   }
 }

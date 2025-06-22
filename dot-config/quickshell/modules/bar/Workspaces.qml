@@ -1,4 +1,5 @@
 import Quickshell
+import Quickshell.Wayland
 import QtQuick
 import Quickshell.Io
 import "root:/services"
@@ -27,7 +28,7 @@ Column {
           color: focused === true ? Theme.color.black : Theme.color.fg
         }
         function onClicked(): void {
-          Hyprland.dispatch(`workspace ${index+1}`);
+          modelData.activate()
         }
         Behavior on color {
           animation: Theme.animation.elementMoveFast.colorAnimation.createObject(this)
@@ -63,14 +64,11 @@ Column {
             onEntered: {
               Hyprland.overrideTitle(modelData.title)
             }
-            onExited: {
-              Hyprland.overrideTitle("")
-            }
             onClicked: (mouse) => {
               if (mouse.button == Qt.LeftButton) {
-                Hyprland.dispatch(`focuswindow address:0x${modelData.address}`);
+                modelData.wayland.activate()
               } else {
-                Hyprland.dispatch (`closewindow address:0x${modelData.address}`)
+                modelData.wayland.close()
               }
             }
           }
