@@ -8,21 +8,17 @@ import QtQuick
 Singleton {
   id: root
 
-  readonly property list<Client> clients: []
+  readonly property var toplevels: Hyprland.toplevels
   readonly property var workspaces: Hyprland.workspaces
   readonly property var monitors: Hyprland.monitors
-  property Client activeClient: null
-  property string title: activeClient?.title ?? "Desktop"
-  readonly property HyprlandWorkspace activeWorkspace: focusedMonitor?.activeWorkspace ?? null
-  readonly property HyprlandMonitor focusedMonitor: Hyprland.focusedMonitor
-  readonly property int activeWsId: activeWorkspace?.id ?? 1
-  property point cursorPos
+  readonly property var focusedMonitor: Hyprland.focusedMonitor
+  readonly property var activeToplevel: Hyprland.activeToplevel
+  property string title: Hyprland.activeToplevel?.title ?? "Desktop"
 
   function reload() {
     Hyprland.refreshWorkspaces();
     Hyprland.refreshMonitors();
-    getClients.running = true;
-    getActiveClient.running = true;
+    Hyprland.refreshToplevels();
   }
 
   function overrideTitle(title: string): void {
@@ -33,7 +29,6 @@ Singleton {
     Hyprland.dispatch(request);
   }
 
-  Component.onCompleted: reload()
 
   Connections {
     target: Hyprland
@@ -42,79 +37,5 @@ Singleton {
       if (!event.name.endsWith("v2"))
       root.reload();
     }
-  }
-
-  Process {
-    id: getClients
-    command: ["hyprctl", "-j", "clients"]
-    stdout: StdioCollector {
-      onStreamFinished: {
-        const clients = JSON.parse(text);
-        const rClients = root.clients;
-
-        const destroyed = rClients.filter(rc => !clients.find(c => c.address === rc.address));
-        for (const client of destroyed)
-        rClients.splice(rClients.indexOf(client), 1).forEach(c => c.destroy());
-
-        for (const client of clients) {
-          const match = rClients.find(c => c.address === client.address);
-          if (match) {
-            match.lastIpcObject = client;
-          } else {
-            rClients.push(clientComp.createObject(root, {
-              lastIpcObject: client
-            }));
-          }
-        }
-      }
-    }
-  }
-
-  Process {
-    id: getActiveClient
-    command: ["hyprctl", "-j", "activewindow"]
-    stdout: StdioCollector {
-      onStreamFinished: {
-        const client = JSON.parse(text);
-        const rClient = root.activeClient;
-        if (client.address) {
-          if (rClient)
-          rClient.lastIpcObject = client;
-          else
-          root.activeClient = clientComp.createObject(root, {
-            lastIpcObject: client
-          });
-          root.title = root.activeClient.title
-        } else if (rClient) {
-          rClient.destroy();
-          root.activeClient = null;
-          root.title = "Desktop";
-        }
-      }
-    }
-  }
-
-  component Client: QtObject {
-    required property var lastIpcObject
-    readonly property string address: lastIpcObject.address
-    readonly property string wmClass: lastIpcObject.class
-    readonly property string title: lastIpcObject.title
-    readonly property string initialClass: lastIpcObject.initialClass
-    readonly property string initialTitle: lastIpcObject.initialTitle
-    readonly property int x: lastIpcObject.at[0]
-    readonly property int y: lastIpcObject.at[1]
-    readonly property int width: lastIpcObject.size[0]
-    readonly property int height: lastIpcObject.size[1]
-    readonly property HyprlandWorkspace workspace: Hyprland.workspaces.values.find(w => w.id === lastIpcObject.workspace.id) ?? null
-    readonly property bool floating: lastIpcObject.floating
-    readonly property bool fullscreen: lastIpcObject.fullscreen
-    readonly property int pid: lastIpcObject.pid
-    readonly property int focusHistoryId: lastIpcObject.focusHistoryID
-  }
-
-  Component {
-    id: clientComp
-
-    Client {}
   }
 }

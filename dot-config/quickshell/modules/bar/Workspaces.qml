@@ -10,10 +10,10 @@ Column {
   Repeater {
     model: Hyprland.workspaces
     Column {
+      spacing: 1
       id: workspaceCell
       required property int index
-      property bool focused: Hyprland.activeWsId === (index + 1)
-      property var clientIndex: Hyprland.workspaces.values[index].id
+      property bool focused: Hyprland.focusedMonitor?.activeWorkspace.id === (index + 1)
       height: (Hyprland.workspaces.values[index].lastIpcObject.windows + 1) * 30
       width: 26
       BarBlock {
@@ -35,24 +35,24 @@ Column {
       }
       Repeater {
         id: repeater
-        model: Hyprland.clients
+        model: Hyprland.toplevels
         Image {
           id: image
           anchors.horizontalCenter: parent.horizontalCenter
-          visible: false
+          visible: true
           width: 30
           height: 30
           source: {
             if (modelData.workspace.id === workspaceCell.index + 1) {
               visible = true;
-              if (modelData.wmClass.startsWith("steam_app")) {
+              if (modelData.wayland?.appId.startsWith("steam_app")) {
                 return Quickshell.iconPath("input-gaming");
               } else {
-                return Quickshell.iconPath(modelData.wmClass, modelData.wmClass.toLowerCase());
+                return Quickshell.iconPath(modelData.wayland?.appId, modelData.wayland?.appId.toLowerCase());
               }
             } else {
               visible = false;
-              return Quickshell.iconPath("image-loading");
+              return "";
             }
           }
           MouseArea {
@@ -63,10 +63,10 @@ Column {
               Hyprland.overrideTitle(modelData.title)
             }
             onExited: {
-              Hyprland.overrideTitle(Hyprland.activeClient.title)
+              Hyprland.overrideTitle("")
             }
             onClicked:{
-              Hyprland.dispatch(`focuswindow address:${modelData.address}`);
+              Hyprland.dispatch(`focuswindow address:0x${modelData.address}`);
             }
           }
         }

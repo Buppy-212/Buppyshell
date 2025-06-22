@@ -11,7 +11,7 @@ ClippingRectangle {
   color: "transparent"
   BarText {
     id: text
-    text: Hyprland.title ?? "Desktop"
+    text: Hyprland.title === null ? Hyprland.activeToplevel?.title : Hyprland.title
   }
   Behavior on width {
     animation: Theme.animation.elementMoveFast.numberAnimation.createObject(this)
