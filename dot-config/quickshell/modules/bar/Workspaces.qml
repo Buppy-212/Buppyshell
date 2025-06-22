@@ -1,7 +1,6 @@
 import Quickshell
-import Quickshell.Wayland
+import Quickshell.Widgets
 import QtQuick
-import Quickshell.Io
 import "root:/services"
 import "root:/widgets"
 import "root:/modules/bar"
@@ -37,12 +36,12 @@ Column {
       Repeater {
         id: repeater
         model: Hyprland.toplevels
-        Image {
+        IconImage {
           id: image
           anchors.horizontalCenter: parent.horizontalCenter
+          asynchronous: true
           visible: true
-          width: 30
-          height: 30
+          implicitSize: 30
           source: {
             if (modelData.workspace?.id === workspaceCell.index + 1) {
               visible = true;
