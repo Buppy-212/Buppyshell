@@ -65,9 +65,8 @@ Column {
     }
   }
   property var symbolImgMap: {
-    "MuseScore4": "musescore",
     "zen": "zen-browser",
-    "via-nativia": "keyboard",
-    "StardewModdingAPI": "stardew-valley"
+    "StardewModdingAPI": "stardew-valley",
+    "": "image-loading"
   }
 }
