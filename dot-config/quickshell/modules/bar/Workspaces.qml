@@ -10,12 +10,11 @@ Column {
   Repeater {
     model: Hyprland.workspaces
     Column {
-      spacing: 2
       id: workspaceCell
       required property int index
       property bool focused: Hyprland.activeWsId === (index + 1)
       property var clientIndex: Hyprland.workspaces.values[index].id
-      height: 30 + Hyprland.workspaces.values[index].lastIpcObject.windows * 32
+      height: (Hyprland.workspaces.values[index].lastIpcObject.windows + 1) * 30
       width: 26
       BarBlock {
         implicitWidth: 26
