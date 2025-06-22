@@ -30,6 +30,9 @@ Column {
         function onClicked(): void {
           Hyprland.dispatch(`workspace ${index+1}`);
         }
+        Behavior on color {
+          animation: Theme.animation.elementMoveFast.colorAnimation.createObject(this)
+        }
       }
       Repeater {
         id: repeater
@@ -68,6 +71,9 @@ Column {
             }
           }
         }
+      }
+      Behavior on height {
+        animation: Theme.animation.elementMoveEnter.numberAnimation.createObject(this)
       }
     }
   }
