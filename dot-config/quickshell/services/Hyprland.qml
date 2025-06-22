@@ -88,6 +88,7 @@ Singleton {
         } else if (rClient) {
           rClient.destroy();
           root.activeClient = null;
+          root.title = "Desktop";
         }
       }
     }
