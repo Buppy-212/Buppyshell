@@ -27,7 +27,7 @@ Column {
           color: focused === true ? Theme.color.black : Theme.color.fg
         }
         function onClicked(): void {
-          modelData.activate()
+          Hyprland.workspaces.values[index].activate()
         }
         Behavior on color {
           animation: Theme.animation.elementMoveFast.colorAnimation.createObject(this)
@@ -39,7 +39,6 @@ Column {
         IconImage {
           id: image
           anchors.horizontalCenter: parent.horizontalCenter
-          asynchronous: true
           visible: true
           implicitSize: 30
           source: {

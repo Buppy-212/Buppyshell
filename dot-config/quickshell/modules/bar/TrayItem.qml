@@ -40,7 +40,6 @@ MouseArea {
       }
       return icon;
     }
-    asynchronous: true
     implicitSize: 24
   }
 }
