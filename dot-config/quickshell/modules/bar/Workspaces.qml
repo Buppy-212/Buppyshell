@@ -59,14 +59,19 @@ Column {
             anchors.fill: parent
             hoverEnabled: true
             cursorShape: Qt.PointingHandCursor
+            acceptedButtons: Qt.LeftButton | Qt.MiddleButton
             onEntered: {
               Hyprland.overrideTitle(modelData.title)
             }
             onExited: {
               Hyprland.overrideTitle("")
             }
-            onClicked:{
-              Hyprland.dispatch(`focuswindow address:0x${modelData.address}`);
+            onClicked: (mouse) => {
+              if (mouse.button == Qt.LeftButton) {
+                Hyprland.dispatch(`focuswindow address:0x${modelData.address}`);
+              } else {
+                Hyprland.dispatch (`closewindow address:0x${modelData.address}`)
+              }
             }
           }
         }
