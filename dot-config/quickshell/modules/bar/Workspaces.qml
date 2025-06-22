@@ -64,6 +64,9 @@ Column {
             onEntered: {
               Hyprland.overrideTitle(modelData.title)
             }
+            onExited: {
+              Hyprland.refreshTitle()
+            }
             onClicked: (mouse) => {
               if (mouse.button == Qt.LeftButton) {
                 modelData.wayland.activate()
