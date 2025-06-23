@@ -67,7 +67,7 @@ Column {
             }
             onClicked: (mouse) => {
               if (mouse.button == Qt.LeftButton) {
-                modelData.wayland.activate()
+                Hyprland.dispatch(`focuswindow address:0x${modelData.address}`)
               } else {
                 modelData.wayland.close()
               }
