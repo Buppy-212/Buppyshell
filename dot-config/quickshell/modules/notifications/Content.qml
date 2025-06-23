@@ -61,8 +61,26 @@ Rectangle {
   MouseArea {
     anchors.fill: parent
     cursorShape: Qt.PointingHandCursor
-    onClicked:{
-      notification.actions?.invoke() ?? notification.dismiss()
+    drag.target: parent;
+    drag.axis: "XAxis"
+    drag.minimumX: 0
+    drag.maximumX: 450
+    drag.filterChildren: true
+    onReleased:{
+      rect.x = 450
+    }
+  }
+  Behavior on x {
+    NumberAnimation {
+      duration: Theme.animation.elementMoveExit.duration
+      easing.type: Theme.animation.elementMoveExit.type
+      easing.bezierCurve: Theme.animation.elementMoveExit.bezierCurve
+      onRunningChanged: {
+        if (!running) {
+          rect.x = 0
+          notification.actions?.invoke() ?? notification.dismiss()
+        }
+      }
     }
   }
 }

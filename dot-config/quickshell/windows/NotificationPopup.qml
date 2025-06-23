@@ -21,11 +21,11 @@ PanelWindow {
     onTriggered: {
       if (currentNotification) {
         currentNotification = null;
-      } 
+      }
     }
   }
   color: "transparent"
-  exclusiveZone: 0  
+  exclusiveZone: 0
   implicitWidth: content.width
   implicitHeight: content.height
   visible: currentNotification === null ? false : true
