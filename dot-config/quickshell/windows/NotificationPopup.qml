@@ -21,6 +21,7 @@ PanelWindow {
     onTriggered: {
       if (currentNotification) {
         currentNotification = null;
+        content.x = 0
       }
     }
   }
