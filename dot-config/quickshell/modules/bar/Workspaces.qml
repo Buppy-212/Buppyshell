@@ -58,7 +58,7 @@ Column {
             anchors.fill: parent
             hoverEnabled: true
             cursorShape: Qt.PointingHandCursor
-            acceptedButtons: Qt.LeftButton | Qt.MiddleButton
+            acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
             onEntered: {
               Hyprland.overrideTitle(modelData.title)
             }
@@ -68,8 +68,10 @@ Column {
             onClicked: (mouse) => {
               if (mouse.button == Qt.LeftButton) {
                 Hyprland.dispatch(`focuswindow address:0x${modelData.address}`)
-              } else {
+              } else if (mouse.button == Qt.MiddleButton) {
                 modelData.wayland.close()
+              } else {
+                Hyprland.dispatch(`movetoworkspace ${Hyprland.focusedMonitor?.activeWorkspace.id}, address:0x${modelData.address}`)
               }
             }
           }
