@@ -68,6 +68,7 @@ Rectangle {
     drag.filterChildren: true
     onReleased:{
       rect.x = 450
+      notification.actions?.invoke()
     }
   }
   Behavior on x {
@@ -77,8 +78,8 @@ Rectangle {
       easing.bezierCurve: Theme.animation.elementMoveExit.bezierCurve
       onRunningChanged: {
         if (!running) {
-          rect.x = 0
-          notification.actions?.invoke() ?? notification.dismiss()
+          x = 0
+          notification?.dismiss()
         }
       }
     }
