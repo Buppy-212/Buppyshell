@@ -24,6 +24,7 @@ Singleton {
     readonly property string green: "#c3e88d"
     readonly property string cyan: "#86e1fc"
     readonly property string blue: "#82aaff"
+    readonly property string darkblue: "#2d3f76"
     readonly property string magenta: "#c099ff"
     readonly property string black: "#1b1d2b"
   }

@@ -7,7 +7,7 @@ import "root:/widgets"
 
 BarBlock {
   BarText {
-    text: UPower.displayDevice.percentage*100
+    text: Math.round(UPower.displayDevice.percentage*100)
     color: Theme.color.green
   }
     readonly property var process: Process {
