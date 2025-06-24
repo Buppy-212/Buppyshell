@@ -8,7 +8,7 @@ Rectangle {
   implicitHeight: 24
   implicitWidth: 30
   color: "transparent"
-  property bool nightlight
+  property bool nightlight: Brightness.nightlight
   BarText {
     text: mouseArea.containsMouse ? Brightness.brightness : nightlight ? "bedtime" : "light_mode"
     color: Theme.color.yellow
