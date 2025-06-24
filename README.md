@@ -12,7 +12,7 @@
 - [ ] Popouts
 - [ ] Toggles (gamemode, idle)
 - [x] Volume
-- [ ] Brightness
+- [x] Brightness
 - [x] Tooltips kinda?
 - [ ] Keybinds
 
@@ -28,9 +28,9 @@
 ## Volume Sliders
 
 - [ ] Popouts
-- [ ] Pipewire sink
-- [ ] Brightness
-- [ ] ddcutil
+- [x] Pipewire sink
+- [x] Brightness
+- [x] ddcutil
 
 ## Wallpaper
 
