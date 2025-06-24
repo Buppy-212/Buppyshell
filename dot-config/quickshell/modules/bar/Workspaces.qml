@@ -123,7 +123,7 @@ Item {
                 onPressed: {
                   image.beginDrag = Qt.point(image.x, image.y);
                 }
-                onReleased: {
+                onReleased: (mouse) => {
                   if (mouse.button == Qt.RightButton) {
                     parent.silent = false
                   } else {
