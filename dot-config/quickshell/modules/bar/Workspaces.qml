@@ -19,11 +19,12 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         required property int index
         property bool draggedOver: false
+        property bool occupied: Hyprland.workspaces.values[index].lastIpcObject.windows > 0
         property bool focused: Hyprland.focusedMonitor?.activeWorkspace.id === (index + 1)
-        height: Hyprland.workspaces.values[index].lastIpcObject.windows * 32 + 30
-        width: 26
+        height: (Hyprland.workspaces.values[index].lastIpcObject.windows + 1) * 28
+        width: 28
         radius: Theme.rounding
-        color: draggedOver ? Theme.color.gray : focused ? Theme.color.darkblue : Theme.color.black
+        color: draggedOver ? Theme.color.gray : focused ? Theme.color.darkblue : occupied ? Theme.color.bgalt : Theme.color.black
         DropArea {
           anchors.fill: parent
           onEntered: (drag) => { 
@@ -47,10 +48,10 @@ Item {
           animation: Theme.animation.elementMove.colorAnimation.createObject(this)
         }
         Column {
-          width: 26
+          width: 28
           Rectangle {
-            implicitWidth: 26
-            implicitHeight: 30
+            implicitWidth: 28
+            implicitHeight: 28
             radius: Theme.rounding
             color: "transparent"
             BarText {
@@ -74,9 +75,9 @@ Item {
               property bool silent: true
               property string address: modelData.address
               property bool caught: false
-              implicitSize: 30
+              implicitSize: 28
               Drag.active: mouseArea.drag.active
-              Drag.hotSpot: Qt.point(15,15)
+              Drag.hotSpot: Qt.point(14,14)
               source: {
                 if (modelData.workspace?.id === workspaceCell.index + 1) {
                   visible = true;
