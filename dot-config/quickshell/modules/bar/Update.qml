@@ -20,12 +20,12 @@ BarBlock {
     visible: root.containsMouse
   }
   Text{
-    text: ``
+    text: "system_update_alt"
     anchors.bottom: root.bottom
     anchors.horizontalCenter: root.horizontalCenter
     font.bold: true
     font.pointSize: Theme.font.size.normal
-    font.family: Theme.font.family.mono
+    font.family: Theme.font.family.material
     color: Theme.color.fg
   }
   readonly property var process: Process {
