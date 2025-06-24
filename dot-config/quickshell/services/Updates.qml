@@ -6,19 +6,14 @@ import QtQuick
 
 Singleton {
   id: root
-  property string updates
-  Process {
-    id: updateProc
-    command: ["cat", "/home/will/.local/state/updates"]
-    running: true
-    stdout: StdioCollector {
-      onStreamFinished: root.updates = this.text
+  property int updates
+  SocketServer {
+    active: true
+    path: "/tmp/updates.sock"
+    handler: Socket {
+      parser: SplitParser {
+        onRead: message => {root.updates = message; connected = false}
+      }
     }
-  }
-  Timer {
-    interval: 5000
-    running: true
-    repeat: true
-    onTriggered: updateProc.running = true;
   }
 }
