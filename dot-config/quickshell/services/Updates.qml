@@ -16,7 +16,7 @@ Singleton {
     }
   }
   Timer {
-    interval: 5000
+    interval: 600000
     running: true
     repeat: true
     onTriggered: updateProc.running = true;
