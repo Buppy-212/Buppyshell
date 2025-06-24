@@ -24,7 +24,7 @@ Item {
         height: (Hyprland.workspaces.values[index].lastIpcObject.windows + 1) * 28
         width: 28
         radius: Theme.rounding
-        color: draggedOver ? Theme.color.gray : focused ? Theme.color.darkblue : occupied ? Theme.color.bgalt : Theme.color.black
+        color: draggedOver ? Theme.color.gray : focused ? Theme.color.accent : occupied ? Theme.color.bgalt : Theme.color.black
         DropArea {
           anchors.fill: parent
           onEntered: (drag) => { 
@@ -46,6 +46,9 @@ Item {
         }
         Behavior on color {
           animation: Theme.animation.elementMove.colorAnimation.createObject(this)
+        } 
+        Behavior on height {
+              animation: Theme.animation.elementMove.numberAnimation.createObject(this)
         }
         Column {
           width: 28
