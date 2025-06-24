@@ -4,7 +4,10 @@ import QtQuick
 import "root:/services"
 import "root:/widgets"
 
-BarBlock {
+Rectangle {
+  implicitHeight: 24
+  implicitWidth: 30
+  color: "transparent"
   property PwNode defaultSink: Pipewire.defaultAudioSink
   PwObjectTracker {
     objects: [defaultSink]
@@ -13,7 +16,18 @@ BarBlock {
     text: defaultSink?.audio.muted ? "" : defaultSink?.audio.volume === 1 ? "" : Math.round(defaultSink?.audio.volume * 100)
     color: Theme.color.blue
   }
-  function onClicked(): void {
-    defaultSink.audio.muted = !defaultSink.audio.muted;
+  MouseArea {
+    anchors.fill: parent
+    acceptedButtons: Qt.LeftButton | Qt.RightButton
+    cursorShape: Qt.PointingHandCursor
+    hoverEnabled: true
+    onClicked: defaultSink.audio.muted = !defaultSink.audio.muted;
+    onWheel: (wheel) => {
+      if (wheel.angleDelta.y > 0) {
+        defaultSink.audio.volume += 0.05
+      } else {
+        defaultSink.audio.volume -= 0.05
+      }
+    }
   }
 }
