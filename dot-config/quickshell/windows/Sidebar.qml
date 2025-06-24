@@ -15,6 +15,7 @@ Scope {
       id: sidebar
       visible: root.visible
       WlrLayershell.layer: WlrLayer.Overlay
+      WlrLayershell.namespace: "buppyshell:sidebar"
       anchors {
         right: true
         top: true

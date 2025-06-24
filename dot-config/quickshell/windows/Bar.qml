@@ -1,4 +1,5 @@
 import Quickshell
+import Quickshell.Wayland
 import QtQuick.Layouts
 import "root:/modules/bar"
 import "root:/services"
@@ -10,6 +11,7 @@ Variants {
     PanelWindow {
       screen: scope.modelData
       id: bar
+      WlrLayershell.namespace: "buppyshell:topbar"
       anchors {
         top: true
         left: true
@@ -36,6 +38,7 @@ Variants {
     }
     PanelWindow {
       screen: scope.modelData
+      WlrLayershell.namespace: "buppyshell:leftbar"
       anchors {
         top: true
         left: true

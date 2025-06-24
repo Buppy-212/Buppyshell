@@ -12,7 +12,7 @@ Scope {
       required property ShellScreen modelData
       screen: modelData
       WlrLayershell.layer: WlrLayer.Background
-      WlrLayershell.namespace: "bg"
+      WlrLayershell.namespace: "buppyshell:bg"
       anchors {
         top: true
         bottom: true
