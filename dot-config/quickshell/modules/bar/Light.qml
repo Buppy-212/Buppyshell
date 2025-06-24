@@ -10,10 +10,12 @@ Rectangle {
   color: "transparent"
   property bool nightlight
   BarText {
-    text: Brightness.brightness
-    color: nightlight ? Theme.color.orange : Theme.color.yellow
+    text: mouseArea.containsMouse ? Brightness.brightness : nightlight ? "bedtime" : "light_mode"
+    color: Theme.color.yellow
+    font.family: mouseArea.containsMouse ? Theme.font.family.mono : Theme.font.family.material
   }
   MouseArea {
+    id: mouseArea
     readonly property var up: Process {
       command: ["brightnessctl", "-q", "set", "+5%"]
     }
@@ -33,6 +35,7 @@ Rectangle {
     acceptedButtons: Qt.LeftButton | Qt.MiddleButton
     cursorShape: Qt.PointingHandCursor
     hoverEnabled: true
+    onEntered: Brightness.update()
     onClicked: (mouse) => {
       if (mouse.button == Qt.LeftButton) {
         nightlight = !nightlight;
