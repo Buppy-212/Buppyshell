@@ -20,4 +20,3 @@ Item {
     Sidebar {id: sidebar}
   }
 }
-
