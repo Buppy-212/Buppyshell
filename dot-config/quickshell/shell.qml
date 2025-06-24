@@ -6,6 +6,5 @@ import "modules/notifications"
 ShellRoot {
   Bar {}
   Background {}
-  Border {}
   Popup {}
 }

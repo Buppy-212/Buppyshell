@@ -1,8 +1,8 @@
 import Quickshell
 import QtQuick
 import Quickshell.Wayland
-import Quickshell.Hyprland
 import "root:/services"
+import "root:/widgets"
 
 Scope {
   Variants {
@@ -24,6 +24,34 @@ Scope {
         anchors.fill: parent
         fillMode: Image.PreserveAspectCrop
         source: Theme.wallpaper
+      }
+      RoundCorner {
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        anchors.leftMargin: 30
+        size: Theme.rounding*1.5
+        corner: cornerEnum.bottomLeft
+      }
+      RoundCorner {
+        anchors.bottom: parent.bottom
+        anchors.right: parent.right
+        size: Theme.rounding*1.5
+        corner: cornerEnum.bottomRight
+      }
+      RoundCorner {
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.topMargin: 24
+        anchors.leftMargin: 30
+        size: Theme.rounding*1.5
+        corner: cornerEnum.topLeft
+      }
+      RoundCorner {
+        anchors.top: parent.top
+        anchors.right: parent.right
+        anchors.topMargin: 24
+        size: Theme.rounding*1.5
+        corner: cornerEnum.topRight
       }
       Rectangle {
         id: rect
