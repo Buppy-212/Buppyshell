@@ -35,6 +35,7 @@ Item {
             draggedOver = false
           }
           onDropped: (drop) => {
+            draggedOver = false
             if (drag.source.silent) {
               Hyprland.dispatch(`movetoworkspacesilent ${index+1}, address:0x${drag.source.address}`)
             } else {
