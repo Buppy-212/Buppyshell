@@ -21,7 +21,7 @@ Item {
         property bool draggedOver: false
         property bool occupied: Hyprland.workspaces.values[index].lastIpcObject.windows > 0
         property bool focused: Hyprland.focusedMonitor?.activeWorkspace.id === (index + 1)
-        height: (Hyprland.workspaces.values[index].lastIpcObject.windows + 1) * 28
+        height: occupied ? (Hyprland.workspaces.values[index].lastIpcObject.windows + 1) * 28 : 28
         width: 28
         radius: Theme.rounding
         color: draggedOver ? Theme.color.gray : focused ? Theme.color.accent : occupied ? Theme.color.bgalt : Theme.color.black

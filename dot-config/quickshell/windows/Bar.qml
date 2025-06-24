@@ -49,12 +49,7 @@ Variants {
       ColumnLayout {
         id: vBlocks
         anchors.fill: parent
-        ColumnLayout {
-          id: topBlocks
-          Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
-          Layout.topMargin: 2
-          Workspaces {}
-        }
+        Workspaces {Layout.alignment: Qt.AlignHCenter | Qt.AlignTop}
         ColumnLayout {
           id: bottomBlocks
           Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
