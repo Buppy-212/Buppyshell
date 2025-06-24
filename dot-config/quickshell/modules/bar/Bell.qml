@@ -17,6 +17,5 @@ Item {
     function onClicked(): void {
       Hyprland.dispatch("global buppyshell:toggleSidebar");
     }
-    Sidebar {id: sidebar}
   }
 }
