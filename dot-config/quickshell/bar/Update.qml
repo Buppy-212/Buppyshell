@@ -1,14 +1,19 @@
-import "root:/services"
-import "root:/widgets"
 import Quickshell
 import Quickshell.Io
 import QtQuick
+import "root:/services"
 
-BarBlock {
+Rectangle {
   id: root
   property bool hovered: false
+  readonly property var process: Process {
+    command: ["floatty", "update"]
+  }
   visible: Updates.updates == 0 ? false : true
-  implicitHeight: containsMouse ? 48 : 24
+  implicitHeight: mouse.containsMouse ? 48 : 24
+  implicitWidth: 30
+  color: mouse.containsMouse ? Theme.color.gray : "transparent"
+  radius: Theme.rounding
   Text{
     text: `${Updates.updates}`
     anchors.top: root.top
@@ -17,7 +22,7 @@ BarBlock {
     font.pointSize: Theme.font.size.normal
     font.family: Theme.font.family.mono
     color: Theme.color.fg
-    visible: root.containsMouse
+    visible: mouse.containsMouse
   }
   Text{
     text: "system_update_alt"
@@ -28,11 +33,13 @@ BarBlock {
     font.family: Theme.font.family.material
     color: Theme.color.fg
   }
-  readonly property var process: Process {
-    command: ["floatty", "update"]
-  }
-  function onClicked(): void {
-    process.startDetached();
+  MouseArea {
+    id: mouse
+    anchors.fill: parent
+    acceptedButtons: Qt.LeftButton | Qt.RightButton
+    cursorShape: Qt.PointingHandCursor
+    hoverEnabled: true
+    onClicked: process.startDetached();
   }
   Behavior on implicitHeight {
     animation: Theme.animation.elementMove.numberAnimation.createObject(this)

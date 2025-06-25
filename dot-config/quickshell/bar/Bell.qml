@@ -2,7 +2,7 @@ import Quickshell
 import QtQuick
 import "root:/services"
 import "root:/widgets"
-import "root:/windows"
+import "."
 
 Item {
   implicitWidth: block.width

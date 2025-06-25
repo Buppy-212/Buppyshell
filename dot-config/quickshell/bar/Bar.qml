@@ -1,7 +1,7 @@
 import Quickshell
 import Quickshell.Wayland
 import QtQuick.Layouts
-import "root:/modules/bar"
+import "."
 import "root:/services"
 Variants {
   model: Quickshell.screens

@@ -24,7 +24,7 @@ Item {
         height: occupied ? (Hyprland.workspaces.values[index].lastIpcObject.windows + 1) * 28 : 28
         width: 28
         radius: Theme.rounding
-        color: draggedOver ? Theme.color.gray : focused ? Theme.color.accent : occupied ? Theme.color.bgalt : "transparent"
+        color: draggedOver | mouse.containsMouse ? Theme.color.gray : focused ? Theme.color.accent : occupied ? Theme.color.bgalt : "transparent"
         DropArea {
           anchors.fill: parent
           onEntered: (drag) => { 
@@ -62,6 +62,7 @@ Item {
               text: index === 9 ? 0 : index + 1
             }
             MouseArea {
+              id: mouse
               anchors.fill: parent
               acceptedButtons: Qt.LeftButton
               cursorShape: Qt.PointingHandCursor

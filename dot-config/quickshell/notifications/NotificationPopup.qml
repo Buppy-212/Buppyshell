@@ -1,7 +1,7 @@
 import Quickshell
 import Quickshell.Wayland
 import QtQuick
-import "root:/modules/notifications"
+import "."
 
 PanelWindow {
   id: notificationPopup

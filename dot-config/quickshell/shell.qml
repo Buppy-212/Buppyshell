@@ -1,8 +1,9 @@
 //@ pragma UseQApplication
 
 import Quickshell
-import "windows"
-import "modules/notifications"
+import "notifications"
+import "bar"
+import "background"
 ShellRoot {
   Bar {}
   Background {}

@@ -2,12 +2,11 @@ import QtQuick
 import "root:/widgets"
 import "root:/services"
 
-BarBlock {
+Rectangle {
   implicitHeight: 48
-  disabled: true
-  function onClicked(): void{
-    undefined;
-  }
+  implicitWidth: 30
+  color: "transparent"
+  radius: Theme.rounding
   BarText {
     text: Time.time
   }

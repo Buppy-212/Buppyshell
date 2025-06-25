@@ -3,7 +3,7 @@ import Quickshell.Hyprland
 import Quickshell.Wayland
 import QtQuick
 import "root:/services"
-import "root:/modules/notifications"
+import "."
 
 Scope {
   id: root

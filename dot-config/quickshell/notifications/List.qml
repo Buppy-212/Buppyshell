@@ -2,7 +2,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Services.Notifications
 import "root:/services"
-import "root:/modules/notifications"
+import "."
 
 ListView {
   Server {

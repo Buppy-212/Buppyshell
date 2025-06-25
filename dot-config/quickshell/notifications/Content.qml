@@ -2,7 +2,7 @@ import Quickshell
 import QtQuick
 import Quickshell.Services.Notifications
 import "root:/services"
-import "root:/modules/notifications"
+import "."
 
 Rectangle {
   id: rect

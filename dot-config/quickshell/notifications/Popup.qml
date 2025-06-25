@@ -1,8 +1,7 @@
 import Quickshell
 import Quickshell.Hyprland
 import Quickshell.Services.Notifications
-import "root:/windows"
-import "root:/modules/notifications"
+import "."
 
 Scope {
   Server {
