@@ -6,12 +6,12 @@ Item {
     id: root
     readonly property Repeater items: items
     clip: true
-    visible: width > 0 && height > 0 // To avoid warnings about being visible with no size
+    visible: width > 0 && height > 0
     implicitWidth: layout.implicitWidth
     implicitHeight: layout.implicitHeight
     Row {
         id: layout
-        spacing: 8
+        spacing: 4
         Repeater {
             id: items
             model: SystemTray.items

@@ -7,15 +7,16 @@ import "root:/widgets"
 Rectangle {
   implicitHeight: 24
   implicitWidth: 30
-  color: "transparent"
+  color: mouse.containsMouse ? Theme.color.gray : "transparent"
+  radius: Theme.rounding
   property bool nightlight: Brightness.nightlight
   BarText {
-    text: mouseArea.containsMouse ? Brightness.brightness : nightlight ? "bedtime" : "light_mode"
+    text: mouse.containsMouse ? Brightness.brightness : nightlight ? "bedtime" : "light_mode"
     color: Theme.color.yellow
-    font.family: mouseArea.containsMouse ? Theme.font.family.mono : Theme.font.family.material
+    font.family: mouse.containsMouse ? Theme.font.family.mono : Theme.font.family.material
   }
   MouseArea {
-    id: mouseArea
+    id: mouse
     readonly property var up: Process {
       command: ["brightnessctl", "-q", "set", "+5%"]
     }

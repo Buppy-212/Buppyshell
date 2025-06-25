@@ -3,7 +3,6 @@
 ## Bar
 
 - [x] Workspaces
-- [ ] Launcher
 - [x] Clock
 - [x] Power
 - [x] Battery
@@ -11,10 +10,17 @@
 - [x] Updates
 - [ ] Popouts
 - [ ] Toggles (gamemode, idle)
+- [ ] Idle inhibitor
 - [x] Volume
 - [x] Brightness
 - [x] Tooltips kinda?
 - [ ] Keybinds
+
+## Launcher
+
+- [ ] Start Menu
+- [ ] Window Switcher
+- [ ] Logout
 
 ## Notifications
 
@@ -53,3 +59,16 @@
 ## Greeter
 
 - [ ] Basic Session management
+
+## Additional Dependencies
+
+Updates
+
+- paru
+- flatpak
+- openbsd-netcat
+
+Brightness
+
+- brightnessctl
+- hyprsunset

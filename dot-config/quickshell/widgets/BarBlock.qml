@@ -1,5 +1,6 @@
 import QtQuick
 import Quickshell
+import "root:/services"
 
 Rectangle {
   id: root
@@ -7,7 +8,8 @@ Rectangle {
   property bool containsMouse: mouse.containsMouse
   implicitWidth: 30
   implicitHeight: 24
-  color: "transparent"
+  color: mouse.containsMouse ? Theme.color.gray : "transparent"
+  radius: Theme.rounding
   MouseArea {
     id: mouse
     anchors.fill: parent

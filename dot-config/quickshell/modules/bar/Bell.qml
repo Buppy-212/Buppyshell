@@ -7,15 +7,30 @@ import "root:/windows"
 Item {
   implicitWidth: block.width
   implicitHeight: block.height
-  BarBlock {
+  Rectangle {
     id: block
+    implicitWidth: 30
+    implicitHeight: 24
+    color: mouse.containsMouse ? Theme.color.gray : "transparent"
     anchors.centerIn: parent
+    radius: Theme.rounding
     BarText{
       text: ""
       font.pointSize: Theme.font.size.large
     }
-    function onClicked(): void {
-      Hyprland.dispatch("global buppyshell:toggleSidebar");
+    MouseArea {
+      id: mouse
+      anchors.fill: parent
+      acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
+      cursorShape: Qt.PointingHandCursor
+      hoverEnabled: true
+      onClicked: (mouse) => {
+        if (mouse.button == Qt.MiddleButton) {
+          Hyprland.dispatch("global buppyshell:clearNotifs");
+        } else {
+          Hyprland.dispatch("global buppyshell:toggleSidebar");
+        }
+      }
     }
   }
 }
