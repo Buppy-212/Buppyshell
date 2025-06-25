@@ -19,7 +19,7 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         required property int index
         property bool draggedOver: false
-        property bool occupied: Hyprland.workspaces.values[index].lastIpcObject.windows > 0
+        property bool occupied: Hyprland.workspaces.values[index]?.lastIpcObject.windows > 0
         property bool focused: Hyprland.focusedMonitor?.activeWorkspace.id === (index + 1)
         height: occupied ? (Hyprland.workspaces.values[index].lastIpcObject.windows + 1) * 28 : 28
         width: 28

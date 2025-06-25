@@ -23,7 +23,7 @@
 - [x] Dismissing
 - [x] Clearing
 - [x] Timeout
-- [ ] Actions
+- [x] Actions
 
 ## Volume Sliders
 
