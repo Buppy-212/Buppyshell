@@ -24,7 +24,7 @@ Item {
         height: occupied ? (Hyprland.workspaces.values[index].lastIpcObject.windows + 1) * 28 : 28
         width: 28
         radius: Theme.rounding
-        color: draggedOver ? Theme.color.gray : focused ? Theme.color.accent : occupied ? Theme.color.bgalt : Theme.color.black
+        color: draggedOver ? Theme.color.gray : focused ? Theme.color.accent : occupied ? Theme.color.bgalt : "transparent"
         DropArea {
           anchors.fill: parent
           onEntered: (drag) => { 
