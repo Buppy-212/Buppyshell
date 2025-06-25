@@ -56,8 +56,9 @@ Scope {
       Rectangle {
         id: rect
         readonly property int size: Screen.name === "eDP-1" ? Theme.font.size.extraLarge : Theme.font.size.huge
-        x: Screen.name === "eDP-1" ? Screen.width * 0.90 : Screen.width * 0.865
         anchors.verticalCenter: parent.verticalCenter
+        anchors.right: parent.right
+        anchors.rightMargin: Screen.name === "eDP-1" ? Screen.width * 0.05 : Screen.width * 0.1
         implicitWidth: 100
         implicitHeight: 1
         color: "transparent"
