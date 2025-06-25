@@ -21,15 +21,15 @@ Rectangle {
     x: 16
     anchors.verticalCenter: parent.verticalCenter
     Image {
-      source: Quickshell.iconPath(notification?.appIcon, "image-loading")
+      source: Quickshell.iconPath(notification?.appIcon, "preferences-desktop-notification-bell")
       width: 48
       height: 48
-      visible: notification === null ? "" : notification?.appIcon !== "image-loading" ? true : false
+      visible: notification === null ? false : true
       anchors.verticalCenter: column.verticalCenter
     }
     Column {
       id: column
-      width: 250
+      width: image.visible ? 300 : 250
       height: (summary.height + body.height) *1.05
       anchors.verticalCenter: parent.verticalCenter
       Text {
@@ -51,6 +51,7 @@ Rectangle {
       }
     }
     Image {
+      id: image
       source: notification?.image ?? ""
       width: 48
       height: 48
