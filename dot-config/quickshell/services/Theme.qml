@@ -14,10 +14,10 @@ Singleton {
   readonly property Font font: Font {}
   property QtObject animation
   property QtObject animationCurves
-  property QtObject notification
+  readonly property Notification notification: Notification {}
   readonly property url wallpaper: "root:/assets/frieren.png"
 
-  notification: QtObject {
+  component Notification: QtObject {
     readonly property int width: 420
     readonly property int height: 80
     readonly property int margin: 16
