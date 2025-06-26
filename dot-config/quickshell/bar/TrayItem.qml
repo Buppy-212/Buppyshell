@@ -20,7 +20,7 @@ Rectangle {
     acceptedButtons: Qt.LeftButton | Qt.RightButton
     anchors.fill: parent
     onClicked: (mouse) => {
-      if (event.button === Qt.LeftButton) {
+      if (mouse.button === Qt.LeftButton) {
         modelData.activate();
       } else if (modelData.hasMenu) {
         menu.open();
