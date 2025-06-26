@@ -6,7 +6,6 @@ NotificationServer {
   bodySupported: true
   bodyMarkupSupported: true
   actionsSupported: true
-  imageSupported: true
   keepOnReload: false
   persistenceSupported: true
 

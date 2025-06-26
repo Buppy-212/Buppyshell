@@ -1,4 +1,5 @@
 import Quickshell
+import Quickshell.Widgets
 import QtQuick
 import Quickshell.Services.Notifications
 import "root:/services"
@@ -20,16 +21,14 @@ Rectangle {
     spacing: Theme.notification.margin
     x: Theme.notification.margin
     anchors.verticalCenter: parent.verticalCenter
-    Image {
+    IconImage {
       source: Quickshell.iconPath(notification?.appIcon, "preferences-desktop-notification-bell")
-      width: Theme.notification.iconSize
-      height: Theme.notification.iconSize
-      visible: notification === null ? false : true
+      implicitSize: Theme.notification.iconSize
       anchors.verticalCenter: column.verticalCenter
     }
     Column {
       id: column
-      width: image.visible ? Theme.notification.width - (2 * Theme.notification.iconSize) : Theme.notification.width - Theme.notification.iconSize
+      width: Theme.notification.width - Theme.notification.iconSize
       height: summary.height + body.height
       anchors.verticalCenter: parent.verticalCenter
       Text {
@@ -49,14 +48,6 @@ Rectangle {
         font.pointSize: Theme.font.size.normal
         color: Theme.color.fg
       }
-    }
-    Image {
-      id: image
-      source: notification?.image ?? ""
-      width: Theme.notifiction.iconSize
-      height: Theme.notifiction.iconSize
-      visible: source !== ""
-      anchors.verticalCenter: column.verticalCenter
     }
   }
   MouseArea {
