@@ -52,9 +52,9 @@
 
 ## Lockscreen
 
-- [ ] Lock session
-- [ ] Unlock
-- [ ] Theming
+- [x] Lock session
+- [x] Unlock
+- [x] Theming
 
 ## Greeter
 
