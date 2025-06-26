@@ -2,18 +2,20 @@ import Quickshell
 import Quickshell.Io
 import QtQuick
 import "root:/services"
-import "root:/widgets"
 
 Rectangle {
-  implicitHeight: 24
-  implicitWidth: 30
+  implicitHeight: Theme.blockHeight
+  implicitWidth: Theme.blockWidth
   color: mouse.containsMouse ? Theme.color.gray : "transparent"
   radius: Theme.rounding
   property bool nightlight: Brightness.nightlight
-  BarText {
+  Text {
     text: mouse.containsMouse ? Brightness.brightness : nightlight ? "bedtime" : "light_mode"
     color: Theme.color.yellow
     font.family: mouse.containsMouse ? Theme.font.family.mono : Theme.font.family.material
+    font.pointSize: mouse.containsMouse ? Theme.font.size.normal : Theme.font.size.large
+    font.bold: true
+    anchors.centerIn: parent
   }
   MouseArea {
     id: mouse

@@ -1,8 +1,9 @@
 import Quickshell
 import Quickshell.Wayland
 import QtQuick.Layouts
-import "."
 import "root:/services"
+import "."
+
 Variants {
   model: Quickshell.screens
   Scope {
@@ -17,7 +18,7 @@ Variants {
         left: true
         right: true
       }
-      implicitHeight: 24
+      implicitHeight: Theme.blockHeight
       color: Theme.color.black
       RowLayout {
         id: hBlocks
@@ -44,7 +45,7 @@ Variants {
         left: true
         bottom: true
       }
-      implicitWidth: 30
+      implicitWidth: Theme.blockWidth
       color: Theme.color.black
       ColumnLayout {
         id: vBlocks

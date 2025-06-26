@@ -2,7 +2,6 @@ import Quickshell
 import QtQuick
 import Quickshell.Wayland
 import "root:/services"
-import "root:/widgets"
 
 Scope {
   Variants {
@@ -28,7 +27,7 @@ Scope {
       RoundCorner {
         anchors.bottom: parent.bottom
         anchors.left: parent.left
-        anchors.leftMargin: 30
+        anchors.leftMargin: Theme.blockWidth
         size: Theme.rounding*1.5
         corner: cornerEnum.bottomLeft
       }
@@ -41,15 +40,15 @@ Scope {
       RoundCorner {
         anchors.top: parent.top
         anchors.left: parent.left
-        anchors.topMargin: 24
-        anchors.leftMargin: 30
+        anchors.topMargin: Theme.blockHeight
+        anchors.leftMargin: Theme.blockWidth
         size: Theme.rounding*1.5
         corner: cornerEnum.topLeft
       }
       RoundCorner {
         anchors.top: parent.top
         anchors.right: parent.right
-        anchors.topMargin: 24
+        anchors.topMargin: Theme.blockHeight
         size: Theme.rounding*1.5
         corner: cornerEnum.topRight
       }
@@ -57,14 +56,14 @@ Scope {
         id: rect
         readonly property int size: Screen.name === "eDP-1" ? Theme.font.size.extraLarge : Theme.font.size.huge
         anchors.verticalCenter: parent.verticalCenter
-        anchors.right: parent.right
-        anchors.rightMargin: Screen.name === "eDP-1" ? Screen.width * 0.05 : Screen.width * 0.1
-        implicitWidth: 100
-        implicitHeight: 1
+        anchors.leftMargin: Screen.name === "eDP-1" ? Screen.width * 0.85 : Screen.width * 0.76
+        anchors.fill: parent
         color: "transparent"
         Column {
           id: column
           anchors.centerIn: rect
+          height: day.height + date.height
+          width: day.width
           spacing: Theme.border
           Text {
             id: day

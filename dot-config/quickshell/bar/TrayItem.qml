@@ -9,8 +9,8 @@ import "root:/services"
 Rectangle {
   id: root
   required property SystemTrayItem modelData
-  implicitWidth: 30
-  implicitHeight: 24
+  implicitWidth: Theme.blockWidth
+  implicitHeight: Theme.blockHeight
   color: mouse.containsMouse ? Theme.color.gray : "transparent"
   radius: Theme.rounding
   MouseArea {
@@ -38,7 +38,7 @@ Rectangle {
     IconImage {
       id: icon
       anchors.centerIn: parent
-      implicitSize: 24
+      implicitSize: Theme.blockHeight
       source: {
         let icon = root.modelData.icon;
         if (icon.includes("?path=")) {

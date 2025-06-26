@@ -11,7 +11,7 @@ Rectangle {
   implicitHeight: row.height > 60 ? row.height + 20 : 80
   color: Theme.color.bg
   radius: Theme.rounding
-  border.width: 2
+  border.width: Theme.border
   border.color: Theme.color.blue
   Row {
     id: row

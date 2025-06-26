@@ -9,6 +9,8 @@ Singleton {
   readonly property Color color: Color {}
   readonly property int rounding: 8
   readonly property int border: 2
+  readonly property int blockHeight: 24
+  readonly property int blockWidth: 30
   readonly property Font font: Font {}
   property QtObject animation
   property QtObject animationCurves

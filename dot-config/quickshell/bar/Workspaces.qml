@@ -2,16 +2,15 @@ import Quickshell
 import Quickshell.Widgets
 import QtQuick
 import "root:/services"
-import "root:/widgets"
 
 Item {
   id: root
-  width: 30
+  width: Theme.blockWidth
   height: column.height
   Column {
     id: column
-    spacing: 4
-    width: 30
+    spacing: Theme.border*2
+    width: Theme.blockWidth
     Repeater {
       model: Hyprland.workspaces
       Rectangle {
@@ -21,8 +20,8 @@ Item {
         property bool draggedOver: false
         property bool occupied: Hyprland.workspaces.values[index]?.lastIpcObject.windows > 0
         property bool focused: Hyprland.focusedMonitor?.activeWorkspace.id === (index + 1)
-        height: occupied ? (Hyprland.workspaces.values[index].lastIpcObject.windows + 1) * 28 : 28
-        width: 28
+        height: occupied ? (Hyprland.workspaces.values[index].lastIpcObject.windows + 1) * (Theme.blockWidth - Theme.border) : Theme.blockWidth - Theme.border
+        width: Theme.blockWidth - Theme.border
         radius: Theme.rounding
         color: draggedOver | mouse.containsMouse ? Theme.color.gray : focused ? Theme.color.accent : occupied ? Theme.color.bgalt : "transparent"
         DropArea {
@@ -51,15 +50,20 @@ Item {
               animation: Theme.animation.elementMove.numberAnimation.createObject(this)
         }
         Column {
-          width: 28
+          width: Theme.blockWidth - Theme.border
           Rectangle {
-            implicitWidth: 28
-            implicitHeight: 28
+            implicitWidth: Theme.blockWidth - Theme.border
+            implicitHeight: Theme.blockWidth - Theme.border
             radius: Theme.rounding
             color: "transparent"
-            BarText {
+            Text {
               id: workspaceText
               text: index === 9 ? 0 : index + 1
+              color: Theme.color.fg
+              font.family: Theme.font.family.mono
+              font.pointSize: Theme.font.size.normal
+              font.bold: true
+              anchors.centerIn: parent
             }
             MouseArea {
               id: mouse
@@ -79,7 +83,7 @@ Item {
               property bool silent: true
               property string address: modelData.address
               property bool caught: false
-              implicitSize: 28
+              implicitSize: Theme.blockWidth - Theme.border
               Drag.active: mouseArea.drag.active
               Drag.hotSpot: Qt.point(14,14)
               source: {

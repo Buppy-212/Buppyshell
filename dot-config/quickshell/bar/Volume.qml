@@ -3,11 +3,10 @@ import Quickshell
 import Quickshell.Io
 import QtQuick
 import "root:/services"
-import "root:/widgets"
 
 Rectangle {
-  implicitHeight: 24
-  implicitWidth: 30
+  implicitHeight: Theme.blockHeight
+  implicitWidth: Theme.blockWidth
   color: mouse.containsMouse ? Theme.color.gray : "transparent"
   radius: Theme.rounding
   property PwNode defaultSink: Pipewire.defaultAudioSink
@@ -17,9 +16,13 @@ Rectangle {
   PwObjectTracker {
     objects: [defaultSink]
   }
-  BarText {
+  Text {
     text: defaultSink?.audio.muted ? "" : defaultSink?.audio.volume === 1 ? "" : Math.round(defaultSink?.audio.volume * 100)
     color: Theme.color.blue
+    font.family: Theme.font.family.mono
+    font.pointSize: Theme.font.size.normal
+    font.bold: true
+    anchors.centerIn: parent
   }
   MouseArea {
     id: mouse

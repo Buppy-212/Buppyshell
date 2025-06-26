@@ -1,23 +1,24 @@
-import "root:/services"
-import "root:/widgets"
 import Quickshell
 import Quickshell.Io
 import QtQuick
+import "root:/services"
 
 Rectangle {
   id: block
-  implicitWidth: 30
-  implicitHeight: 24
+  implicitWidth: Theme.blockWidth
+  implicitHeight: Theme.blockHeight
   color: mouse.containsMouse ? Theme.color.gray : "transparent"
   radius: Theme.rounding
   readonly property var process: Process {
     command: ["systemctl", "poweroff"]
   }
-  BarText {
+  Text {
     text: "power_settings_new"
     color: Theme.color.red
-    font.pointSize: Theme.font.size.large
     font.family: Theme.font.family.material
+    font.pointSize: Theme.font.size.large
+    font.bold: true
+    anchors.centerIn: parent
   }
   MouseArea {
     id: mouse

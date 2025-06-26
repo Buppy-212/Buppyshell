@@ -1,7 +1,6 @@
 import Quickshell
 import QtQuick
 import "root:/services"
-import "root:/widgets"
 import "."
 
 Item {
@@ -9,14 +8,18 @@ Item {
   implicitHeight: block.height
   Rectangle {
     id: block
-    implicitWidth: 30
-    implicitHeight: 24
+    implicitWidth: Theme.blockWidth
+    implicitHeight: Theme.blockHeight
     color: mouse.containsMouse ? Theme.color.gray : "transparent"
     anchors.centerIn: parent
     radius: Theme.rounding
-    BarText{
-      text: ""
+    Text{
+      text: "notifications"
+      color: Theme.color.fg
+      font.family: Theme.font.family.material
       font.pointSize: Theme.font.size.large
+      font.bold: true
+      anchors.centerIn: parent
     }
     MouseArea {
       id: mouse

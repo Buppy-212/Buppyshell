@@ -1,13 +1,17 @@
 import QtQuick
-import "root:/widgets"
 import "root:/services"
 
 Rectangle {
-  implicitHeight: 48
-  implicitWidth: 30
+  implicitHeight: Theme.blockHeight*2
+  implicitWidth: Theme.blockWidth
   color: "transparent"
   radius: Theme.rounding
-  BarText {
+  Text {
     text: Time.time
+    color: Theme.color.fg
+    font.family: Theme.font.family.mono
+    font.pointSize: Theme.font.size.normal
+    font.bold: true
+    anchors.centerIn: parent
   }
 }

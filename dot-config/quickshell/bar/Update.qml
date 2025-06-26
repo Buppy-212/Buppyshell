@@ -10,8 +10,8 @@ Rectangle {
     command: ["floatty", "update"]
   }
   visible: Updates.updates == 0 ? false : true
-  implicitHeight: mouse.containsMouse ? 48 : 24
-  implicitWidth: 30
+  implicitHeight: mouse.containsMouse ? Theme.blockHeight*2 : Theme.blockHeight
+  implicitWidth: Theme.blockWidth
   color: mouse.containsMouse ? Theme.color.gray : "transparent"
   radius: Theme.rounding
   Text{
