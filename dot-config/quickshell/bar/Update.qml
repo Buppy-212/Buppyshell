@@ -31,12 +31,8 @@ Block {
     font.family: Theme.font.family.material
     color: Theme.color.fg
   }
-  MouseArea {
+  MouseBlock {
     id: mouse
-    anchors.fill: parent
-    acceptedButtons: Qt.LeftButton | Qt.RightButton
-    cursorShape: Qt.PointingHandCursor
-    hoverEnabled: true
     onClicked: process.startDetached();
   }
   Behavior on implicitHeight {

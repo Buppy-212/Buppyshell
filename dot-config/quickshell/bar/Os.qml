@@ -16,12 +16,8 @@ Block {
     anchors.centerIn: parent
     source: Qt.resolvedUrl("root:/assets/archlinux.svg")
   }
-  MouseArea {
+  MouseBlock {
     id: mouse
-    cursorShape: Qt.PointingHandCursor
-    hoverEnabled: true
-    acceptedButtons: Qt.LeftButton | Qt.RightButton
-    anchors.fill: parent
     onClicked: process.startDetached() 
   }
 }

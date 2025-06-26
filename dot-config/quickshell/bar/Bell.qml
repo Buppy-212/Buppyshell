@@ -12,12 +12,8 @@ Block {
     font.bold: true
     anchors.centerIn: parent
   }
-  MouseArea {
+  MouseBlock {
     id: mouse
-    anchors.fill: parent
-    acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
-    cursorShape: Qt.PointingHandCursor
-    hoverEnabled: true
     onClicked: (mouse) => {
       if (mouse.button == Qt.MiddleButton) {
         Hyprland.dispatch("global buppyshell:clearNotifs");

@@ -17,12 +17,8 @@ Block {
     font.bold: true
     anchors.centerIn: parent
   }
-  MouseArea {
+  MouseBlock {
     id: mouse
-    anchors.fill: parent
-    acceptedButtons: Qt.LeftButton | Qt.RightButton
-    cursorShape: Qt.PointingHandCursor
-    hoverEnabled: true
     onClicked: {
       process.startDetached();
       Qt.quit();

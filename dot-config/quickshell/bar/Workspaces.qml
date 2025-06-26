@@ -60,12 +60,8 @@ Item {
               id: workspaceText
               text: index === 9 ? 0 : index + 1
             }
-            MouseArea {
+            MouseBlock {
               id: mouse
-              anchors.fill: parent
-              acceptedButtons: Qt.LeftButton
-              cursorShape: Qt.PointingHandCursor
-              hoverEnabled: true
               onClicked: Hyprland.workspaces.values[index].activate()
             }
           }
@@ -98,12 +94,8 @@ Item {
                 when: mouseArea.drag.active
                 ParentChange { target: image; parent: column }
               }
-              MouseArea {
+              MouseBlock {
                 id: mouseArea
-                anchors.fill: parent
-                hoverEnabled: true
-                cursorShape: Qt.PointingHandCursor
-                acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
                 drag.target: parent
                 onEntered: {
                   Hyprland.overrideTitle(modelData.title)

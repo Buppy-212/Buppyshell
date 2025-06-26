@@ -17,12 +17,8 @@ Block {
     text: defaultSink?.audio.muted ? "" : defaultSink?.audio.volume === 1 ? "" : Math.round(defaultSink?.audio.volume * 100)
     color: Theme.color.blue
   }
-  MouseArea {
+  MouseBlock {
     id: mouse
-    anchors.fill: parent
-    acceptedButtons: Qt.LeftButton | Qt.RightButton
-    cursorShape: Qt.PointingHandCursor
-    hoverEnabled: true
     onClicked: (mouse) => {
       if (mouse.button == Qt.RightButton) {
         defaultSink.audio.muted = !defaultSink.audio.muted;

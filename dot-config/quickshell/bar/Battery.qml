@@ -13,12 +13,8 @@ Block {
     text: Math.round(UPower.displayDevice.percentage*100)
     color: Theme.color.green
   }
-    MouseArea {
-      id: mouse
-      anchors.fill: parent
-      acceptedButtons: Qt.LeftButton| Qt.RightButton
-      cursorShape: Qt.PointingHandCursor
-      hoverEnabled: true
-      onClicked: process.startDetached();
-    }
+  MouseBlock {
+    id: mouse
+    onClicked: process.startDetached();
+  }
 }

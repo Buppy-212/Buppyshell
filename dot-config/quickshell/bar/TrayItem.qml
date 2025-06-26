@@ -10,12 +10,8 @@ import "."
 Block {
   id: root
   required property SystemTrayItem modelData
-  MouseArea {
+  MouseBlock {
     id: mouse
-    cursorShape: Qt.PointingHandCursor
-    hoverEnabled: true
-    acceptedButtons: Qt.LeftButton | Qt.RightButton
-    anchors.fill: parent
     onClicked: (mouse) => {
       if (mouse.button === Qt.LeftButton) {
         modelData.activate();

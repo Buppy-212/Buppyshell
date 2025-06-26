@@ -14,7 +14,7 @@ Block {
     font.bold: true
     anchors.centerIn: parent
   }
-  MouseArea {
+  MouseBlock {
     id: mouse
     readonly property var up: Process {
       command: ["brightnessctl", "-q", "set", "+5%"]
@@ -31,10 +31,6 @@ Block {
     readonly property var filterOff: Process {
       command: ["pkill", "hyprsunset"]
     }
-    anchors.fill: parent
-    acceptedButtons: Qt.LeftButton | Qt.MiddleButton
-    cursorShape: Qt.PointingHandCursor
-    hoverEnabled: true
     onEntered: Brightness.update()
     onClicked: (mouse) => {
       if (mouse.button == Qt.LeftButton) {
