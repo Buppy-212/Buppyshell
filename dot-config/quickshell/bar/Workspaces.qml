@@ -50,10 +50,10 @@ Item {
         }
         Column {
           spacing: Theme.border
-          width: Theme.blockWidth - Theme.border
+          width: workspaceCell.width
           Rectangle {
-            implicitWidth: Theme.blockWidth - Theme.border
-            implicitHeight: Theme.blockWidth - Theme.border
+            implicitWidth: workspaceCell.width
+            implicitHeight: workspaceCell.width
             radius: Theme.rounding
             color: "transparent"
             StyledText {
@@ -73,7 +73,7 @@ Item {
               property bool silent: true
               property string address: modelData.address
               property bool caught: false
-              implicitSize: Theme.blockWidth - Theme.border
+              implicitSize: workspaceCell.width
               Drag.active: mouseArea.drag.active
               Drag.hotSpot: Qt.point(implicitSize/2,implicitSize/2)
               source: {
