@@ -2,16 +2,13 @@ import Quickshell
 import Quickshell.Io
 import QtQuick
 import "root:/services"
+import "."
 
-Rectangle {
+Block {
   id: root
   readonly property var process: Process {
     command: ["rofi", "-show", "drun", "-config", "~/.config/rofi/menu.rasi"]
   }
-  implicitWidth: Theme.blockWidth
-  implicitHeight: Theme.blockHeight
-  color: mouse.containsMouse ? Theme.color.gray : "transparent"
-  radius: Theme.rounding
   Image {
     fillMode: Image.PreserveAspectCrop
     sourceSize.width: Theme.blockHeight - Theme.border

@@ -2,12 +2,9 @@ import Quickshell
 import Quickshell.Io
 import QtQuick
 import "root:/services"
+import "."
 
-Rectangle {
-  implicitHeight: Theme.blockHeight
-  implicitWidth: Theme.blockWidth
-  color: mouse.containsMouse ? Theme.color.gray : "transparent"
-  radius: Theme.rounding
+Block {
   property bool nightlight: Brightness.nightlight
   Text {
     text: mouse.containsMouse ? Brightness.brightness : nightlight ? "bedtime" : "light_mode"

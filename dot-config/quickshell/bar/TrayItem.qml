@@ -5,14 +5,11 @@ import Quickshell.Widgets
 import Quickshell.Services.SystemTray
 import QtQuick
 import "root:/services"
+import "."
 
-Rectangle {
+Block {
   id: root
   required property SystemTrayItem modelData
-  implicitWidth: Theme.blockWidth
-  implicitHeight: Theme.blockHeight
-  color: mouse.containsMouse ? Theme.color.gray : "transparent"
-  radius: Theme.rounding
   MouseArea {
     id: mouse
     cursorShape: Qt.PointingHandCursor

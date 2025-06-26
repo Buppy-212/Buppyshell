@@ -20,7 +20,6 @@ Scope {
   GlobalShortcut {
     name: "clearNotifs"
     description: "Dismiss all notifications"
-    triggerDescription: "Super+Ctrl+N"
     appid: "buppyshell"
     onPressed: {
       if (sidebar.visible) {

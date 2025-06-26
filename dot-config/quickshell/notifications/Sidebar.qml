@@ -40,7 +40,6 @@ Scope {
   GlobalShortcut {
     name: "toggleSidebar"
     description: "Toggle sidebar"
-    triggerDescription: "Super+N"
     appid: "buppyshell"
     onPressed: {
       root.visible = !root.visible;

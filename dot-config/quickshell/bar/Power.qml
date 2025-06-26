@@ -2,13 +2,10 @@ import Quickshell
 import Quickshell.Io
 import QtQuick
 import "root:/services"
+import "."
 
-Rectangle {
+Block {
   id: block
-  implicitWidth: Theme.blockWidth
-  implicitHeight: Theme.blockHeight
-  color: mouse.containsMouse ? Theme.color.gray : "transparent"
-  radius: Theme.rounding
   readonly property var process: Process {
     command: ["systemctl", "poweroff"]
   }

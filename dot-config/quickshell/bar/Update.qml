@@ -2,8 +2,9 @@ import Quickshell
 import Quickshell.Io
 import QtQuick
 import "root:/services"
+import "."
 
-Rectangle {
+Block {
   id: root
   property bool hovered: false
   readonly property var process: Process {
@@ -11,9 +12,6 @@ Rectangle {
   }
   visible: Updates.updates == 0 ? false : true
   implicitHeight: mouse.containsMouse ? Theme.blockHeight*2 : Theme.blockHeight
-  implicitWidth: Theme.blockWidth
-  color: mouse.containsMouse ? Theme.color.gray : "transparent"
-  radius: Theme.rounding
   Text{
     text: `${Updates.updates}`
     anchors.top: root.top
