@@ -16,11 +16,10 @@ Item {
       Rectangle {
         id: workspaceCell
         anchors.horizontalCenter: parent.horizontalCenter
-        required property int index
         property bool draggedOver: false
-        property bool occupied: Hyprland.workspaces.values[index]?.lastIpcObject.windows > 0
-        property bool focused: Hyprland.focusedMonitor?.activeWorkspace.id === (index + 1)
-        height: occupied ? (Hyprland.workspaces.values[index].lastIpcObject.windows + 1) * (Theme.blockWidth - Theme.border) : Theme.blockWidth - Theme.border
+        property bool occupied: modelData.toplevels.values.length > 0
+        property bool focused: modelData.focused
+        height: (modelData.toplevels.values.length + 1) * Theme.blockWidth
         width: Theme.blockWidth - Theme.border
         radius: Theme.rounding
         color: draggedOver | mouse.containsMouse ? Theme.color.gray : focused ? Theme.color.accent : occupied ? Theme.color.bgalt : "transparent"
@@ -37,9 +36,9 @@ Item {
           onDropped: (drop) => {
             draggedOver = false
             if (drag.source.silent) {
-              Hyprland.dispatch(`movetoworkspacesilent ${index+1}, address:0x${drag.source.address}`)
+              Hyprland.dispatch(`movetoworkspacesilent ${modelData.id}, address:0x${drag.source.address}`)
             } else {
-              Hyprland.dispatch(`movetoworkspace ${index+1}, address:0x${drag.source.address}`)
+              Hyprland.dispatch(`movetoworkspace ${modelData.id}, address:0x${drag.source.address}`)
             }
           }
         }
@@ -47,9 +46,10 @@ Item {
           animation: Theme.animation.elementMove.colorAnimation.createObject(this)
         } 
         Behavior on height {
-              animation: Theme.animation.elementMove.numberAnimation.createObject(this)
+          animation: Theme.animation.elementMove.numberAnimation.createObject(this)
         }
         Column {
+          spacing: Theme.border
           width: Theme.blockWidth - Theme.border
           Rectangle {
             implicitWidth: Theme.blockWidth - Theme.border
@@ -58,19 +58,18 @@ Item {
             color: "transparent"
             StyledText {
               id: workspaceText
-              text: index === 9 ? 0 : index + 1
+              text: modelData.id === 10 ? 0 : modelData.id
             }
             MouseBlock {
               id: mouse
-              onClicked: Hyprland.workspaces.values[index].activate()
+              onClicked: if (!focused) { modelData.activate() }
             }
           }
           Repeater {
-            model: Hyprland.toplevels
+            model: modelData.toplevels
             IconImage {
               id: image
               anchors.horizontalCenter: parent.horizontalCenter
-              property point beginDrag
               property bool silent: true
               property string address: modelData.address
               property bool caught: false
@@ -78,16 +77,10 @@ Item {
               Drag.active: mouseArea.drag.active
               Drag.hotSpot: Qt.point(implicitSize/2,implicitSize/2)
               source: {
-                if (modelData.workspace?.id === workspaceCell.index + 1) {
-                  visible = true;
-                  if (modelData.wayland?.appId.startsWith("steam_app")) {
-                    return Quickshell.iconPath("input-gaming");
-                  } else {
-                    return Quickshell.iconPath(modelData.wayland?.appId.toLowerCase() ?? "image-loading", modelData.wayland?.appId);
-                  }
+                if (modelData.wayland?.appId.startsWith("steam_app")) {
+                  return Quickshell.iconPath("input-gaming");
                 } else {
-                  visible = false;
-                  return "";
+                  return Quickshell.iconPath(modelData.wayland?.appId.toLowerCase() ?? "image-loading", modelData.wayland?.appId);
                 }
               }
               states: State {
@@ -109,11 +102,8 @@ Item {
                   } else if (mouse.button == Qt.MiddleButton) {
                     modelData.wayland.close()
                   } else {
-                    Hyprland.dispatch(`movetoworkspace ${Hyprland.focusedMonitor?.activeWorkspace.id}, address:0x${address}`)
+                    Hyprland.dispatch(`movetoworkspace ${Hyprland.focusedWorkspace.id}, address:0x${address}`)
                   }
-                }
-                onPressed: {
-                  image.beginDrag = Qt.point(image.x, image.y);
                 }
                 onReleased: (mouse) => {
                   if (mouse.button == Qt.RightButton) {
@@ -122,7 +112,6 @@ Item {
                     parent.silent = true
                   }
                   parent.Drag.drop()
-
                 }
               }
             }
