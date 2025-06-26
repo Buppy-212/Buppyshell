@@ -56,7 +56,7 @@ Scope {
         id: rect
         readonly property int size: Screen.name === "eDP-1" ? Theme.font.size.extraLarge : Theme.font.size.huge
         anchors.verticalCenter: parent.verticalCenter
-        anchors.leftMargin: Screen.name === "eDP-1" ? Screen.width * 0.85 : Screen.width * 0.76
+        anchors.leftMargin: Screen.name === "eDP-1" ? Screen.width * 0.855 : Screen.width * 0.77
         anchors.fill: parent
         color: "transparent"
         Column {
@@ -69,7 +69,7 @@ Scope {
             id: day
             text: Time.day
             font.pointSize: rect.size
-            font.family: Theme.font.family.serif
+            font.family: Theme.font.family.handwritten
             font.bold: true
             font.italic: true
             color: Theme.color.fg
@@ -79,7 +79,7 @@ Scope {
             id: date
             text: Time.date
             font.pointSize: rect.size * 0.45
-            font.family: Theme.font.family.serif
+            font.family: Theme.font.family.handwritten
             font.bold: true
             font.italic: true
             color: Theme.color.fg

@@ -7,6 +7,5 @@ Block {
   color: "transparent"
   StyledText {
     text: Time.time
-    color: Theme.color.fg
   }
 }
