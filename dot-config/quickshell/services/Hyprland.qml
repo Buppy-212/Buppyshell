@@ -17,16 +17,21 @@ Singleton {
   readonly property string defaultTitle: Hyprland.activeToplevel?.title ?? "Desktop"
   property string title: defaultTitle
 
+  function reload() {
+    Hyprland.refreshWorkspaces();
+    Hyprland.refreshMonitors();
+    Hyprland.refreshToplevels();
+  }
+
   function overrideTitle(title: string): void {
     root.title = title;
   }
 
   function refreshTitle() {
+    root.title = root.defaultTitle;
     if (Hyprland.focusedWorkspace.toplevels.values.length == 0) {
       root.title = "Desktop";
-    } else {
-    root.title = root.defaultTitle;
-    }
+    } 
   }
 
   function dispatch(request: string): void {
@@ -37,10 +42,10 @@ Singleton {
     target: Hyprland
 
     function onRawEvent(event: HyprlandEvent): void {
-      root.title = defaultTitle;
-      if (Hyprland.workspaces.values[Hyprland.focusedMonitor?.activeWorkspace.id-1].lastIpcObject.windows == 0) {
-        root.title = "Desktop";
-      } 
+      if (!event.name.endsWith("v2")) {
+        root.reload();
+      }
+      root.refreshTitle()
     }
   }
 }
