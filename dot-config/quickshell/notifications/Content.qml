@@ -7,8 +7,8 @@ import "."
 Rectangle {
   id: rect
   required property var notification
-  implicitWidth: 420
-  implicitHeight: row.height > 60 ? row.height + 20 : 80
+  implicitWidth: Theme.notification.width
+  implicitHeight: row.height > Theme.notification.height - 20 ? row.height + 20 : Theme.notification.height
   color: Theme.color.bg
   radius: Theme.rounding
   border.width: Theme.border
@@ -17,20 +17,20 @@ Rectangle {
     id: row
     width: column.width
     height: column.height
-    spacing: 16
-    x: 16
+    spacing: Theme.notification.margin
+    x: Theme.notification.margin
     anchors.verticalCenter: parent.verticalCenter
     Image {
       source: Quickshell.iconPath(notification?.appIcon, "preferences-desktop-notification-bell")
-      width: 48
-      height: 48
+      width: Theme.notification.iconSize
+      height: Theme.notification.iconSize
       visible: notification === null ? false : true
       anchors.verticalCenter: column.verticalCenter
     }
     Column {
       id: column
-      width: image.visible ? 300 : 250
-      height: (summary.height + body.height) *1.05
+      width: image.visible ? Theme.notification.width - (2 * Theme.notification.iconSize) : Theme.notification.width - Theme.notification.iconSize
+      height: summary.height + body.height
       anchors.verticalCenter: parent.verticalCenter
       Text {
         id: summary
@@ -53,8 +53,8 @@ Rectangle {
     Image {
       id: image
       source: notification?.image ?? ""
-      width: 48
-      height: 48
+      width: Theme.notifiction.iconSize
+      height: Theme.notifiction.iconSize
       visible: source !== ""
       anchors.verticalCenter: column.verticalCenter
     }
@@ -65,10 +65,10 @@ Rectangle {
     drag.target: parent;
     drag.axis: "XAxis"
     drag.minimumX: 0
-    drag.maximumX: 450
+    drag.maximumX: Theme.notification.sidebarWidth
     drag.filterChildren: true
     onReleased:{
-      rect.x = 450
+      rect.x = Theme.notification.sidebarWidth
       notification.actions?.invoke()
     }
   }

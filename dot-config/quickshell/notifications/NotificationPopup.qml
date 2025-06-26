@@ -1,6 +1,7 @@
 import Quickshell
 import Quickshell.Wayland
 import QtQuick
+import "root:/services"
 import "."
 
 PanelWindow {
@@ -11,8 +12,8 @@ PanelWindow {
     right: true
   }
   margins {
-    top: 2
-    right: 2
+    top: Theme.border
+    right: Theme.border
   }
   Timer {
     id: timeoutTimer

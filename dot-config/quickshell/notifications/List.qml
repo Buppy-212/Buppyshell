@@ -12,7 +12,7 @@ ListView {
   anchors.top: parent.top
   anchors.topMargin: Theme.border*4
   anchors.bottom: parent.bottom
-  width: parent.width - 25
+  width: Theme.notification.width
   anchors.horizontalCenter: parent.horizontalCenter
   model: notificationServer.trackedNotifications
   spacing: Theme.border*2

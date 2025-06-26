@@ -85,7 +85,7 @@ Item {
               property bool caught: false
               implicitSize: Theme.blockWidth - Theme.border
               Drag.active: mouseArea.drag.active
-              Drag.hotSpot: Qt.point(14,14)
+              Drag.hotSpot: Qt.point(implicitSize/2,implicitSize/2)
               source: {
                 if (modelData.workspace?.id === workspaceCell.index + 1) {
                   visible = true;

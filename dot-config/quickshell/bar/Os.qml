@@ -14,8 +14,8 @@ Rectangle {
   radius: Theme.rounding
   Image {
     fillMode: Image.PreserveAspectCrop
-    sourceSize.width: 22
-    sourceSize.height: 22
+    sourceSize.width: Theme.blockHeight - Theme.border
+    sourceSize.height: Theme.blockHeight - Theme.border
     anchors.centerIn: parent
     source: Qt.resolvedUrl("root:/assets/archlinux.svg")
   }

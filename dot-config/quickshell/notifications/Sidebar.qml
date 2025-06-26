@@ -28,7 +28,7 @@ Scope {
       }
       color: "transparent"
       exclusiveZone: 0
-      implicitWidth: 440
+      implicitWidth: Theme.notification.sidebarWidth
       Rectangle {
         radius: Theme.rounding
         color: Theme.color.black
