@@ -8,7 +8,6 @@
 - [x] Battery
 - [x] Tray
 - [x] Updates
-- [ ] Popouts
 - [ ] Toggles (gamemode, idle)
 - [ ] Idle inhibitor
 - [x] Volume
@@ -71,4 +70,5 @@ Updates
 Brightness
 
 - brightnessctl
+- dductl
 - hyprsunset
