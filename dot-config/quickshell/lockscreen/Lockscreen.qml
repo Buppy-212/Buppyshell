@@ -52,7 +52,7 @@ Scope {
             anchors.horizontalCenter: parent.horizontalCenter
             color: Theme.color.fg
             font.pointSize: Theme.font.size.huge
-            font.family: Theme.font.sans
+            font.family: Theme.font.family.sans
             font.bold: true
           }
           Column {
