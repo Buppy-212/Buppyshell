@@ -85,7 +85,7 @@ Item {
               }
               states: State {
                 when: mouseArea.drag.active
-                ParentChange { target: image; parent: column }
+                ParentChange { target: image; parent: dragArea }
               }
               MouseBlock {
                 id: mouseArea
@@ -119,5 +119,9 @@ Item {
         }
       }
     }
+  }
+  Item {
+    id: dragArea
+    anchors.centerIn: parent
   }
 }
