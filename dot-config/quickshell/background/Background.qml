@@ -29,13 +29,13 @@ Scope {
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.leftMargin: Theme.blockWidth
-        size: Theme.rounding*1.5
+        size: Theme.rounding + 4
         corner: cornerEnum.bottomLeft
       }
       RoundCorner {
         anchors.bottom: parent.bottom
         anchors.right: parent.right
-        size: Theme.rounding*1.5
+        size: Theme.rounding + 4
         corner: cornerEnum.bottomRight
       }
       RoundCorner {
@@ -43,14 +43,14 @@ Scope {
         anchors.left: parent.left
         anchors.topMargin: Theme.blockHeight
         anchors.leftMargin: Theme.blockWidth
-        size: Theme.rounding*1.5
+        size: Theme.rounding + 4
         corner: cornerEnum.topLeft
       }
       RoundCorner {
         anchors.top: parent.top
         anchors.right: parent.right
         anchors.topMargin: Theme.blockHeight
-        size: Theme.rounding*1.5
+        size: Theme.rounding + 4
         corner: cornerEnum.topRight
       }
       Date {}
