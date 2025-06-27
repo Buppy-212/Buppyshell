@@ -40,7 +40,7 @@
 ## Wallpaper
 
 - [x] Display Wallpaper
-- [ ] Switch Wallpaper
+- [?] Switch Wallpaper (very buggy)
 - [ ] Video Wallpaper
 - [x] Date Widget
 
