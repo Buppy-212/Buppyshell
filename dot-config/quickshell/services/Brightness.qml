@@ -27,7 +27,22 @@ Singleton {
       }
     }
   }
-  function update(): void {
-    brightnessProc.running = true;
+  SocketServer {
+    active: true
+    path: "/tmp/brightness.sock"
+    handler: Socket {
+      parser: SplitParser {
+        onRead: message => {root.brightness = message / 2.55; connected = false}
+      }
+    }
+  }
+  SocketServer {
+    active: true
+    path: "/tmp/nightlight.sock"
+    handler: Socket {
+      parser: SplitParser {
+        onRead: message => {root.nightlight = message; connected = false}
+      }
+    }
   }
 }

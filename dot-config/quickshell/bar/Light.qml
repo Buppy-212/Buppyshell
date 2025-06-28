@@ -7,7 +7,7 @@ import "."
 Block {
   property bool nightlight: Brightness.nightlight
   Text {
-    text: mouse.containsMouse ? Brightness.brightness : nightlight ? "bedtime" : "light_mode"
+    text: mouse.containsMouse ? Brightness.brightness : Brightness.nightlight ? "bedtime" : "light_mode"
     color: Theme.color.yellow
     font.family: mouse.containsMouse ? Theme.font.family.mono : Theme.font.family.material
     font.pointSize: mouse.containsMouse ? Theme.font.size.normal : Theme.font.size.large
@@ -17,28 +17,27 @@ Block {
   MouseBlock {
     id: mouse
     readonly property var up: Process {
-      command: ["brightnessctl", "-q", "set", "+5%"]
+      command: ["brightness", "up"]
     }
     readonly property var down: Process {
-      command: ["brightnessctl", "-q", "set", "5%-"]
+      command: ["brightness", "down"]
     }
     readonly property var monitor: Process {
       command: ["ddcutil", "setvcp", "10", Brightness.brightness]
     }
     readonly property var filterOn: Process {
-      command: ["uwsm", "app", "--", "hyprsunset", "-t", "2500"]
+      command: ["brightness", "filterOn"]
     }
     readonly property var filterOff: Process {
-      command: ["pkill", "hyprsunset"]
+      command: ["brightness", "filterOff"]
     }
-    onEntered: Brightness.update()
     onClicked: (mouse) => {
       if (mouse.button == Qt.LeftButton) {
-        nightlight = !nightlight;
-        if (nightlight) {
-          filterOn.startDetached()
-        } else {
+        console.log(Brightness.nightlight)
+        if (Brightness.nightlight) {
           filterOff.startDetached()
+        } else {
+          filterOn.startDetached()
         }
       } else
       monitor.startDetached()
@@ -46,13 +45,10 @@ Block {
     onWheel: (wheel) => {
       if (wheel.angleDelta.y > 0) {
         up.startDetached()
-        Brightness.update()
       } else {
         down.startDetached()
-        Brightness.update()
       }
     }
   }
 }
-
 

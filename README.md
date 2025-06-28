@@ -41,7 +41,6 @@
 
 - [x] Display Wallpaper
 - [x] Switch Wallpaper
-- [ ] Video Wallpaper
 - [x] Date Widget
 
 ## Border
