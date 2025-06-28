@@ -55,6 +55,7 @@ Variants {
           id: bottomBlocks
           Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
           Volume {}
+          Inhibitor {}
           Battery {}
           Light {}
           Update {}

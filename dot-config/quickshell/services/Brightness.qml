@@ -8,7 +8,6 @@ Singleton {
   property int brightness
   property bool nightlight
   Process {
-    id: brightnessProc
     command: ["brightnessctl", "g"]
     running: true
     stdout: StdioCollector {
@@ -16,7 +15,6 @@ Singleton {
     }
   }
   Process {
-    id: nightlightProc
     command: ["pidof", "hyprsunset"]
     running: true
     stdout: StdioCollector {

@@ -1,11 +1,11 @@
 import Quickshell
 import Quickshell.Io
+import Quickshell.Hyprland
 import QtQuick
 import "root:/services"
 import "."
 
 Block {
-  property bool nightlight: Brightness.nightlight
   Text {
     text: mouse.containsMouse ? Brightness.brightness : Brightness.nightlight ? "bedtime" : "light_mode"
     color: Theme.color.yellow
@@ -49,6 +49,12 @@ Block {
         down.startDetached()
       }
     }
+  }
+  GlobalShortcut {
+    name: "nightlight"
+    description: "Toggles nightlight"
+    appid: "buppyshell"
+    onPressed: Brightness.nightlight ? mouse.filterOff.startDetached() : mouse.filterOn.startDetached()
   }
 }
 
