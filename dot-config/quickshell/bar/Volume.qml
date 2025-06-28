@@ -14,7 +14,7 @@ Block {
     objects: [defaultSink]
   }
   StyledText {
-    text: defaultSink?.audio.muted ? "" : defaultSink?.audio.volume === 1 ? "" : Math.round(defaultSink?.audio.volume * 100)
+    text: defaultSink?.audio.muted || defaultSink?.audio.volume == 0 ? "" : defaultSink?.audio.volume == 1 ? "" : Math.round(defaultSink?.audio.volume * 100)
     color: Theme.color.blue
   }
   MouseBlock {
