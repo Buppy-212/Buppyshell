@@ -23,7 +23,7 @@ Scope {
         id: image
         anchors.fill: parent
         fillMode: Image.PreserveAspectCrop
-        source: Theme.wallpaper
+        source: Wallpaper.path || Theme.wallpaper
       }
       RoundCorner {
         anchors.bottom: parent.bottom
