@@ -29,7 +29,7 @@ Scope {
     Rectangle {
       anchors.fill: parent
       color: Theme.color.black
-      radius: Theme.rounding
+      radius: Theme.rounding * 4
       height: parent.height
       width: parent.width * 0.8
       Row {
