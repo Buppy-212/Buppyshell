@@ -48,7 +48,7 @@ Scope {
           id: slider
           anchors.verticalCenter: parent.verticalCenter
           live: false
-          height: parent.height / 4
+          height: text.height / 2
           width: parent.width - text.width * 2
           from: 0
           to: 100
