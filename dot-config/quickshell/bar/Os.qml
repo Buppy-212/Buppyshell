@@ -1,4 +1,5 @@
 import Quickshell
+import Quickshell.Widgets
 import Quickshell.Io
 import QtQuick
 import "root:/services"
@@ -9,10 +10,8 @@ Block {
   readonly property var process: Process {
     command: ["rofi", "-show", "drun", "-config", "~/.config/rofi/menu.rasi"]
   }
-  Image {
-    fillMode: Image.PreserveAspectCrop
-    sourceSize.width: Theme.blockHeight - Theme.border
-    sourceSize.height: Theme.blockHeight - Theme.border
+  IconImage {
+    implicitSize: Theme.blockHeight - Theme.border
     anchors.centerIn: parent
     source: Qt.resolvedUrl("root:/assets/archlinux.svg")
   }
