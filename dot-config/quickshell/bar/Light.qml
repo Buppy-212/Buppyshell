@@ -16,45 +16,19 @@ Block {
   }
   MouseBlock {
     id: mouse
-    readonly property var up: Process {
-      command: ["brightness", "up"]
-    }
-    readonly property var down: Process {
-      command: ["brightness", "down"]
-    }
-    readonly property var monitor: Process {
-      command: ["ddcutil", "setvcp", "10", Brightness.brightness]
-    }
-    readonly property var filterOn: Process {
-      command: ["brightness", "filterOn"]
-    }
-    readonly property var filterOff: Process {
-      command: ["brightness", "filterOff"]
-    }
     onClicked: (mouse) => {
       if (mouse.button == Qt.LeftButton) {
-        console.log(Brightness.nightlight)
-        if (Brightness.nightlight) {
-          filterOff.startDetached()
-        } else {
-          filterOn.startDetached()
-        }
+        Brightness.toggleNightlight()
       } else
-      monitor.startDetached()
+      Brightness.monitor()
     }
     onWheel: (wheel) => {
       if (wheel.angleDelta.y > 0) {
-        up.startDetached()
+        Brightness.inc()
       } else {
-        down.startDetached()
+        Brightness.dec()
       }
     }
-  }
-  GlobalShortcut {
-    name: "nightlight"
-    description: "Toggles nightlight"
-    appid: "buppyshell"
-    onPressed: Brightness.nightlight ? mouse.filterOff.startDetached() : mouse.filterOn.startDetached()
   }
 }
 

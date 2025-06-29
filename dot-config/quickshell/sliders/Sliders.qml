@@ -20,6 +20,7 @@ Scope {
   PanelWindow {
     WlrLayershell.layer: WlrLayer.Overlay
     WlrLayershell.namespace: "buppyshell:slider"
+    exclusionMode: ExclusionMode.Ignore
     anchors.bottom: true
     margins.bottom: implicitHeight / 2
     visible: root.visible
