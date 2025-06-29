@@ -2,28 +2,39 @@ pragma Singleton
 
 import Quickshell
 import Quickshell.Io
+import Quickshell.Hyprland
 
 Singleton {
   id: root
   property bool active
   Process {
+    id: inhibitorOff
+    command: ["systemctl", "--user", "start", "hypridle"]
+  }
+  Process {
+    id: inhibitorOn
+    command: ["systemctl", "--user", "stop", "hypridle"]
+  }
+  Process {
     command: ["pidof", "hypridle"]
     running: true
     stdout: StdioCollector {
-      onStreamFinished: if (text) {
-        root.active = true;
-      } else {
-        root.active = false;
-      }
+      onStreamFinished: root.active = text
     }
   }
-  SocketServer {
-    active: true
-    path: "/tmp/inhibitor.sock"
-    handler: Socket {
-      parser: SplitParser {
-        onRead: message => {root.active = message; connected = false}
-      }
-    }
+  function toggleInhibitor(): void {
+    root.active ? inhibitorOn.startDetached() : inhibitorOff.startDetached()
+    root.active = !root.active
+  }
+
+  function inhibitorOn(): void {
+    inhibitorOn.startDetached()
+  }
+
+  GlobalShortcut {
+    name: "inhibitor"
+    description: "Toggle idle inhibitor"
+    appid: "buppyshell"
+    onPressed: root.toggleInhibitor()
   }
 }

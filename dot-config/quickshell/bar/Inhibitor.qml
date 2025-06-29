@@ -15,24 +15,6 @@ Block {
   }
   MouseBlock {
     id: mouse
-    readonly property var inhibitorOff: Process {
-      command: ["inhibitor", "off"]
-    }
-    readonly property var inhibitorOn: Process {
-      command: ["inhibitor", "on"]
-    }
-    onClicked: {
-      if (Idle.active) {
-        inhibitorOn.startDetached()
-      } else {
-        inhibitorOff.startDetached()
-      }
-    }
-  }
-  GlobalShortcut {
-    name: "inhibitor"
-    description: "Toggle idle inhibitor"
-    appid: "buppyshell"
-    onPressed: Idle.active ? mouse.inhibitorOn.startDetached() : mouse.inhibitorOff.startDetached()
+    onClicked: Idle.toggleInhibitor()
   }
 }
