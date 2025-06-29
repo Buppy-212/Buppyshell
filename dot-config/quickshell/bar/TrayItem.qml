@@ -3,7 +3,6 @@ pragma ComponentBehavior: Bound
 import Quickshell
 import Quickshell.Widgets
 import Quickshell.Services.SystemTray
-import QtQuick
 import "root:/services"
 import "."
 

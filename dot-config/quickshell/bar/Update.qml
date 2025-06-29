@@ -12,24 +12,18 @@ Block {
   }
   visible: Updates.updates == 0 ? false : true
   implicitHeight: mouse.containsMouse ? Theme.blockHeight*2 : Theme.blockHeight
-  Text{
+  StyledText{
     text: `${Updates.updates}`
+    anchors.centerIn: undefined
     anchors.top: root.top
     anchors.horizontalCenter: root.horizontalCenter
-    font.bold: true
-    font.pointSize: Theme.font.size.normal
-    font.family: Theme.font.family.mono
-    color: Theme.color.fg
     visible: mouse.containsMouse
   }
-  Text{
+  SymbolText{
     text: "system_update_alt"
+    anchors.centerIn: undefined
     anchors.bottom: root.bottom
     anchors.horizontalCenter: root.horizontalCenter
-    font.bold: true
-    font.pointSize: Theme.font.size.normal
-    font.family: Theme.font.family.material
-    color: Theme.color.fg
   }
   MouseBlock {
     id: mouse

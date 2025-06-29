@@ -1,16 +1,10 @@
 import Quickshell
-import QtQuick
 import "root:/services"
 import "."
 
 Block {
-  Text{
+  SymbolText{
     text: "notifications"
-    color: Theme.color.fg
-    font.family: Theme.font.family.material
-    font.pointSize: Theme.font.size.large
-    font.bold: true
-    anchors.centerIn: parent
   }
   MouseBlock {
     id: mouse

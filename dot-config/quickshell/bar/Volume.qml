@@ -1,7 +1,6 @@
 import Quickshell.Services.Pipewire
 import Quickshell
 import Quickshell.Io
-import QtQuick
 import "root:/services"
 import "."
 

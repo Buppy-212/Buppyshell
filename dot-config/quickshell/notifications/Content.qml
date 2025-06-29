@@ -1,7 +1,6 @@
 import Quickshell
 import Quickshell.Widgets
 import QtQuick
-import Quickshell.Services.Notifications
 import "root:/services"
 import "."
 

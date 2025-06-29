@@ -1,7 +1,6 @@
 import Quickshell
 import Quickshell.Widgets
 import Quickshell.Io
-import QtQuick
 import "root:/services"
 import "."
 
