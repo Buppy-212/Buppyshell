@@ -15,7 +15,7 @@ Singleton {
   property QtObject animation
   property QtObject animationCurves
   readonly property Notification notification: Notification {}
-  readonly property url wallpaper: "file://home/will/Pictures/Wallpapers/Frieren.png"
+  readonly property url wallpaper: "root:/assets/wallpaper"
 
   component Notification: QtObject {
     readonly property int width: 420
