@@ -9,8 +9,8 @@ import "root:/services"
 Scope {
   id: root
   property bool visible: false
-  required property int input
   required property bool isVolume
+  readonly property int input: isVolume ? Pipewire.defaultAudioSink?.audio.volume * 100 : Brightness.brightness
   Timer {
     id: timer
     interval: 2000
@@ -80,7 +80,6 @@ Scope {
     onPressed: {
       root.visible = true;
       timer.restart();
-      root.input = Pipewire.defaultAudioSink?.audio.volume * 100;
       root.isVolume = true;
     }
   }
@@ -91,7 +90,6 @@ Scope {
     onPressed: {
       root.visible = true;
       timer.restart();
-      root.input = Brightness.brightness;
       root.isVolume = false;
     }
   }
