@@ -30,7 +30,7 @@ Scope {
     implicitWidth: Screen.width / 10
     Rectangle {
       anchors.fill: parent
-      color: "#aa222436"
+      color: Theme.color.black
       radius: Theme.rounding
       height: parent.height
       width: parent.width * 0.8
