@@ -6,14 +6,21 @@ import Quickshell.Hyprland
 
 Singleton {
   id: root
-  property string path
-  SocketServer {
-    active: true
-    path: "/tmp/wallpaper.sock"
-    handler: Socket {
-      parser: SplitParser {
-        onRead: message => {root.path = "file:/" + message; connected = false}
+  property url path
+  Process {
+    id: get
+    command: ["readlink", "-n", `${Quickshell.env("XDG_STATE_HOME")}/wallpaper`]
+    running: true
+    stdout: StdioCollector {
+      onStreamFinished: {
+        root.path = "file:/" + text
       }
     }
+  }
+  GlobalShortcut {
+    name: "wallpaper"
+    description: "Refresh wallpaper"
+    appid: "buppyshell"
+    onPressed: get.running = true
   }
 }

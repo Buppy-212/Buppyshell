@@ -15,7 +15,7 @@ Scope {
         id: image
         anchors.fill: parent
         fillMode: Image.PreserveAspectCrop
-        source: Wallpaper.path || Theme.wallpaper
+        source: Wallpaper.path
       }
       Date {}
       PamContext {
