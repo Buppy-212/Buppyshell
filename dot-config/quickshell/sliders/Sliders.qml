@@ -8,10 +8,9 @@ import "root:/services"
 
 Scope {
   id: root
-  property bool visible: true
-  property int input: Pipewire.defaultAudioSink?.audio.volume * 100
-  property bool muted: Pipewire.defaultAudioSink?.audio.muted
-  property bool isVolume: true
+  property bool visible: false
+  required property int input
+  required property bool isVolume
   Timer {
     id: timer
     interval: 2000
@@ -19,9 +18,8 @@ Scope {
     onTriggered: root.visible = !root.visible
   }
   PanelWindow {
-    WlrLayershell.layer: WlrLayer.overlay
+    WlrLayershell.layer: WlrLayer.Overlay
     WlrLayershell.namespace: "buppyshell:slider"
-    exclusionMode: ExclusionMode.ignore
     anchors.bottom: true
     margins.bottom: implicitHeight / 2
     visible: root.visible
@@ -41,7 +39,7 @@ Scope {
         Text {
           id: text
           anchors.verticalCenter: parent.verticalCenter
-          text: isVolume ? muted || input == 0 ? "volume_off" : "volume_up" : "light_mode"
+          text: isVolume ? Pipewire.defaultAudioSink.audio.muted || input == 0 ? "volume_off" : "volume_up" : "light_mode"
           font.family: Theme.font.family.material
           font.pointSize: Theme.font.size.large
           color: Theme.color.fg
