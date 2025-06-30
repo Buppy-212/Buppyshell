@@ -7,7 +7,7 @@ import "."
 Block {
   property PwNode defaultSink: Pipewire.defaultAudioSink
   readonly property var process: Process {
-    command: ["floatty", "pulsemixer"]
+    command: ["pavucontrol-qt"]
   }
   PwObjectTracker {
     objects: [defaultSink]
