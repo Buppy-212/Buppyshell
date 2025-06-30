@@ -7,7 +7,7 @@ import "."
 Block {
   id: root
   readonly property var process: Process {
-    command: ["rofi", "-show", "drun", "-config", "~/.config/rofi/menu.rasi"]
+    command: ["rofi-wrapper", "drun", "menu"]
   }
   IconImage {
     implicitSize: Theme.blockHeight - Theme.border

@@ -6,7 +6,7 @@ import "."
 Block {
   id: block
   readonly property var process: Process {
-    command: ["systemctl", "poweroff"]
+    command: ["rofi-wrapper", "power", "menu"]
   }
   SymbolText {
     text: "power_settings_new"
@@ -16,7 +16,6 @@ Block {
     id: mouse
     onClicked: {
       process.startDetached();
-      Qt.quit();
     }
   }
 }
