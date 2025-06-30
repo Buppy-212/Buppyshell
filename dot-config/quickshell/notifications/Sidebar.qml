@@ -38,7 +38,7 @@ Scope {
     }
   }
   GlobalShortcut {
-    name: "toggleSidebar"
+    name: "sidebar"
     description: "Toggle sidebar"
     appid: "buppyshell"
     onPressed: {

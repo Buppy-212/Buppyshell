@@ -12,7 +12,7 @@ Block {
       if (mouse.button == Qt.MiddleButton) {
         Hyprland.dispatch("global buppyshell:clearNotifs");
       } else {
-        Hyprland.dispatch("global buppyshell:toggleSidebar");
+        Hyprland.dispatch("global buppyshell:sidebar");
       }
     }
   }
