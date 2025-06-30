@@ -10,12 +10,8 @@ Singleton {
   property int brightness
   property bool nightlight
   Process {
-    id: up
-    command: ["brightnessctl", "-q", "s", "+5%"]
-  }
-  Process {
-    id: down
-    command: ["brightnessctl", "s", "5-%"]
+    id: set
+    command: ["brightnessctl", "-q", "s", `${root.brightness}%`]
   }
   Process {
     id: monitor
@@ -28,13 +24,6 @@ Singleton {
   Process {
     id: filterOff
     command: ["pkill", "hyprsunset"]
-  }
-
-  Timer {
-    id:timer
-    running: false
-    interval: 10
-    onTriggered: get.running = true
   }
 
   Process {
@@ -63,13 +52,21 @@ Singleton {
   }
 
   function inc(): void {
-    up.startDetached()
-    timer.running = true
+    if (root.brightness >= 95) {
+      root.brightness = 100
+    } else {
+      root.brightness += 5
+    }
+    set.startDetached()
   }
 
   function dec(): void {
-    down.startDetached()
-    timer.running = true
+    if (root.brightness <= 5) {
+      root.brightness = 0
+    } else {
+      root.brightness -= 5
+    }
+    set.startDetached()
   }
 
   function monitor(): void {
