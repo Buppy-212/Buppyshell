@@ -54,6 +54,7 @@ Scope {
           text: isVolume ? muted || input == 0 ? "volume_off" : "volume_up" : isMic ? micMuted || input == 0 ? "mic_off" : "mic" : "light_mode"
           font.family: Theme.font.family.material
           font.pointSize: Theme.font.size.large
+          font.bold: true
           color: Theme.color.fg
         }
         Slider {
