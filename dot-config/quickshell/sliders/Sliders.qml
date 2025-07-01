@@ -10,13 +10,18 @@ Scope {
   id: root
   property bool visible: false
   required property bool isVolume
+  required property bool isMic
   readonly property int brightness: Brightness.brightness
   readonly property int volume: Pipewire.defaultAudioSink?.audio.volume * 100
-  readonly property int muted: Pipewire.defaultAudioSink?.audio.muted
-  readonly property int input: isVolume ? volume : brightness
-  onBrightnessChanged: { visible = true; isVolume = false; timer.restart() }
-  onVolumeChanged: { visible = true; isVolume = true; timer.restart() }
-  onMutedChanged: { visible = true; isVolume = true; timer.restart() }
+  readonly property bool muted: Pipewire.defaultAudioSink?.audio.muted
+  readonly property int mic: Pipewire.defaultAudioSource?.audio.volume * 100
+  readonly property bool micMuted: Pipewire.defaultAudioSource?.audio.muted
+  readonly property int input: isVolume ? volume : isMic ? mic : brightness
+  onBrightnessChanged: { visible = true; isVolume = false; isMic = false; timer.restart() }
+  onVolumeChanged: { visible = true; isVolume = true; isMic = false; timer.restart() }
+  onMutedChanged: { visible = true; isVolume = true; isMic = false; timer.restart() }
+  onMicChanged: { visible = true; isVolume = false; isMic = true; timer.restart() }
+  onMicMutedChanged: { visible = true; isVolume = false; isMic = true; timer.restart() }
   Timer {
     id: timer
     interval: 2000
@@ -46,7 +51,7 @@ Scope {
         Text {
           id: text
           anchors.verticalCenter: parent.verticalCenter
-          text: isVolume ? Pipewire.defaultAudioSink.audio.muted || input == 0 ? "volume_off" : "volume_up" : "light_mode"
+          text: isVolume ? muted || input == 0 ? "volume_off" : "volume_up" : isMic ? micMuted || input == 0 ? "mic_off" : "mic" : "light_mode"
           font.family: Theme.font.family.material
           font.pointSize: Theme.font.size.large
           color: Theme.color.fg
@@ -68,7 +73,7 @@ Scope {
             Rectangle {
               width: slider.visualPosition * parent.width
               height: parent.height
-              color: isVolume ? Theme.color.blue : Theme.color.yellow
+              color: isVolume ? Theme.color.blue : isMic ? Theme.color.magenta : Theme.color.yellow
               radius: Theme.rounding
             }
           }

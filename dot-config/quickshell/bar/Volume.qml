@@ -6,11 +6,12 @@ import "."
 
 Block {
   property PwNode defaultSink: Pipewire.defaultAudioSink
+  property PwNode defaultSource: Pipewire.defaultAudioSource
   readonly property var process: Process {
     command: ["pavucontrol-qt"]
   }
   PwObjectTracker {
-    objects: [defaultSink]
+    objects: [defaultSink, defaultSource]
   }
   StyledText {
     text: defaultSink?.audio.muted || defaultSink?.audio.volume == 0 ? "" : defaultSink?.audio.volume == 1 ? "" : Math.round(defaultSink?.audio.volume * 100)
