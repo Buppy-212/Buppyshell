@@ -12,9 +12,11 @@ Scope {
   required property bool isVolume
   readonly property int brightness: Brightness.brightness
   readonly property int volume: Pipewire.defaultAudioSink?.audio.volume * 100
+  readonly property int muted: Pipewire.defaultAudioSink?.audio.muted
   readonly property int input: isVolume ? volume : brightness
   onBrightnessChanged: { visible = true; isVolume = false; timer.restart() }
   onVolumeChanged: { visible = true; isVolume = true; timer.restart() }
+  onMutedChanged: { visible = true; isVolume = true; timer.restart() }
   Timer {
     id: timer
     interval: 2000
