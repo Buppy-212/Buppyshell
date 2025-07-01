@@ -5,7 +5,7 @@ import "root:/services"
 Block {
   id: block
   readonly property var process: Process {
-    command: ["rofi-wrapper", "power", "menu"]
+    command: ["uwsm", "app", "--", "rofi-wrapper", "power", "menu"]
   }
   SymbolText {
     text: "power_settings_new"

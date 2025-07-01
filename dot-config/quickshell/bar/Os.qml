@@ -6,7 +6,7 @@ import "root:/services"
 Block {
   id: root
   readonly property var process: Process {
-    command: ["rofi-wrapper", "drun", "menu"]
+    command: ["uwsm", "app", "--", "rofi-wrapper", "drun", "menu"]
   }
   IconImage {
     implicitSize: Theme.blockHeight - Theme.border
