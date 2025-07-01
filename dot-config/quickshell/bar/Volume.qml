@@ -13,7 +13,7 @@ Block {
     objects: [Pipewire.defaultAudioSink, Pipewire.defaultAudioSource]
   }
   StyledText {
-    text: muted || volume == 0 ? "" : volume == 1 ? "" : volume
+    text: muted || volume == 0 ? "" : volume == 100 ? "" : volume
     color: Theme.color.blue
   }
   MouseBlock {
@@ -27,7 +27,11 @@ Block {
     }
     onWheel: (wheel) => {
       if (wheel.angleDelta.y > 0) {
-        Pipewire.defaultAudioSink.audio.volume += 0.05;
+        if (volume <= 95) {
+          Pipewire.defaultAudioSink.audio.volume += 0.05
+        } else {
+          Pipewire.defaultAudioSink.audio.volume = 1
+        }
       } else {
         Pipewire.defaultAudioSink.audio.volume -= 0.05;
       }
