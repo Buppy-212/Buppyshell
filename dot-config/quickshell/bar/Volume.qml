@@ -4,8 +4,8 @@ import Quickshell.Services.Pipewire
 import "root:/services"
 
 Block {
-  readonly property int volume: Pipewire.defaultAudioSink?.audio.volume * 100
-  readonly property bool muted: Pipewire.defaultAudioSink?.audio.muted
+  readonly property int volume: Pipewire.defaultAudioSink.audio.volume * 100
+  readonly property bool muted: Pipewire.defaultAudioSink.audio.muted
   readonly property var process: Process {
     command: ["uwsm", "app", "--", "pavucontrol-qt"]
   }
@@ -20,16 +20,16 @@ Block {
     id: mouse
     onClicked: (mouse) => {
       if (mouse.button == Qt.RightButton) {
-        defaultSink.audio.muted = !defaultSink.audio.muted;
+        Pipewire.defaultAudioSink.audio.muted = !Pipewire.defaultAudioSink.audio.muted;
       } else {
         process.startDetached()
       }
     }
     onWheel: (wheel) => {
       if (wheel.angleDelta.y > 0) {
-        defaultSink.audio.volume += 0.05;
+        Pipewire.defaultAudioSink.audio.volume += 0.05;
       } else {
-        defaultSink.audio.volume -= 0.05;
+        Pipewire.defaultAudioSink.audio.volume -= 0.05;
       }
     }
   }
