@@ -4,7 +4,6 @@ import Quickshell
 import Quickshell.Widgets
 import Quickshell.Services.SystemTray
 import "root:/services"
-import "."
 
 Block {
   id: root

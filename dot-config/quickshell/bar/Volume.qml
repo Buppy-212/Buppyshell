@@ -1,20 +1,19 @@
-import Quickshell.Services.Pipewire
 import Quickshell
 import Quickshell.Io
+import Quickshell.Services.Pipewire
 import "root:/services"
-import "."
 
 Block {
-  property PwNode defaultSink: Pipewire.defaultAudioSink
-  property PwNode defaultSource: Pipewire.defaultAudioSource
+  readonly property int volume: Pipewire.defaultAudioSink?.audio.volume * 100
+  readonly property bool muted: Pipewire.defaultAudioSink?.audio.muted
   readonly property var process: Process {
-    command: ["pavucontrol-qt"]
+    command: ["uwsm", "app", "--", "pavucontrol-qt"]
   }
   PwObjectTracker {
-    objects: [defaultSink, defaultSource]
+    objects: [Pipewire.defaultAudioSink, Pipewire.defaultAudioSource]
   }
   StyledText {
-    text: defaultSink?.audio.muted || defaultSink?.audio.volume == 0 ? "" : defaultSink?.audio.volume == 1 ? "" : Math.round(defaultSink?.audio.volume * 100)
+    text: muted || volume == 0 ? "" : volume == 1 ? "" : volume
     color: Theme.color.blue
   }
   MouseBlock {

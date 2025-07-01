@@ -1,7 +1,6 @@
 import Quickshell
 import Quickshell.Hyprland
 import Quickshell.Services.Notifications
-import "."
 
 Scope {
   Server {

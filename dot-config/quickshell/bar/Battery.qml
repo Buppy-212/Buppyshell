@@ -2,7 +2,6 @@ import Quickshell.Services.UPower
 import Quickshell
 import Quickshell.Io
 import "root:/services"
-import "."
 
 Block {
   readonly property var process: Process {

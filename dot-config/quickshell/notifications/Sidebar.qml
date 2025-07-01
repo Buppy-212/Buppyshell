@@ -3,7 +3,6 @@ import Quickshell.Hyprland
 import Quickshell.Wayland
 import QtQuick
 import "root:/services"
-import "."
 
 Scope {
   id: root

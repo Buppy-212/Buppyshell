@@ -1,6 +1,5 @@
 import Quickshell
 import "root:/services"
-import "."
 
 Block {
   SymbolText{

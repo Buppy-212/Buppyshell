@@ -1,5 +1,4 @@
 import "root:/services"
-import "."
 
 Block {
   implicitHeight: Theme.blockHeight*2

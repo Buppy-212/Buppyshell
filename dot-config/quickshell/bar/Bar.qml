@@ -2,7 +2,6 @@ import Quickshell
 import Quickshell.Wayland
 import QtQuick.Layouts
 import "root:/services"
-import "."
 
 Variants {
   model: Quickshell.screens
