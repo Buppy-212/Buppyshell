@@ -81,8 +81,7 @@ Item {
                   return Quickshell.iconPath("input-gaming");
                 } else if (modelData.wayland?.appId == ""){
                   return (Quickshell.iconpath("image-loading"))
-                }
-                else {
+                } else {
                   return Quickshell.iconPath(modelData.wayland?.appId.toLowerCase() ?? "image-loading", modelData.wayland?.appId);
                 }
               }
