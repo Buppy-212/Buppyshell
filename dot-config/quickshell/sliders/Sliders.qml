@@ -10,7 +10,11 @@ Scope {
   id: root
   property bool visible: false
   required property bool isVolume
-  readonly property int input: isVolume ? Pipewire.defaultAudioSink?.audio.volume * 100 : Brightness.brightness
+  readonly property int brightness: Brightness.brightness
+  readonly property int volume: Pipewire.defaultAudioSink?.audio.volume * 100
+  readonly property int input: isVolume ? volume : brightness
+  onBrightnessChanged: { visible = true; isVolume = false; timer.restart() }
+  onVolumeChanged: { visible = true; isVolume = true; timer.restart() }
   Timer {
     id: timer
     interval: 2000
@@ -71,26 +75,6 @@ Scope {
     }
     MouseArea {
       anchors.fill: parent
-    }
-  }
-  GlobalShortcut {
-    name: "volume"
-    description: "Toggle volume sidebar"
-    appid: "buppyshell"
-    onPressed: {
-      root.visible = true;
-      timer.restart();
-      root.isVolume = true;
-    }
-  }
-  GlobalShortcut {
-    name: "brightness"
-    description: "Toggle brightness sidebar"
-    appid: "buppyshell"
-    onPressed: {
-      root.visible = true;
-      timer.restart();
-      root.isVolume = false;
     }
   }
 }
