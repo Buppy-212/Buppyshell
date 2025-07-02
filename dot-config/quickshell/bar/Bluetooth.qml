@@ -22,6 +22,27 @@ ClippingRectangle {
     anchors.fill: parent
     anchors.topMargin: 1
     width: Theme.blockWidth - Theme.border
+    Block {
+      anchors.horizontalCenter: parent.horizontalCenter
+      implicitWidth: Theme.blockWidth - Theme.border
+      SymbolText {
+        id: text
+        text: Bluetooth.defaultAdapter?.enabled ? "bluetooth" : "bluetooth_disabled"
+        color: Theme.color.blue
+      }
+      MouseBlock {
+        id: mouse
+        onClicked: (mouse) => {
+          if (mouse.button == Qt.LeftButton) {
+            Hyprland.dispatch("exec uwsm app -- floatty bluetui");
+          } else if (mouse.button == Qt.MiddleButton) {
+            Bluetooth.defaultAdapter.enabled = !Bluetooth.defaultAdapter.enabled;
+          } else {
+            root.revealed = !root.revealed;
+          }
+        }
+      }
+    }
     Repeater {
       model: Bluetooth.devices
       delegate: Block {
@@ -51,27 +72,6 @@ ClippingRectangle {
             } else {
               Hyprland.overrideTitle(modelData.name);
             }
-          }
-        }
-      }
-    }
-    Block {
-      anchors.horizontalCenter: parent.horizontalCenter
-      implicitWidth: Theme.blockWidth - Theme.border
-      SymbolText {
-        id: text
-        text: Bluetooth.defaultAdapter?.enabled ? "bluetooth" : "bluetooth_disabled"
-        color: Theme.color.blue
-      }
-      MouseBlock {
-        id: mouse
-        onClicked: (mouse) => {
-          if (mouse.button == Qt.LeftButton) {
-            Hyprland.dispatch("exec uwsm app -- floatty bluetui");
-          } else if (mouse.button == Qt.MiddleButton) {
-            Bluetooth.defaultAdapter.enabled = !Bluetooth.defaultAdapter.enabled;
-          } else {
-            root.revealed = !root.revealed;
           }
         }
       }

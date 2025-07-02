@@ -44,7 +44,6 @@ Variants {
       Column {
         spacing: Theme.border
         anchors.bottom: parent.bottom
-        Bluetooth {}
         Volume {}
         Inhibitor {}
         Battery {}
@@ -52,6 +51,23 @@ Variants {
         Update {}
         Clock {}
         Power {}
+      }
+    }
+    PanelWindow {
+      screen: scope.modelData
+      WlrLayershell.namespace: "buppyshell:rightbar"
+      anchors {
+        top: true
+        right: true
+        bottom: true
+      }
+      implicitWidth: Theme.blockWidth
+      color: Theme.color.black
+      Column {
+        spacing: Theme.border
+        anchors.top: parent.top
+        anchors.topMargin: Theme.border
+        Bluetooth {}
       }
     }
   }
