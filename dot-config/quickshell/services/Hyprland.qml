@@ -29,7 +29,7 @@ Singleton {
 
   function refreshTitle() {
     root.title = root.defaultTitle;
-    if (Hyprland.focusedWorkspace.toplevels.values.length == 0) {
+    if (Hyprland.focusedWorkspace?.toplevels.values.length == 0) {
       root.title = "Desktop";
     }
   }

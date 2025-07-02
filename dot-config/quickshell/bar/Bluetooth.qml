@@ -27,7 +27,7 @@ ClippingRectangle {
       implicitWidth: Theme.blockWidth - Theme.border
       SymbolText {
         id: text
-        text: Bluetooth.defaultAdapter?.enabled ? "bluetooth" : "bluetooth_disabled"
+        text: Bluetooth.defaultAdapter?.enabled ?? Bluetooth.adapters.values[0]?.enabled ? "bluetooth" : "bluetooth_disabled"
         color: Theme.color.blue
       }
       MouseBlock {
