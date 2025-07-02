@@ -41,6 +41,7 @@ ClippingRectangle {
             root.revealed = !root.revealed;
           }
         }
+        onEntered: Hyprland.overrideTitle(Bluetooth.defaultAdapter.name)
       }
     }
     Repeater {
