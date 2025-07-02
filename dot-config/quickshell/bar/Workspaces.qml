@@ -25,25 +25,25 @@ Item {
         color: draggedOver | mouse.containsMouse ? Theme.color.gray : focused ? Theme.color.accent : occupied ? Theme.color.bgalt : "transparent"
         MouseBlock {
           onEntered: {
-            Hyprland.refreshTitle()
+            Hyprland.refreshTitle();
           }
         }
         DropArea {
           anchors.fill: parent
           onEntered: (drag) => { 
             drag.source.caught = true;
-            draggedOver = true
+            draggedOver = true;
           }
           onExited: { 
-            drag.source.caught = false 
-            draggedOver = false
+            drag.source.caught = false;
+            draggedOver = false;
           }
           onDropped: (drop) => {
-            draggedOver = false
+            draggedOver = false;
             if (drag.source.silent) {
-              Hyprland.dispatch(`movetoworkspacesilent ${modelData.id}, address:0x${drag.source.address}`)
+              Hyprland.dispatch(`movetoworkspacesilent ${modelData.id}, address:0x${drag.source.address}`);
             } else {
-              Hyprland.dispatch(`movetoworkspace ${modelData.id}, address:0x${drag.source.address}`)
+              Hyprland.dispatch(`movetoworkspace ${modelData.id}, address:0x${drag.source.address}`);
             }
           }
         }
@@ -69,8 +69,8 @@ Item {
             }
             MouseBlock {
               id: mouse
-              onClicked: if (!focused) { modelData.activate() }
-              onEntered: Hyprland.overrideTitle(`Workspace ${modelData.id}`)
+              onClicked: if (!focused) { modelData.activate(); }
+              onEntered: Hyprland.overrideTitle(`Workspace ${modelData.id}`);
             }
           }
           Repeater {
@@ -101,24 +101,24 @@ Item {
                 id: mouseArea
                 drag.target: parent
                 onEntered: {
-                  Hyprland.overrideTitle(modelData.title)
+                  Hyprland.overrideTitle(modelData.title);
                 }
                 onClicked: (mouse) => {
                   if (mouse.button == Qt.LeftButton) {
-                    Hyprland.dispatch(`focuswindow address:0x${address}`)
+                    Hyprland.dispatch(`focuswindow address:0x${address}`);
                   } else if (mouse.button == Qt.MiddleButton) {
-                    modelData.wayland.close()
+                    modelData.wayland.close();
                   } else {
-                    Hyprland.dispatch(`movetoworkspace ${Hyprland.focusedWorkspace.id}, address:0x${address}`)
+                    Hyprland.dispatch(`movetoworkspace ${Hyprland.focusedWorkspace.id}, address:0x${address}`);
                   }
                 }
                 onReleased: (mouse) => {
                   if (mouse.button == Qt.RightButton) {
-                    parent.silent = false
+                    parent.silent = false;
                   } else {
-                    parent.silent = true
+                    parent.silent = true;
                   }
-                  parent.Drag.drop()
+                  parent.Drag.drop();
                 }
               }
             }

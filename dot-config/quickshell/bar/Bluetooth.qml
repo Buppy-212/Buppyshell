@@ -15,7 +15,7 @@ ClippingRectangle {
   }
   MouseBlock {
     onEntered: {
-      Hyprland.refreshTitle()
+      Hyprland.refreshTitle();
     }
   }
   Column {
@@ -33,11 +33,11 @@ ClippingRectangle {
           id: mouse
           onClicked: (mouse) => {
             if (mouse.button == Qt.LeftButton) {
-              Hyprland.dispatch("exec uwsm app -- floatty bluetui")
+              Hyprland.dispatch("exec uwsm app -- floatty bluetui");
             } else if (mouse.button == Qt.MiddleButton) {
-              Bluetooth.defaultAdapter.enabled = !Bluetooth.defaultAdapter.enabled
+              Bluetooth.defaultAdapter.enabled = !Bluetooth.defaultAdapter.enabled;
             } else {
-              root.revealed = !root.revealed
+              root.revealed = !root.revealed;
             }
           }
         }
@@ -62,14 +62,14 @@ ClippingRectangle {
             id: mouse
             onClicked: (mouse) => {
               if (mouse.button == Qt.LeftButton) {
-                modelData.connected ? modelData.disconnect() : modelData.connect()
+                modelData.connected ? modelData.disconnect() : modelData.connect();
               }
             }
             onEntered: {
               if (modelData.batteryAvailable) {
-                Hyprland.overrideTitle(`${modelData.name}${modelData.battery*100}%`)
+                Hyprland.overrideTitle(`${modelData.name}${modelData.battery*100}%`);
               } else {
-                Hyprland.overrideTitle(modelData.name)
+                Hyprland.overrideTitle(modelData.name);
               }
             }
           }

@@ -7,6 +7,6 @@ Block {
   }
   MouseBlock {
     id: mouse
-    onClicked: Idle.toggleInhibitor()
+    onClicked: Idle.toggleInhibitor();
   }
 }

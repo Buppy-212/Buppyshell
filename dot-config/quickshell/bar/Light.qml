@@ -11,15 +11,16 @@ Block {
     id: mouse
     onClicked: (mouse) => {
       if (mouse.button == Qt.LeftButton) {
-        Brightness.toggleNightlight()
-      } else
-      Brightness.monitor()
+        Brightness.toggleNightlight();
+      } else {
+        Brightness.monitor();
+      }
     }
     onWheel: (wheel) => {
       if (wheel.angleDelta.y > 0) {
-        Brightness.inc()
+        Brightness.inc();
       } else {
-        Brightness.dec()
+        Brightness.dec();
       }
     }
   }

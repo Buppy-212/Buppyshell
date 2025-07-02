@@ -1,14 +1,9 @@
 import Quickshell
-import Quickshell.Io
 import QtQuick
 import "root:/services"
 
 Block {
   id: root
-  property bool hovered: false
-  readonly property var process: Process {
-    command: ["floatty", "update"]
-  }
   visible: Updates.updates == 0 ? false : true
   implicitHeight: mouse.containsMouse ? Theme.blockHeight*2 : Theme.blockHeight
   StyledText{
@@ -26,7 +21,7 @@ Block {
   }
   MouseBlock {
     id: mouse
-    onClicked: process.startDetached();
+    onClicked: Hyprland.dispatch("uwsm app -- kitten quick_access_terminal update");
   }
   Behavior on implicitHeight {
     animation: Theme.animation.elementMove.numberAnimation.createObject(this)

@@ -57,8 +57,8 @@ Rectangle {
     drag.maximumX: Theme.notification.sidebarWidth
     drag.filterChildren: true
     onReleased:{
-      rect.x = Theme.notification.sidebarWidth
-      notification.actions?.invoke()
+      rect.x = Theme.notification.sidebarWidth;
+      notification.actions?.invoke();
     }
   }
   Behavior on x {
@@ -68,8 +68,8 @@ Rectangle {
       easing.bezierCurve: Theme.animation.elementMoveExit.bezierCurve
       onRunningChanged: {
         if (!running) {
-          x = 0
-          notification?.dismiss()
+          x = 0;
+          notification?.dismiss();
         }
       }
     }

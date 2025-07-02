@@ -1,13 +1,9 @@
 import Quickshell
 import Quickshell.Widgets
-import Quickshell.Io
 import "root:/services"
 
 Block {
   id: root
-  readonly property var process: Process {
-    command: ["uwsm", "app", "--", "rofi-wrapper", "drun", "menu"]
-  }
   IconImage {
     implicitSize: Theme.blockHeight - Theme.border
     anchors.centerIn: parent
@@ -15,6 +11,6 @@ Block {
   }
   MouseBlock {
     id: mouse
-    onClicked: process.startDetached() 
+    onClicked: Hyprland.dispatch("exec uwsm app -- rofi-wrapper drun menu");
   }
 }
