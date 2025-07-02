@@ -13,7 +13,7 @@ Scope {
   required property bool isMic
   readonly property int brightness: Brightness.brightness
   readonly property int volume: Pipewire.defaultAudioSink?.audio.volume * 100
-  readonly property bool muted: Pipewire.defaultAudioSink?.audio.muted
+  readonly property bool muted: Pipewire.defaultAudioSink?.audio.muted ?? false
   readonly property int mic: Pipewire.defaultAudioSource?.audio.volume * 100
   readonly property bool micMuted: Pipewire.defaultAudioSource?.audio.muted
   readonly property int input: isVolume ? volume : isMic ? mic : brightness
