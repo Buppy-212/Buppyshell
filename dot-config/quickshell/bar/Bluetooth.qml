@@ -33,11 +33,11 @@ ClippingRectangle {
           id: mouse
           onClicked: (mouse) => {
             if (mouse.button == Qt.LeftButton) {
-              root.revealed = !root.revealed
+              Hyprland.dispatch("exec uwsm app -- floatty bluetui")
             } else if (mouse.button == Qt.MiddleButton) {
               Bluetooth.defaultAdapter.enabled = !Bluetooth.defaultAdapter.enabled
             } else {
-              Hyprland.dispatch("exec uwsm app -- floatty bluetui")
+              root.revealed = !root.revealed
             }
           }
         }
