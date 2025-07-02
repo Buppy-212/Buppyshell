@@ -7,6 +7,7 @@ import "root:/services"
 
 Block {
   id: root
+  height: Theme.blockHeight - 2
   required property SystemTrayItem modelData
   MouseBlock {
     id: mouse
@@ -17,11 +18,18 @@ Block {
         menu.open();
       }
     }
+    onEntered: {
+      if (modelData.tooltipTitle) {
+        Hyprland.overrideTitle(modelData.tooltipTitle)
+      } else {
+        Hyprland.overrideTitle(modelData.title)
+      }
+    }
     QsMenuAnchor {
       id: menu
       menu: root.modelData.menu
       anchor.window: bar
-      anchor.rect.x: root.x + bar.width
+      anchor.rect.x: root.x
       anchor.rect.y: root.y
       anchor.rect.height: root.height
       anchor.edges: Edges.Bottom

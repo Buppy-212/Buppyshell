@@ -7,11 +7,15 @@ Item {
   readonly property Repeater items: items
   clip: true
   visible: width > 0 && height > 0
-  implicitWidth: layout.implicitWidth
-  implicitHeight: layout.implicitHeight
+  implicitWidth: layout.implicitWidth + 2
+  implicitHeight: Theme.blockHeight
+  MouseBlock {
+    onEntered: Hyprland.refreshTitle()
+  }
   Row {
     id: layout
-    spacing: Theme.border*2
+    anchors.centerIn: parent
+    height: Theme.blockHeight - 2
     Repeater {
       id: items
       model: SystemTray.items
