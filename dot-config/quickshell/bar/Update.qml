@@ -21,7 +21,7 @@ Block {
   }
   MouseBlock {
     id: mouse
-    onClicked: Hyprland.dispatch("uwsm app -- kitten quick_access_terminal update");
+    onClicked: Hyprland.dispatch("exec uwsm app -- kitten quick_access_terminal update")
   }
   Behavior on implicitHeight {
     animation: Theme.animation.elementMove.numberAnimation.createObject(this)
