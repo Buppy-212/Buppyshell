@@ -29,7 +29,7 @@ Block {
       id: menu
       menu: root.modelData.menu
       anchor.window: bar
-      anchor.rect.x: root.x
+      anchor.rect.x: bar.width - layout.width + root.x
       anchor.rect.y: root.y
       anchor.rect.height: root.height
       anchor.edges: Edges.Bottom

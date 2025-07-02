@@ -63,11 +63,11 @@ Variants {
       }
       implicitHeight: Theme.blockHeight
       color: Theme.color.black
-      Tray {anchors.left: parent.left}
       Title { anchors.centerIn: parent }
       Row {
         id: rightBlocks
         anchors.right: parent.right
+        Tray {}
       }
     }
   }

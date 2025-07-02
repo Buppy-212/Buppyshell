@@ -14,5 +14,6 @@ Rectangle {
     width: parent.width
     horizontalAlignment: Text.AlignHCenter
     elide: Text.ElideRight
+    maximumLineCount: 1
   }
 }
