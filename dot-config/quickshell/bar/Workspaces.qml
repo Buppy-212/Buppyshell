@@ -9,7 +9,7 @@ Item {
   height: column.height
   Column {
     id: column
-    spacing: Theme.border*2
+    spacing: 4
     width: Theme.blockWidth
     Repeater {
       model: Hyprland.workspaces
@@ -19,10 +19,15 @@ Item {
         property bool draggedOver: false
         property bool occupied: modelData.toplevels.values.length > 0
         property bool focused: modelData.focused
-        height: modelData.toplevels.values.length * Theme.blockWidth + width
-        width: Theme.blockWidth - Theme.border
+        height: modelData.toplevels.values.length * (Theme.blockWidth - 4) + Theme.blockWidth
+        width: Theme.blockWidth - 2
         radius: Theme.rounding
         color: draggedOver | mouse.containsMouse ? Theme.color.gray : focused ? Theme.color.accent : occupied ? Theme.color.bgalt : "transparent"
+        MouseBlock {
+          onEntered: {
+            Hyprland.refreshTitle()
+          }
+        }
         DropArea {
           anchors.fill: parent
           onEntered: (drag) => { 
@@ -49,11 +54,13 @@ Item {
           animation: Theme.animation.elementMove.numberAnimation.createObject(this)
         }
         Column {
-          spacing: Theme.border
           width: workspaceCell.width
+          anchors.margins: 2
+          anchors.fill: parent
           Rectangle {
-            implicitWidth: workspaceCell.width
-            implicitHeight: workspaceCell.width
+            implicitWidth: workspaceCell.width - 4
+            implicitHeight: workspaceCell.width - 2
+            anchors.horizontalCenter: parent.horizontalCenter
             radius: Theme.rounding
             color: "transparent"
             StyledText {
@@ -63,6 +70,7 @@ Item {
             MouseBlock {
               id: mouse
               onClicked: if (!focused) { modelData.activate() }
+              onEntered: Hyprland.overrideTitle(`Workspace ${modelData.id}`)
             }
           }
           Repeater {
@@ -73,7 +81,7 @@ Item {
               property bool silent: true
               property string address: modelData.address
               property bool caught: false
-              implicitSize: workspaceCell.width
+              implicitSize: workspaceCell.width - 2
               Drag.active: mouseArea.drag.active
               Drag.hotSpot: Qt.point(implicitSize/2,implicitSize/2)
               source: {
@@ -94,9 +102,6 @@ Item {
                 drag.target: parent
                 onEntered: {
                   Hyprland.overrideTitle(modelData.title)
-                }
-                onExited: {
-                  Hyprland.refreshTitle()
                 }
                 onClicked: (mouse) => {
                   if (mouse.button == Qt.LeftButton) {
