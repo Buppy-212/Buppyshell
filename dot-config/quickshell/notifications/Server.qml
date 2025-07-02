@@ -2,7 +2,6 @@ import Quickshell.Services.Notifications
 
 NotificationServer {
   id: notificationServer
-  property int maxNotifications: 7
   bodySupported: true
   bodyMarkupSupported: true
   actionsSupported: true
@@ -16,8 +15,8 @@ NotificationServer {
           trackedNotifications.values[i].dismiss();
         }
       }
-    if (trackedNotifications.values.length > maxNotifications) {
-      var excess = trackedNotifications.values.length - maxNotifications;
+    if (trackedNotifications.values.length > 10) {
+      var excess = trackedNotifications.values.length - 10;
       for (var i = 0; i < excess; i++) {
         trackedNotifications.values[i].dismiss();
       }
