@@ -31,7 +31,7 @@ Singleton {
     root.title = root.defaultTitle;
     if (Hyprland.focusedWorkspace.toplevels.values.length == 0) {
       root.title = "Desktop";
-    } 
+    }
   }
 
   function dispatch(request: string): void {
