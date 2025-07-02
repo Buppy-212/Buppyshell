@@ -1,5 +1,6 @@
 import Quickshell
 import Quickshell.Wayland
+import QtQuick
 import QtQuick.Layouts
 import "root:/services"
 
@@ -19,21 +20,14 @@ Variants {
       }
       implicitHeight: Theme.blockHeight
       color: Theme.color.black
-      RowLayout {
-        id: hBlocks
-        anchors.fill: parent
-        RowLayout {
-          id: leftBlocks
-          Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
-          Os {}
-          Title {}
-        }
-        RowLayout {
-          id: rightBlocks
-          Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-          Tray {}
-          Bell {}
-        }
+      Os { anchors.left: parent.left }
+      Title { anchors.centerIn: parent }
+      Row {
+        id: rightBlocks
+        spacing: Theme.border
+        anchors.right: parent.right
+        Tray {}
+        Bell {}
       }
     }
     PanelWindow {
@@ -46,22 +40,46 @@ Variants {
       }
       implicitWidth: Theme.blockWidth
       color: Theme.color.black
-      ColumnLayout {
-        id: vBlocks
-        anchors.fill: parent
-        Workspaces {Layout.alignment: Qt.AlignHCenter | Qt.AlignTop}
-        ColumnLayout {
-          id: bottomBlocks
-          Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
-          Volume {}
-          Inhibitor {}
-          Battery {}
-          Light {}
-          Update {}
-          Clock {}
-          Power {}
-        }
+      Workspaces {anchors.top: parent.top; anchors.topMargin: Theme.border}
+      Column {
+        spacing: Theme.border
+        anchors.bottom: parent.bottom
+        Volume {}
+        Inhibitor {}
+        Battery {}
+        Light {}
+        Update {}
+        Clock {}
+        Power {}
       }
+    }
+    PanelWindow {
+      screen: scope.modelData
+      WlrLayershell.namespace: "buppyshell:rightbar"
+      anchors {
+        top: true
+        right: true
+        bottom: true
+      }
+      implicitWidth: Theme.blockWidth
+      color: Theme.color.black
+      Column {
+        anchors.topMargin: Theme.border
+        spacing: Theme.border
+        anchors.top: parent.top
+        Bluetooth {}
+      }
+      // Column {
+      //   spacing: Theme.border
+      //   anchors.bottom: parent.bottom
+      //   Volume {}
+      //   Inhibitor {}
+      //   Battery {}
+      //   Light {}
+      //   Update {}
+      //   Clock {}
+      //   Power {}
+      // }
     }
   }
 }
