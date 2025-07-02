@@ -15,8 +15,8 @@ NotificationServer {
           trackedNotifications.values[i].dismiss();
         }
       }
-    if (trackedNotifications.values.length > 10) {
-      var excess = trackedNotifications.values.length - 10;
+    if (trackedNotifications.values.length > 9) {
+      var excess = trackedNotifications.values.length - 9;
       for (var i = 0; i < excess; i++) {
         trackedNotifications.values[i].dismiss();
       }
