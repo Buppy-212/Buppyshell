@@ -15,7 +15,7 @@ Scope {
   readonly property int volume: Pipewire.defaultAudioSink?.audio.volume * 100
   readonly property bool muted: Pipewire.defaultAudioSink?.audio.muted ?? false
   readonly property int mic: Pipewire.defaultAudioSource?.audio.volume * 100
-  readonly property bool micMuted: Pipewire.defaultAudioSource?.audio.muted
+  readonly property bool micMuted: Pipewire.defaultAudioSource?.audio.muted ?? false
   readonly property int input: isVolume ? volume : isMic ? mic : brightness
   onBrightnessChanged: { visible = true; isVolume = false; isMic = false; timer.restart(); }
   onVolumeChanged: { visible = true; isVolume = true; isMic = false; timer.restart(); }
