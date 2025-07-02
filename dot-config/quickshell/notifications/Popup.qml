@@ -22,7 +22,6 @@ Scope {
     appid: "buppyshell"
     onPressed: {
       if (sidebar.visible) {
-        console.log("sidebar")
         var notifications = notificationServer.trackedNotifications.values.slice();
         for (var i = 0; i < notifications.length; i++) {
           notifications[i].dismiss();
