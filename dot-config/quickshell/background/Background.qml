@@ -35,6 +35,7 @@ Scope {
       RoundCorner {
         anchors.bottom: parent.bottom
         anchors.right: parent.right
+        anchors.rightMargin: Theme.blockWidth
         size: Theme.rounding + 3
         corner: cornerEnum.bottomRight
       }
@@ -50,6 +51,7 @@ Scope {
         anchors.top: parent.top
         anchors.right: parent.right
         anchors.topMargin: Theme.blockHeight
+        anchors.rightMargin: Theme.blockWidth
         size: Theme.rounding + 3
         corner: cornerEnum.topRight
       }
