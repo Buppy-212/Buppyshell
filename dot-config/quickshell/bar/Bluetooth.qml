@@ -34,8 +34,11 @@ ClippingRectangle {
           onClicked: (mouse) => {
             if (mouse.button == Qt.LeftButton) {
               root.revealed = !root.revealed
-            } else
-            Bluetooth.defaultAdapter.enabled = !Bluetooth.defaultAdapter.enabled
+            } else if (mouse.button == Qt.MiddleButton) {
+              Bluetooth.defaultAdapter.enabled = !Bluetooth.defaultAdapter.enabled
+            } else {
+              Hyprland.dispatch("exec uwsm app -- floatty bluetui")
+            }
           }
         }
       }
@@ -49,7 +52,7 @@ ClippingRectangle {
           Behavior on visible {
             animation: Theme.animation.elementMove.numberAnimation.createObject(this)
           }
-          color: mouse.containsMouse ? Theme.color.gray : modelData.connected ? Theme.color.accent : "transparent"
+          color: mouse.containsMouse ? Theme.color.gray : modelData.batteryAvailable && modelData.battery <= 0.1 ? Theme.color.red : modelData.connected ? Theme.color.accent : "transparent"
           IconImage {
             anchors.centerIn: parent
             implicitSize: Theme.blockHeight
@@ -63,10 +66,14 @@ ClippingRectangle {
               }
             }
             onEntered: {
-              Hyprland.overrideTitle(modelData.name)
+              if (modelData.batteryAvailable) {
+                Hyprland.overrideTitle(`${modelData.name}${modelData.battery*100}%`)
+              } else {
+                Hyprland.overrideTitle(modelData.name)
+              }
             }
           }
         }
       }
+    }
   }
-}
