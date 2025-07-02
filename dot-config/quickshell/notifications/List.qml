@@ -20,4 +20,12 @@ ListView {
     implicitHeight: content.height
     Content {id: content; notification: modelData}
   }
+  removeDisplaced:Transition{
+    NumberAnimation {
+      property: "y"
+      duration: Theme.animation.elementMoveFast.duration
+      easing.type: Theme.animation.elementMoveFast.type
+      easing.bezierCurve: Theme.animation.elementMoveFast.bezierCurve
+    }
+  }
 }

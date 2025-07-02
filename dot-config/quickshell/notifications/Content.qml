@@ -26,7 +26,7 @@ Rectangle {
     }
     Column {
       id: column
-      width: Theme.notification.width - Theme.notification.iconSize - 20
+      width: Theme.notification.width - Theme.notification.iconSize * 2
       height: summary.height + body.height
       anchors.verticalCenter: parent.verticalCenter
       Text {
