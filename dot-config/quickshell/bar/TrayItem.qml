@@ -19,10 +19,10 @@ Block {
       }
     }
     onEntered: {
-      if (modelData.tooltipTitle) {
-        Hyprland.overrideTitle(modelData.tooltipTitle)
-      } else {
+      if (modelData.title) {
         Hyprland.overrideTitle(modelData.title)
+      } else {
+        Hyprland.overrideTitle(modelData.tooltipTitle)
       }
     }
     QsMenuAnchor {
