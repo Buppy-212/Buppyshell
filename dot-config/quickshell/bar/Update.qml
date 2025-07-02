@@ -21,7 +21,7 @@ Block {
   }
   MouseBlock {
     id: mouse
-    onClicked: Hyprland.dispatch("floatty update")
+    onClicked: Hyprland.dispatch("exec floatty update")
   }
   Behavior on implicitHeight {
     animation: Theme.animation.elementMove.numberAnimation.createObject(this)
