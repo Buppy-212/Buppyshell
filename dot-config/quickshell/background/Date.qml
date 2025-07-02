@@ -6,7 +6,7 @@ Rectangle {
   id: rect
   readonly property int size: Screen.name === "eDP-1" ? Theme.font.size.extraLarge : Theme.font.size.huge
   anchors.verticalCenter: parent.verticalCenter
-  anchors.leftMargin: Screen.name === "eDP-1" ? Screen.width * 0.8 : Screen.width * 0.72
+  anchors.leftMargin: Screen.name === "eDP-1" ? Screen.width * 0.84 : Screen.width * 0.755
   anchors.fill: parent
   color: "transparent"
   Column {
