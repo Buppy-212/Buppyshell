@@ -4,7 +4,8 @@ import QtQuick
 import "root:/services"
 
 Rectangle {
-  width: Screen.width * 0.4
+  required property int screenWidth
+  width: screenWidth * 0.5
   height: Theme.blockHeight
   color: "transparent"
   StyledText {
