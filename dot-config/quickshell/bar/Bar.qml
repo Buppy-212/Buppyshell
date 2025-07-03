@@ -64,7 +64,7 @@ Variants {
       }
       implicitHeight: Theme.blockHeight
       color: Theme.color.black
-      Title { anchors.centerIn: parent; screenWidth: scope.modelData.width }
+      Title { anchors.centerIn: parent }
     }
   }
 }
