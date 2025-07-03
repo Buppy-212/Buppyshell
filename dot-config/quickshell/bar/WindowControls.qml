@@ -3,9 +3,13 @@ import QtQuick
 import "root:/services"
 
 Row {
+  id: windowControls
+  readonly property int groupLength: Hyprland.activeToplevel?.lastIpcObject?.grouped.length ?? 0
+  readonly property bool grouped: groupLength
+  readonly property bool locked: Hyprland.activeToplevel?.lastIpcObject?.tags.includes("locked") ?? false
   visible: Hyprland.focusedWorkspace.toplevels.values.length
   Block {
-  visible: Hyprland.groupLength >= 2
+  visible: windowControls.groupLength >= 2
   color: mouseLeft.containsMouse ? Theme.color.gray : "transparent"
     SymbolText {
       text: "arrow_back"
@@ -17,7 +21,7 @@ Row {
     }
   }
   Block {
-  visible: Hyprland.groupLength >= 2
+  visible: windowControls.groupLength >= 2
   color: mouseRight.containsMouse ? Theme.color.gray : "transparent"
     SymbolText {
       text: "arrow_forward"
@@ -29,10 +33,10 @@ Row {
     }
   }
   Block {
-  visible: Hyprland.grouped
+  visible: windowControls.grouped
   color: mouseLock.containsMouse ? Theme.color.gray : "transparent"
     SymbolText {
-      text: Hyprland.locked ? "lock_open" : "lock"
+      text: windowControls.locked ? "lock" : "lock_open"
       color: Theme.color.orange
     }
     MouseBlock {
@@ -43,7 +47,7 @@ Row {
   Block {
   color: mouseGroup.containsMouse ? Theme.color.gray : "transparent"
     SymbolText {
-      text: Hyprland.grouped ? "tab" : "tab_group"
+      text: windowControls.grouped ? "tab" : "tab_group"
       color: Theme.color.green
     }
     MouseBlock {
