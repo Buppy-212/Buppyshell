@@ -8,7 +8,7 @@ ClippingRectangle {
   id: root
   property bool revealed: false
   implicitWidth: Theme.blockWidth
-  implicitHeight: revealed ? (Mpris.players.values.length - 1) * 24 : 24
+  implicitHeight: revealed ? (Mpris.players.values.length - 1) * 26 : 26
   color: "transparent"
   Behavior on implicitHeight {
     animation: Theme.animation.elementMoveFast.numberAnimation.createObject(this)
@@ -18,7 +18,8 @@ ClippingRectangle {
   }
   Column {
     width: Theme.blockWidth - 2
-    anchors.horizontalCenter: parent.horizontalCenter
+    height: root.height - 2
+    anchors.centerIn: parent
     Repeater {
       model: Mpris.players
       delegate: Block {
