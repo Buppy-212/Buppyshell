@@ -3,7 +3,9 @@ import QtQuick
 import "root:/services"
 
 Row {
+  visible: Hyprland.focusedWorkspace.toplevels.values.length
   Block {
+  visible: Hyprland.grouped
   color: mouseLeft.containsMouse ? Theme.color.gray : "transparent"
     SymbolText {
       text: "arrow_back"
@@ -15,6 +17,7 @@ Row {
     }
   }
   Block {
+  visible: Hyprland.grouped
   color: mouseRight.containsMouse ? Theme.color.gray : "transparent"
     SymbolText {
       text: "arrow_forward"

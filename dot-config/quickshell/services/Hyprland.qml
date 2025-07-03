@@ -15,6 +15,7 @@ Singleton {
   readonly property var focusedWorkspace: Hyprland.focusedWorkspace
   readonly property var activeToplevel: Hyprland.activeToplevel
   readonly property string defaultTitle: Hyprland.activeToplevel?.title ?? "Desktop"
+  readonly property bool grouped: Hyprland.activeToplevel.lastIpcObject.grouped.toString()
   property string title: defaultTitle
 
   function reload() {
