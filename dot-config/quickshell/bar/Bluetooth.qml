@@ -14,9 +14,7 @@ ClippingRectangle {
     animation: Theme.animation.elementMoveFast.numberAnimation.createObject(this)
   }
   MouseBlock {
-    onEntered: {
-      Hyprland.refreshTitle();
-    }
+    onEntered: Hyprland.refreshTitle()
   }
   Column {
     anchors.fill: parent
