@@ -13,7 +13,6 @@ Row {
   color: mouseLeft.containsMouse ? Theme.color.gray : "transparent"
     SymbolText {
       text: "arrow_back"
-      color: Theme.color.green
     }
     MouseBlock {
       id: mouseLeft
@@ -25,7 +24,6 @@ Row {
   color: mouseRight.containsMouse ? Theme.color.gray : "transparent"
     SymbolText {
       text: "arrow_forward"
-      color: Theme.color.green
     }
     MouseBlock {
       id: mouseRight
