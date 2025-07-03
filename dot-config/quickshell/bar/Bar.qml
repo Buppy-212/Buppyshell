@@ -1,7 +1,6 @@
 import Quickshell
 import Quickshell.Wayland
 import QtQuick
-import QtQuick.Layouts
 import "root:/services"
 
 Variants {
@@ -37,6 +36,7 @@ Variants {
       }
     }
     PanelWindow {
+      id: rightBar
       screen: scope.modelData
       WlrLayershell.namespace: "buppyshell:rightbar"
       anchors {
@@ -50,6 +50,7 @@ Variants {
         anchors.top: parent.top
         Bell {}
         Bluetooth {}
+        Tray {}
       }
     }
     PanelWindow {
@@ -64,11 +65,6 @@ Variants {
       implicitHeight: Theme.blockHeight
       color: Theme.color.black
       Title { anchors.centerIn: parent }
-      Row {
-        id: rightBlocks
-        anchors.right: parent.right
-        Tray {}
-      }
     }
   }
 }
