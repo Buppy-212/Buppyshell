@@ -1,9 +1,11 @@
 import Quickshell
 import "root:/services"
+import "root:/notifications"
 
 Block {
+  Server {id: server}
   SymbolText{
-    text: "notifications"
+    text: server.trackedNotifications.values.length ? "notifications_unread" : "notifications"
   }
   MouseBlock {
     id: mouse
