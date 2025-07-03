@@ -22,7 +22,7 @@ ClippingRectangle {
     Block {
       implicitWidth: Theme.blockWidth - 2
       SymbolText {
-        text: Mpris.players.values[0].isPlaying ? "pause" : "resume"
+        text: Mpris.players.values[0]?.isPlaying ? "pause" : "resume"
       }
       MouseBlock {
         id: mouse

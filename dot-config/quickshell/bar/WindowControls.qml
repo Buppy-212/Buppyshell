@@ -4,10 +4,10 @@ import "root:/services"
 
 Row {
   id: windowControls
-  readonly property int groupLength: Hyprland.activeToplevel?.lastIpcObject?.grouped.length ?? 0
+  readonly property int groupLength: Hyprland.activeToplevel?.lastIpcObject?.grouped?.length ?? 0
   readonly property bool grouped: groupLength
-  readonly property bool locked: Hyprland.activeToplevel?.lastIpcObject?.tags.includes("locked") ?? false
-  visible: Hyprland.focusedWorkspace.toplevels.values.length
+  readonly property bool locked: Hyprland.activeToplevel?.lastIpcObject?.tags?.includes("locked") ?? false
+  visible: Hyprland.focusedWorkspace?.toplevels.values.length ?? false
   Block {
   visible: windowControls.groupLength >= 2
   color: mouseLeft.containsMouse ? Theme.color.gray : "transparent"
