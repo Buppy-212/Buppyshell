@@ -9,6 +9,13 @@ Block {
   }
   MouseBlock {
     id: mouse
-    onClicked: Hyprland.dispatch("exec uwsm app -- rofi-wrapper power menu");
+    onClicked: (mouse) => {
+      if (mouse.button == Qt.MiddleButton) {
+        Hyprland.dispatch("exec systemctl poweroff")
+        Qt.quit()
+      } else {
+        Hyprland.dispatch("exec uwsm app -- rofi-wrapper power menu");
+      }
+    }
   }
 }

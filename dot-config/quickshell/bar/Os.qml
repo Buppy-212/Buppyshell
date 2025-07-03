@@ -11,12 +11,6 @@ Block {
   }
   MouseBlock {
     id: mouse
-    onClicked: (mouse) => {
-      if (mouse.button == Qt.LeftButton) {
-        Hyprland.dispatch("exec uwsm app -- rofi-wrapper drun menu");
-      } else {
-        Quickshell.reload(true)
-      }
-    }
+    onClicked: Hyprland.dispatch("exec uwsm app -- rofi-wrapper drun menu");
   }
 }
