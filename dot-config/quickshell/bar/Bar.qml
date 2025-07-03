@@ -50,6 +50,7 @@ Variants {
         anchors.top: parent.top
         Bell {}
         Bluetooth {}
+        Mpris {}
         Tray {}
       }
     }

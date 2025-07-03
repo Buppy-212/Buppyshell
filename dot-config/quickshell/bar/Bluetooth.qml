@@ -45,6 +45,7 @@ ClippingRectangle {
     Repeater {
       model: Bluetooth.devices
       delegate: Block {
+        id: block
         anchors.horizontalCenter: parent.horizontalCenter
         implicitWidth: Theme.blockWidth - Theme.border
         implicitHeight: Theme.blockHeight + Theme.border
