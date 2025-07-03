@@ -7,7 +7,7 @@ import "root:/services"
 
 Block {
   id: root
-  height: Theme.blockHeight - 2
+  width: Theme.blockWidth - 2
   required property SystemTrayItem modelData
   MouseBlock {
     id: mouse
