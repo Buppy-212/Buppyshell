@@ -65,6 +65,7 @@ Variants {
       implicitHeight: Theme.blockHeight
       color: Theme.color.black
       Title { anchors.centerIn: parent }
+      WindowControls { anchors.right: parent.right }
     }
   }
 }
