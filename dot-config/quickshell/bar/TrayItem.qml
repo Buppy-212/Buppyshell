@@ -25,6 +25,7 @@ Block {
         Hyprland.overrideTitle(modelData.tooltipTitle)
       }
     }
+    onExited: Hyprland.refreshTitle()
     QsMenuAnchor {
       id: menu
       menu: root.modelData.menu

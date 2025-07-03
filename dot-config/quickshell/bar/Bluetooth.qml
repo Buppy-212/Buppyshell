@@ -7,22 +7,16 @@ import "root:/services"
 ClippingRectangle {
   id: root
   property bool revealed: false
-  implicitHeight: revealed ? (Bluetooth.devices.values.length + 1) * 26 : 26
+  implicitHeight: revealed ? (Bluetooth.devices.values.length + 1) * 26 : 24
   implicitWidth: Theme.blockWidth
   color: "transparent"
   Behavior on implicitHeight {
     animation: Theme.animation.elementMoveFast.numberAnimation.createObject(this)
   }
-  MouseBlock {
-    onEntered: Hyprland.refreshTitle()
-  }
   Column {
+    spacing: 2
     anchors.fill: parent
-    anchors.topMargin: 1
-    width: Theme.blockWidth - Theme.border
     Block {
-      anchors.horizontalCenter: parent.horizontalCenter
-      implicitWidth: Theme.blockWidth - Theme.border
       SymbolText {
         id: text
         text: Bluetooth.defaultAdapter?.enabled ?? Bluetooth.adapters.values[0]?.enabled ? "bluetooth" : "bluetooth_disabled"
@@ -40,15 +34,13 @@ ClippingRectangle {
           }
         }
         onEntered: Hyprland.overrideTitle(Bluetooth.defaultAdapter.name)
+        onExited: Hyprland.refreshTitle()
       }
     }
     Repeater {
       model: Bluetooth.devices
       delegate: Block {
         id: block
-        anchors.horizontalCenter: parent.horizontalCenter
-        implicitWidth: Theme.blockWidth - Theme.border
-        implicitHeight: Theme.blockHeight + Theme.border
         visible: revealed
         Behavior on visible {
           animation: Theme.animation.elementMove.numberAnimation.createObject(this)
@@ -73,6 +65,7 @@ ClippingRectangle {
               Hyprland.overrideTitle(modelData.name);
             }
           }
+          onExited: Hyprland.refreshTitle()
         }
       }
     }

@@ -19,15 +19,10 @@ Item {
         property bool draggedOver: false
         property bool occupied: modelData.toplevels.values.length > 0
         property bool focused: modelData.focused
-        height: modelData.toplevels.values.length * (Theme.blockWidth - 4) + Theme.blockWidth
-        width: Theme.blockWidth - 2
+        height: (modelData.toplevels.values.length + 1) * (width + 2)
+        width: Theme.blockWidth
         radius: Theme.rounding
         color: draggedOver | mouse.containsMouse ? Theme.color.gray : focused ? Theme.color.accent : occupied ? Theme.color.bgalt : "transparent"
-        MouseBlock {
-          onEntered: {
-            Hyprland.refreshTitle();
-          }
-        }
         DropArea {
           anchors.fill: parent
           onEntered: (drag) => { 
@@ -54,12 +49,12 @@ Item {
           animation: Theme.animation.elementMove.numberAnimation.createObject(this)
         }
         Column {
+          spacing: 2
           width: workspaceCell.width
-          anchors.margins: 2
           anchors.fill: parent
           Rectangle {
-            implicitWidth: workspaceCell.width - 4
-            implicitHeight: workspaceCell.width - 2
+            implicitWidth: workspaceCell.width
+            implicitHeight: workspaceCell.width
             anchors.horizontalCenter: parent.horizontalCenter
             radius: Theme.rounding
             color: "transparent"
@@ -70,7 +65,6 @@ Item {
             MouseBlock {
               id: mouse
               onClicked: if (!focused) { modelData.activate(); }
-              onEntered: Hyprland.refreshTitle();
             }
           }
           Repeater {
@@ -81,7 +75,7 @@ Item {
               property bool silent: true
               property string address: modelData.address
               property bool caught: false
-              implicitSize: workspaceCell.width - 2
+              implicitSize: workspaceCell.width
               Drag.active: mouseArea.drag.active
               Drag.hotSpot: Qt.point(implicitSize/2,implicitSize/2)
               source: {
@@ -100,9 +94,8 @@ Item {
               MouseBlock {
                 id: mouseArea
                 drag.target: parent
-                onEntered: {
-                  Hyprland.overrideTitle(modelData.title);
-                }
+                onEntered: Hyprland.overrideTitle(modelData.title)
+                onExited: Hyprland.refreshTitle()
                 onClicked: (mouse) => {
                   if (mouse.button == Qt.LeftButton) {
                     Hyprland.dispatch(`focuswindow address:0x${address}`);

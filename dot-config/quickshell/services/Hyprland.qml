@@ -24,14 +24,12 @@ Singleton {
   }
 
   function overrideTitle(title: string): void {
+    timer.running = false;
     root.title = title;
   }
 
   function refreshTitle() {
-    root.title = root.defaultTitle;
-    if (Hyprland.focusedWorkspace?.toplevels.values.length == 0) {
-      root.title = "Desktop";
-    }
+    timer.restart();
   }
 
   function dispatch(request: string): void {
@@ -45,7 +43,19 @@ Singleton {
       if (!event.name.endsWith("v2")) {
         root.reload();
       }
-      root.refreshTitle()
+      timer.restart();
+    }
+  }
+  Timer {
+    id: timer
+    interval: 200
+    running: true
+    onTriggered: {
+      if (Hyprland.focusedWorkspace?.toplevels.values.length == 0) {
+        root.title = "Desktop";
+      } else {
+        root.title = root.defaultTitle;
+      }
     }
   }
 }

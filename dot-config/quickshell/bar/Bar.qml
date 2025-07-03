@@ -48,6 +48,7 @@ Variants {
       color: Theme.color.black
       Column {
         anchors.top: parent.top
+        spacing: 2
         Bell {}
         Bluetooth {}
         Tray {}

@@ -17,9 +17,8 @@ ClippingRectangle {
     onEntered: Hyprland.refreshTitle()
   }
   Column {
-    width: Theme.blockWidth - 2
-    height: root.height - 2
-    anchors.centerIn: parent
+    spacing: 2
+    anchors.fill: parent
     Repeater {
       model: Mpris.players
       delegate: Block {
@@ -27,7 +26,6 @@ ClippingRectangle {
         Behavior on visible {
           animation: Theme.animation.elementMove.numberAnimation.createObject(this)
         }
-        implicitWidth: Theme.blockWidth - 2
         SymbolText{
           text: modelData.isPlaying ? "pause" : "resume"
         }
@@ -41,6 +39,7 @@ ClippingRectangle {
               }
           }
           onEntered: Hyprland.overrideTitle(`${modelData.identity}: ${modelData.trackTitle}`)
+          onExited: Hyprland.refreshTitle()
         }
       }
     }
