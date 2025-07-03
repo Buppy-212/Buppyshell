@@ -3,7 +3,7 @@ import QtQuick
 import "root:/services"
 
 Item {
-  id: root
+  id: trayRoot
   readonly property Repeater items: items
   clip: true
   visible: width > 0 && height > 0

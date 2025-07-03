@@ -28,11 +28,10 @@ Block {
     QsMenuAnchor {
       id: menu
       menu: root.modelData.menu
-      anchor.window: bar
-      anchor.rect.x: bar.width - layout.width + root.x
-      anchor.rect.y: root.y
-      anchor.rect.height: root.height
-      anchor.edges: Edges.Bottom
+      anchor.window: rightBar
+      anchor.rect.y: trayRoot.y + root.y
+      anchor.edges: Edges.Right
+      anchor.gravity: Edges.Left | Edges.Bottom
     }
     IconImage {
       id: icon
