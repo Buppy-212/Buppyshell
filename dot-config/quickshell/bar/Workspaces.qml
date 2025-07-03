@@ -19,7 +19,7 @@ Item {
         property bool draggedOver: false
         property bool occupied: modelData.toplevels.values.length > 0
         property bool focused: modelData.focused
-        height: (modelData.toplevels.values.length + 1) * (width + 2)
+        height: occupied ? (modelData.toplevels.values.length + 1) * (width + 2) : 28
         width: Theme.blockWidth
         radius: Theme.rounding
         color: draggedOver | mouse.containsMouse ? Theme.color.gray : focused ? Theme.color.accent : occupied ? Theme.color.bgalt : "transparent"
