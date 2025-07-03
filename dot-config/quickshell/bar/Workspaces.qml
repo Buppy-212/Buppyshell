@@ -70,7 +70,7 @@ Item {
             MouseBlock {
               id: mouse
               onClicked: if (!focused) { modelData.activate(); }
-              onEntered: Hyprland.overrideTitle(`Workspace ${modelData.id}`);
+              onEntered: Hyprland.refreshTitle();
             }
           }
           Repeater {
