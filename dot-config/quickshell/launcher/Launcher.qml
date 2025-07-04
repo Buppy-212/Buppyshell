@@ -13,7 +13,7 @@ Scope {
     WlrLayershell.layer: WlrLayer.Overlay
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.OnDemand
     exclusionMode: ExclusionMode.Ignore
-    color: "transparent"
+    color: "#aa222436"
     visible: root.visible
     anchors {
       top: true
@@ -21,21 +21,11 @@ Scope {
       bottom: true
       left: true
     }
-    margins {
-      top: Theme.blockHeight
-      left: Theme.blockWidth
-      right: Theme.blockWidth
-    }
-    Rectangle {
+    Loader {
+      id: loader;
+      focus: true
       anchors.fill: parent
-      color: "#aa222436"
-      radius: Theme.rounding
-      Loader {
-        id: loader;
-        focus: true
-        anchors.fill: parent
-        source: "Applications.qml";
-      }
+      source: "Applications.qml";
     }
   }
   GlobalShortcut {

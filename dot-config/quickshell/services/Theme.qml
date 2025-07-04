@@ -27,6 +27,7 @@ Singleton {
   component Color: QtObject {
     readonly property string bg: "#222436"
     readonly property string bgalt: "#2a2c3d"
+    readonly property string bgdark: "#1e2030"
     readonly property string fg: "#e9e9ed"
     readonly property string gray: "#313345"
     readonly property string red: "#ff757f"

@@ -20,7 +20,7 @@ Item {
         id: rect
         implicitWidth: rep.count < 4 ? Screen.width / 4 : Screen.width / rep.count
         implicitHeight: rep.count < 4 ? Screen.height / 4 : Screen.height / rep.count + Theme.blockHeight
-        color: Theme.color.bg
+        color: Theme.color.bgdark
         Column {
           anchors.fill: parent
           Rectangle {
