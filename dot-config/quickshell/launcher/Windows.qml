@@ -32,6 +32,9 @@ Item {
             if (mouse.button ==  Qt.LeftButton) {
               Hyprland.dispatch("global buppyshell:windows")
               Hyprland.dispatch(`focuswindow address:0x${modelData.address}`) 
+            } else if (mouse.button == Qt.RightButton) {
+              Hyprland.dispatch("global buppyshell:windows")
+              Hyprland.dispatch(`movetoworkspace ${Hyprland.focusedWorkspace.id}, address:0x${modelData.address}`);
             } else {
               modelData.wayland.close()
             }
