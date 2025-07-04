@@ -1,11 +1,9 @@
 import Quickshell
-import Quickshell.Widgets
 import QtQuick
 import "root:/services"
 
-Rectangle {
-  width: Screen.width * 0.5
-  height: Theme.blockHeight
+Block {
+  implicitWidth: Screen.width * 0.5
   color: "transparent"
   StyledText {
     id: text
@@ -15,5 +13,9 @@ Rectangle {
     horizontalAlignment: Text.AlignHCenter
     elide: Text.ElideRight
     maximumLineCount: 1
+  }
+  MouseBlock {
+    id: mouse
+    onClicked: Hyprland.dispatch("global buppyshell:windows")
   }
 }

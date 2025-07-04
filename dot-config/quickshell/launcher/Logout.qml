@@ -46,7 +46,7 @@ Item {
       Rectangle {
         implicitWidth: Screen.width * 0.075
         implicitHeight: width
-        radius: Theme.rounding
+        radius: width
         color: mouse.containsMouse ? Theme.color.gray : Theme.color.black
         Text {
           text: modelData.icon
@@ -79,7 +79,7 @@ Item {
     anchors.centerIn: parent
     implicitWidth: Screen.width * 0.075
     implicitHeight: width
-    radius: Theme.rounding
+    radius: width
     color: mouse.containsMouse ? Theme.color.gray : Theme.color.black
     Text {
       text: "arrow_back"

@@ -14,7 +14,7 @@ Block {
         Hyprland.dispatch("exec systemctl poweroff")
         Qt.quit()
       } else {
-        Hyprland.dispatch("exec uwsm app -- rofi-wrapper power menu");
+        Hyprland.dispatch("global buppyshell:logout");
       }
     }
   }

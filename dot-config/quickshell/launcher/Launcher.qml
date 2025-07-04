@@ -11,7 +11,7 @@ Scope {
     id: panel
     WlrLayershell.namespace: "buppyshell:launcher"
     WlrLayershell.layer: WlrLayer.Overlay
-    WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
+    WlrLayershell.keyboardFocus: WlrKeyboardFocus.OnDemand
     exclusionMode: ExclusionMode.Ignore
     color: "transparent"
     visible: root.visible
