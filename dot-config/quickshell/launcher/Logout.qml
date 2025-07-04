@@ -8,24 +8,32 @@ Item {
   property real radius: Screen.height / 3
   anchors.fill: parent
   Keys.onPressed: (event) => {
-    Hyprland.dispatch("global buppyshell:logout")
     switch (event.key) {
+      case Qt.Key_Escape:
+      Hyprland.dispatch("global buppyshell:logout")
+      break;
       case Qt.Key_S:
+      Hyprland.dispatch("global buppyshell:logout")
       Hyprland.dispatch("exec systemctl poweroff");
       break;
       case Qt.Key_R:
+      Hyprland.dispatch("global buppyshell:logout")
       Hyprland.dispatch("exec systemctl reboot");
       break;
       case Qt.Key_O:
+      Hyprland.dispatch("global buppyshell:logout")
       Hyprland.dispatch("exec uwsm stop");
       break;
       case Qt.Key_L:
+      Hyprland.dispatch("global buppyshell:logout")
       Hyprland.dispatch("global buppyshell:lock");
       break;
       case Qt.Key_U:
+      Hyprland.dispatch("global buppyshell:logout")
       Hyprland.dispatch("exec systemctl suspend");
       break;
       case Qt.Key_H:
+      Hyprland.dispatch("global buppyshell:logout")
       Hyprland.dispatch("exec systemctl hibernate");
     }
   }
@@ -46,6 +54,7 @@ Item {
       acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
       cursorShape: Qt.PointingHandCursor
       hoverEnabled: true
+      focus: index ? false : true
       focusPolicy: Qt.StrongFocus
       onEntered: focus = true
       onClicked: { Hyprland.dispatch("global buppyshell:logout"); Hyprland.dispatch(modelData.command) }

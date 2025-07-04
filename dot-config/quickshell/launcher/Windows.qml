@@ -8,20 +8,21 @@ import "root:/services"
 Item {
   property real radius: Screen.height / 3
   anchors.fill: parent
-  Keys.onPressed: Hyprland.dispatch("global buppyshell:windows")
+  Keys.onEscapePressed: Hyprland.dispatch("global buppyshell:windows")
   Repeater {
     id: rep
     model: Hyprland.toplevels
     delegate: WrapperMouseArea {
       id: mouse
-      x: parent.width/2 + radius * Math.cos(2 * Math.PI * index / rep.count) - width/2
-      y: parent.height/2 + radius * Math.sin(2 * Math.PI * index / rep.count) - height/2
+      x: parent.width/2 - radius * Math.cos(2 * Math.PI * index / rep.count) - width/2
+      y: parent.height/2 - radius * Math.sin(2 * Math.PI * index / rep.count) - height/2
       acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
       cursorShape: Qt.PointingHandCursor
       hoverEnabled: true
+      focus: index ? false : true
       focusPolicy: Qt.StrongFocus
       Keys.onReturnPressed: { Hyprland.dispatch(`focuswindow address:0x${modelData.address}`); Hyprland.dispatch("global buppyshell:windows") }
-      Keys.onDeletePressed: modelData.wayland.close()
+      Keys.onDeletePressed: { modelData.wayland.close(); if (rep.count == 1) {Hyprland.dispatch("global buppyshell:windows")} }
       onEntered: focus = true
       onClicked: (mouse) => {
         if (mouse.button ==  Qt.LeftButton) {
@@ -32,6 +33,7 @@ Item {
           Hyprland.dispatch(`movetoworkspace ${Hyprland.focusedWorkspace.id}, address:0x${modelData.address}`);
         } else {
           modelData.wayland.close()
+          if (rep.count == 1) {Hyprland.dispatch("global buppyshell:windows")}
         }
       }
       Rectangle {
