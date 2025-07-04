@@ -9,6 +9,7 @@ Item {
   property real radius: Screen.height / 3
   focus: true
   anchors.fill: parent
+  Keys.onPressed: Hyprland.dispatch("global buppyshell:windows")
   Repeater {
     id: rep
     model: Hyprland.toplevels
