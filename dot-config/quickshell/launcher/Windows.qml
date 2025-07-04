@@ -17,15 +17,34 @@ Item {
       x: parent.width/2 + radius * Math.cos(2 * Math.PI * index / rep.count) - width/2
       y: parent.height/2 + radius * Math.sin(2 * Math.PI * index / rep.count) - height/2
       Rectangle {
+        id: rect
         implicitWidth: rep.count < 4 ? Screen.width / 4 : Screen.width / rep.count
-        implicitHeight: rep.count < 4 ? Screen.height / 4 : Screen.height / rep.count
-        color: Theme.color.black
-        ScreencopyView {
-          id: view
+        implicitHeight: rep.count < 4 ? Screen.height / 4 : Screen.height / rep.count + Theme.blockHeight
+        color: Theme.color.bg
+        Column {
           anchors.fill: parent
-          captureSource: modelData.wayland
-          constraintSize: rep.count < 4 ? Qt.size(Screen.width / 4, Screen.height/ 4) : Qt.size(Screen.width / rep.count, Screen.height / rep.count)
-          live: true
+          Rectangle {
+            width: parent.width
+            height: Theme.blockHeight
+            color: Theme.color.black
+            Text {
+              text: modelData.title
+              anchors.fill: parent
+              color: Theme.color.fg
+              font.family: Theme.font.family.mono
+              font.pointSize: Theme.font.size.normal
+              font.bold: true
+              horizontalAlignment: Text.AlignHCenter
+              elide: Text.ElideRight
+              maximumLineCount: 1
+            }
+          }
+          ScreencopyView {
+            width: parent.width
+            height: rect.height - Theme.blockHeight
+            captureSource: modelData.wayland
+            live: true
+          }
         }
         MouseArea {
           id: mouse
