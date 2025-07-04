@@ -96,7 +96,7 @@ Scope {
     description: "Locks the user session"
     appid: "buppyshell"
     onPressed: {
-      lock.locked = !lock.locked;
+      lock.locked = true;
     }
   }
 }
