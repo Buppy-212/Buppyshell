@@ -47,13 +47,14 @@ Item {
       cursorShape: Qt.PointingHandCursor
       hoverEnabled: true
       focusPolicy: Qt.StrongFocus
+      onEntered: focus = true
       onClicked: { Hyprland.dispatch("global buppyshell:logout"); Hyprland.dispatch(modelData.command) }
       Keys.onReturnPressed: { Hyprland.dispatch("global buppyshell:logout"); Hyprland.dispatch(modelData.command) }
       Rectangle {
         implicitWidth: Screen.width * 0.075
         implicitHeight: width
         radius: width
-        color: mouse.containsMouse || mouse.focus ? Theme.color.grey : Theme.color.black
+        color: mouse.focus ? Theme.color.grey : Theme.color.black
         Text {
           text: modelData.icon
           anchors.centerIn: parent
