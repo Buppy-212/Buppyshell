@@ -8,8 +8,7 @@
 - [x] Battery
 - [x] Tray
 - [x] Updates
-- [ ] Toggles (gamemode, idle)
-- [ ] Idle inhibitor
+- [x] Idle inhibitor
 - [x] Volume
 - [x] Brightness
 - [x] Tooltips kinda?
@@ -19,7 +18,7 @@
 
 - [ ] Start Menu
 - [ ] Window Switcher
-- [ ] Logout
+- [x] Logout
 
 ## Notifications
 

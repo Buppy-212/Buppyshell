@@ -6,6 +6,7 @@ import "bar"
 import "background"
 import "lockscreen"
 import "sliders"
+import "launcher"
 
 ShellRoot {
   Bar {}
@@ -13,4 +14,5 @@ ShellRoot {
   Popup {}
   Lockscreen {}
   Sliders {}
+  Launcher {}
 }
