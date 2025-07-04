@@ -47,7 +47,7 @@ Item {
         implicitWidth: Screen.width * 0.075
         implicitHeight: width
         radius: width
-        color: mouse.containsMouse ? Theme.color.gray : Theme.color.black
+        color: mouse.containsMouse ? Theme.color.grey : Theme.color.black
         Text {
           text: modelData.icon
           anchors.centerIn: parent
@@ -80,7 +80,7 @@ Item {
     implicitWidth: Screen.width * 0.075
     implicitHeight: width
     radius: width
-    color: mouse.containsMouse ? Theme.color.gray : Theme.color.black
+    color: mouse.containsMouse ? Theme.color.grey : Theme.color.black
     Text {
       text: "close"
       anchors.centerIn: parent

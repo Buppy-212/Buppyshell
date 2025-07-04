@@ -10,7 +10,7 @@ Row {
   visible: Hyprland.focusedWorkspace?.toplevels.values.length ?? false
   Block {
   visible: windowControls.groupLength >= 2
-  color: mouseLeft.containsMouse ? Theme.color.gray : "transparent"
+  color: mouseLeft.containsMouse ? Theme.color.grey : "transparent"
     SymbolText {
       text: "arrow_back"
     }
@@ -21,7 +21,7 @@ Row {
   }
   Block {
   visible: windowControls.groupLength >= 2
-  color: mouseRight.containsMouse ? Theme.color.gray : "transparent"
+  color: mouseRight.containsMouse ? Theme.color.grey : "transparent"
     SymbolText {
       text: "arrow_forward"
     }
@@ -32,7 +32,7 @@ Row {
   }
   Block {
   visible: windowControls.grouped
-  color: mouseLock.containsMouse ? Theme.color.gray : "transparent"
+  color: mouseLock.containsMouse ? Theme.color.grey : "transparent"
     SymbolText {
       text: windowControls.locked ? "lock" : "lock_open"
       color: Theme.color.orange
@@ -43,7 +43,7 @@ Row {
     }
   }
   Block {
-  color: mouseGroup.containsMouse ? Theme.color.gray : "transparent"
+  color: mouseGroup.containsMouse ? Theme.color.grey : "transparent"
     SymbolText {
       text: windowControls.grouped ? "tab" : "tab_group"
       color: Theme.color.green

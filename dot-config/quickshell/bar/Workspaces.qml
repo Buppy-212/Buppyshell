@@ -22,7 +22,7 @@ Item {
         height: occupied ? (modelData.toplevels.values.length + 1) * (width + 2) : 28
         width: Theme.blockWidth
         radius: Theme.rounding
-        color: draggedOver | mouse.containsMouse ? Theme.color.gray : focused ? Theme.color.accent : occupied ? Theme.color.bgalt : "transparent"
+        color: draggedOver | mouse.containsMouse ? Theme.color.grey : focused ? Theme.color.accent : occupied ? Theme.color.bgalt : "transparent"
         DropArea {
           anchors.fill: parent
           onEntered: (drag) => { 

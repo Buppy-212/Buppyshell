@@ -29,7 +29,7 @@ Singleton {
     readonly property string bgalt: "#2a2c3d"
     readonly property string bgdark: "#1e2030"
     readonly property string fg: "#e9e9ed"
-    readonly property string gray: "#313345"
+    readonly property string grey: "#313345"
     readonly property string red: "#ff757f"
     readonly property string orange: "#ff966c"
     readonly property string yellow: "#ffc777"

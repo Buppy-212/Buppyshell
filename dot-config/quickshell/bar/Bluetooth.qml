@@ -45,7 +45,7 @@ ClippingRectangle {
         Behavior on visible {
           animation: Theme.animation.elementMove.numberAnimation.createObject(this)
         }
-        color: mouse.containsMouse ? Theme.color.gray : modelData.batteryAvailable && modelData.battery <= 0.1 ? Theme.color.red : modelData.connected ? Theme.color.accent : "transparent"
+        color: mouse.containsMouse ? Theme.color.grey : modelData.batteryAvailable && modelData.battery <= 0.1 ? Theme.color.red : modelData.connected ? Theme.color.accent : "transparent"
         IconImage {
           anchors.centerIn: parent
           implicitSize: Theme.blockHeight

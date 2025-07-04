@@ -69,7 +69,7 @@ Scope {
           background: Rectangle {
             width: slider.availableWidth
             height: parent.height
-            color: Theme.color.gray
+            color: Theme.color.grey
             radius: Theme.rounding
             Rectangle {
               width: slider.visualPosition * parent.width
