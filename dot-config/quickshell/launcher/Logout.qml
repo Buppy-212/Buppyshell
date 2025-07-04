@@ -82,7 +82,7 @@ Item {
     radius: width
     color: mouse.containsMouse ? Theme.color.gray : Theme.color.black
     Text {
-      text: "arrow_back"
+      text: "close"
       anchors.centerIn: parent
       font.family: Theme.font.family.material
       font.pointSize: parent.width ? parent.width / 2 : Theme.font.size.large
