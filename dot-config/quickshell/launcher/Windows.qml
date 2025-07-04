@@ -16,12 +16,17 @@ Item {
     delegate: WrapperMouseArea {
       x: parent.width/2 + radius * Math.cos(2 * Math.PI * index / rep.count) - width/2
       y: parent.height/2 + radius * Math.sin(2 * Math.PI * index / rep.count) - height/2
-      ScreencopyView {
-        id: view
-        anchors.fill: parent
-        captureSource: modelData.wayland
-        constraintSize: rep.count < 4 ? Qt.size(Screen.width /4, Screen.height/4) : Qt.size(Screen.width / rep.count, Screen.height / rep.count)
-        live: true
+      Rectangle {
+        implicitWidth: rep.count < 4 ? Screen.width / 4 : Screen.width / rep.count
+        implicitHeight: rep.count < 4 ? Screen.height / 4 : Screen.height / rep.count
+        color: Theme.color.black
+        ScreencopyView {
+          id: view
+          anchors.fill: parent
+          captureSource: modelData.wayland
+          constraintSize: rep.count < 4 ? Qt.size(Screen.width / 4, Screen.height/ 4) : Qt.size(Screen.width / rep.count, Screen.height / rep.count)
+          live: true
+        }
         MouseArea {
           id: mouse
           anchors.fill: parent
