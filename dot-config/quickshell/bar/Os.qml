@@ -11,6 +11,6 @@ Block {
   }
   MouseBlock {
     id: mouse
-    onClicked: Hyprland.dispatch("exec uwsm app -- rofi-wrapper drun menu");
+    onClicked: Hyprland.dispatch("global buppyshell:launcher");
   }
 }
