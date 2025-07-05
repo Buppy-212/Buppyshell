@@ -1,9 +1,9 @@
-import "root:/services"
+import "../services"
 
 Block {
-  implicitHeight: Theme.blockHeight*2
-  color: "transparent"
-  StyledText {
-    text: Time.time
-  }
+    implicitHeight: Theme.blockHeight * 2
+    color: "transparent"
+    StyledText {
+        text: Time.time
+    }
 }

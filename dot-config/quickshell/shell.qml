@@ -9,10 +9,16 @@ import "sliders"
 import "launcher"
 
 ShellRoot {
-  Bar {}
-  Background {}
-  Popup {}
-  Lockscreen {}
-  Sliders {}
-  Launcher {}
+    Bar {}
+    Background {}
+    Popup {}
+    Lockscreen {}
+    Sliders {
+        isVolume: false
+        isMic: false
+    }
+    Launcher {
+        visible: false
+        source: ""
+    }
 }

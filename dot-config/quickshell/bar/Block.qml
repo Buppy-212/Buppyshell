@@ -1,9 +1,10 @@
 import QtQuick
-import "root:/services"
+import "../services"
 
 Rectangle {
-  implicitWidth: Theme.blockWidth
-  implicitHeight: Theme.blockHeight
-  color: mouse.containsMouse ? Theme.color.grey : "transparent"
-  radius: Theme.rounding
+    property bool hovered: false
+    implicitWidth: Theme.blockWidth
+    implicitHeight: Theme.blockHeight
+    color: hovered ? Theme.color.grey : "transparent"
+    radius: Theme.rounding
 }
