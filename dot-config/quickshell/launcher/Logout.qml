@@ -73,12 +73,12 @@ Item {
           text: icon
           anchors.centerIn: parent
           font.family: Theme.font.family.material
-          font.pointSize: parent.width ? parent.width / 2 : Theme.font.size.large
+          font.pointSize: parent.width  ? parent.width / 2 : 1
           color: mouse.color
         }
         Text {
           text: shortcut
-          font.pointSize: parent.width * 0.1
+          font.pointSize: parent.width ? parent.width * 0.1 : 1
           font.family: Theme.font.family.mono
           color: Theme.color.fg
           font.bold: true
