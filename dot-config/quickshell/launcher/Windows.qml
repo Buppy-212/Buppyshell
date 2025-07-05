@@ -21,7 +21,7 @@ Item {
       acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
       cursorShape: Qt.PointingHandCursor
       hoverEnabled: true
-      focus: index ? false : true
+      focus: modelData.activated
       focusPolicy: Qt.StrongFocus
       Keys.onReturnPressed: { Hyprland.dispatch(`focuswindow address:0x${modelData.address}`); Hyprland.dispatch("global buppyshell:windows") }
       Keys.onDeletePressed: modelData.wayland.close()
