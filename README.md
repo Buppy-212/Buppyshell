@@ -17,7 +17,7 @@
 ## Launcher
 
 - [ ] Start Menu
-- [ ] Window Switcher
+- [x] Window Switcher
 - [x] Logout
 
 ## Notifications
