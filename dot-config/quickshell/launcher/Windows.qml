@@ -107,7 +107,6 @@ Item {
           Component {
             id: preview
             ScreencopyView {
-              visible: mouse.focus
               anchors.fill: parent
               captureSource: modelData.wayland
             }

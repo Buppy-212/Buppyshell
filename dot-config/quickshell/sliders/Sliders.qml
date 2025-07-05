@@ -28,7 +28,9 @@ Scope {
     running: root.visible
     onTriggered: root.visible = !root.visible
   }
-  PanelWindow {
+  LazyLoader {
+    loading: root.visible
+    component: PanelWindow {
     WlrLayershell.layer: WlrLayer.Overlay
     WlrLayershell.namespace: "buppyshell:slider"
     exclusionMode: ExclusionMode.Ignore
@@ -84,5 +86,6 @@ Scope {
     MouseArea {
       anchors.fill: parent
     }
+  }
   }
 }
