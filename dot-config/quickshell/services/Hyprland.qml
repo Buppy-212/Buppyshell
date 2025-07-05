@@ -40,7 +40,7 @@ Singleton {
     target: Hyprland
 
     function onRawEvent(event: HyprlandEvent): void {
-      if (!event.name.endsWith("v2")) {
+      if (event.name == "togglegroup" || event.name == "lockgroups") {
         root.reload();
       }
       timer.restart();
