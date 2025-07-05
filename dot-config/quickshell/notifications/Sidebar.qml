@@ -7,10 +7,9 @@ import "root:/services"
 Scope {
   id: root
   property bool visible: false
-  LazyLoader {
+  Loader {
     id: loader
-    loading: visible
-    component: PanelWindow {
+    sourceComponent: PanelWindow {
       id: sidebar
       visible: root.visible
       WlrLayershell.layer: WlrLayer.Overlay
