@@ -58,7 +58,6 @@ Item {
               elide: Text.ElideRight
               maximumLineCount: 1
             }
-            WindowControls { toplevel: modelData; anchors.right: parent.right }
           }
           ScreencopyView {
             width: parent.width
