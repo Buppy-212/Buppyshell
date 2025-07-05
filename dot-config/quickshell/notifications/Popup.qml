@@ -6,7 +6,7 @@ Scope {
   Server {
     id: notificationServer
     onNotification: notification => {
-      if (sidebar.visible === false) {notificationPopup.showNotification(notification)};
+      if (!sidebar.visible) {notificationPopup.showNotification(notification)};
     }
   }
   NotificationPopup {
@@ -15,7 +15,20 @@ Scope {
       currentNotification = notification;
     }
   }
-  Sidebar {id: sidebar}
+  LazyLoader {
+    id: sidebar
+    property bool visible: false
+    loading: true
+    component: Sidebar { visible: sidebar.visible }
+  }
+  GlobalShortcut {
+    name: "sidebar"
+    description: "Toggle sidebar"
+    appid: "buppyshell"
+    onPressed: {
+      sidebar.visible = !sidebar.visible;
+    }
+  }
   GlobalShortcut {
     name: "clearNotifs"
     description: "Dismiss all notifications"
