@@ -93,7 +93,15 @@ Item {
             IconImage {
               visible: !mouse.focus
               implicitSize: parent.height
-              source: Quickshell.iconPath(modelData.wayland.appId)
+              source: {
+                if (modelData.wayland?.appId.startsWith("steam_app")) {
+                  return Quickshell.iconPath("input-gaming");
+                } else if (modelData.wayland?.appId == ""){
+                  return (Quickshell.iconpath("image-loading"))
+                } else {
+                  return Quickshell.iconPath(modelData.wayland?.appId.toLowerCase() ?? "image-loading", modelData.wayland?.appId);
+                }
+              }
             }
           }
           Component {
