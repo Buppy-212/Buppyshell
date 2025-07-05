@@ -83,26 +83,4 @@ Item {
       }
     }
   }
-  Rectangle {
-    anchors.centerIn: parent
-    implicitWidth: Screen.width * 0.075
-    implicitHeight: width
-    radius: width
-    color: mouse.containsMouse ? Theme.color.grey : Theme.color.black
-    Text {
-      text: "close"
-      anchors.centerIn: parent
-      font.family: Theme.font.family.material
-      font.pointSize: parent.width ? parent.width / 2 : Theme.font.size.large
-      color: Theme.color.fg
-    }
-    MouseArea {
-      id: mouse
-      anchors.fill: parent
-      acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
-      cursorShape: Qt.PointingHandCursor
-      hoverEnabled: true
-      onClicked: Hyprland.dispatch("global buppyshell:logout")
-    }
-  }
 }

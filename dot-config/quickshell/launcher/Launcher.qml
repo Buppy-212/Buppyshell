@@ -15,6 +15,11 @@ Scope {
     exclusionMode: ExclusionMode.Ignore
     color: "#aa222436"
     visible: root.visible
+    MouseArea {
+      anchors.fill: parent
+      acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
+      onClicked: root.visible = false
+    }
     anchors {
       top: true
       right: true
