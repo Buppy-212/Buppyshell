@@ -20,7 +20,6 @@ Variants {
             implicitWidth: Theme.blockWidth
             color: Theme.color.black
             ColumnLayout {
-                anchors.topMargin: 2
                 anchors.fill: parent
                 Column {
                     spacing: 2
@@ -52,13 +51,16 @@ Variants {
             }
             implicitWidth: Theme.blockWidth
             color: Theme.color.black
-            Column {
-                anchors.top: parent.top
-                spacing: 2
-                Bell {}
-                Bluetooth {}
-                Tray {}
-                Mpris {}
+            ColumnLayout {
+                anchors.fill: parent
+                Column {
+                    spacing: 2
+                    Layout.alignment: Qt.AlignTop
+                    Bell {}
+                    Bluetooth {}
+                    Tray {}
+                    Mpris {}
+                }
             }
         }
         PanelWindow {
