@@ -24,7 +24,7 @@ Item {
       focus: index ? false : true
       focusPolicy: Qt.StrongFocus
       Keys.onReturnPressed: { Hyprland.dispatch(`focuswindow address:0x${modelData.address}`); Hyprland.dispatch("global buppyshell:windows") }
-      Keys.onDeletePressed: { modelData.wayland.close(); if (rep.count == 1) {Hyprland.dispatch("global buppyshell:windows")} }
+      Keys.onDeletePressed: modelData.wayland.close()
       onEntered: focus = true
       onClicked: (mouse) => {
         if (mouse.button ==  Qt.LeftButton) {
@@ -35,8 +35,13 @@ Item {
           Hyprland.dispatch(`movetoworkspace ${Hyprland.focusedWorkspace.id}, address:0x${modelData.address}`);
         } else {
           modelData.wayland.close()
-          if (rep.count == 1) {Hyprland.dispatch("global buppyshell:windows")}
         }
+      }
+      Behavior on x {
+        animation: Theme.animation.elementMoveEnter.numberAnimation.createObject(this)
+      }
+      Behavior on y {
+        animation: Theme.animation.elementMoveEnter.numberAnimation.createObject(this)
       }
       Rectangle {
         id: rect
@@ -50,8 +55,10 @@ Item {
             height: Theme.blockHeight
             color: mouse.focus ? Theme.color.accent : Theme.color.black
             Text {
+              anchors.left: parent.left
               text: modelData.title
-              anchors.fill: parent
+              width: parent.width
+              height: parent.height
               color: Theme.color.fg
               font.family: Theme.font.family.mono
               font.pointSize: Theme.font.size.normal
@@ -60,12 +67,42 @@ Item {
               elide: Text.ElideRight
               maximumLineCount: 1
             }
+            WrapperMouseArea {
+              anchors.right: parent.right
+              width: height
+              height: parent.height
+              cursorShape: Qt.PointingHandCursor
+              onClicked: modelData.wayland.close()
+              Text {
+                text: "close"
+                color: Theme.color.red
+                font.family: Theme.font.family.material
+                font.pointSize: Theme.font.size.large
+                font.bold: true
+                horizontalAlignment: Text.AlignRight
+              }
+            }
           }
-          ScreencopyView {
-            width: parent.width
+          Loader {
+            width: rect.width
             height: rect.height - Theme.blockHeight
-            captureSource: modelData.wayland
-            live: true
+            sourceComponent: mouse.focus || mouse.containsMouse ? preview : icon
+          }
+          Component {
+            id: icon
+            IconImage {
+              visible: !mouse.focus
+              implicitSize: parent.height
+              source: Quickshell.iconPath(modelData.wayland.appId)
+            }
+          }
+          Component {
+            id: preview
+            ScreencopyView {
+              visible: mouse.focus
+              anchors.fill: parent
+              captureSource: modelData.wayland
+            }
           }
         }
       }

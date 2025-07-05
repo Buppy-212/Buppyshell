@@ -30,7 +30,7 @@ Scope {
       id: loader;
       focus: true
       anchors.fill: parent
-      source: "Applications.qml";
+      source: "";
     }
   }
   GlobalShortcut {
