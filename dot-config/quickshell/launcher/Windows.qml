@@ -14,6 +14,8 @@ Item {
     model: Hyprland.toplevels
     delegate: WrapperMouseArea {
       id: mouse
+      required property int index
+      required property var modelData
       x: parent.width/2 - radius * Math.cos(2 * Math.PI * index / rep.count) - width/2
       y: parent.height/2 - radius * Math.sin(2 * Math.PI * index / rep.count) - height/2
       acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton

@@ -58,4 +58,10 @@ Singleton {
       }
     }
   }
+  GlobalShortcut {
+    name: "reload"
+    description: "Reloads hyprland vars"
+    appid: "buppyshell"
+    onPressed: root.reload()
+  }
 }

@@ -49,6 +49,11 @@ Item {
     ]
     delegate: WrapperMouseArea {
       id: mouse
+      required property string icon
+      required property string color
+      required property string command
+      required property string shortcut
+      required property int index
       x: parent.width/2 + radius * Math.cos(2 * Math.PI * (index - 2) / rep.count) - width/2
       y: parent.height/2 + radius * Math.sin(2 * Math.PI * (index - 2) / rep.count) - height/2
       acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
@@ -57,22 +62,22 @@ Item {
       focus: index ? false : true
       focusPolicy: Qt.StrongFocus
       onEntered: focus = true
-      onClicked: { Hyprland.dispatch("global buppyshell:logout"); Hyprland.dispatch(modelData.command) }
-      Keys.onReturnPressed: { Hyprland.dispatch("global buppyshell:logout"); Hyprland.dispatch(modelData.command) }
+      onClicked: { Hyprland.dispatch("global buppyshell:logout"); Hyprland.dispatch(command) }
+      Keys.onReturnPressed: { Hyprland.dispatch("global buppyshell:logout"); Hyprland.dispatch(command) }
       Rectangle {
-        implicitWidth: Screen.width * 0.075
+        implicitWidth: Screen.width * 0.1
         implicitHeight: width
         radius: width
         color: mouse.focus ? Theme.color.grey : Theme.color.black
         Text {
-          text: modelData.icon
+          text: icon
           anchors.centerIn: parent
           font.family: Theme.font.family.material
           font.pointSize: parent.width ? parent.width / 2 : Theme.font.size.large
-          color: modelData.color
+          color: mouse.color
         }
         Text {
-          text: modelData.shortcut
+          text: shortcut
           font.pointSize: parent.width * 0.1
           font.family: Theme.font.family.mono
           color: Theme.color.fg
