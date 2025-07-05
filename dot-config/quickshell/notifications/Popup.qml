@@ -2,6 +2,7 @@ pragma ComponentBehavior: Bound
 
 import Quickshell
 import Quickshell.Hyprland
+import QtQuick
 
 Scope {
     Server {
@@ -19,13 +20,9 @@ Scope {
             currentNotification = notification;
         }
     }
-    LazyLoader {
+    Sidebar {
         id: sidebar
-        property bool visible: false
-        loading: true
-        component: Sidebar {
-            visible: sidebar.visible
-        }
+        visible: false
     }
     GlobalShortcut {
         name: "sidebar"
