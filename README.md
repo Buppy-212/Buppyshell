@@ -16,7 +16,7 @@
 
 ## Launcher
 
-- [ ] Start Menu
+- [x] Start Menu
 - [x] Window Switcher
 - [x] Logout
 

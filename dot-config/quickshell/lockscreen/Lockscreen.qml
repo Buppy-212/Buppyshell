@@ -16,7 +16,13 @@ WlSessionLock {
             fillMode: Image.PreserveAspectCrop
             source: Wallpaper.path
         }
-        Date {}
+        Rectangle {
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.leftMargin: Screen.name === "eDP-1" ? Screen.width * 0.84 : Screen.width * 0.755
+            anchors.fill: parent
+            color: "transparent"
+            Date {}
+        }
         PamContext {
             id: pam
             active: true

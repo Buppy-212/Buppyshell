@@ -17,27 +17,49 @@ Variants {
                 left: true
                 bottom: true
             }
-            implicitWidth: Theme.blockWidth
-            color: Theme.color.black
-            ColumnLayout {
-                anchors.fill: parent
-                Column {
-                    spacing: 2
-                    Layout.alignment: Qt.AlignTop
-                    Os {}
-                    Workspaces {}
+            implicitWidth: Theme.blockWidth + Theme.rounding + 3
+            exclusiveZone: Theme.blockWidth
+            color: "transparent"
+            Rectangle {
+                color: Theme.color.black
+                implicitHeight: parent.height
+                implicitWidth: Theme.blockWidth
+                anchors.left: parent.left
+                ColumnLayout {
+                    anchors.fill: parent
+                    Column {
+                        spacing: 2
+                        Layout.alignment: Qt.AlignTop
+                        Os {}
+                        Workspaces {}
+                    }
+                    Column {
+                        Layout.alignment: Qt.AlignBottom
+                        spacing: 2
+                        Volume {}
+                        Inhibitor {}
+                        Battery {}
+                        Light {}
+                        Update {}
+                        Clock {}
+                        Power {}
+                    }
                 }
-                Column {
-                    Layout.alignment: Qt.AlignBottom
-                    spacing: 2
-                    Volume {}
-                    Inhibitor {}
-                    Battery {}
-                    Light {}
-                    Update {}
-                    Clock {}
-                    Power {}
-                }
+            }
+            RoundCorner {
+                anchors.bottom: parent.bottom
+                anchors.left: parent.left
+                anchors.leftMargin: Theme.blockWidth
+                size: Theme.rounding + 3
+                corner: cornerEnum.bottomLeft
+            }
+            RoundCorner {
+                anchors.top: parent.top
+                anchors.left: parent.left
+                anchors.topMargin: Theme.blockHeight
+                anchors.leftMargin: Theme.blockWidth
+                size: Theme.rounding + 3
+                corner: cornerEnum.topLeft
             }
         }
         PanelWindow {
@@ -49,18 +71,40 @@ Variants {
                 right: true
                 bottom: true
             }
-            implicitWidth: Theme.blockWidth
-            color: Theme.color.black
-            ColumnLayout {
-                anchors.fill: parent
-                Column {
-                    spacing: 2
-                    Layout.alignment: Qt.AlignTop
-                    Bell {}
-                    Bluetooth {}
-                    Tray {}
-                    Mpris {}
+            implicitWidth: Theme.blockWidth + Theme.rounding + 3
+            exclusiveZone: Theme.blockWidth
+            color: "transparent"
+            Rectangle {
+                color: Theme.color.black
+                implicitHeight: parent.height
+                implicitWidth: Theme.blockWidth
+                anchors.right: parent.right
+                ColumnLayout {
+                    anchors.fill: parent
+                    Column {
+                        spacing: 2
+                        Layout.alignment: Qt.AlignTop
+                        Bell {}
+                        Bluetooth {}
+                        Tray {}
+                        Mpris {}
+                    }
                 }
+            }
+            RoundCorner {
+                anchors.bottom: parent.bottom
+                anchors.right: parent.right
+                anchors.rightMargin: Theme.blockWidth
+                size: Theme.rounding + 3
+                corner: cornerEnum.bottomRight
+            }
+            RoundCorner {
+                anchors.top: parent.top
+                anchors.right: parent.right
+                anchors.topMargin: Theme.blockHeight
+                anchors.rightMargin: Theme.blockWidth
+                size: Theme.rounding + 3
+                corner: cornerEnum.topRight
             }
         }
         PanelWindow {
