@@ -31,7 +31,7 @@ Block {
             id: menu
             menu: trayItem.modelData.menu
             anchor.window: rightBar
-            anchor.rect.y: trayroot.y + root.y
+            anchor.rect.y: trayRoot.y + trayItem.y
             anchor.edges: Edges.Right
             anchor.gravity: Edges.Left | Edges.Bottom
         }

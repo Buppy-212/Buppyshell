@@ -74,23 +74,25 @@ Item {
                         }
                     }
                     Repeater {
+                        id: toplevelRepeater
+                        width: parent.width
                         model: workspaceCell.modelData.toplevels
                         delegate: IconImage {
                             id: image
                             required property HyprlandToplevel modelData
                             property bool silent: true
                             property bool caught: false
-                            anchors.horizontalCenter: parent.horizontalCenter
+                            anchors.horizontalCenter: toplevelRepeater.horizontalCenter
                             implicitSize: workspaceCell.width
                             Drag.active: mouseArea.drag.active
                             Drag.hotSpot: Qt.point(implicitSize / 2, implicitSize / 2)
                             source: {
-                                if (modelData.wayland?.appId.startsWith("steam_app")) {
+                                if (modelData?.wayland?.appId.startsWith("steam_app")) {
                                     return Quickshell.iconPath("input-gaming");
-                                } else if (modelData.wayland?.appId == "") {
+                                } else if (modelData?.wayland?.appId == "") {
                                     return (Quickshell.iconPath("image-loading"));
                                 } else {
-                                    return Quickshell.iconPath(modelData.wayland?.appId.toLowerCase() ?? "image-loading", modelData.wayland?.appId);
+                                    return Quickshell.iconPath(modelData?.wayland?.appId.toLowerCase() ?? "image-loading", modelData.wayland?.appId);
                                 }
                             }
                             states: State {
