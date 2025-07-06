@@ -37,7 +37,7 @@ Item {
             id: titleText
             wrapMode: Text.Wrap
             anchors.centerIn: parent
-            color: Theme.color.fg
+            color: Theme.color.accent
             text: appLauncher.title
             font.family: Theme.font.family.mono
             font.pointSize: Theme.font.size.extraLarge
@@ -58,7 +58,7 @@ Item {
             acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
             cursorShape: Qt.PointingHandCursor
             hoverEnabled: true
-            onFocusChanged: appLauncher.title = modelData.name
+            onFocusChanged: inputField.focus ? appLauncher.title = "" : appLauncher.title = modelData.name
             focusPolicy: Qt.StrongFocus
             focus: !inputField.focus && modelData.name == fuzzy.target
             visible: !inputField.text || fuzzy
