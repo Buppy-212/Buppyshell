@@ -31,19 +31,7 @@ Singleton {
         running: true
         onTriggered: {
             root.defaultTitle = true;
-            if (!Hyprland.focusedWorkspace?.toplevels.values.length) {
-                root.defaultTitle = false;
-                root.title = qsTr("Desktop");
-            } else {
-                root.defaultTitle = true;
-            }
         }
-    }
-    Connections {
-      target: Hyprland
-      function onRawEvent(event) {
-        timer.restart();
-      }
     }
     GlobalShortcut {
         name: "reload"
