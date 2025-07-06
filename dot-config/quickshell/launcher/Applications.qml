@@ -9,7 +9,7 @@ import "../services"
 
 Item {
     id: appLauncher
-    property real radius: Screen.height / 3
+    property real radius: Screen.height * 0.4
     property string title
     anchors.fill: parent
     Keys.onEscapePressed: Hyprland.dispatch("global buppyshell:launcher")
@@ -29,6 +29,7 @@ Item {
             font.family: Theme.font.family.mono
             font.pointSize: Theme.font.size.extraLarge
             horizontalAlignment: Text.AlignHCenter
+            Keys.onReturnPressed: focus = false
             focus: true
             font.bold: true
         }
@@ -51,6 +52,7 @@ Item {
             id: desktopEntry
             required property DesktopEntry modelData
             required property int index
+            readonly property var fuzzy: Fuzzy.single(inputField.text, modelData.name)
             x: parent.width / 2 + appLauncher.radius * Math.cos(2 * Math.PI * (index - 2) / rep.count) - width / 2
             y: parent.height / 2 + appLauncher.radius * Math.sin(2 * Math.PI * (index - 2) / rep.count) - height / 2
             acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
@@ -58,7 +60,8 @@ Item {
             hoverEnabled: true
             onFocusChanged: appLauncher.title = modelData.name
             focusPolicy: Qt.StrongFocus
-            visible: !inputField.text || Fuzzy.single(inputField.text, modelData.name) || Fuzzy.single(inputField.text, modelData.genericName)
+            focus: !inputField.focus && modelData.name == fuzzy.target
+            opacity: !inputField.text || fuzzy ? 1 : 0.2
             onEntered: {
                 focus = true;
                 appLauncher.title = modelData.name;
@@ -66,11 +69,11 @@ Item {
             onClicked: {
                 console.log(modelData.id);
                 Hyprland.dispatch("global buppyshell:launcher");
-                Hyprland.dispatch(`exec uwsm app -- ${modelData.id}.desktop`);
+                Quickshell.execDetached(["uwsm", "app", "--", `${modelData.id}.desktop`]);
             }
             Keys.onReturnPressed: {
                 Hyprland.dispatch("global buppyshell:launcher");
-                Hyprland.dispatch(`exec uwsm app -- ${modelData.id}.desktop`);
+                Quickshell.execDetached(["uwsm", "app", "--", `${modelData.id}.desktop`]);
             }
             Rectangle {
                 id: rect
