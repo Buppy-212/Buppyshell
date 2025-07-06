@@ -10,9 +10,9 @@ Singleton {
     readonly property var toplevels: Hyprland.toplevels
     readonly property var workspaces: Hyprland.workspaces
     readonly property var monitors: Hyprland.monitors
-    readonly property var focusedMonitor: Hyprland.focusedMonitor
-    readonly property var focusedWorkspace: Hyprland.focusedWorkspace
-    readonly property var activeToplevel: Hyprland.activeToplevel
+    readonly property HyprlandMonitor focusedMonitor: Hyprland.focusedMonitor
+    readonly property HyprlandWorkspace focusedWorkspace: Hyprland.focusedWorkspace
+    readonly property HyprlandToplevel activeToplevel: Hyprland.activeToplevel
     readonly property string defaultTitle: Hyprland.activeToplevel?.title ?? "Desktop"
     property string title: defaultTitle
 

@@ -52,7 +52,7 @@ Rectangle {
         anchors.fill: parent
         cursorShape: Qt.PointingHandCursor
         drag.target: parent
-        drag.axis: Qt.XAxis
+        drag.axis: Drag.XAxis
         drag.minimumX: 0
         drag.maximumX: Theme.notification.sidebarWidth
         drag.filterChildren: true

@@ -2,7 +2,6 @@ pragma ComponentBehavior: Bound
 
 import Quickshell
 import Quickshell.Widgets
-import Quickshell.Hyprland
 import QtQuick
 import "../services"
 
@@ -18,7 +17,7 @@ Item {
             model: Hyprland.workspaces
             delegate: Rectangle {
                 id: workspaceCell
-                required property HyprlandWorkspace modelData
+                required property var modelData
                 property bool draggedOver: false
                 property bool occupied: modelData.toplevels.values.length > 0
                 property bool focused: modelData.focused
@@ -79,7 +78,7 @@ Item {
                         model: workspaceCell.modelData.toplevels
                         delegate: IconImage {
                             id: image
-                            required property HyprlandToplevel modelData
+                            required property var modelData
                             property bool silent: true
                             property bool caught: false
                             anchors.horizontalCenter: toplevelRepeater.horizontalCenter
@@ -105,6 +104,7 @@ Item {
                             MouseBlock {
                                 id: mouseArea
                                 drag.target: parent
+                                drag.axis: Drag.YAxis
                                 onEntered: Hyprland.overrideTitle(modelData.title)
                                 onExited: Hyprland.refreshTitle()
                                 onClicked: mouse => {
