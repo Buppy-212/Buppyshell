@@ -7,6 +7,7 @@ import QtQuick
 Singleton {
     id: root
 
+    property bool locked: false
     property bool defaultTitle: true
     property string title: defaultTitle
 
@@ -16,8 +17,12 @@ Singleton {
         root.title = title;
     }
 
-    function refreshTitle() {
+    function refreshTitle(): void {
         timer.restart();
+    }
+
+    function toggleLock(): void {
+        root.locked = !root.locked;
     }
 
     Timer {

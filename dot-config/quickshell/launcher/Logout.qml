@@ -27,7 +27,7 @@ Item {
             break;
         case Qt.Key_L:
             Hyprland.dispatch("global buppyshell:logout");
-            Hyprland.dispatch("global buppyshell:lock");
+            GlobalState.toggleLock();
             break;
         case Qt.Key_U:
             Hyprland.dispatch("global buppyshell:logout");
