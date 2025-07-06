@@ -34,6 +34,12 @@ Singleton {
         }
     }
     GlobalShortcut {
+        name: "lock"
+        description: "Reloads toplevels"
+        appid: "buppyshell"
+        onPressed: root.locked = true
+    }
+    GlobalShortcut {
         name: "reload"
         description: "Reloads toplevels"
         appid: "buppyshell"
