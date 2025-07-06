@@ -1,4 +1,4 @@
-import "../services"
+import Quickshell.Hyprland
 import "../notifications"
 
 Block {
