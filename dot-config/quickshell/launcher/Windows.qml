@@ -66,6 +66,7 @@ Item {
                         RowLayout {
                             anchors.fill: parent
                             spacing: 2
+                            anchors.rightMargin: 2
                             Text {
                                 text: miniWindow.modelData.title
                                 Layout.preferredWidth: parent.width - parent.height
