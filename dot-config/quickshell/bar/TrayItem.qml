@@ -21,12 +21,12 @@ Block {
         }
         onEntered: {
             if (trayItem.modelData.title) {
-                HyprHyprTitle.overrideTitle(trayItem.modelData.title);
+                GlobalState.overrideTitle(trayItem.modelData.title);
             } else {
-                HyprHyprTitle.overrideTitle(trayItem.modelData.tooltipTitle);
+                GlobalState.overrideTitle(trayItem.modelData.tooltipTitle);
             }
         }
-        onExited: HyprTitle.refreshTitle()
+        onExited: GlobalState.refreshTitle()
         QsMenuAnchor {
             id: menu
             menu: trayItem.modelData.menu

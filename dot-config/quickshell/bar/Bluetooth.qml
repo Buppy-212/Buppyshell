@@ -36,8 +36,8 @@ ClippingRectangle {
                         bluetoothWidget.revealed = !bluetoothWidget.revealed;
                     }
                 }
-                onEntered: HyprTitle.overrideTitle(Bluetooth.defaultAdapter.name)
-                onExited: HyprTitle.refreshTitle()
+                onEntered: GlobalState.overrideTitle(Bluetooth.defaultAdapter.name)
+                onExited: GlobalState.refreshTitle()
             }
         }
         Repeater {
@@ -64,12 +64,12 @@ ClippingRectangle {
                     }
                     onEntered: {
                         if (bluetoothItem.modelData.batteryAvailable) {
-                            HyprTitle.overrideTitle(`${bluetoothItem.modelData.name}${bluetoothItem.modelData.battery * 100}%`);
+                            GlobalState.overrideTitle(`${bluetoothItem.modelData.name}${bluetoothItem.modelData.battery * 100}%`);
                         } else {
-                            HyprTitle.overrideTitle(bluetoothItem.modelData.name);
+                            GlobalState.overrideTitle(bluetoothItem.modelData.name);
                         }
                     }
-                    onExited: HyprTitle.refreshTitle()
+                    onExited: GlobalState.refreshTitle()
                 }
             }
         }

@@ -8,7 +8,7 @@ Block {
     StyledText {
         id: text
         property real xScale: 1
-        text: HyprTitle.defaultTitle ? Hyprland.focusedWorkspace.toplevels.values.length ? Hyprland.activeToplevel.title : qsTr("Desktop") : HyprTitle.title
+        text: GlobalState.defaultTitle ? Hyprland.focusedWorkspace.toplevels.values.length ? Hyprland.activeToplevel.title : qsTr("Desktop") : GlobalState.title
         width: parent.width
         horizontalAlignment: Text.AlignHCenter
         elide: Text.ElideRight

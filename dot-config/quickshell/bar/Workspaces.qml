@@ -106,8 +106,8 @@ Item {
                                 id: mouseArea
                                 drag.target: parent
                                 drag.axis: Drag.YAxis
-                                onEntered: HyprTitle.overrideTitle(modelData.title)
-                                onExited: HyprTitle.refreshTitle()
+                                onEntered: GlobalState.overrideTitle(modelData.title)
+                                onExited: GlobalState.refreshTitle()
                                 onClicked: mouse => {
                                     if (mouse.button == Qt.LeftButton) {
                                         Hyprland.dispatch(`focuswindow address:0x${image.modelData.address}`);
