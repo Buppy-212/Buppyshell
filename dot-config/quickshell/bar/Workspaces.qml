@@ -92,7 +92,7 @@ Item {
                                 } else if (modelData?.wayland?.appId == "") {
                                     return (Quickshell.iconPath("image-loading"));
                                 } else {
-                                    return Quickshell.iconPath(modelData?.wayland?.appId.toLowerCase() ?? "image-loading", modelData.wayland?.appId);
+                                    return Quickshell.iconPath(modelData?.wayland?.appId.toLowerCase() ?? "image-loading", modelData?.wayland?.appId);
                                 }
                             }
                             states: State {

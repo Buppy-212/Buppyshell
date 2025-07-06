@@ -9,7 +9,7 @@ Singleton {
 
     property bool locked: false
     property bool defaultTitle: true
-    property string title: defaultTitle
+    property string title: qsTr("Desktop")
 
     function overrideTitle(title: string): void {
         timer.running = false;
@@ -30,12 +30,20 @@ Singleton {
         interval: 200
         running: true
         onTriggered: {
-            if (Hyprland.focusedWorkspace?.toplevels.values.length == 0) {
-                root.title = "Desktop";
+            root.defaultTitle = true;
+            if (!Hyprland.focusedWorkspace?.toplevels.values.length) {
+                root.defaultTitle = false;
+                root.title = qsTr("Desktop");
             } else {
                 root.defaultTitle = true;
             }
         }
+    }
+    Connections {
+      target: Hyprland
+      function onRawEvent(event) {
+        timer.restart();
+      }
     }
     GlobalShortcut {
         name: "reload"
