@@ -1,4 +1,4 @@
-import Quickshell.Hyprland
+import Quickshell.Wayland
 import QtQuick
 import "../services"
 
@@ -6,7 +6,7 @@ Block {
     implicitWidth: Screen.width * 0.5
     color: "transparent"
     StyledText {
-        text: GlobalState.defaultTitle ? Hyprland.focusedWorkspace.toplevels.values.length ? Hyprland.activeToplevel.title : qsTr("Desktop") : GlobalState.title
+        text: GlobalState.defaultTitle ? ToplevelManager.activeToplevel?.title ?? qsTr("Desktop") : GlobalState.title
         width: parent.width
         horizontalAlignment: Text.AlignHCenter
         elide: Text.ElideRight
