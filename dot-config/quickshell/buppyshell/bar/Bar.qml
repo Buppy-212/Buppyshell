@@ -11,6 +11,9 @@ Variants {
         required property ShellScreen modelData
         PanelWindow {
             screen: scope.modelData
+            mask: Region {
+                item: leftRect
+            }
             WlrLayershell.namespace: "buppyshell:leftbar"
             anchors {
                 top: true
@@ -21,6 +24,7 @@ Variants {
             exclusiveZone: Theme.blockWidth
             color: "transparent"
             Rectangle {
+                id: leftRect
                 color: Theme.color.black
                 implicitHeight: parent.height
                 implicitWidth: Theme.blockWidth
@@ -65,6 +69,9 @@ Variants {
         PanelWindow {
             id: rightBar
             screen: scope.modelData
+            mask: Region {
+                item: rightRect
+            }
             WlrLayershell.namespace: "buppyshell:rightbar"
             anchors {
                 top: true
@@ -75,6 +82,7 @@ Variants {
             exclusiveZone: Theme.blockWidth
             color: "transparent"
             Rectangle {
+                id: rightRect
                 color: Theme.color.black
                 implicitHeight: parent.height
                 implicitWidth: Theme.blockWidth
