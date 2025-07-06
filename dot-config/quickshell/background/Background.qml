@@ -20,7 +20,6 @@ Scope {
                 right: true
             }
             Image {
-                id: image
                 anchors.fill: parent
                 fillMode: Image.PreserveAspectCrop
                 source: Wallpaper.path

@@ -20,7 +20,7 @@ Item {
                 id: workspaceCell
                 required property HyprlandWorkspace modelData
                 property bool draggedOver: false
-                property bool occupied: modelData.toplevels.values.length > 0
+                property bool occupied: modelData.toplevels.values.length
                 property bool focused: modelData.focused
                 anchors.horizontalCenter: parent.horizontalCenter
                 height: occupied ? (modelData.toplevels.values.length + 1) * (width + 2) : 28
