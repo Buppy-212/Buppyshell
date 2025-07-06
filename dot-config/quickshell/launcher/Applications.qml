@@ -61,7 +61,7 @@ Item {
             onFocusChanged: appLauncher.title = modelData.name
             focusPolicy: Qt.StrongFocus
             focus: !inputField.focus && modelData.name == fuzzy.target
-            opacity: !inputField.text || fuzzy ? 1 : 0.2
+            visible: !inputField.text || fuzzy
             onEntered: {
                 focus = true;
                 appLauncher.title = modelData.name;
