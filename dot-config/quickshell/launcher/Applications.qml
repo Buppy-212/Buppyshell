@@ -62,15 +62,15 @@ Item {
             acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
             cursorShape: Qt.PointingHandCursor
             hoverEnabled: true
-            onFocusChanged: inputField.focus ? appLauncher.title = modelData.name : appLauncher.title = modelData.name
+            onFocusChanged: appLauncher.title = modelData.name
             focusPolicy: Qt.StrongFocus
             focus: {
-              if (fuzzy) {
-                appLauncher.title = modelData.name;
-                appLauncher.targetId = modelData.id;
-                return !inputField.focus;
-              }
-              return false
+                if (fuzzy) {
+                    appLauncher.title = modelData.name;
+                    appLauncher.targetId = modelData.id;
+                    return !inputField.focus;
+                }
+                return false;
             }
             visible: !inputField.text || fuzzy
             onEntered: {
