@@ -36,10 +36,8 @@
 - [x] Brightness
 - [x] ddcutil
 
-## Wallpaper
+## Background
 
-- [x] Display Wallpaper
-- [x] Switch Wallpaper
 - [x] Date Widget
 
 ## Border

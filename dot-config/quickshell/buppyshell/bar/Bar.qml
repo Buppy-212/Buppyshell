@@ -17,7 +17,7 @@ Variants {
                 left: true
                 bottom: true
             }
-            implicitWidth: Theme.blockWidth + Theme.rounding + 3
+            implicitWidth: Theme.blockWidth + Theme.rounding
             exclusiveZone: Theme.blockWidth
             color: "transparent"
             Rectangle {
@@ -71,7 +71,7 @@ Variants {
                 right: true
                 bottom: true
             }
-            implicitWidth: Theme.blockWidth + Theme.rounding + 3
+            implicitWidth: Theme.blockWidth + Theme.rounding
             exclusiveZone: Theme.blockWidth
             color: "transparent"
             Rectangle {
