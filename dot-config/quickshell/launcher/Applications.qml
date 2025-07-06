@@ -41,12 +41,11 @@ Item {
             id: titleText
             wrapMode: Text.Wrap
             anchors.centerIn: parent
-            color: Theme.color.accent
+            color: Theme.color.fg
             text: appLauncher.title
             font.family: Theme.font.family.mono
             font.pointSize: Theme.font.size.extraLarge
             horizontalAlignment: Text.AlignHCenter
-            font.bold: true
         }
     }
     Repeater {
