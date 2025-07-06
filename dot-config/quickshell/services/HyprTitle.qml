@@ -7,11 +7,12 @@ import QtQuick
 Singleton {
     id: root
 
-    readonly property string defaultTitle: Hyprland.activeToplevel?.title ?? "Desktop"
+    property bool defaultTitle: true
     property string title: defaultTitle
 
     function overrideTitle(title: string): void {
         timer.running = false;
+        root.defaultTitle = false;
         root.title = title;
     }
 
@@ -27,7 +28,7 @@ Singleton {
             if (Hyprland.focusedWorkspace?.toplevels.values.length == 0) {
                 root.title = "Desktop";
             } else {
-                root.title = root.defaultTitle;
+                root.defaultTitle = true;
             }
         }
     }

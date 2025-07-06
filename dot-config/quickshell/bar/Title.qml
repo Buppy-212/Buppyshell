@@ -8,7 +8,7 @@ Block {
     StyledText {
         id: text
         property real xScale: 1
-        text: HyprTitle.title
+        text: HyprTitle.defaultTitle ? Hyprland.activeToplevel.title : HyprTitle.title
         width: parent.width
         horizontalAlignment: Text.AlignHCenter
         elide: Text.ElideRight
