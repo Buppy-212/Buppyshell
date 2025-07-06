@@ -1,6 +1,7 @@
 import Quickshell
 import QtQuick
 import Quickshell.Wayland
+import "../services/"
 
 Scope {
     Variants {
@@ -12,15 +13,20 @@ Scope {
             WlrLayershell.namespace: "buppyshell:bottom"
             exclusionMode: ExclusionMode.Ignore
             color: "transparent"
+            mask: Region {}
             anchors {
+                top: true
                 right: true
+                left: true
+                bottom: true
             }
-            margins {
-                right: modelData.name === "eDP-1" ? modelData.width * 0.0795 - implicitWidth/2 : modelData.width * 0.1225 - implicitWidth/2;
+            Image {
+                id: image
+                anchors.fill: parent
+                fillMode: Image.PreserveAspectCrop
+                source: Wallpaper.path
             }
-            implicitHeight: date.height
-            implicitWidth: date.width
-            Date {id: date}
+            Date {}
         }
     }
 }
