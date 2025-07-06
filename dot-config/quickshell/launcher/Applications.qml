@@ -11,6 +11,7 @@ Item {
     id: appLauncher
     property real radius: Screen.height * 0.4
     property string title
+    property string targetId
     anchors.fill: parent
     Keys.onEscapePressed: Hyprland.dispatch("global buppyshell:launcher")
     Keys.onPressed: inputField.focus = true
@@ -29,7 +30,10 @@ Item {
             font.family: Theme.font.family.mono
             font.pointSize: Theme.font.size.extraLarge
             horizontalAlignment: Text.AlignHCenter
-            Keys.onReturnPressed: focus = false
+            Keys.onReturnPressed: {
+              Hyprland.dispatch("global buppyshell:launcher");
+              Quickshell.execDetached(["uwsm", "app", "--", `${appLauncher.targetId}.desktop`])
+            }
             focus: true
             font.bold: true
         }
@@ -58,9 +62,15 @@ Item {
             acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
             cursorShape: Qt.PointingHandCursor
             hoverEnabled: true
-            onFocusChanged: inputField.focus ? appLauncher.title = "" : appLauncher.title = modelData.name
+            onFocusChanged: inputField.focus ? appLauncher.title = fuzzy.target : appLauncher.title = modelData.name
             focusPolicy: Qt.StrongFocus
-            focus: !inputField.focus && modelData.name == fuzzy.target
+            focus: {
+              if (fuzzy?.target){
+                appLauncher.title = fuzzy.target
+                appLauncher.targetId = modelData.id;
+                return !inputField.focus
+              }
+            }
             visible: !inputField.text || fuzzy
             onEntered: {
                 focus = true;
