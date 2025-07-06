@@ -9,7 +9,7 @@ import "../services"
 
 Item {
     id: appLauncher
-    property real radius: Screen.height * 0.4
+    readonly property real launcherRadius: Screen.height * 0.4
     property string title
     property string targetId
     anchors.fill: parent
@@ -17,8 +17,8 @@ Item {
     Keys.onPressed: inputField.focus = true
     Rectangle {
         anchors.centerIn: parent
-        implicitWidth: parent.radius * 2
-        implicitHeight: width
+        implicitWidth: parent.launcherRadius * 2
+        implicitHeight: implicitWidth
         radius: width
         color: Theme.color.black
         TextInput {
@@ -31,8 +31,8 @@ Item {
             font.pointSize: Theme.font.size.extraLarge
             horizontalAlignment: Text.AlignHCenter
             Keys.onReturnPressed: {
-              Hyprland.dispatch("global buppyshell:launcher");
-              Quickshell.execDetached(["uwsm", "app", "--", `${appLauncher.targetId}.desktop`])
+                Hyprland.dispatch("global buppyshell:launcher");
+                Quickshell.execDetached(["uwsm", "app", "--", `${appLauncher.targetId}.desktop`]);
             }
             focus: true
             font.bold: true
@@ -57,19 +57,20 @@ Item {
             required property DesktopEntry modelData
             required property int index
             readonly property var fuzzy: Fuzzy.single(inputField.text, modelData.name)
-            x: parent.width / 2 + appLauncher.radius * Math.cos(2 * Math.PI * (index - 2) / rep.count) - width / 2
-            y: parent.height / 2 + appLauncher.radius * Math.sin(2 * Math.PI * (index - 2) / rep.count) - height / 2
+            x: parent.width / 2 + appLauncher.launcherRadius * Math.cos(2 * Math.PI * (index - 2) / rep.count) - width / 2
+            y: parent.height / 2 + appLauncher.launcherRadius * Math.sin(2 * Math.PI * (index - 2) / rep.count) - height / 2
             acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
             cursorShape: Qt.PointingHandCursor
             hoverEnabled: true
-            onFocusChanged: inputField.focus ? appLauncher.title = fuzzy.target : appLauncher.title = modelData.name
+            onFocusChanged: inputField.focus ? appLauncher.title = modelData.name : appLauncher.title = modelData.name
             focusPolicy: Qt.StrongFocus
             focus: {
-              if (fuzzy?.target){
-                appLauncher.title = fuzzy.target
+              if (fuzzy) {
+                appLauncher.title = modelData.name;
                 appLauncher.targetId = modelData.id;
-                return !inputField.focus
+                return !inputField.focus;
               }
+              return false
             }
             visible: !inputField.text || fuzzy
             onEntered: {
