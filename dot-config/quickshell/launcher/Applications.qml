@@ -4,31 +4,45 @@ import Quickshell
 import Quickshell.Widgets
 import Quickshell.Hyprland
 import QtQuick
+import "fuzzysort.js" as Fuzzy
 import "../services"
 
 Item {
-    id: appLauncher
-    property real radius: Screen.height / 3
-    property string title
-    anchors.fill: parent
-    Keys.onEscapePressed: Hyprland.dispatch("global buppyshell:launcher")
-    Rectangle {
-        anchors.centerIn: parent
-        implicitWidth: parent.radius * 2
-        implicitHeight: width
-        radius: width
-        color: Theme.color.black
-        Text {
-            anchors.centerIn: parent
-            wrapMode: Text.Wrap
-            color: Theme.color.fg
-            text: appLauncher.title
-            font.family: Theme.font.family.mono
-            font.pointSize: Theme.font.size.extraLarge
-            horizontalAlignment: Text.AlignHCenter
-            font.bold: true
-        }
+  id: appLauncher
+  property real radius: Screen.height / 3
+  property string title
+  anchors.fill: parent
+  Keys.onEscapePressed: Hyprland.dispatch("global buppyshell:launcher")
+  Keys.onPressed: inputField.focus = true
+  Rectangle {
+    anchors.centerIn: parent
+    implicitWidth: parent.radius * 2
+    implicitHeight: width
+    radius: width
+    color: Theme.color.black
+    TextInput {
+      id: inputField
+      color: Theme.color.fg
+      anchors.bottom: titleText.top
+      anchors.left: parent.left
+      anchors.right: parent.right
+      font.family: Theme.font.family.mono
+      font.pointSize: Theme.font.size.extraLarge
+      horizontalAlignment: Text.AlignHCenter
+      font.bold: true
     }
+    Text {
+      id: titleText
+      wrapMode: Text.Wrap
+      anchors.centerIn: parent
+      color: Theme.color.fg
+      text: appLauncher.title
+      font.family: Theme.font.family.mono
+      font.pointSize: Theme.font.size.extraLarge
+      horizontalAlignment: Text.AlignHCenter
+      font.bold: true
+    }
+  }
     Repeater {
         id: rep
         model: DesktopEntries.applications
@@ -44,6 +58,7 @@ Item {
             focus: index ? false : true
             onFocusChanged: appLauncher.title = modelData.name
             focusPolicy: Qt.StrongFocus
+            visible: !inputField.text || Fuzzy.single(inputField.text, modelData.name) || Fuzzy.single(inputField.text, modelData.genericName)
             onEntered: {
                 focus = true;
                 appLauncher.title = modelData.name;
