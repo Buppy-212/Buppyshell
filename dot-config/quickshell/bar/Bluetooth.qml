@@ -29,15 +29,15 @@ ClippingRectangle {
                 id: bluetoothMouse
                 onClicked: mouse => {
                     if (mouse.button == Qt.LeftButton) {
-                        Hyprland.dispatch("exec uwsm app -- floatty bluetui");
+                        Quickshell.execDetached(["uwsm", "app", "--", "floatty", "bluetui"]);
                     } else if (mouse.button == Qt.MiddleButton) {
                         Bluetooth.defaultAdapter.enabled = !Bluetooth.defaultAdapter.enabled;
                     } else {
                         bluetoothWidget.revealed = !bluetoothWidget.revealed;
                     }
                 }
-                onEntered: Hyprland.overrideTitle(Bluetooth.defaultAdapter.name)
-                onExited: Hyprland.refreshTitle()
+                onEntered: HyprTitle.overrideTitle(Bluetooth.defaultAdapter.name)
+                onExited: HyprTitle.refreshTitle()
             }
         }
         Repeater {
@@ -64,12 +64,12 @@ ClippingRectangle {
                     }
                     onEntered: {
                         if (bluetoothItem.modelData.batteryAvailable) {
-                            Hyprland.overrideTitle(`${bluetoothItem.modelData.name}${bluetoothItem.modelData.battery * 100}%`);
+                            HyprTitle.overrideTitle(`${bluetoothItem.modelData.name}${bluetoothItem.modelData.battery * 100}%`);
                         } else {
-                            Hyprland.overrideTitle(bluetoothItem.modelData.name);
+                            HyprTitle.overrideTitle(bluetoothItem.modelData.name);
                         }
                     }
-                    onExited: Hyprland.refreshTitle()
+                    onExited: HyprTitle.refreshTitle()
                 }
             }
         }

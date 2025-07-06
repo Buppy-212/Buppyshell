@@ -1,11 +1,12 @@
 import Quickshell
+import Quickshell.Services.Notifications
 import Quickshell.Wayland
 import QtQuick
 import "../services"
 
 PanelWindow {
     id: notificationPopup
-    property var currentNotification: null
+    property Notification currentNotification: null
     anchors {
         top: true
         right: true

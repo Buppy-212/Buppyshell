@@ -1,4 +1,5 @@
 import Quickshell
+import Quickshell.Hyprland
 import "../services"
 
 Block {
@@ -12,7 +13,7 @@ Block {
         id: mouse
         onClicked: mouse => {
             if (mouse.button == Qt.MiddleButton) {
-                Hyprland.dispatch("exec systemctl poweroff");
+                Quickshell.execDetached(["systemctl", "poweroff"]);
             } else {
                 Hyprland.dispatch("global buppyshell:logout");
             }

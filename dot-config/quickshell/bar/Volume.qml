@@ -20,7 +20,7 @@ Block {
             if (mouse.button == Qt.RightButton) {
                 Pipewire.defaultAudioSink.audio.muted = !Pipewire.defaultAudioSink.audio.muted;
             } else {
-                Hyprland.dispatch("exec uwsm app -- floatty pulsemixer");
+                Quickshell.execDetached(["uwsm", "app", "--", "floatty", "pulsemixer"]);
             }
         }
         onWheel: wheel => {

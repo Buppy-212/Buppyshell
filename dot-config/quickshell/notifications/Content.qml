@@ -1,11 +1,12 @@
 import Quickshell
+import Quickshell.Services.Notifications
 import Quickshell.Widgets
 import QtQuick
 import "../services"
 
 Rectangle {
     id: notifictionContent
-    required property var notification
+    required property Notification notification
     implicitWidth: Theme.notification.width
     implicitHeight: row.height > Theme.notification.height - 20 ? row.height + 20 : Theme.notification.height
     color: Theme.color.bg

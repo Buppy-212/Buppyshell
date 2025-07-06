@@ -15,7 +15,7 @@ ClippingRectangle {
         animation: Theme.animation.elementMoveFast.numberAnimation.createObject(this)
     }
     MouseBlock {
-        onEntered: Hyprland.refreshTitle()
+        onEntered: HyprTitle.refreshTitle()
     }
     Column {
         spacing: 2
@@ -42,8 +42,8 @@ ClippingRectangle {
                             player.modelData.togglePlaying();
                         }
                     }
-                    onEntered: Hyprland.overrideTitle(`${player.modelData.identity}: ${player.modelData.trackTitle}`)
-                    onExited: Hyprland.refreshTitle()
+                    onEntered: HyprTitle.overrideTitle(`${player.modelData.identity}: ${player.modelData.trackTitle}`)
+                    onExited: HyprTitle.refreshTitle()
                 }
             }
         }

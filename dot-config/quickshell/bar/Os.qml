@@ -1,3 +1,4 @@
+import Quickshell.Hyprland
 import Quickshell.Widgets
 import "../services"
 

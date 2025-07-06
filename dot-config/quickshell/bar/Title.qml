@@ -1,3 +1,4 @@
+import Quickshell.Hyprland
 import QtQuick
 import "../services"
 
@@ -7,7 +8,7 @@ Block {
     StyledText {
         id: text
         property real xScale: 1
-        text: Hyprland.title
+        text: HyprTitle.title
         width: parent.width
         horizontalAlignment: Text.AlignHCenter
         elide: Text.ElideRight

@@ -1,3 +1,4 @@
+import Quickshell
 import Quickshell.Services.UPower
 import "../services"
 
@@ -9,6 +10,6 @@ Block {
     }
     MouseBlock {
         id: mouse
-        onClicked: Hyprland.dispatch("exec uwsm app -- btop.desktop")
+        onClicked: Quickshell.execDetached(["uwsm", "app", "--", "btop.desktop"])
     }
 }

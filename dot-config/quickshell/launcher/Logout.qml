@@ -15,15 +15,15 @@ Item {
             break;
         case Qt.Key_S:
             Hyprland.dispatch("global buppyshell:logout");
-            Hyprland.dispatch("exec systemctl poweroff");
+            Quickshell.execDetached(["systemctl", "poweroff"]);
             break;
         case Qt.Key_R:
             Hyprland.dispatch("global buppyshell:logout");
-            Hyprland.dispatch("exec systemctl reboot");
+            Quickshell.execDetached(["systemctl", "reboot"]);
             break;
         case Qt.Key_O:
             Hyprland.dispatch("global buppyshell:logout");
-            Hyprland.dispatch("exec uwsm stop");
+            Quickshell.execDetached(["uwsm", "stop"]);
             break;
         case Qt.Key_L:
             Hyprland.dispatch("global buppyshell:logout");
@@ -31,11 +31,11 @@ Item {
             break;
         case Qt.Key_U:
             Hyprland.dispatch("global buppyshell:logout");
-            Hyprland.dispatch("exec systemctl suspend");
+            Quickshell.execDetached(["systemctl", "suspend"]);
             break;
         case Qt.Key_H:
             Hyprland.dispatch("global buppyshell:logout");
-            Hyprland.dispatch("exec systemctl hibernate");
+            Quickshell.execDetached(["systemctl", "hibernate"]);
         }
     }
     Repeater {

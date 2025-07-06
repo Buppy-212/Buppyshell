@@ -1,3 +1,4 @@
+import Quickshell.Hyprland
 import QtQuick
 import "../services"
 
@@ -41,7 +42,7 @@ Row {
             onClicked: {
                 Hyprland.dispatch("lockactivegroup toggle");
                 Hyprland.dispatch("tagwindow locked");
-                Hyprland.reload();
+                Hyprland.refreshToplevels();
             }
         }
     }
@@ -56,6 +57,7 @@ Row {
             onClicked: {
                 Hyprland.dispatch("togglegroup");
                 Hyprland.dispatch("tagwindow -- -locked");
+                Hyprland.refreshToplevels();
             }
         }
     }

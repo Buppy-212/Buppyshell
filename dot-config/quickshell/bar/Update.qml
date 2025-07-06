@@ -1,3 +1,4 @@
+import Quickshell
 import QtQuick
 import "../services"
 
@@ -21,7 +22,7 @@ Block {
     }
     MouseBlock {
         id: mouse
-        onClicked: Hyprland.dispatch("exec floatty update")
+        onClicked: Quickshell.execDetached(["floatty", "update"])
     }
     Behavior on implicitHeight {
         animation: Theme.animation.elementMove.numberAnimation.createObject(this)

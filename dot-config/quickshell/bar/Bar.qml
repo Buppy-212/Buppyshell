@@ -8,7 +8,7 @@ Variants {
     model: Quickshell.screens
     Scope {
         id: scope
-        property var modelData
+        required property ShellScreen modelData
         PanelWindow {
             screen: scope.modelData
             WlrLayershell.namespace: "buppyshell:leftbar"
