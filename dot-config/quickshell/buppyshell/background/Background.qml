@@ -9,8 +9,8 @@ Scope {
         PanelWindow {
             required property ShellScreen modelData
             screen: modelData
-            WlrLayershell.layer: WlrLayer.Bottom
-            WlrLayershell.namespace: "buppyshell:bottom"
+            WlrLayershell.layer: WlrLayer.Background
+            WlrLayershell.namespace: "buppyshell:background"
             exclusionMode: ExclusionMode.Ignore
             color: "transparent"
             mask: Region {}
