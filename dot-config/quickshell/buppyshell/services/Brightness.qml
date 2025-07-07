@@ -9,6 +9,7 @@ import Quickshell.Hyprland
 Singleton {
     id: root
     property int brightness
+    property int maxBrightness
     property bool nightlight
     Process {
         id: set
@@ -26,13 +27,22 @@ Singleton {
         id: filterOff
         command: ["pkill", "hyprsunset"]
     }
-
+    Process {
+        command: ["brightnessctl", "m"]
+        running: true
+        stdout: StdioCollector {
+            onStreamFinished: {
+                root.maxBrightness = text;
+                get.running = true;
+            }
+        }
+    }
     Process {
         id: get
         command: ["brightnessctl", "g"]
-        running: true
+        running: false
         stdout: StdioCollector {
-            onStreamFinished: root.brightness = text / 2.55
+            onStreamFinished: root.brightness = 100 * text / root.maxBrightness
         }
     }
     Process {
