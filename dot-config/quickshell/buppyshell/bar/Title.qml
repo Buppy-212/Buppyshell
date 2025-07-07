@@ -7,7 +7,7 @@ Block {
     implicitWidth: Screen.width * 0.5
     color: "transparent"
     StyledText {
-        text: GlobalState.defaultTitle ? ToplevelManager.activeToplevel?.title ?? qsTr("Desktop") : GlobalState.title
+        text: GlobalState.defaultTitle ? Hyprland.focusedWorkspace.toplevels.values.length ? ToplevelManager.activeToplevel.title : qsTr("Desktop") : GlobalState.title
         width: parent.width
         horizontalAlignment: Text.AlignHCenter
         elide: Text.ElideRight
