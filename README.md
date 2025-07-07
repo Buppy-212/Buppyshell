@@ -11,8 +11,12 @@
 - [x] Idle inhibitor
 - [x] Volume
 - [x] Brightness
-- [x] Tooltips kinda?
+- [x] Title
+- [x] Bluetooth
 - [ ] Keybinds
+- [ ] Volume Stream mixer
+- [ ] Network
+- [ ] Resource usage
 
 ## Launcher
 
@@ -31,7 +35,6 @@
 
 ## Volume Sliders
 
-- [ ] Popouts
 - [x] Pipewire sink
 - [x] Brightness
 - [x] ddcutil
@@ -54,6 +57,7 @@
 ## Greeter
 
 - [ ] Basic Session management
+- [ ] Kwallet auto unlock
 
 ## Additional Dependencies
 
