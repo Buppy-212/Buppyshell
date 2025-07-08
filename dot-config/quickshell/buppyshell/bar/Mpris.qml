@@ -6,7 +6,7 @@ import "../services/"
 Column {
     id: playerWidget
     spacing: 1
-    property int currentIndex: 0
+    property int currentIndex: findPlayerctld()
     Block {
         hovered: upMouse.containsMouse
         SymbolText {
@@ -22,10 +22,9 @@ Column {
                 case Qt.RightButton:
                     if (playerWidget.currentIndex > 0) {
                         playerWidget.currentIndex -= 1;
-                      } else (
-                        playerWidget.currentIndex = Mpris.players.values.length - 1
-                      )
-                      GlobalState.overrideTitle(`${Mpris.players.values[playerWidget.currentIndex].trackTitle} -- ${Mpris.players.values[playerWidget.currentIndex].trackArtist}`)
+                    } else
+                        (playerWidget.currentIndex = Mpris.players.values.length - 1);
+                    GlobalState.overrideTitle(`${Mpris.players.values[playerWidget.currentIndex].trackTitle} -- ${Mpris.players.values[playerWidget.currentIndex].trackArtist}`);
                     break;
                 }
             }
@@ -37,6 +36,7 @@ Column {
         hovered: mouse.containsMouse
         SymbolText {
             text: Mpris.players.values[playerWidget.currentIndex].isPlaying ? "pause" : "resume"
+            color: Mpris.players.values[playerWidget.currentIndex].dbusName == "org.mpris.MediaPlayer2.playerctld" ? Theme.color.red : Theme.color.fg
         }
         MouseBlock {
             id: mouse
@@ -54,11 +54,11 @@ Column {
                 }
             }
             onWheel: wheel => {
-              if (wheel.angleDelta.y > 0) {
-                Mpris.players.values[playerWidget.currentIndex].seek(5)
-              } else {
-                Mpris.players.values[playerWidget.currentIndex].seek(-5)
-              }
+                if (wheel.angleDelta.y > 0) {
+                    Mpris.players.values[playerWidget.currentIndex].seek(5);
+                } else {
+                    Mpris.players.values[playerWidget.currentIndex].seek(-5);
+                }
             }
             onEntered: GlobalState.overrideTitle(`${Mpris.players.values[playerWidget.currentIndex].trackTitle} -- ${Mpris.players.values[playerWidget.currentIndex].trackArtist}`)
             onExited: GlobalState.refreshTitle()
@@ -79,15 +79,22 @@ Column {
                 case Qt.RightButton:
                     if (playerWidget.currentIndex < Mpris.players.values.length - 1) {
                         playerWidget.currentIndex += 1;
-                      } else {
-                        playerWidget.currentIndex = 0
-                      }
-                      GlobalState.overrideTitle(`${Mpris.players.values[playerWidget.currentIndex].trackTitle} -- ${Mpris.players.values[playerWidget.currentIndex].trackArtist}`)
+                    } else {
+                        playerWidget.currentIndex = 0;
+                    }
+                    GlobalState.overrideTitle(`${Mpris.players.values[playerWidget.currentIndex].trackTitle} -- ${Mpris.players.values[playerWidget.currentIndex].trackArtist}`);
                     break;
                 }
             }
             onEntered: GlobalState.overrideTitle(`${Mpris.players.values[playerWidget.currentIndex].trackTitle} -- ${Mpris.players.values[playerWidget.currentIndex].trackArtist}`)
             onExited: GlobalState.refreshTitle()
+        }
+    }
+    function findPlayerctld(): int {
+        for (var i = 0; i < Mpris.players.values.length; i++) {
+            if (Mpris.players.values[i].dbusName == "org.mpris.MediaPlayer2.playerctld") {
+                return i;
+            }
         }
     }
 }
