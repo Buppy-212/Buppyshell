@@ -9,7 +9,7 @@ import "../services"
 ClippingRectangle {
     id: bluetoothWidget
     property bool revealed: false
-    implicitHeight: revealed ? (Bluetooth.devices.values.length + 1) * 26 : 24
+    implicitHeight: revealed ? Bluetooth.devices.values.length * 26 + 24 : 24
     implicitWidth: Theme.blockWidth
     color: "transparent"
     Behavior on implicitHeight {
@@ -36,7 +36,7 @@ ClippingRectangle {
                         bluetoothWidget.revealed = !bluetoothWidget.revealed;
                     }
                 }
-                onEntered: GlobalState.overrideTitle(Bluetooth.defaultAdapter.name)
+                onEntered: GlobalState.overrideTitle("Bluetooth")
                 onExited: GlobalState.refreshTitle()
             }
         }

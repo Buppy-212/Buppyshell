@@ -9,13 +9,10 @@ ClippingRectangle {
     id: root
     property bool revealed: false
     implicitWidth: Theme.blockWidth
-    implicitHeight: revealed ? (Mpris.players.values.length - 1) * 26 : 26
+    implicitHeight: revealed ? (Mpris.players.values.length - 2) * 26 + 24 : 24
     color: "transparent"
     Behavior on implicitHeight {
         animation: Theme.animation.elementMoveFast.numberAnimation.createObject(this)
-    }
-    MouseBlock {
-        onEntered: GlobalState.refreshTitle()
     }
     Column {
         spacing: 2
