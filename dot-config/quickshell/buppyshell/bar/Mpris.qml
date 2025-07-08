@@ -17,7 +17,9 @@ Column {
             onClicked: mouse => {
                 switch (mouse.button) {
                 case Qt.LeftButton:
-                    Mpris.players.values[playerWidget.currentIndex].previous();
+                    if (Mpris.players.values[playerWidget.currentIndex].canGoPrevious) {
+                        Mpris.players.values[playerWidget.currentIndex].previous();
+                    }
                     break;
                 case Qt.RightButton:
                     if (playerWidget.currentIndex > 0) {
@@ -74,7 +76,9 @@ Column {
             onClicked: mouse => {
                 switch (mouse.button) {
                 case Qt.LeftButton:
-                    Mpris.players.values[playerWidget.currentIndex].next();
+                    if (Mpris.players.values[playerWidget.currentIndex].canGoNext) {
+                        Mpris.players.values[playerWidget.currentIndex].next();
+                    }
                     break;
                 case Qt.RightButton:
                     if (playerWidget.currentIndex < Mpris.players.values.length - 1) {
