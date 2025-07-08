@@ -40,6 +40,7 @@ Variants {
                     Column {
                         Layout.alignment: Qt.AlignBottom
                         spacing: 2
+                        Volume {}
                         Inhibitor {}
                         Battery {}
                         Light {}
@@ -93,9 +94,8 @@ Variants {
                         Layout.alignment: Qt.AlignTop
                         Bell {}
                         Bluetooth {}
-                        Volume {}
-                        Mpris {}
                         Tray {}
+                        Mpris {}
                     }
                 }
             }
