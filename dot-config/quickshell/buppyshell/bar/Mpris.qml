@@ -30,15 +30,20 @@ Column {
                     break;
                 }
             }
-            onEntered: GlobalState.overrideTitle(`${Mpris.players.values[playerWidget.currentIndex].trackTitle} -- ${Mpris.players.values[playerWidget.currentIndex].trackArtist}`)
+            onEntered: {
+                if (playerWidget.currentIndex > Mpris.players.values.length - 1) {
+                    playerWidget.currentIndex = playerWidget.findPlayerctld();
+                }
+                GlobalState.overrideTitle(`${Mpris.players.values[playerWidget.currentIndex].trackTitle} -- ${Mpris.players.values[playerWidget.currentIndex].trackArtist}`);
+            }
             onExited: GlobalState.refreshTitle()
         }
     }
     Block {
         hovered: mouse.containsMouse
         SymbolText {
-            text: Mpris.players.values[playerWidget.currentIndex].isPlaying ? "pause" : "resume"
-            color: Mpris.players.values[playerWidget.currentIndex].dbusName == "org.mpris.MediaPlayer2.playerctld" ? Theme.color.red : Theme.color.fg
+            text: Mpris.players.values[playerWidget.currentIndex]?.isPlaying ? "pause" : "resume"
+            color: Mpris.players.values[playerWidget.currentIndex]?.dbusName == "org.mpris.MediaPlayer2.playerctld" ? Theme.color.red : Theme.color.fg
         }
         MouseBlock {
             id: mouse
@@ -55,14 +60,12 @@ Column {
                     break;
                 }
             }
-            onWheel: wheel => {
-                if (wheel.angleDelta.y > 0) {
-                    Mpris.players.values[playerWidget.currentIndex].seek(5);
-                } else {
-                    Mpris.players.values[playerWidget.currentIndex].seek(-5);
+            onEntered: {
+                if (playerWidget.currentIndex > Mpris.players.values.length - 1) {
+                    playerWidget.currentIndex = playerWidget.findPlayerctld();
                 }
+                GlobalState.overrideTitle(`${Mpris.players.values[playerWidget.currentIndex].trackTitle} -- ${Mpris.players.values[playerWidget.currentIndex].trackArtist}`);
             }
-            onEntered: GlobalState.overrideTitle(`${Mpris.players.values[playerWidget.currentIndex].trackTitle} -- ${Mpris.players.values[playerWidget.currentIndex].trackArtist}`)
             onExited: GlobalState.refreshTitle()
         }
     }
@@ -90,7 +93,12 @@ Column {
                     break;
                 }
             }
-            onEntered: GlobalState.overrideTitle(`${Mpris.players.values[playerWidget.currentIndex].trackTitle} -- ${Mpris.players.values[playerWidget.currentIndex].trackArtist}`)
+            onEntered: {
+                if (playerWidget.currentIndex > Mpris.players.values.length - 1) {
+                    playerWidget.currentIndex = playerWidget.findPlayerctld();
+                }
+                GlobalState.overrideTitle(`${Mpris.players.values[playerWidget.currentIndex].trackTitle} -- ${Mpris.players.values[playerWidget.currentIndex].trackArtist}`);
+            }
             onExited: GlobalState.refreshTitle()
         }
     }
