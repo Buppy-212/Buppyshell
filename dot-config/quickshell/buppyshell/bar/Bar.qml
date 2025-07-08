@@ -95,7 +95,6 @@ Variants {
                         Bell {}
                         Bluetooth {}
                         Tray {}
-                        Mpris {}
                     }
                 }
             }
