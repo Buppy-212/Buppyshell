@@ -94,6 +94,7 @@ Variants {
                         Layout.alignment: Qt.AlignTop
                         Bell {}
                         Bluetooth {}
+                        Mpris {}
                         Tray {}
                     }
                 }
