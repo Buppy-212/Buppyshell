@@ -4,7 +4,7 @@ import QtQuick
 import "../services"
 
 PanelWindow {
-    id: sidebar
+    visible: GlobalState.sidebar
     WlrLayershell.layer: WlrLayer.Overlay
     WlrLayershell.namespace: "buppyshell:sidebar"
     anchors {

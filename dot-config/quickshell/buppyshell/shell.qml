@@ -13,12 +13,10 @@ ShellRoot {
     Background {}
     Popup {}
     Lockscreen {}
+    Sidebar {}
     Sliders {
         isVolume: false
         isMic: false
     }
-    Launcher {
-        visible: false
-        source: ""
-    }
+    Launcher {}
 }

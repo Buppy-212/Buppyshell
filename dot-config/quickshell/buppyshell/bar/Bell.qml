@@ -1,5 +1,6 @@
 import Quickshell.Hyprland
 import "../notifications"
+import "../services"
 
 Block {
     hovered: mouse.containsMouse
@@ -15,7 +16,7 @@ Block {
             if (mouse.button == Qt.MiddleButton) {
                 Hyprland.dispatch("global buppyshell:clearNotifs");
             } else {
-                Hyprland.dispatch("global buppyshell:sidebar");
+                GlobalState.sidebar = !GlobalState.sidebar;
             }
         }
     }

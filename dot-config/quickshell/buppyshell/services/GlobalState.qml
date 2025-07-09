@@ -7,6 +7,9 @@ import QtQuick
 Singleton {
     id: root
 
+    property bool overlayState: false
+    property bool overlay: false
+    property bool sidebar: false
     property bool locked: false
     property bool defaultTitle: true
     property string title: qsTr("Desktop")
@@ -31,6 +34,32 @@ Singleton {
         running: true
         onTriggered: {
             root.defaultTitle = true;
+        }
+    }
+    GlobalShortcut {
+        name: "windows"
+        description: "Toggle window switcher"
+        appid: "buppyshell"
+        onPressed: {
+            root.overlay = !root.overlay;
+            root.overlayState = true
+        }
+    }
+    GlobalShortcut {
+        name: "logout"
+        description: "Toggle logout menu"
+        appid: "buppyshell"
+        onPressed: {
+          root.overlay = !root.overlay;
+          root.overlayState = false
+        }
+    }
+    GlobalShortcut {
+        name: "sidebar"
+        description: "Toggle sidebar"
+        appid: "buppyshell"
+        onPressed: {
+            root.sidebar = !root.sidebar;
         }
     }
     GlobalShortcut {

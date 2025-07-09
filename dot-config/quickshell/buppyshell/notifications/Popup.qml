@@ -3,12 +3,13 @@ pragma ComponentBehavior: Bound
 import Quickshell
 import Quickshell.Hyprland
 import QtQuick
+import "../services"
 
 Scope {
     Server {
         id: notificationServer
         onNotification: notification => {
-            if (!sidebar.visible) {
+            if (!GlobalState.sidebar) {
                 notificationPopup.showNotification(notification);
             }
             ;
@@ -20,24 +21,12 @@ Scope {
             currentNotification = notification;
         }
     }
-    Sidebar {
-        id: sidebar
-        visible: false
-    }
-    GlobalShortcut {
-        name: "sidebar"
-        description: "Toggle sidebar"
-        appid: "buppyshell"
-        onPressed: {
-            sidebar.visible = !sidebar.visible;
-        }
-    }
     GlobalShortcut {
         name: "clearNotifs"
         description: "Dismiss all notifications"
         appid: "buppyshell"
         onPressed: {
-            if (sidebar.visible) {
+            if (GlobalState.sidebar) {
                 var notifications = notificationServer.trackedNotifications.values.slice();
                 for (var i = 0; i < notifications.length; i++) {
                     notifications[i].dismiss();
