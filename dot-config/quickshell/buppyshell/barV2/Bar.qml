@@ -21,6 +21,7 @@ Variants {
             RowLayout {
                 anchors.fill: parent
                 Row {
+                  Layout.fillWidth: true
                     Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
                     spacing: 2
                     Os {}
@@ -28,9 +29,7 @@ Variants {
                     Tray {}
                     Mpris {}
                     Bluetooth {}
-                }
-                Title {
-                  Layout.preferredWidth: modelData.width * 0.5
+                    Title { implicitWidth: modelData.width }
                 }
                 Row {
                     Layout.alignment: Qt.AlignRight | Qt.AlignVCenter

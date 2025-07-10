@@ -5,12 +5,11 @@ import "../services"
 import "../widgets"
 
 Block {
-    implicitWidth: Screen.width * 0.5
     color: "transparent"
     StyledText {
         text: GlobalState.defaultTitle ? Hyprland.focusedWorkspace?.toplevels.values.length ? ToplevelManager.activeToplevel?.title ?? qsTr("Desktop") : qsTr("Desktop") : GlobalState.title
         width: parent.width
-        horizontalAlignment: Text.AlignHCenter
+        horizontalAlignment: Text.AlignLeft
         elide: Text.ElideRight
         maximumLineCount: 1
     }
