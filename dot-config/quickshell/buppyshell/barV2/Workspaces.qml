@@ -106,7 +106,7 @@ Item {
                             MouseBlock {
                                 id: mouseArea
                                 drag.target: parent
-                                drag.axis: Drag.YAxis
+                                drag.axis: Drag.XAxis
                                 onEntered: GlobalState.overrideTitle(modelData.title)
                                 onExited: GlobalState.refreshTitle()
                                 onClicked: mouse => {
