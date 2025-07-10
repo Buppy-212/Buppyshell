@@ -5,24 +5,24 @@ import Quickshell.Widgets
 import Quickshell.Bluetooth
 import QtQuick
 import "../services"
+import "../widgets"
 
 ClippingRectangle {
     id: bluetoothWidget
     property bool revealed: false
-    implicitHeight: revealed ? Bluetooth.devices.values.length * Theme.blockWidth : Theme.blockWidth
-    implicitWidth: Theme.blockWidth
+    implicitWidth: revealed ? (Bluetooth.devices.values.length + 1)* 32 : 30
+    implicitHeight: Theme.blockHeight
     color: "transparent"
-    Behavior on implicitHeight {
+    Behavior on implicitWidth {
         animation: Theme.animation.elementMoveFast.numberAnimation.createObject(this)
     }
-    Column {
+    Row {
         spacing: 2
         anchors.fill: parent
         Block {
             hovered: bluetoothMouse.containsMouse
-            SymbolText {
-                id: text
-                text: Bluetooth.defaultAdapter?.enabled ?? Bluetooth.adapters.values[0]?.enabled ? "bluetooth" : "bluetooth_disabled"
+            StyledText {
+                text: Bluetooth.defaultAdapter?.enabled ?? Bluetooth.adapters.values[0]?.enabled ? "󰂯" : "󰂲"
                 color: Theme.color.blue
             }
             MouseBlock {

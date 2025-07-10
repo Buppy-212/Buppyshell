@@ -2,7 +2,8 @@
 
 import Quickshell
 import "notifications"
-import "bar"
+// import "bar"
+import "barV2"
 import "background"
 import "lockscreen"
 import "sliders"

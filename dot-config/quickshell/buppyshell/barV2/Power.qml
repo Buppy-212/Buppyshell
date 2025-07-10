@@ -1,12 +1,13 @@
 import Quickshell
+import Quickshell.Hyprland
 import "../services"
 import "../widgets"
 
 Block {
     id: block
     hovered: mouse.containsMouse
-    SymbolText {
-        text: "power_settings_new"
+    StyledText {
+        text: ""
         color: Theme.color.red
     }
     MouseBlock {
@@ -15,8 +16,7 @@ Block {
             if (mouse.button == Qt.MiddleButton) {
                 Quickshell.execDetached(["systemctl", "poweroff"]);
             } else {
-                GlobalState.overlay = !GlobalState.overlay;
-                GlobalState.overlayState = false;
+                Hyprland.dispatch("global buppyshell:logout");
             }
         }
     }
