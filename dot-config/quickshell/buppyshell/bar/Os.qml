@@ -1,4 +1,4 @@
-import Quickshell.Hyprland
+import Quickshell
 import Quickshell.Widgets
 import "../services"
 
@@ -12,6 +12,6 @@ Block {
     }
     MouseBlock {
         id: mouse
-        onClicked: Hyprland.dispatch("global buppyshell:launcher")
+        onClicked: Quickshell.execDetached(["uwsm", "app", "--", "rofi-wrapper", "drun", "menu"])
     }
 }
