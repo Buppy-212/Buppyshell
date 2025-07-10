@@ -56,7 +56,7 @@ Column {
                     Mpris.players.values[playerWidget.currentIndex].stop();
                     break;
                 case Qt.RightButton:
-                    Mpris.players.values[playerWidget.currentIndex].togglePlaying();
+                    GlobalState.player = !GlobalState.player;
                     break;
                 }
             }

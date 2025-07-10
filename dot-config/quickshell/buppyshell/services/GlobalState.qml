@@ -7,6 +7,7 @@ import QtQuick
 Singleton {
     id: root
 
+    property bool player: false
     property bool overlayState: false
     property bool overlay: false
     property bool sidebar: false
@@ -42,7 +43,7 @@ Singleton {
         appid: "buppyshell"
         onPressed: {
             root.overlay = !root.overlay;
-            root.overlayState = true
+            root.overlayState = true;
         }
     }
     GlobalShortcut {
@@ -50,8 +51,8 @@ Singleton {
         description: "Toggle logout menu"
         appid: "buppyshell"
         onPressed: {
-          root.overlay = !root.overlay;
-          root.overlayState = false
+            root.overlay = !root.overlay;
+            root.overlayState = false;
         }
     }
     GlobalShortcut {

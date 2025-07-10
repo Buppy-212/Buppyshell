@@ -9,7 +9,7 @@ import "../services"
 ClippingRectangle {
     id: bluetoothWidget
     property bool revealed: false
-    implicitHeight: revealed ? Bluetooth.devices.values.length * Theme.blockWidth : Theme.blockWidth
+    implicitHeight: revealed ? (Bluetooth.devices.values.length + 1) * (Theme.blockHeight + 2) : Theme.blockHeight
     implicitWidth: Theme.blockWidth
     color: "transparent"
     Behavior on implicitHeight {

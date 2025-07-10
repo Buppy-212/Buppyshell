@@ -2,12 +2,13 @@
 
 import Quickshell
 import "notifications"
-// import "bar"
-import "barV2"
+import "bar"
+// import "barV2"
 import "background"
 import "lockscreen"
 import "sliders"
 import "launcher"
+import "windows"
 
 ShellRoot {
     Bar {}
@@ -20,4 +21,5 @@ ShellRoot {
         isMic: false
     }
     Launcher {}
+    Music {}
 }
