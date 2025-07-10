@@ -18,13 +18,10 @@ Variants {
             }
             implicitHeight: 24
             color: Theme.color.black
-            Title {
-                anchors.centerIn: parent
-            }
             RowLayout {
                 anchors.fill: parent
                 Row {
-                    Layout.alignment: Qt.AlignLeft
+                    Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
                     spacing: 2
                     Os {}
                     Workspaces {}
@@ -32,8 +29,11 @@ Variants {
                     Mpris {}
                     Bluetooth {}
                 }
+                Title {
+                  Layout.preferredWidth: modelData.width * 0.5
+                }
                 Row {
-                    Layout.alignment: Qt.AlignRight
+                    Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
                     spacing: 2
                     WindowControls {}
                     Volume {}
