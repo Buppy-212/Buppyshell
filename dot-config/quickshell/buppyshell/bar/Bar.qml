@@ -38,6 +38,17 @@ Variants {
                         Os {}
                         Workspaces {}
                     }
+                    Column {
+                        Layout.alignment: Qt.AlignBottom
+                        spacing: 2
+                        Volume {}
+                        Inhibitor {}
+                        Battery {}
+                        Light {}
+                        Update {}
+                        Clock {}
+                        Power {}
+                    }
                 }
             }
             RoundCorner {
@@ -83,17 +94,6 @@ Variants {
                         Layout.alignment: Qt.AlignTop
                         SidebarToggle {}
                         Tray {}
-                    }
-                    Column {
-                        Layout.alignment: Qt.AlignBottom
-                        spacing: 2
-                        Volume {}
-                        Inhibitor {}
-                        Battery {}
-                        Light {}
-                        Update {}
-                        Clock {}
-                        Power {}
                     }
                 }
             }
