@@ -15,10 +15,16 @@ Rectangle {
     }
     property int currentIndex: 0
     implicitWidth: 600
-    implicitHeight: 320
+    implicitHeight: GlobalState.player ? 300 : 96
     onVisibleChanged: playerWidget.currentIndex = findPlayerctld()
     radius: Theme.rounding
     color: Theme.color.bg
+    MouseBlock {
+        onClicked: GlobalState.player = !GlobalState.player
+    }
+    Behavior on implicitHeight {
+        animation: Theme.animation.elementMove.numberAnimation.createObject(this)
+    }
     Timer {
         repeat: true
         interval: 1000
@@ -49,12 +55,11 @@ Rectangle {
     Column {
         spacing: 6
         anchors.fill: parent
-        anchors.topMargin: 24
         Item {
             implicitHeight: 48
             implicitWidth: parent.width
             StyledText {
-                text: Mpris.players.values[playerWidget.currentIndex]?.trackTitle ?? ""
+                text: Mpris.players.values[playerWidget.currentIndex]?.trackTitle ?? false ? Mpris.players.values[playerWidget.currentIndex].trackTitle : "No Track"
                 font.pointSize: 26
                 color: Theme.color.fg
                 width: parent.width - backBlock.width - forwardBlock.width
@@ -63,6 +68,7 @@ Rectangle {
             }
         }
         Item {
+            visible: GlobalState.player
             implicitHeight: 24
             implicitWidth: parent.width
             StyledText {
@@ -76,7 +82,10 @@ Rectangle {
         }
     }
     Row {
-        anchors.centerIn: parent
+        id: playbackControls
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: GlobalState.player ? parent.height / 2 - height / 2 : 0
+        anchors.horizontalCenter: parent.horizontalCenter
         spacing: 24
         Block {
             hovered: leftMouse.containsMouse
@@ -142,8 +151,8 @@ Rectangle {
     Slider {
         id: slider
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.bottomMargin: 48
-        anchors.bottom: parent.bottom
+        anchors.topMargin: 64
+        anchors.top: playbackControls.bottom
         visible: Mpris.players.values[playerWidget.currentIndex]?.positionSupported ?? false
         live: true
         height: 12

@@ -1,5 +1,6 @@
 import QtQuick
 import Quickshell.Services.Notifications
+import Quickshell.Hyprland
 import "../services"
 import "../widgets"
 
@@ -8,9 +9,9 @@ Rectangle {
     radius: Theme.rounding
     color: Theme.color.bg
     Rectangle {
-      anchors.fill: notificationList
-    radius: Theme.rounding
-      color: Theme.color.bgalt
+        anchors.fill: notificationList
+        radius: Theme.rounding
+        color: Theme.color.bgalt
     }
     ListView {
         id: notificationList
@@ -43,15 +44,30 @@ Rectangle {
         }
     }
     Rectangle {
-      id: title
-      anchors.top: parent.top
-      implicitWidth: parent.implicitWidth
-      implicitHeight: 48
-      color: Theme.color.bg
-      radius: Theme.rounding
-      StyledText {
-        text: "Notifications"
-        font.pointSize: 26
-      }
+        id: title
+        anchors.top: parent.top
+        implicitWidth: parent.implicitWidth
+        implicitHeight: 48
+        color: Theme.color.bg
+        radius: Theme.rounding
+        StyledText {
+            text: "Notifications"
+            font.pointSize: 26
+        }
+        Block {
+            hovered: dismissMouse.containsMouse
+            anchors.top: parent.top
+            anchors.right: parent.right
+            implicitHeight: 48
+            implicitWidth: 48
+            StyledText {
+                text: "󰆴"
+                font.pointSize: 26
+            }
+            MouseBlock {
+                id: dismissMouse
+                onClicked: Hyprland.dispatch("global buppyshell:clearNotifs")
+            }
+        }
     }
 }

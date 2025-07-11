@@ -92,9 +92,7 @@ Variants {
                     Column {
                         spacing: 2
                         Layout.alignment: Qt.AlignTop
-                        Bell {}
-                        Bluetooth1 {}
-                        Mpris {}
+                        SidebarToggle {}
                         Tray {}
                     }
                 }

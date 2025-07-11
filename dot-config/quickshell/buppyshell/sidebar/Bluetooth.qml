@@ -8,9 +8,15 @@ import "../widgets"
 Rectangle {
     id: bluetoothWidget
     implicitWidth: 600
-    implicitHeight: 320
+    implicitHeight: GlobalState.bluetooth ? 300 : 48
     radius: Theme.rounding
     color: Theme.color.bg
+    MouseBlock {
+        onClicked: GlobalState.bluetooth = !GlobalState.bluetooth
+    }
+    Behavior on implicitHeight {
+        animation: Theme.animation.elementMove.numberAnimation.createObject(this)
+    }
     Block {
         hovered: adapterMouse.containsMouse
         anchors.top: parent.top
