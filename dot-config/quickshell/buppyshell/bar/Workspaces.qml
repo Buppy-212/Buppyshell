@@ -130,7 +130,7 @@ Item {
                                 sourceComponent: PopupWindow {
                                     anchor {
                                         window: leftBar
-                                        rect.x: workspaceCell.width
+                                        rect.x: leftRect.width + Theme.border
                                         rect.y: root.y + workspaceCell.y + image.y
                                     }
                                     height: image.height
