@@ -13,7 +13,7 @@ Rectangle {
             }
         }
     }
-    property int currentIndex: 0
+    property int currentIndex: findPlayerctld()
     implicitWidth: 600
     implicitHeight: GlobalState.player ? 300 : 96
     onVisibleChanged: playerWidget.currentIndex = findPlayerctld()
