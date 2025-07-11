@@ -9,6 +9,7 @@ import "../services"
 import "../modules/notifications"
 
 Scope {
+    id: scope
     Server {
         id: notificationServer
         onNotification: notification => {
@@ -55,17 +56,18 @@ Scope {
             notification: notificationPopup.currentNotification
         }
     }
+    function clearNotifs(): void {
+        if (GlobalState.sidebar) {
+            var notifications = notificationServer.trackedNotifications.values.slice();
+            for (var i = 0; i < notifications.length; i++) {
+                notifications[i].dismiss();
+            }
+        }
+    }
     GlobalShortcut {
         name: "clearNotifs"
         description: "Dismiss all notifications"
         appid: "buppyshell"
-        onPressed: {
-            if (GlobalState.sidebar) {
-                var notifications = notificationServer.trackedNotifications.values.slice();
-                for (var i = 0; i < notifications.length; i++) {
-                    notifications[i].dismiss();
-                }
-            }
-        }
+        onPressed: scope.clearNotifs()
     }
 }

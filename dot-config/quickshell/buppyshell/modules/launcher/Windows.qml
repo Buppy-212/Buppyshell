@@ -10,7 +10,7 @@ import "../../services"
 
 Item {
     anchors.fill: parent
-    Keys.onEscapePressed: Hyprland.dispatch("global buppyshell:windows")
+    Keys.onEscapePressed: GlobalState.overlay = false
     Repeater {
         id: rep
         model: Hyprland.toplevels
@@ -27,21 +27,21 @@ Item {
             focusPolicy: Qt.StrongFocus
             Keys.onReturnPressed: {
                 Hyprland.dispatch(`focuswindow address:0x${modelData.address}`);
-                Hyprland.dispatch("global buppyshell:windows");
+                GlobalState.overlay = false;
             }
             Keys.onDeletePressed: modelData.wayland.close()
             onEntered: focus = true
             onClicked: mouse => {
                 switch (mouse.button) {
                 case Qt.LeftButton:
-                    Hyprland.dispatch("global buppyshell:windows");
+                    GlobalState.overlay = false
                     Hyprland.dispatch(`focuswindow address:0x${modelData.address}`);
                     break;
                 case Qt.MiddleButton:
                     modelData.wayland.close();
                     break;
                 case Qt.RightButton:
-                    Hyprland.dispatch("global buppyshell:windows");
+                    GlobalState.overlay = false
                     Hyprland.dispatch(`movetoworkspace ${Hyprland.focusedWorkspace.id}, address:0x${modelData.address}`);
                     break;
                 }

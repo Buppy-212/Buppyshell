@@ -11,30 +11,30 @@ Item {
     Keys.onPressed: event => {
         switch (event.key) {
         case Qt.Key_Escape:
-            Hyprland.dispatch("global buppyshell:logout");
+            GlobalState.overlay = false;
             break;
         case Qt.Key_S:
-            Hyprland.dispatch("global buppyshell:logout");
+            GlobalState.overlay = false;
             Quickshell.execDetached(["systemctl", "poweroff"]);
             break;
         case Qt.Key_R:
-            Hyprland.dispatch("global buppyshell:logout");
+            GlobalState.overlay = false;
             Quickshell.execDetached(["systemctl", "reboot"]);
             break;
         case Qt.Key_O:
-            Hyprland.dispatch("global buppyshell:logout");
+            GlobalState.overlay = false;
             Quickshell.execDetached(["uwsm", "stop"]);
             break;
         case Qt.Key_L:
-            Hyprland.dispatch("global buppyshell:logout");
-            GlobalState.toggleLock();
+            GlobalState.overlay = false;
+            GlobalState.locked = true;
             break;
         case Qt.Key_U:
-            Hyprland.dispatch("global buppyshell:logout");
+            GlobalState.overlay = false;
             Quickshell.execDetached(["systemctl", "suspend"]);
             break;
         case Qt.Key_H:
-            Hyprland.dispatch("global buppyshell:logout");
+            GlobalState.overlay = false;
             Quickshell.execDetached(["systemctl", "hibernate"]);
         }
     }
@@ -94,11 +94,11 @@ Item {
             focusPolicy: Qt.StrongFocus
             onEntered: focus = true
             onClicked: {
-                Hyprland.dispatch("global buppyshell:logout");
+                GlobalState.overlay = false;
                 Hyprland.dispatch(command);
             }
             Keys.onReturnPressed: {
-                Hyprland.dispatch("global buppyshell:logout");
+                GlobalState.overlay = false;
                 Hyprland.dispatch(command);
             }
             Rectangle {
