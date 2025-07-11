@@ -87,6 +87,9 @@ Rectangle {
         anchors.bottomMargin: GlobalState.player ? parent.height / 2 - height / 2 : 0
         anchors.horizontalCenter: parent.horizontalCenter
         spacing: 24
+        Behavior on anchors.bottomMargin {
+            animation: Theme.animation.elementMove.numberAnimation.createObject(this)
+        }
         Block {
             hovered: leftMouse.containsMouse
             implicitHeight: 48
