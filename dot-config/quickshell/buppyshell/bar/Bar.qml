@@ -31,6 +31,7 @@ Variants {
                 anchors.left: parent.left
                 ColumnLayout {
                     anchors.fill: parent
+                    anchors.bottomMargin: 24
                     Column {
                         spacing: 2
                         Layout.alignment: Qt.AlignTop
