@@ -8,6 +8,7 @@ Singleton {
     id: root
 
     property bool player: false
+    property bool bluetooth: false
     property bool overlayState: false
     property bool overlay: false
     property bool sidebar: false

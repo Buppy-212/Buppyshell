@@ -33,7 +33,8 @@ ClippingRectangle {
                     } else if (mouse.button == Qt.MiddleButton) {
                         Bluetooth.defaultAdapter.enabled = !Bluetooth.defaultAdapter.enabled;
                     } else {
-                        bluetoothWidget.revealed = !bluetoothWidget.revealed;
+                        // bluetoothWidget.revealed = !bluetoothWidget.revealed;
+                        GlobalState.bluetooth = !GlobalState.bluetooth;
                     }
                 }
                 onEntered: GlobalState.overrideTitle("Bluetooth")

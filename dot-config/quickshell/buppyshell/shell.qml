@@ -21,5 +21,5 @@ ShellRoot {
         isMic: false
     }
     Launcher {}
-    Music {}
+    Menu {}
 }
