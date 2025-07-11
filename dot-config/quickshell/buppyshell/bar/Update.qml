@@ -1,6 +1,7 @@
 import Quickshell
 import QtQuick
 import "../services"
+import "../widgets"
 
 Block {
     id: updateWidget

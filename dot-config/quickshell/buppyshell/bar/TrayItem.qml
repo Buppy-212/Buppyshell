@@ -4,6 +4,7 @@ import Quickshell
 import Quickshell.Widgets
 import Quickshell.Services.SystemTray
 import "../services"
+import "../widgets"
 
 Block {
     id: trayItem

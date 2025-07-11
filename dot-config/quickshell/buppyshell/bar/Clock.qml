@@ -1,4 +1,5 @@
 import "../services"
+import "../widgets"
 
 Block {
     implicitHeight: Theme.blockHeight * 2

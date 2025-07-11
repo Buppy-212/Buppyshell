@@ -5,6 +5,7 @@ import Quickshell.Hyprland
 import Quickshell.Widgets
 import QtQuick
 import "../services"
+import "../widgets"
 
 Item {
     id: root

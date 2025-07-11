@@ -1,6 +1,7 @@
 import Quickshell
 import Quickshell.Services.Pipewire
 import "../services"
+import "../widgets"
 
 Block {
     id: volumeWidget

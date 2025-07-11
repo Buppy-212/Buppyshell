@@ -11,6 +11,7 @@ Item {
     implicitWidth: Theme.blockWidth
     Column {
         id: layout
+        spacing: 2
         anchors.centerIn: parent
         Repeater {
             id: items

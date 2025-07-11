@@ -1,6 +1,7 @@
 import Quickshell
 import Quickshell.Widgets
 import "../services"
+import "../widgets"
 
 Block {
     id: root

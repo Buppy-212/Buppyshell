@@ -3,6 +3,7 @@ import Quickshell.Bluetooth
 import QtQuick
 import "../notifications"
 import "../services"
+import "../widgets"
 
 Column {
     spacing: 2

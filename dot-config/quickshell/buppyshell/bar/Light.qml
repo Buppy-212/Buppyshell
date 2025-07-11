@@ -1,4 +1,5 @@
 import "../services"
+import "../widgets"
 
 Block {
     hovered: mouse.containsMouse
