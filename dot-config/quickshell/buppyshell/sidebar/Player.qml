@@ -1,4 +1,3 @@
-import Quickshell
 import Quickshell.Services.Mpris
 import QtQuick
 import QtQuick.Controls
@@ -17,14 +16,13 @@ Rectangle {
     property int currentIndex: 0
     implicitWidth: 600
     implicitHeight: 320
-    visible: GlobalState.player
     onVisibleChanged: playerWidget.currentIndex = findPlayerctld()
     radius: Theme.rounding
     color: Theme.color.bg
     Timer {
         repeat: true
         interval: 1000
-        running: Mpris.players.values[playerWidget.currentIndex].playbackState == MprisPlaybackState.Playing
+        running: Mpris.players.values[playerWidget.currentIndex]?.playbackState == MprisPlaybackState.Playing
         onTriggered: Mpris.players.values[playerWidget.currentIndex].positionChanged()
     }
     Block {
@@ -56,7 +54,7 @@ Rectangle {
             implicitHeight: 48
             implicitWidth: parent.width
             StyledText {
-                text: Mpris.players.values[playerWidget.currentIndex].trackTitle
+                text: Mpris.players.values[playerWidget.currentIndex]?.trackTitle ?? ""
                 font.pointSize: 26
                 color: Theme.color.fg
                 width: parent.width - backBlock.width - forwardBlock.width
@@ -68,7 +66,7 @@ Rectangle {
             implicitHeight: 24
             implicitWidth: parent.width
             StyledText {
-                text: `${Mpris.players.values[playerWidget.currentIndex].trackAlbum} - ${Mpris.players.values[playerWidget.currentIndex].trackArtist}`
+                text: `${Mpris.players.values[playerWidget.currentIndex]?.trackAlbum} - ${Mpris.players.values[playerWidget.currentIndex]?.trackArtist}`
                 font.pointSize: 13
                 color: Theme.color.fg
                 width: parent.width - backBlock.width - forwardBlock.width
@@ -146,13 +144,13 @@ Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottomMargin: 48
         anchors.bottom: parent.bottom
-        visible: Mpris.players.values[playerWidget.currentIndex].positionSupported
+        visible: Mpris.players.values[playerWidget.currentIndex]?.positionSupported ?? false
         live: true
         height: 12
         width: parent.width / 2
         from: 0
-        to: Mpris.players.values[playerWidget.currentIndex].length
-        value: Mpris.players.values[playerWidget.currentIndex].position
+        to: Mpris.players.values[playerWidget.currentIndex]?.length ?? 1
+        value: Mpris.players.values[playerWidget.currentIndex]?.position ?? 0
         background: Rectangle {
             width: slider.availableWidth
             height: parent.height

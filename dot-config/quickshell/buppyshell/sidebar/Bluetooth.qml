@@ -9,7 +9,6 @@ Rectangle {
     id: bluetoothWidget
     implicitWidth: 600
     implicitHeight: 320
-    visible: GlobalState.bluetooth
     radius: Theme.rounding
     color: Theme.color.bg
     Block {
@@ -19,7 +18,7 @@ Rectangle {
         implicitHeight: 48
         implicitWidth: 36
         StyledText {
-            text: Bluetooth.defaultAdapter.enabled ? "󰂯" : "󰂲"
+            text: Bluetooth.defaultAdapter?.enabled ?? Bluetooth.adapters.values[0]?.enabled ? "󰂯" : "󰂲"
             color: Theme.color.blue
             font.pointSize: 26
         }
@@ -35,7 +34,7 @@ Rectangle {
         implicitHeight: 48
         implicitWidth: 48
         StyledText {
-            text: Bluetooth.defaultAdapter.discovering ? "󰜺" : ""
+            text: Bluetooth.defaultAdapter?.discovering ?? Bluetooth.adapters.values[0]?.discovering ? "󰜺" : ""
             color: Theme.color.fg
             font.pointSize: 26
         }
@@ -51,17 +50,21 @@ Rectangle {
         implicitWidth: adapterName.contentWidth
         StyledText {
             id: adapterName
-            text: Bluetooth.defaultAdapter.name
+            text: Bluetooth.defaultAdapter?.name ?? Bluetooth.adapters.values[0]?.name ?? ""
             font.pointSize: 26
         }
     }
+    Rectangle {
+        anchors.fill: gridView
+        radius: Theme.rounding
+        color: Theme.color.bgalt
+    }
     GridView {
+        id: gridView
         anchors.fill: parent
+        anchors.margins: 36
         anchors.topMargin: 72
-        anchors.leftMargin: 12
-        anchors.rightMargin: 12
-        anchors.bottomMargin: 36
-        cellWidth: parent.width / 2 - 12
+        cellWidth: parent.width / 2 - 36
         cellHeight: 28
         model: Bluetooth.devices
         delegate: Block {

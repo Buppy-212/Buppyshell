@@ -22,7 +22,7 @@ Singleton {
         readonly property int height: 80
         readonly property int margin: 16
         readonly property int iconSize: 48
-        readonly property int sidebarWidth: 440
+        readonly property int sidebarWidth: 600
     }
 
     component Color: QtObject {

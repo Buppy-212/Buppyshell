@@ -1,35 +1,57 @@
 import QtQuick
 import Quickshell.Services.Notifications
 import "../services"
+import "../widgets"
 
-ListView {
-    id: notificationList
-    Server {
-        id: notificationServer
+Rectangle {
+    implicitWidth: parent.width
+    radius: Theme.rounding
+    color: Theme.color.bg
+    Rectangle {
+      anchors.fill: notificationList
+    radius: Theme.rounding
+      color: Theme.color.bgalt
     }
-    anchors.top: parent.top
-    anchors.topMargin: Theme.border * 4
-    anchors.bottom: parent.bottom
-    width: Theme.notification.width
-    anchors.horizontalCenter: parent.horizontalCenter
-    model: notificationServer.trackedNotifications
-    spacing: Theme.border * 2
-    delegate: Item {
-        id: listItem
-        required property Notification modelData
-        implicitWidth: content.width
-        implicitHeight: content.height
-        Content {
-            id: content
-            notification: listItem.modelData
+    ListView {
+        id: notificationList
+        anchors.top: title.bottom
+        Server {
+            id: notificationServer
+        }
+        implicitWidth: Theme.notification.width
+        implicitHeight: parent.height - title.height
+        anchors.horizontalCenter: parent.horizontalCenter
+        model: notificationServer.trackedNotifications
+        spacing: Theme.border * 2
+        delegate: Item {
+            id: listItem
+            required property Notification modelData
+            implicitWidth: content.width
+            implicitHeight: content.height
+            Content {
+                id: content
+                notification: listItem.modelData
+            }
+        }
+        removeDisplaced: Transition {
+            NumberAnimation {
+                property: "y"
+                duration: Theme.animation.elementMoveFast.duration
+                easing.type: Theme.animation.elementMoveFast.type
+                easing.bezierCurve: Theme.animation.elementMoveFast.bezierCurve
+            }
         }
     }
-    removeDisplaced: Transition {
-        NumberAnimation {
-            property: "y"
-            duration: Theme.animation.elementMoveFast.duration
-            easing.type: Theme.animation.elementMoveFast.type
-            easing.bezierCurve: Theme.animation.elementMoveFast.bezierCurve
-        }
+    Rectangle {
+      id: title
+      anchors.top: parent.top
+      implicitWidth: parent.implicitWidth
+      implicitHeight: 48
+      color: Theme.color.bg
+      radius: Theme.rounding
+      StyledText {
+        text: "Notifications"
+        font.pointSize: 26
+      }
     }
 }
