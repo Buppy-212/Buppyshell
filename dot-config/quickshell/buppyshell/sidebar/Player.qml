@@ -72,7 +72,7 @@ Rectangle {
             implicitHeight: 24
             implicitWidth: parent.width
             StyledText {
-                text: `${Mpris.players.values[playerWidget.currentIndex]?.trackAlbum} - ${Mpris.players.values[playerWidget.currentIndex]?.trackArtist}`
+                text: Mpris.players.values[playerWidget.currentIndex]?.trackAlbum ? `${Mpris.players.values[playerWidget.currentIndex]?.trackAlbum} - ${Mpris.players.values[playerWidget.currentIndex]?.trackArtist}` : Mpris.players.values[playerWidget.currentIndex]?.trackArtist
                 font.pointSize: 13
                 color: Theme.color.fg
                 width: parent.width - backBlock.width - forwardBlock.width

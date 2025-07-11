@@ -8,7 +8,6 @@ import "../services"
 Block {
     id: trayItem
     required property SystemTrayItem modelData
-    width: Theme.blockWidth - 2
     hovered: mouse.containsMouse
     MouseBlock {
         id: mouse
@@ -19,14 +18,6 @@ Block {
                 menu.open();
             }
         }
-        onEntered: {
-            if (trayItem.modelData.title) {
-                GlobalState.overrideTitle(trayItem.modelData.title);
-            } else {
-                GlobalState.overrideTitle(trayItem.modelData.tooltipTitle);
-            }
-        }
-        onExited: GlobalState.refreshTitle()
         QsMenuAnchor {
             id: menu
             menu: trayItem.modelData.menu

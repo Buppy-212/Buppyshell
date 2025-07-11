@@ -37,6 +37,10 @@ Variants {
                         Os {}
                         Workspaces {}
                     }
+                    Title {
+                        Layout.alignment: Qt.AlignCenter
+                        Layout.fillHeight: true
+                    }
                     Column {
                         Layout.alignment: Qt.AlignBottom
                         spacing: 2
@@ -60,7 +64,6 @@ Variants {
             RoundCorner {
                 anchors.top: parent.top
                 anchors.left: parent.left
-                anchors.topMargin: Theme.blockHeight
                 anchors.leftMargin: Theme.blockWidth
                 size: Theme.rounding + 3
                 corner: cornerEnum.topLeft
@@ -107,28 +110,9 @@ Variants {
             RoundCorner {
                 anchors.top: parent.top
                 anchors.right: parent.right
-                anchors.topMargin: Theme.blockHeight
                 anchors.rightMargin: Theme.blockWidth
                 size: Theme.rounding + 3
                 corner: cornerEnum.topRight
-            }
-        }
-        PanelWindow {
-            id: bar
-            screen: scope.modelData
-            WlrLayershell.namespace: "buppyshell:topbar"
-            anchors {
-                top: true
-                right: true
-                left: true
-            }
-            implicitHeight: Theme.blockHeight
-            color: Theme.color.black
-            Title {
-                anchors.centerIn: parent
-            }
-            WindowControls {
-                anchors.right: parent.right
             }
         }
     }

@@ -3,17 +3,20 @@ import Quickshell.Wayland
 import QtQuick
 import "../services"
 
-Block {
-    implicitWidth: Screen.width * 0.5
-    color: "transparent"
-    StyledText {
-        text: GlobalState.defaultTitle ? Hyprland.focusedWorkspace?.toplevels.values.length ? ToplevelManager.activeToplevel?.title ?? qsTr("Desktop") : qsTr("Desktop") : GlobalState.title
-        width: parent.width
-        horizontalAlignment: Text.AlignHCenter
-        elide: Text.ElideRight
-        maximumLineCount: 1
+Item {
+  implicitWidth: 30
+  StyledText {
+    text: GlobalState.defaultTitle ? Hyprland.focusedWorkspace?.toplevels.values.length ? ToplevelManager.activeToplevel?.title ?? qsTr("Desktop") : qsTr("Desktop") : GlobalState.title
+    horizontalAlignment: Text.AlignHCenter
+    width: parent.height
+    elide: Text.ElideRight
+    transform: Rotation {
+      angle: 270
+      origin.x: height/2 + 4
+      origin.y: width/2
     }
-    MouseBlock {
-        onClicked: Hyprland.dispatch("global buppyshell:windows")
-    }
+  }
+  MouseBlock {
+    onClicked: Hyprland.dispatch("global buppyshell:windows")
+  }
 }

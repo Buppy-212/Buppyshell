@@ -5,7 +5,7 @@ import "../notifications"
 import "../services"
 
 Column {
-  spacing: 2
+    spacing: 2
     Block {
         hovered: mouse.containsMouse
         Server {
@@ -21,8 +21,8 @@ Column {
                     Hyprland.dispatch("global buppyshell:clearNotifs");
                 } else {
                     GlobalState.sidebar = !GlobalState.sidebar;
-                GlobalState.bluetooth = false;
-                GlobalState.player = false;
+                    GlobalState.bluetooth = false;
+                    GlobalState.player = false;
                 }
             }
         }
@@ -54,6 +54,6 @@ Column {
                 GlobalState.bluetooth = false;
                 GlobalState.player = true;
             }
-          }
+        }
     }
 }
