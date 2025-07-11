@@ -38,19 +38,7 @@ Variants {
                         Workspaces {}
                     }
                     Title {
-                        Layout.alignment: Qt.AlignCenter
                         Layout.fillHeight: true
-                    }
-                    Column {
-                        Layout.alignment: Qt.AlignBottom
-                        spacing: 2
-                        Volume {}
-                        Inhibitor {}
-                        Battery {}
-                        Light {}
-                        Update {}
-                        Clock {}
-                        Power {}
                     }
                 }
             }
@@ -97,6 +85,17 @@ Variants {
                         Layout.alignment: Qt.AlignTop
                         SidebarToggle {}
                         Tray {}
+                    }
+                    Column {
+                        Layout.alignment: Qt.AlignBottom
+                        spacing: 2
+                        Volume {}
+                        Inhibitor {}
+                        Battery {}
+                        Light {}
+                        Update {}
+                        Clock {}
+                        Power {}
                     }
                 }
             }
