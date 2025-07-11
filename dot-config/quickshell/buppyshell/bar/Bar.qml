@@ -10,6 +10,7 @@ Variants {
         id: scope
         required property ShellScreen modelData
         PanelWindow {
+            id: leftBar
             screen: scope.modelData
             mask: Region {
                 item: leftRect
@@ -31,15 +32,11 @@ Variants {
                 anchors.left: parent.left
                 ColumnLayout {
                     anchors.fill: parent
-                    anchors.bottomMargin: 12
                     Column {
                         spacing: 2
                         Layout.alignment: Qt.AlignTop
                         Os {}
                         Workspaces {}
-                    }
-                    Title {
-                        Layout.fillHeight: true
                     }
                 }
             }

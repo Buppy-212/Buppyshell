@@ -29,7 +29,7 @@ WlSessionLock {
             }
             onCompleted: function (result) {
                 if (result === PamResult.Success) {
-                    GlobalState.toggleLock();
+                    GlobalState.locked = false;
                 } else {
                     passRect.border.color = Theme.color.red;
                     pam.active = true;

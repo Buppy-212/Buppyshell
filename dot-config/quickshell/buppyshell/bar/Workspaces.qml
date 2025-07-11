@@ -107,8 +107,6 @@ Item {
                                 id: mouseArea
                                 drag.target: parent
                                 drag.axis: Drag.YAxis
-                                onEntered: GlobalState.overrideTitle(modelData.title)
-                                onExited: GlobalState.refreshTitle()
                                 onClicked: mouse => {
                                     if (mouse.button == Qt.LeftButton) {
                                         Hyprland.dispatch(`focuswindow address:0x${image.modelData.address}`);
@@ -125,6 +123,29 @@ Item {
                                         parent.silent = true;
                                     }
                                     parent.Drag.drop();
+                                }
+                            }
+                            Loader {
+                                active: mouseArea.containsMouse
+                                sourceComponent: PopupWindow {
+                                    anchor {
+                                        window: leftBar
+                                        rect.x: workspaceCell.width
+                                        rect.y: root.y + workspaceCell.y + image.y
+                                    }
+                                    height: image.height
+                                    width: title.width + 12
+                                    color: "transparent"
+                                    Rectangle {
+                                        anchors.fill: parent
+                                        radius: Theme.rounding
+                                        color: Theme.color.black
+                                        StyledText {
+                                            id: title
+                                            text: image.modelData.title
+                                        }
+                                    }
+                                    visible: true
                                 }
                             }
                         }
