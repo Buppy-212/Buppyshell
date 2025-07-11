@@ -139,7 +139,9 @@ Item {
                                     Rectangle {
                                         anchors.fill: parent
                                         radius: Theme.rounding
-                                        color: Theme.color.black
+                                        color: Theme.color.bg
+                                        border.width: 2
+                                        border.color: Theme.color.grey
                                         StyledText {
                                             id: title
                                             text: image.modelData.title
