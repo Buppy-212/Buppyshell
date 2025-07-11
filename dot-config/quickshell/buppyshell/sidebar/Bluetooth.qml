@@ -77,11 +77,10 @@ Rectangle {
             id: bluetoothItem
             required property BluetoothDevice modelData
             hovered: itemMouse.containsMouse
-            implicitWidth: row.width
+            implicitWidth: gridView.cellWidth
             color: itemMouse.containsMouse ? Theme.color.grey : modelData.batteryAvailable && modelData.battery <= 0.1 ? Theme.color.red : modelData.connected ? Theme.color.accent : "transparent"
             Row {
                 id: row
-                width: name.width + 40
                 anchors.fill: parent
                 anchors.leftMargin: 2
                 spacing: 8
@@ -91,7 +90,12 @@ Rectangle {
                 }
                 StyledText {
                     id: name
-                    text: bluetoothItem.modelData.batteryAvailable ? `${bluetoothItem.modelData.name} ${bluetoothItem.modelData.battery * 100}%` : bluetoothItem.modelData.name
+                    text: bluetoothItem.modelData.name
+                    anchors.centerIn: undefined
+                }
+                StyledText {
+                    id: battery
+                    text: bluetoothItem.modelData.batteryAvailable ? `${bluetoothItem.modelData.battery * 100}%` : ""
                     anchors.centerIn: undefined
                 }
             }
