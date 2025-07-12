@@ -88,7 +88,7 @@ Rectangle {
                                     Rectangle {
                                         width: slider.visualPosition * parent.width
                                         height: parent.height
-                                        color: delegate.modelData == Pipewire.defaultAudioSink ? Theme.color.red : Theme.color.magenta
+                                        color: delegate.modelData == Pipewire.defaultAudioSink ? Theme.color.blue : Theme.color.magenta
                                         radius: Theme.rounding
                                     }
                                 }
