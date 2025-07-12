@@ -17,7 +17,7 @@ Block {
     MouseBlock {
         id: mouse
         onClicked: mouse => {
-            if (mouse.button == Qt.RightButton) {
+            if (mouse.button == Qt.MiddleButton) {
                 Pipewire.defaultAudioSink.audio.muted = !Pipewire.defaultAudioSink.audio.muted;
             } else {
                 GlobalState.sidebar = !GlobalState.sidebar;
