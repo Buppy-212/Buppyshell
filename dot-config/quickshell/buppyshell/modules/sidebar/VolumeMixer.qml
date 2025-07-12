@@ -6,7 +6,6 @@ import "../../widgets"
 
 Rectangle {
     color: Theme.color.bg
-    anchors.fill: parent
     Rectangle {
         id: title
         anchors.top: parent.top
@@ -29,7 +28,7 @@ Rectangle {
             fill: parent
         }
         MouseArea {
-          anchors.fill: parent
+            anchors.fill: parent
         }
         Column {
             spacing: 24
@@ -76,10 +75,10 @@ Rectangle {
                                 from: 0
                                 to: 1
                                 value: delegate.modelData.audio?.volume ?? 0
-                                onValueChanged: delegate.modelData.audio.volume = value
+                                onValueChanged: delegate.visible ? delegate.modelData.audio.volume = value : undefined
                                 wheelEnabled: true
                                 HoverHandler {
-                                  cursorShape: Qt.PointingHandCursor
+                                    cursorShape: Qt.PointingHandCursor
                                 }
                                 background: Rectangle {
                                     width: slider.availableWidth
@@ -89,7 +88,7 @@ Rectangle {
                                     Rectangle {
                                         width: slider.visualPosition * parent.width
                                         height: parent.height
-                                        color: modelData == Pipewire.defaultAudioSink ? Theme.color.red : Theme.color.blue
+                                        color: delegate.modelData == Pipewire.defaultAudioSink ? Theme.color.red : Theme.color.magenta
                                         radius: Theme.rounding
                                     }
                                 }
@@ -107,9 +106,9 @@ Rectangle {
                 }
             }
             Rectangle {
-              implicitHeight: 2
-              implicitWidth: parent.width
-              color: Theme.color.black
+                implicitHeight: 2
+                implicitWidth: parent.width
+                color: Theme.color.black
             }
             Repeater {
                 model: Pipewire.nodes
@@ -150,10 +149,10 @@ Rectangle {
                                 from: 0
                                 to: 1
                                 value: streamDelegate.modelData.audio?.volume ?? 0
-                                onValueChanged: streamDelegate.modelData.audio.volume = value
+                                onValueChanged: streamDelegate.visible ? streamDelegate.modelData.audio.volume = value : undefined
                                 wheelEnabled: true
                                 HoverHandler {
-                                  cursorShape: Qt.PointingHandCursor
+                                    cursorShape: Qt.PointingHandCursor
                                 }
                                 background: Rectangle {
                                     width: streamSlider.availableWidth
@@ -163,7 +162,7 @@ Rectangle {
                                     Rectangle {
                                         width: streamSlider.visualPosition * parent.width
                                         height: parent.height
-                                        color: Theme.color.blue
+                                        color: Theme.color.magenta
                                         radius: Theme.rounding
                                     }
                                 }

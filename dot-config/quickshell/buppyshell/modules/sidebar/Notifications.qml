@@ -1,8 +1,10 @@
 import QtQuick
 import Quickshell.Services.Notifications
 import Quickshell.Hyprland
+import Quickshell.Widgets
 import "../../services"
 import "../../widgets"
+import "../notifications"
 
 Rectangle {
     implicitWidth: parent.width
@@ -11,28 +13,25 @@ Rectangle {
     Server {
         id: notificationServer
     }
-    Rectangle {
+    ClippingRectangle {
         id: notificationList
         anchors {
-          fill: parent
-          topMargin: title.height
-          margins: 36
+            fill: parent
+            topMargin: title.height
+            margins: 36
         }
         radius: Theme.rounding
         color: Theme.color.bgalt
         ListView {
-            anchors.fill: parent
+            implicitHeight: parent.height
+            implicitWidth: Theme.notification.width
+            anchors.horizontalCenter: parent.horizontalCenter
             model: notificationServer.trackedNotifications
             spacing: Theme.border * 2
-            delegate: Item {
-                id: listItem
-                required property Notification modelData
-                implicitWidth: content.width
-                implicitHeight: content.height
-                Content {
-                    id: content
-                    notification: listItem.modelData
-                }
+            delegate: Content {
+              id: content
+              required property Notification modelData
+              notification: modelData
             }
             removeDisplaced: Transition {
                 NumberAnimation {

@@ -133,8 +133,8 @@ Item {
                                         rect.x: leftRect.width + Theme.border
                                         rect.y: root.y + workspaceCell.y + image.y
                                     }
-                                    height: image.height
-                                    width: title.width + 12
+                                    implicitHeight: image.height
+                                    implicitWidth: title.width + 12
                                     color: "transparent"
                                     Rectangle {
                                         anchors.fill: parent

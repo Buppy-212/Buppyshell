@@ -10,8 +10,10 @@ Singleton {
     enum SidebarModule {
         Notifications,
         Volume,
-        Bluetooth
+        Bluetooth,
+        Network
     }
+
     property int sidebarModule: GlobalState.SidebarModule.Notifications
     property bool player: false
     property bool bluetooth: false
@@ -33,6 +35,9 @@ Singleton {
             break;
         case "volume":
             root.sidebarModule = GlobalState.SidebarModule.Volume;
+            break;
+        case "network":
+            root.sidebarModule = GlobalState.SidebarModule.Network;
             break;
         }
     }

@@ -42,7 +42,6 @@ Variants {
                     Column {
                         Layout.alignment: Qt.AlignBottom
                         spacing: 2
-                        Volume {}
                         Inhibitor {}
                         Battery {}
                         Light {}

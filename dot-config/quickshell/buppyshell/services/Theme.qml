@@ -18,7 +18,7 @@ Singleton {
     readonly property Notification notification: Notification {}
 
     component Notification: QtObject {
-        readonly property int width: 420
+        readonly property int width: 436
         readonly property int height: 80
         readonly property int margin: 16
         readonly property int iconSize: 48

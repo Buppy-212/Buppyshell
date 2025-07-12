@@ -1,9 +1,8 @@
 import Quickshell
 import QtQuick
 import QtQuick.Layouts
-import "../services"
-import "../modules/notifications"
 import "../modules/sidebar"
+import "../services"
 import "../widgets"
 
 PanelWindow {
@@ -61,6 +60,8 @@ PanelWindow {
                 color: Theme.color.bg
                 radius: Theme.rounding
                 Row {
+                    anchors.fill: parent
+                    anchors.margins: 4
                     spacing: 4
                     Repeater {
                         model: [
@@ -79,6 +80,11 @@ PanelWindow {
                                 state: GlobalState.sidebarModule == GlobalState.SidebarModule.Volume,
                                 command: "volume"
                             },
+                            {
+                                text: "󰖩",
+                                state: GlobalState.sidebarModule == GlobalState.SidebarModule.Network,
+                                command: "network"
+                            },
                         ]
                         delegate: Block {
                             id: delegateBlock
@@ -87,8 +93,8 @@ PanelWindow {
                             required property bool state
                             hovered: mouse.containsMouse
                             color: hovered ? Theme.color.grey : state ? Theme.color.accent : "transparent"
-                            implicitHeight: 48
-                            implicitWidth: 48
+                            implicitHeight: 42
+                            implicitWidth: 42
                             StyledText {
                                 text: delegateBlock.text
                                 font.pointSize: 26
@@ -114,6 +120,9 @@ PanelWindow {
                     case GlobalState.SidebarModule.Bluetooth:
                         bluetooth;
                         break;
+                    case GlobalState.SidebarModule.Network:
+                        network;
+                        break;
                     }
                 }
                 Layout.fillHeight: true
@@ -121,7 +130,7 @@ PanelWindow {
             }
             Component {
                 id: list
-                List {}
+                Notifications {}
             }
             Component {
                 id: volumeMixer
@@ -130,6 +139,10 @@ PanelWindow {
             Component {
                 id: bluetooth
                 Bluetooth {}
+            }
+            Component {
+                id: network
+                Network {}
             }
             Player {
                 id: player

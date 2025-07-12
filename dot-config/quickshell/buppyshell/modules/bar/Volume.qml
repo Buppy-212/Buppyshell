@@ -1,4 +1,3 @@
-import Quickshell
 import Quickshell.Services.Pipewire
 import "../../services"
 import "../../widgets"
@@ -13,7 +12,7 @@ Block {
     }
     StyledText {
         text: volumeWidget.muted || volumeWidget.volume == 0 ? "" : volumeWidget.volume == 100 ? "" : volumeWidget.volume
-        color: Theme.color.blue
+        color: Theme.color.magenta
     }
     MouseBlock {
         id: mouse
