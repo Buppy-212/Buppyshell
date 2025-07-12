@@ -41,7 +41,7 @@ Rectangle {
                 delegate: Item {
                     id: delegate
                     required property PwNode modelData
-                    visible: modelData.isSink && modelData.audio && modelData.description
+                    visible: modelData.isSink && modelData.audio && !modelData.isStream
                     implicitWidth: parent.width
                     implicitHeight: 48
                     PwObjectTracker {
