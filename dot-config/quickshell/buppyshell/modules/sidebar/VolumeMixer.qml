@@ -28,7 +28,9 @@ Rectangle {
             topMargin: title.height
             fill: parent
         }
-        MouseBlock {}
+        MouseArea {
+          anchors.fill: parent
+        }
         Column {
             spacing: 24
             anchors {
@@ -76,6 +78,9 @@ Rectangle {
                                 value: delegate.modelData.audio?.volume ?? 0
                                 onValueChanged: delegate.modelData.audio.volume = value
                                 wheelEnabled: true
+                                HoverHandler {
+                                  cursorShape: Qt.PointingHandCursor
+                                }
                                 background: Rectangle {
                                     width: slider.availableWidth
                                     height: parent.height
@@ -100,6 +105,11 @@ Rectangle {
                         }
                     }
                 }
+            }
+            Rectangle {
+              implicitHeight: 2
+              implicitWidth: parent.width
+              color: Theme.color.black
             }
             Repeater {
                 model: Pipewire.nodes
@@ -142,6 +152,9 @@ Rectangle {
                                 value: streamDelegate.modelData.audio?.volume ?? 0
                                 onValueChanged: streamDelegate.modelData.audio.volume = value
                                 wheelEnabled: true
+                                HoverHandler {
+                                  cursorShape: Qt.PointingHandCursor
+                                }
                                 background: Rectangle {
                                     width: streamSlider.availableWidth
                                     height: parent.height

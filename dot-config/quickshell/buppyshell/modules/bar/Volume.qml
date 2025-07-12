@@ -21,7 +21,9 @@ Block {
             if (mouse.button == Qt.RightButton) {
                 Pipewire.defaultAudioSink.audio.muted = !Pipewire.defaultAudioSink.audio.muted;
             } else {
-                Quickshell.execDetached(["uwsm", "app", "--", "floatty", "pulsemixer"]);
+                GlobalState.sidebar = !GlobalState.sidebar;
+                GlobalState.sidebarModule = GlobalState.SidebarModule.Volume;
+                GlobalState.player = false;
             }
         }
         onWheel: wheel => {

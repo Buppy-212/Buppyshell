@@ -93,7 +93,10 @@ Variants {
                     Column {
                         spacing: 2
                         Layout.alignment: Qt.AlignTop
-                        SidebarToggle {}
+                        Bell {}
+                        Volume {}
+                        Bluetooth {}
+                        Player {}
                         Tray {}
                     }
                 }
