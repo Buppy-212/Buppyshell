@@ -75,7 +75,7 @@ Rectangle {
                                 from: 0
                                 to: 1
                                 value: delegate.modelData.audio?.volume ?? 0
-                                onValueChanged: delegate.visible ? delegate.modelData.audio.volume = value : undefined
+                                onValueChanged: delegate.modelData.ready ? delegate.modelData.audio.volume = value : undefined
                                 wheelEnabled: true
                                 HoverHandler {
                                     cursorShape: Qt.PointingHandCursor
@@ -149,7 +149,7 @@ Rectangle {
                                 from: 0
                                 to: 1
                                 value: streamDelegate.modelData.audio?.volume ?? 0
-                                onValueChanged: streamDelegate.visible ? streamDelegate.modelData.audio.volume = value : undefined
+                                onValueChanged: streamDelegate.modelData.ready ? streamDelegate.modelData.audio.volume = value : undefined
                                 wheelEnabled: true
                                 HoverHandler {
                                     cursorShape: Qt.PointingHandCursor
