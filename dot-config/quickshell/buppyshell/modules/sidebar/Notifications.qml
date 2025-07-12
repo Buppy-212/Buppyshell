@@ -10,7 +10,7 @@ Rectangle {
     implicitWidth: parent.width
     radius: Theme.rounding
     color: Theme.color.bg
-    Server {
+    NotificationServer {
         id: notificationServer
     }
     ClippingRectangle {
@@ -29,9 +29,9 @@ Rectangle {
             model: notificationServer.trackedNotifications
             spacing: Theme.border * 2
             delegate: Content {
-              id: content
-              required property Notification modelData
-              notification: modelData
+                id: content
+                required property Notification modelData
+                notification: modelData
             }
             removeDisplaced: Transition {
                 NumberAnimation {

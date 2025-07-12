@@ -1,15 +1,15 @@
 import Quickshell.Hyprland
-import "../notifications"
+import Quickshell.Services.Notifications
 import "../../services"
 import "../../widgets"
 
 Block {
     hovered: mouse.containsMouse
-    Server {
-        id: server
+    NotificationServer {
+        id: notificationServer
     }
     SymbolText {
-        text: server.trackedNotifications.values.length ? "notifications_unread" : "notifications"
+        text: notificationServer.trackedNotifications.values.length ? "notifications_unread" : "notifications"
     }
     MouseBlock {
         id: mouse
