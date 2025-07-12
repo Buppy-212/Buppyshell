@@ -8,38 +8,39 @@ Rectangle {
     implicitWidth: parent.width
     radius: Theme.rounding
     color: Theme.color.bg
+    Server {
+        id: notificationServer
+    }
     Rectangle {
-        anchors.fill: notificationList
+        id: notificationList
+        anchors {
+          fill: parent
+          topMargin: title.height
+          margins: 36
+        }
         radius: Theme.rounding
         color: Theme.color.bgalt
-    }
-    ListView {
-        id: notificationList
-        anchors.top: title.bottom
-        Server {
-            id: notificationServer
-        }
-        implicitWidth: Theme.notification.width
-        implicitHeight: parent.height - title.height
-        anchors.horizontalCenter: parent.horizontalCenter
-        model: notificationServer.trackedNotifications
-        spacing: Theme.border * 2
-        delegate: Item {
-            id: listItem
-            required property Notification modelData
-            implicitWidth: content.width
-            implicitHeight: content.height
-            Content {
-                id: content
-                notification: listItem.modelData
+        ListView {
+            anchors.fill: parent
+            model: notificationServer.trackedNotifications
+            spacing: Theme.border * 2
+            delegate: Item {
+                id: listItem
+                required property Notification modelData
+                implicitWidth: content.width
+                implicitHeight: content.height
+                Content {
+                    id: content
+                    notification: listItem.modelData
+                }
             }
-        }
-        removeDisplaced: Transition {
-            NumberAnimation {
-                property: "y"
-                duration: Theme.animation.elementMoveFast.duration
-                easing.type: Theme.animation.elementMoveFast.type
-                easing.bezierCurve: Theme.animation.elementMoveFast.bezierCurve
+            removeDisplaced: Transition {
+                NumberAnimation {
+                    property: "y"
+                    duration: Theme.animation.elementMoveFast.duration
+                    easing.type: Theme.animation.elementMoveFast.type
+                    easing.bezierCurve: Theme.animation.elementMoveFast.bezierCurve
+                }
             }
         }
     }

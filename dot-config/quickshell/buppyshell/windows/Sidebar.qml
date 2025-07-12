@@ -4,6 +4,7 @@ import QtQuick.Layouts
 import "../services"
 import "../modules/notifications"
 import "../modules/sidebar"
+import "../widgets"
 
 PanelWindow {
     anchors {
@@ -54,14 +55,85 @@ PanelWindow {
         ColumnLayout {
             anchors.fill: parent
             spacing: 2
-            List {
-                Layout.fillHeight: true
+            Rectangle {
+                Layout.fillWidth: true
+                implicitHeight: 48
+                color: Theme.color.bg
+                radius: Theme.rounding
+                Row {
+                    spacing: 4
+                    Repeater {
+                        model: [
+                            {
+                                text: "󰂚",
+                                state: GlobalState.sidebarModule == GlobalState.SidebarModule.Notifications,
+                                command: "notifications"
+                            },
+                            {
+                                text: "󰂯",
+                                state: GlobalState.sidebarModule == GlobalState.SidebarModule.Bluetooth,
+                                command: "bluetooth"
+                            },
+                            {
+                                text: "",
+                                state: GlobalState.sidebarModule == GlobalState.SidebarModule.Volume,
+                                command: "volume"
+                            },
+                        ]
+                        delegate: Block {
+                            id: delegateBlock
+                            required property string text
+                            required property string command
+                            required property bool state
+                            hovered: mouse.containsMouse
+                            color: hovered ? Theme.color.grey : state ? Theme.color.accent : "transparent"
+                            implicitHeight: 48
+                            implicitWidth: 48
+                            StyledText {
+                                text: delegateBlock.text
+                                font.pointSize: 26
+                            }
+                            MouseBlock {
+                                id: mouse
+                                onClicked: GlobalState.toggle(delegateBlock.command)
+                            }
+                        }
+                    }
+                }
             }
-            Bluetooth {
+            Loader {
+                active: true
+                sourceComponent: {
+                    switch (GlobalState.sidebarModule) {
+                    case GlobalState.SidebarModule.Notifications:
+                        list;
+                        break;
+                    case GlobalState.SidebarModule.Volume:
+                        volumeMixer;
+                        break;
+                    case GlobalState.SidebarModule.Bluetooth:
+                        bluetooth;
+                        break;
+                    }
+                }
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+            }
+            Component {
+                id: list
+                List {}
+            }
+            Component {
+                id: volumeMixer
+                VolumeMixer {}
+            }
+            Component {
                 id: bluetooth
+                Bluetooth {}
             }
             Player {
                 id: player
+                Layout.fillWidth: true
             }
         }
     }

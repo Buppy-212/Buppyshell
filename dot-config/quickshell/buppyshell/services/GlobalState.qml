@@ -7,12 +7,35 @@ import QtQuick
 Singleton {
     id: root
 
+    enum SidebarModule {
+        Notifications,
+        Volume,
+        Bluetooth
+    }
+    property int sidebarModule: GlobalState.SidebarModule.Notifications
     property bool player: false
     property bool bluetooth: false
     property bool overlayState: false
     property bool overlay: false
     property bool sidebar: false
     property bool locked: false
+
+    function toggle(stateVar: string): void {
+        switch (stateVar) {
+        case "bluetooth":
+            root.sidebarModule = GlobalState.SidebarModule.Bluetooth;
+            break;
+        case "player":
+            root.player = !root.player;
+            break;
+        case "notifications":
+            root.sidebarModule = GlobalState.SidebarModule.Notifications;
+            break;
+        case "volume":
+            root.sidebarModule = GlobalState.SidebarModule.Volume;
+            break;
+        }
+    }
 
     GlobalShortcut {
         name: "windows"

@@ -1,3 +1,4 @@
+pragma ComponentBehavior: Bound
 import Quickshell
 import Quickshell.Bluetooth
 import Quickshell.Widgets
@@ -7,16 +8,8 @@ import "../../widgets"
 
 Rectangle {
     id: bluetoothWidget
-    implicitWidth: 600
-    implicitHeight: GlobalState.bluetooth ? 300 : 48
     radius: Theme.rounding
     color: Theme.color.bg
-    MouseBlock {
-        onClicked: GlobalState.bluetooth = !GlobalState.bluetooth
-    }
-    Behavior on implicitHeight {
-        animation: Theme.animation.elementMove.numberAnimation.createObject(this)
-    }
     Block {
         hovered: adapterMouse.containsMouse
         anchors.top: parent.top
@@ -50,6 +43,7 @@ Rectangle {
         }
     }
     Item {
+        id: adapterNameItem
         anchors.top: parent.top
         anchors.horizontalCenter: parent.horizontalCenter
         implicitHeight: 48
@@ -61,51 +55,50 @@ Rectangle {
         }
     }
     Rectangle {
-        anchors.fill: gridView
-        radius: Theme.rounding
-        color: Theme.color.bgalt
-    }
-    GridView {
-        id: gridView
         anchors.fill: parent
         anchors.margins: 36
-        anchors.topMargin: 72
-        cellWidth: parent.width / 2 - 36
-        cellHeight: 28
-        model: Bluetooth.devices
-        delegate: Block {
-            id: bluetoothItem
-            required property BluetoothDevice modelData
-            hovered: itemMouse.containsMouse
-            implicitWidth: gridView.cellWidth
-            color: itemMouse.containsMouse ? Theme.color.grey : modelData.batteryAvailable && modelData.battery <= 0.1 ? Theme.color.red : modelData.connected ? Theme.color.accent : "transparent"
-            Row {
-                id: row
-                anchors.fill: parent
-                anchors.leftMargin: 2
-                spacing: 8
-                IconImage {
-                    implicitSize: parent.height
-                    source: Quickshell.iconPath(bluetoothItem.modelData.icon, "bluetooth")
+        anchors.topMargin: adapterNameItem.height
+        radius: Theme.rounding
+        color: Theme.color.bgalt
+        ListView {
+            spacing: 8
+            anchors.fill: parent
+            anchors.margins: 12
+            model: Bluetooth.devices
+            delegate: Block {
+                id: bluetoothItem
+                required property BluetoothDevice modelData
+                hovered: itemMouse.containsMouse
+                implicitWidth: parent.width
+                color: itemMouse.containsMouse ? Theme.color.grey : modelData.batteryAvailable && modelData.battery <= 0.1 ? Theme.color.red : modelData.connected ? Theme.color.accent : "transparent"
+                Row {
+                    id: row
+                    anchors.fill: parent
+                    anchors.leftMargin: 2
+                    spacing: 8
+                    IconImage {
+                        implicitSize: parent.height
+                        source: Quickshell.iconPath(bluetoothItem.modelData.icon, "bluetooth")
+                    }
+                    StyledText {
+                        id: name
+                        text: bluetoothItem.modelData.name
+                        anchors.centerIn: undefined
+                    }
+                    StyledText {
+                        id: battery
+                        text: bluetoothItem.modelData.batteryAvailable ? `${bluetoothItem.modelData.battery * 100}%` : ""
+                        anchors.centerIn: undefined
+                    }
                 }
-                StyledText {
-                    id: name
-                    text: bluetoothItem.modelData.name
-                    anchors.centerIn: undefined
-                }
-                StyledText {
-                    id: battery
-                    text: bluetoothItem.modelData.batteryAvailable ? `${bluetoothItem.modelData.battery * 100}%` : ""
-                    anchors.centerIn: undefined
-                }
-            }
-            MouseBlock {
-                id: itemMouse
-                onClicked: mouse => {
-                    if (mouse.button == Qt.LeftButton) {
-                        !bluetoothItem.modelData.paired ? bluetoothItem.modelData.pair() : bluetoothItem.modelData.connected ? bluetoothItem.modelData.disconnect() : bluetoothItem.modelData.connect();
-                    } else {
-                        bluetoothItem.modelData.paired ? bluetoothItem.modelData.forget() : bluetoothItem.modelData.cancelPair();
+                MouseBlock {
+                    id: itemMouse
+                    onClicked: mouse => {
+                        if (mouse.button == Qt.LeftButton) {
+                            !bluetoothItem.modelData.paired ? bluetoothItem.modelData.pair() : bluetoothItem.modelData.connected ? bluetoothItem.modelData.disconnect() : bluetoothItem.modelData.connect();
+                        } else {
+                            bluetoothItem.modelData.paired ? bluetoothItem.modelData.forget() : bluetoothItem.modelData.cancelPair();
+                        }
                     }
                 }
             }
