@@ -1,4 +1,5 @@
 import Quickshell.Services.Pipewire
+import Quickshell.Widgets
 import QtQuick
 import QtQuick.Controls
 import "../../services"
@@ -49,7 +50,9 @@ Rectangle {
                     }
                     Column {
                         width: parent.width
-                        Item {
+                        WrapperMouseArea {
+                            cursorShape: Qt.PointingHandCursor
+                            acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
                             anchors.horizontalCenter: parent.horizontalCenter
                             implicitHeight: 24
                             implicitWidth: sinkRow.width
@@ -59,6 +62,7 @@ Rectangle {
                                 width: parent.width
                                 horizontalAlignment: Text.AlignHCenter
                             }
+                            onClicked: Pipewire.preferredDefaultAudioSink = sinkDelegate.modelData
                         }
                         Row {
                             id: sinkRow
@@ -94,13 +98,16 @@ Rectangle {
                                     }
                                 }
                             }
-                            Item {
+                            WrapperMouseArea {
+                                cursorShape: Qt.PointingHandCursor
+                                acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
                                 implicitHeight: parent.height
                                 implicitWidth: 36
                                 StyledText {
                                     readonly property int volume: sinkSlider.value * 100
-                                    text: `${volume}%`
+                                    text: sinkDelegate.modelData.audio?.muted ? "" : `${volume}%`
                                 }
+                                onClicked: sinkDelegate.modelData.audio.muted = !sinkDelegate.modelData.audio.muted
                             }
                         }
                     }
@@ -124,7 +131,9 @@ Rectangle {
                     }
                     Column {
                         width: parent.width
-                        Item {
+                        WrapperMouseArea {
+                            cursorShape: Qt.PointingHandCursor
+                            acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
                             anchors.horizontalCenter: parent.horizontalCenter
                             implicitHeight: 24
                             implicitWidth: sourceRow.width
@@ -134,6 +143,7 @@ Rectangle {
                                 width: parent.width
                                 horizontalAlignment: Text.AlignHCenter
                             }
+                            onClicked: Pipewire.preferredDefaultAudioSource = sourceDelegate.modelData
                         }
                         Row {
                             id: sourceRow
@@ -169,13 +179,16 @@ Rectangle {
                                     }
                                 }
                             }
-                            Item {
+                            WrapperMouseArea {
+                                cursorShape: Qt.PointingHandCursor
+                                acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
                                 implicitHeight: parent.height
                                 implicitWidth: 36
                                 StyledText {
                                     readonly property int volume: sourceSlider.value * 100
-                                    text: `${volume}%`
+                                    text: sourceDelegate.modelData.audio?.muted ? "" : `${volume}%`
                                 }
+                                onClicked: sourceDelegate.modelData.audio.muted = !sourceDelegate.modelData.audio.muted
                             }
                         }
                     }
@@ -243,13 +256,16 @@ Rectangle {
                                     }
                                 }
                             }
-                            Item {
+                            WrapperMouseArea {
+                                cursorShape: Qt.PointingHandCursor
+                                acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
                                 implicitHeight: parent.height
                                 implicitWidth: 36
                                 StyledText {
                                     readonly property int volume: streamSlider.value * 100
-                                    text: `${volume}%`
+                                    text: streamDelegate.modelData.audio?.muted ? "" : `${volume}%`
                                 }
+                                onClicked: streamDelegate.modelData.audio.muted = !streamDelegate.modelData.audio.muted
                             }
                         }
                     }
