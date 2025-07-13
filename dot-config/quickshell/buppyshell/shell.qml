@@ -9,8 +9,7 @@ ShellRoot {
     Popup {}
     Lockscreen {}
     Sliders {
-        isVolume: false
-        isMic: false
+        source: Source.Volume
     }
     Launcher {}
     Sidebar {}

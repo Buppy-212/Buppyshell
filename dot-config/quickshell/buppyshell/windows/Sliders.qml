@@ -10,42 +10,53 @@ import "../services"
 Scope {
     id: sliderWidget
     property bool visible: false
-    required property bool isVolume
-    required property bool isMic
+    enum Source {
+        Volume,
+        Mic,
+        Brightness
+    }
+    required property int source
     readonly property int brightness: Brightness.brightness
     readonly property int volume: Pipewire.defaultAudioSink?.audio.volume * 100
     readonly property bool muted: Pipewire.defaultAudioSink?.audio.muted ?? false
     readonly property int mic: Pipewire.defaultAudioSource?.audio.volume * 100
     readonly property bool micMuted: Pipewire.defaultAudioSource?.audio.muted ?? false
-    readonly property int input: isVolume ? volume : isMic ? mic : brightness
+    readonly property int input: {
+      switch (source) {
+        case Sliders.Source.Volume:
+        return volume
+        break;
+        case Sliders.Source.Mic:
+        return mic
+        break;
+        case Sliders.Source.Brightness:
+        return brightness
+        break;
+      }
+    }
     onBrightnessChanged: {
         visible = true;
-        isVolume = false;
-        isMic = false;
+        source = Sliders.Source.Brightness;
         timer.restart();
     }
     onVolumeChanged: {
         visible = true;
-        isVolume = true;
-        isMic = false;
+        source = Sliders.Source.Volume
         timer.restart();
     }
     onMutedChanged: {
         visible = true;
-        isVolume = true;
-        isMic = false;
+        source = Sliders.Source.Volume
         timer.restart();
     }
     onMicChanged: {
         visible = true;
-        isVolume = false;
-        isMic = true;
+        source = Sliders.Source.Mic
         timer.restart();
     }
     onMicMutedChanged: {
         visible = true;
-        isVolume = false;
-        isMic = true;
+        source = Sliders.Source.Mic
         timer.restart();
     }
     Timer {
@@ -79,7 +90,19 @@ Scope {
                     Text {
                         id: text
                         anchors.verticalCenter: parent.verticalCenter
-                        text: sliderWidget.isVolume ? sliderWidget.muted || sliderWidget.input == 0 ? "volume_off" : "volume_up" : sliderWidget.isMic ? sliderWidget.micMuted || sliderWidget.input == 0 ? "mic_off" : "mic" : "light_mode"
+                        text: {
+                          switch (sliderWidget.source) {
+                            case Sliders.Source.Volume:
+                            return sliderWidget.muted || sliderWidget.input == 0 ? "volume_off" : "volume_up"
+                            break;
+                            case Sliders.Source.Mic:
+                            return sliderWidget.micMuted || sliderWidget.input == 0 ? "mic_off" : "mic"
+                            break;
+                            case Sliders.Source.Brightness:
+                            return "light_mode"
+                            break;
+                          }
+                        }
                         font.family: Theme.font.family.material
                         font.pointSize: Theme.font.size.large
                         font.bold: true
@@ -94,6 +117,7 @@ Scope {
                         from: 0
                         to: 100
                         value: sliderWidget.input
+                        enabled: false
                         background: Rectangle {
                             width: slider.availableWidth
                             height: parent.height
@@ -102,15 +126,24 @@ Scope {
                             Rectangle {
                                 width: slider.visualPosition * parent.width
                                 height: parent.height
-                                color: sliderWidget.isVolume ? Theme.color.blue : sliderWidget.isMic ? Theme.color.magenta : Theme.color.yellow
+                                color: {
+                                  switch (sliderWidget.source) {
+                                    case Sliders.Source.Volume:
+                                      return Theme.color.blue
+                                      break;
+                                    case Sliders.Source.Mic:
+                                      return Theme.color.magenta
+                                      break;
+                                    case Sliders.Source.Brightness:
+                                      return Theme.color.yellow
+                                      break;
+                                  }
+                                }
                                 radius: Theme.rounding
                             }
                         }
                     }
                 }
-            }
-            MouseArea {
-                anchors.fill: parent
             }
         }
     }
