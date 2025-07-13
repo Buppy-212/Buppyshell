@@ -131,7 +131,7 @@ Item {
                                     anchor {
                                         window: leftBar
                                         rect.x: leftRect.width + Theme.border
-                                        rect.y: root.y + workspaceCell.y + image.y
+                                        rect.y: parent == dragArea ? image.y + dragArea.y + root.y : root.y + workspaceCell.y + image.y
                                     }
                                     implicitHeight: image.height
                                     implicitWidth: title.width + 12
