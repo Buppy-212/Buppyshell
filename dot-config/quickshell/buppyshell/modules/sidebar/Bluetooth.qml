@@ -70,6 +70,7 @@ Rectangle {
                 required property BluetoothDevice modelData
                 hovered: itemMouse.containsMouse
                 implicitWidth: parent.width
+                implicitHeight: 36
                 color: itemMouse.containsMouse ? Theme.color.grey : modelData.batteryAvailable && modelData.battery <= 0.1 ? Theme.color.red : modelData.connected ? Theme.color.accent : "transparent"
                 Row {
                     id: row
@@ -84,11 +85,13 @@ Rectangle {
                         id: name
                         text: bluetoothItem.modelData.name
                         anchors.centerIn: undefined
+                        anchors.verticalCenter: parent.verticalCenter
                     }
                     StyledText {
                         id: battery
                         text: bluetoothItem.modelData.batteryAvailable ? `${bluetoothItem.modelData.battery * 100}%` : ""
                         anchors.centerIn: undefined
+                        anchors.verticalCenter: parent.verticalCenter
                     }
                 }
                 MouseBlock {
