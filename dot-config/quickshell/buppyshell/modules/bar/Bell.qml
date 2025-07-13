@@ -17,9 +17,11 @@ Block {
             if (mouse.button == Qt.MiddleButton) {
                 Hyprland.dispatch("global buppyshell:clearNotifs");
             } else {
-                GlobalState.sidebar = !GlobalState.sidebar;
+                if (GlobalState.sidebarModule == GlobalState.SidebarModule.Notifications || !GlobalState.sidebar) {
+                    GlobalState.sidebar = !GlobalState.sidebar;
+                    GlobalState.player = false;
+                }
                 GlobalState.sidebarModule = GlobalState.SidebarModule.Notifications;
-                GlobalState.player = false;
             }
         }
     }

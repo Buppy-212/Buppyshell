@@ -11,8 +11,10 @@ Block {
     MouseBlock {
         id: mouse
         onClicked: {
-            GlobalState.sidebar = !GlobalState.sidebar;
-            GlobalState.player = false;
+            if (GlobalState.sidebarModule == GlobalState.SidebarModule.Bluetooth || !GlobalState.sidebar) {
+                GlobalState.sidebar = !GlobalState.sidebar;
+                GlobalState.player = false;
+            }
             GlobalState.sidebarModule = GlobalState.SidebarModule.Bluetooth;
         }
     }

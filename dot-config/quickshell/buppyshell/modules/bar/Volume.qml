@@ -20,9 +20,11 @@ Block {
             if (mouse.button == Qt.MiddleButton) {
                 Pipewire.defaultAudioSink.audio.muted = !Pipewire.defaultAudioSink.audio.muted;
             } else {
-                GlobalState.sidebar = !GlobalState.sidebar;
+                if (GlobalState.sidebarModule == GlobalState.SidebarModule.Volume || !GlobalState.sidebar) {
+                    GlobalState.sidebar = !GlobalState.sidebar;
+                    GlobalState.player = false;
+                }
                 GlobalState.sidebarModule = GlobalState.SidebarModule.Volume;
-                GlobalState.player = false;
             }
         }
         onWheel: wheel => {

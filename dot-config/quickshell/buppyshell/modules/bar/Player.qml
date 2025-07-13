@@ -8,9 +8,14 @@ Block {
     }
     MouseBlock {
         id: playerMouse
-        onClicked: {
-            GlobalState.sidebar = !GlobalState.sidebar;
-            GlobalState.player = true;
+        onClicked: mouse => {
+          if (mouse.button == Qt.LeftButton) {
+            GlobalState.sidebar = true;
+            GlobalState.player = !GlobalState.player; 
+          } else {
+            GlobalState.sidebar = ! GlobalState.sidebar
+            GlobalState.player = GlobalState.sidebar
+          }
         }
     }
 }
