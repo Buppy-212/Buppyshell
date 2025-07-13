@@ -39,34 +39,34 @@ Rectangle {
             Repeater {
                 model: Pipewire.nodes
                 delegate: Item {
-                    id: delegate
+                    id: sinkDelegate
                     required property PwNode modelData
                     visible: modelData.isSink && modelData.audio && !modelData.isStream
                     implicitWidth: parent.width
                     implicitHeight: 48
                     PwObjectTracker {
-                        objects: [delegate.visible ? delegate.modelData : null]
+                        objects: [sinkDelegate.visible ? sinkDelegate.modelData : null]
                     }
                     Column {
                         width: parent.width
                         Item {
                             anchors.horizontalCenter: parent.horizontalCenter
                             implicitHeight: 24
-                            implicitWidth: row.width
+                            implicitWidth: sinkRow.width
                             StyledText {
-                                text: delegate.modelData.description
+                                text: sinkDelegate.modelData.description
                                 elide: Text.ElideRight
                                 width: parent.width
                                 horizontalAlignment: Text.AlignHCenter
                             }
                         }
                         Row {
-                            id: row
+                            id: sinkRow
                             anchors.horizontalCenter: parent.horizontalCenter
                             height: 24
                             spacing: 12
                             Slider {
-                                id: slider
+                                id: sinkSlider
                                 live: false
                                 height: parent.height
                                 width: 400
@@ -74,21 +74,22 @@ Rectangle {
                                 stepSize: 0.05
                                 from: 0
                                 to: 1
-                                value: delegate.modelData.audio?.volume ?? 0
-                                onValueChanged: delegate.modelData.ready ? delegate.modelData.audio.volume = value : undefined
+                                value: sinkDelegate.modelData.audio?.volume ?? 0
+                                onValueChanged: sinkDelegate.modelData.ready ? sinkDelegate.modelData.audio.volume = value : undefined
                                 wheelEnabled: true
                                 HoverHandler {
                                     cursorShape: Qt.PointingHandCursor
                                 }
                                 background: Rectangle {
-                                    width: slider.availableWidth
+                                    width: sinkSlider.availableWidth
                                     height: parent.height
                                     color: Theme.color.grey
                                     radius: Theme.rounding
                                     Rectangle {
-                                        width: slider.visualPosition * parent.width
+                                        width: sinkSlider.visualPosition * parent.width
                                         height: parent.height
-                                        color: delegate.modelData == Pipewire.defaultAudioSink ? Theme.color.blue : Theme.color.magenta
+                                        color: Theme.color.blue
+                                        opacity: sinkDelegate.modelData == Pipewire.defaultAudioSink ? 1 : 0.25
                                         radius: Theme.rounding
                                     }
                                 }
@@ -97,7 +98,82 @@ Rectangle {
                                 implicitHeight: parent.height
                                 implicitWidth: 36
                                 StyledText {
-                                    readonly property int volume: slider.value * 100
+                                    readonly property int volume: sinkSlider.value * 100
+                                    text: `${volume}%`
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            Rectangle {
+                implicitHeight: 2
+                implicitWidth: parent.width
+                color: Theme.color.black
+            }
+            Repeater {
+                model: Pipewire.nodes
+                delegate: Item {
+                    id: sourceDelegate
+                    required property PwNode modelData
+                    visible: modelData.audio && !modelData.isStream && !modelData.isSink
+                    implicitWidth: parent.width
+                    implicitHeight: 48
+                    PwObjectTracker {
+                        objects: [sourceDelegate.visible ? sourceDelegate.modelData : null]
+                    }
+                    Column {
+                        width: parent.width
+                        Item {
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            implicitHeight: 24
+                            implicitWidth: sourceRow.width
+                            StyledText {
+                                text: sourceDelegate.modelData.description
+                                elide: Text.ElideRight
+                                width: parent.width
+                                horizontalAlignment: Text.AlignHCenter
+                            }
+                        }
+                        Row {
+                            id: sourceRow
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            height: 24
+                            spacing: 12
+                            Slider {
+                                id: sourceSlider
+                                live: false
+                                height: parent.height
+                                width: 400
+                                snapMode: Slider.SnapOnRelease
+                                stepSize: 0.05
+                                from: 0
+                                to: 1
+                                value: sourceDelegate.modelData.audio?.volume ?? 0
+                                onValueChanged: sourceDelegate.modelData.ready ? sourceDelegate.modelData.audio.volume = value : undefined
+                                wheelEnabled: true
+                                HoverHandler {
+                                    cursorShape: Qt.PointingHandCursor
+                                }
+                                background: Rectangle {
+                                    width: sourceSlider.availableWidth
+                                    height: parent.height
+                                    color: Theme.color.grey
+                                    radius: Theme.rounding
+                                    Rectangle {
+                                        width: sourceSlider.visualPosition * parent.width
+                                        height: parent.height
+                                        color: Theme.color.magenta
+                                        opacity: sourceDelegate.modelData == Pipewire.defaultAudioSource ? 1 : 0.25
+                                        radius: Theme.rounding
+                                    }
+                                }
+                            }
+                            Item {
+                                implicitHeight: parent.height
+                                implicitWidth: 36
+                                StyledText {
+                                    readonly property int volume: sourceSlider.value * 100
                                     text: `${volume}%`
                                 }
                             }
@@ -162,7 +238,7 @@ Rectangle {
                                     Rectangle {
                                         width: streamSlider.visualPosition * parent.width
                                         height: parent.height
-                                        color: Theme.color.magenta
+                                        color: Theme.color.red
                                         radius: Theme.rounding
                                     }
                                 }
