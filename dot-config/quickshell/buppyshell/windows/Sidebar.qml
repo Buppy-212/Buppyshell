@@ -13,16 +13,15 @@ PanelWindow {
     }
     margins {
         top: 2
-        right: 2
         bottom: 2
     }
     exclusiveZone: 0
     color: "transparent"
-    implicitWidth: 600
+    implicitWidth: 602
     visible: GlobalState.sidebar
     Rectangle {
         id: sidebar
-        implicitWidth: parent.width
+        implicitWidth: parent.width - 2
         implicitHeight: parent.height
         radius: Theme.rounding
         color: Theme.color.black
