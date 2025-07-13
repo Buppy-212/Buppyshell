@@ -28,9 +28,9 @@ Scope {
                 left: true
             }
             Windows {
-              focus: true
-              anchors.fill: parent
-              visible: GlobalState.launcherModule == GlobalState.LauncherModule.Windows
+                focus: true
+                anchors.fill: parent
+                visible: GlobalState.launcherModule == GlobalState.LauncherModule.Windows
             }
             Logout {
                 focus: true
