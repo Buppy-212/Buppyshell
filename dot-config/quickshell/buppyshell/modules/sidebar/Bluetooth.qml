@@ -3,6 +3,7 @@ import Quickshell
 import Quickshell.Bluetooth
 import Quickshell.Widgets
 import QtQuick
+import QtQuick.Layouts
 import "../../services"
 import "../../widgets"
 
@@ -72,35 +73,47 @@ Rectangle {
                 implicitWidth: parent.width
                 implicitHeight: 36
                 color: itemMouse.containsMouse ? Theme.color.grey : modelData.batteryAvailable && modelData.battery <= 0.1 ? Theme.color.red : modelData.connected ? Theme.color.accent : "transparent"
-                Row {
-                    id: row
+                RowLayout {
                     anchors.fill: parent
-                    anchors.leftMargin: 2
+                Row {
+                    Layout.alignment: Qt.AlignLeft
+                    Layout.fillHeight: true
                     spacing: 8
                     IconImage {
                         implicitSize: parent.height
                         source: Quickshell.iconPath(bluetoothItem.modelData.icon, "bluetooth")
                     }
                     StyledText {
-                        id: name
                         text: bluetoothItem.modelData.name
                         anchors.centerIn: undefined
                         anchors.verticalCenter: parent.verticalCenter
                     }
-                    StyledText {
-                        id: battery
-                        text: bluetoothItem.modelData.batteryAvailable ? `${bluetoothItem.modelData.battery * 100}%` : ""
-                        anchors.centerIn: undefined
-                        anchors.verticalCenter: parent.verticalCenter
-                    }
+                  StyledText {
+                    text: bluetoothItem.modelData.batteryAvailable ? `(${bluetoothItem.modelData.battery * 100}%)` : ""
+                    anchors.centerIn: undefined
+                    anchors.verticalCenter: parent.verticalCenter
+                  }
+                  }
+                  StyledText {
+                    Layout.alignment: Qt.AlignRight
+                    Layout.rightMargin: 4
+                    text: bluetoothItem.modelData.trusted ? "Trusted" : ""
+                    anchors.centerIn: undefined
+                  }
                 }
                 MouseBlock {
                     id: itemMouse
                     onClicked: mouse => {
-                        if (mouse.button == Qt.LeftButton) {
+                        switch (mouse.button) {
+                        case Qt.LeftButton:
                             !bluetoothItem.modelData.paired ? bluetoothItem.modelData.pair() : bluetoothItem.modelData.connected ? bluetoothItem.modelData.disconnect() : bluetoothItem.modelData.connect();
-                        } else {
+                            break;
+                        case Qt.MiddleButton:
                             bluetoothItem.modelData.paired ? bluetoothItem.modelData.forget() : bluetoothItem.modelData.cancelPair();
+                            break;
+                        case Qt.RightButton:
+                            bluetoothItem.modelData.trusted = !bluetoothItem.modelData.trusted;
+                            break;
                         }
                     }
                 }
