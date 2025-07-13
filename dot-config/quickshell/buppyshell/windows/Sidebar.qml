@@ -107,42 +107,25 @@ PanelWindow {
                     }
                 }
             }
-            Loader {
-                active: true
-                sourceComponent: {
-                    switch (GlobalState.sidebarModule) {
-                    case GlobalState.SidebarModule.Notifications:
-                        list;
-                        break;
-                    case GlobalState.SidebarModule.Volume:
-                        volumeMixer;
-                        break;
-                    case GlobalState.SidebarModule.Bluetooth:
-                        bluetooth;
-                        break;
-                    case GlobalState.SidebarModule.Network:
-                        network;
-                        break;
-                    }
-                }
+            Notifications {
+                visible: GlobalState.sidebarModule == GlobalState.SidebarModule.Notifications
                 Layout.fillHeight: true
                 Layout.fillWidth: true
             }
-            Component {
-                id: list
-                Notifications {}
+            Volume {
+                visible: GlobalState.sidebarModule == GlobalState.SidebarModule.Volume
+                Layout.fillHeight: true
+                Layout.fillWidth: true
             }
-            Component {
-                id: volumeMixer
-                VolumeMixer {}
+            Bluetooth {
+                visible: GlobalState.sidebarModule == GlobalState.SidebarModule.Bluetooth
+                Layout.fillHeight: true
+                Layout.fillWidth: true
             }
-            Component {
-                id: bluetooth
-                Bluetooth {}
-            }
-            Component {
-                id: network
-                Network {}
+            Network {
+                visible: GlobalState.sidebarModule == GlobalState.SidebarModule.Network
+                Layout.fillHeight: true
+                Layout.fillWidth: true
             }
             Player {
                 id: player

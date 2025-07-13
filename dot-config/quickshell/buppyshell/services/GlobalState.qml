@@ -14,10 +14,15 @@ Singleton {
         Network
     }
 
+    enum LauncherModule {
+        Windows,
+        Logout
+    }
+
     property int sidebarModule: GlobalState.SidebarModule.Notifications
     property bool player: false
     property bool bluetooth: false
-    property bool overlayState: false
+    property int launcherModule: GlobalState.LauncherModule.Windows
     property bool overlay: false
     property bool sidebar: false
     property bool locked: false
@@ -26,9 +31,6 @@ Singleton {
         switch (stateVar) {
         case "bluetooth":
             root.sidebarModule = GlobalState.SidebarModule.Bluetooth;
-            break;
-        case "player":
-            root.player = !root.player;
             break;
         case "notifications":
             root.sidebarModule = GlobalState.SidebarModule.Notifications;
@@ -48,7 +50,7 @@ Singleton {
         appid: "buppyshell"
         onPressed: {
             root.overlay = !root.overlay;
-            root.overlayState = true;
+            root.launcherModule = GlobalState.LauncherModule.Windows;
         }
     }
     GlobalShortcut {
@@ -57,7 +59,7 @@ Singleton {
         appid: "buppyshell"
         onPressed: {
             root.overlay = !root.overlay;
-            root.overlayState = false;
+            root.launcherModule = GlobalState.LauncherModule.Logout;
         }
     }
     GlobalShortcut {

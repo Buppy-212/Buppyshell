@@ -34,14 +34,14 @@ Item {
             onClicked: mouse => {
                 switch (mouse.button) {
                 case Qt.LeftButton:
-                    GlobalState.overlay = false
+                    GlobalState.overlay = false;
                     Hyprland.dispatch(`focuswindow address:0x${modelData.address}`);
                     break;
                 case Qt.MiddleButton:
                     modelData.wayland.close();
                     break;
                 case Qt.RightButton:
-                    GlobalState.overlay = false
+                    GlobalState.overlay = false;
                     Hyprland.dispatch(`movetoworkspace ${Hyprland.focusedWorkspace.id}, address:0x${modelData.address}`);
                     break;
                 }
@@ -100,31 +100,28 @@ Item {
                         }
                     }
                     Loader {
-                        width: rect.width
-                        height: rect.height - Theme.blockHeight
-                        sourceComponent: miniWindow.focus || miniWindow.containsMouse ? preview : icon
-                    }
-                    Component {
-                        id: icon
-                        IconImage {
-                            visible: !miniWindow.focus
-                            implicitSize: parent.height
-                            source: {
-                                if (miniWindow.modelData.wayland?.appId.startsWith("steam_app")) {
-                                    return Quickshell.iconPath("input-gaming");
-                                } else if (miniWindow.modelData.wayland?.appId == "") {
-                                    return (Quickshell.iconPath("image-loading"));
-                                } else {
-                                    return Quickshell.iconPath(miniWindow.modelData.wayland?.appId.toLowerCase() ?? "image-loading", miniWindow.modelData.wayland?.appId);
-                                }
-                            }
-                        }
-                    }
-                    Component {
-                        id: preview
-                        ScreencopyView {
+                        active: visible
+                        visible: miniWindow.focus
+                        width: parent.width
+                        height: parent.height - Theme.blockHeight
+                        sourceComponent: ScreencopyView {
                             anchors.fill: parent
                             captureSource: miniWindow.modelData.wayland
+                        }
+                    }
+                    IconImage {
+                        visible: !miniWindow.focus
+                        implicitWidth: parent.width
+                        implicitHeight: parent.height - Theme.blockHeight
+                        implicitSize: parent.height
+                        source: {
+                            if (miniWindow.modelData.wayland?.appId.startsWith("steam_app")) {
+                                return Quickshell.iconPath("input-gaming");
+                            } else if (miniWindow.modelData.wayland?.appId == "") {
+                                return (Quickshell.iconPath("image-loading"));
+                            } else {
+                                return Quickshell.iconPath(miniWindow.modelData.wayland?.appId.toLowerCase() ?? "image-loading", miniWindow.modelData.wayland?.appId);
+                            }
                         }
                     }
                 }

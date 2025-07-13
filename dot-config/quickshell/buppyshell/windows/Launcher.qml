@@ -27,19 +27,15 @@ Scope {
                 bottom: true
                 left: true
             }
-            Loader {
-                active: GlobalState.overlay
+            Windows {
                 focus: true
                 anchors.fill: parent
-                sourceComponent: GlobalState.overlayState ? windows : logout
+                visible: GlobalState.launcherModule == GlobalState.LauncherModule.Windows
             }
-            Component {
-                id: windows
-                Windows {}
-            }
-            Component {
-                id: logout
-                Logout {}
+            Logout {
+                focus: true
+                anchors.fill: parent
+                visible: GlobalState.launcherModule == GlobalState.LauncherModule.Logout
             }
         }
     }
