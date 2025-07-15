@@ -16,7 +16,7 @@ Block {
                 Quickshell.execDetached(["systemctl", "poweroff"]);
             } else {
                 GlobalState.overlay = !GlobalState.overlay;
-                GlobalState.overlayState = false;
+                GlobalState.launcherModule = GlobalState.LauncherModule.Logout;
             }
         }
     }

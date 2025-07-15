@@ -95,6 +95,7 @@ Variants {
                         Bell {}
                         Volume {}
                         Bluetooth {}
+                        Network {}
                         Player {}
                         Tray {}
                     }
