@@ -70,14 +70,14 @@ PanelWindow {
                                 command: "notifications"
                             },
                             {
-                                text: "󰂯",
-                                state: GlobalState.sidebarModule == GlobalState.SidebarModule.Bluetooth,
-                                command: "bluetooth"
-                            },
-                            {
                                 text: "",
                                 state: GlobalState.sidebarModule == GlobalState.SidebarModule.Volume,
                                 command: "volume"
+                            },
+                            {
+                                text: "󰂯",
+                                state: GlobalState.sidebarModule == GlobalState.SidebarModule.Bluetooth,
+                                command: "bluetooth"
                             },
                             {
                                 text: "󰖩",
