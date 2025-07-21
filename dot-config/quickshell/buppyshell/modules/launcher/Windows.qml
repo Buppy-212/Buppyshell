@@ -38,7 +38,7 @@ Item {
                     Hyprland.dispatch(`focuswindow address:0x${modelData.HyprlandToplevel.handle.address}`);
                     break;
                 case Qt.MiddleButton:
-                    modelData.wayland.close();
+                    modelData.close();
                     break;
                 case Qt.RightButton:
                     GlobalState.overlay = false;
@@ -55,7 +55,7 @@ Item {
             Rectangle {
                 id: rect
                 implicitWidth: rep.count < 4 ? Screen.width / 4 : Screen.width / rep.count
-                implicitHeight: rep.count < 4 ? Screen.height / 4 : Screen.height / rep.count + Theme.blockHeight
+                implicitHeight: rep.count < 4 ? Screen.height / 4 + Theme.blockHeight : Screen.height / rep.count + Theme.blockHeight
                 color: Theme.color.bgdark
                 Column {
                     anchors.fill: parent
