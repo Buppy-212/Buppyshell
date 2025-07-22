@@ -84,7 +84,7 @@ Item {
                             property bool silent: true
                             property bool caught: false
                             anchors.horizontalCenter: toplevelRepeater.horizontalCenter
-                            implicitSize: workspaceCell.width
+                            implicitSize: Theme.iconSize.small
                             Drag.active: mouseArea.drag.active
                             Drag.hotSpot: Qt.point(implicitSize / 2, implicitSize / 2)
                             source: {

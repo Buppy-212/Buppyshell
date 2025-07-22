@@ -5,9 +5,7 @@ import "../services"
 import "../modules/launcher"
 
 Scope {
-    id: root
     LazyLoader {
-        id: loader
         loading: GlobalState.overlay
         component: PanelWindow {
             visible: GlobalState.overlay
@@ -15,7 +13,7 @@ Scope {
             WlrLayershell.namespace: "buppyshell:launcher"
             WlrLayershell.keyboardFocus: WlrKeyboardFocus.OnDemand
             exclusionMode: ExclusionMode.Ignore
-            color: "#aa222436"
+            color: "transparent"
             MouseArea {
                 anchors.fill: parent
                 acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
@@ -29,7 +27,6 @@ Scope {
             }
             Windows {
                 focus: true
-                anchors.fill: parent
                 visible: GlobalState.launcherModule == GlobalState.LauncherModule.Windows
             }
             Logout {

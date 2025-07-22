@@ -22,12 +22,12 @@ Rectangle {
         anchors.verticalCenter: parent.verticalCenter
         IconImage {
             source: Quickshell.iconPath(notifictionContent.notification?.appIcon, "preferences-desktop-notification-bell")
-            implicitSize: Theme.notification.iconSize
+            implicitSize: Theme.iconSize.medium
             anchors.verticalCenter: column.verticalCenter
         }
         Column {
             id: column
-            width: Theme.notification.width - Theme.notification.iconSize * 2
+            width: Theme.notification.width - Theme.iconSize.medium * 2
             height: summary.height + body.height
             anchors.verticalCenter: parent.verticalCenter
             Text {

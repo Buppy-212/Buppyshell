@@ -13,15 +13,21 @@ Singleton {
     readonly property int blockHeight: 24
     readonly property int blockWidth: 30
     readonly property Font font: Font {}
+    readonly property IconSize iconSize: IconSize {}
     property QtObject animation
     property QtObject animationCurves
     readonly property Notification notification: Notification {}
+
+    component IconSize: QtObject {
+        readonly property int small: 30
+        readonly property int medium: 48
+        readonly property int large: 128
+    }
 
     component Notification: QtObject {
         readonly property int width: 528
         readonly property int height: 80
         readonly property int margin: 16
-        readonly property int iconSize: 48
         readonly property int sidebarWidth: 600
     }
 
