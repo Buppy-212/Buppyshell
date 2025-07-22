@@ -140,7 +140,7 @@ Item {
                                         anchors.fill: parent
                                         radius: Theme.radius.normal
                                         color: Theme.color.bg
-                                        border.width: 2
+                                        border.width: Theme.border
                                         border.color: Theme.color.grey
                                         StyledText {
                                             id: title

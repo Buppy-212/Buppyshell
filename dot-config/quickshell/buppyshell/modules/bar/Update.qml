@@ -25,7 +25,4 @@ Block {
         id: mouse
         onClicked: Quickshell.execDetached(["floatty", "update"])
     }
-    Behavior on implicitHeight {
-        animation: Theme.animation.elementMove.numberAnimation.createObject(this)
-    }
 }
