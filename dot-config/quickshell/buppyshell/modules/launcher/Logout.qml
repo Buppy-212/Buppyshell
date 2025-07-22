@@ -6,8 +6,12 @@ import Quickshell.Hyprland
 import QtQuick
 import "../../services"
 
-Item {
-    anchors.fill: parent
+Rectangle {
+    anchors.centerIn: parent
+    radius: Theme.rounding
+    implicitWidth: logoutList.count * Theme.iconSize.large
+    implicitHeight: Theme.iconSize.large + Theme.blockHeight
+    color: Theme.color.bg
     Keys.onPressed: event => {
         switch (event.key) {
         case Qt.Key_Escape:
@@ -38,8 +42,11 @@ Item {
             Quickshell.execDetached(["systemctl", "hibernate"]);
         }
     }
-    Repeater {
-        id: rep
+    ListView {
+        id: logoutList
+        orientation: ListView.Horizontal
+        anchors.fill: parent
+        focus: visible
         model: [
             {
                 icon: "power_settings_new",
@@ -79,19 +86,15 @@ Item {
             },
         ]
         delegate: WrapperMouseArea {
-            id: logoutItem
+            id: logoutDelegate
             required property string icon
             required property string color
             required property string command
             required property string shortcut
-            required property int index
-            x: parent.width / 2 + Screen.height / 3 * Math.cos(2 * Math.PI * (index - 2) / rep.count) - width / 2
-            y: parent.height / 2 + Screen.height / 3 * Math.sin(2 * Math.PI * (index - 2) / rep.count) - height / 2
             acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
             cursorShape: Qt.PointingHandCursor
             hoverEnabled: true
-            focus: index ? false : true
-            focusPolicy: Qt.StrongFocus
+            focusPolicy: Qt.TabFocus
             onEntered: focus = true
             onClicked: {
                 GlobalState.overlay = false;
@@ -101,28 +104,33 @@ Item {
                 GlobalState.overlay = false;
                 Hyprland.dispatch(command);
             }
-            Rectangle {
-                implicitWidth: Screen.width * 0.1
-                implicitHeight: width
-                radius: width
-                color: logoutItem.focus ? Theme.color.grey : Theme.color.black
+            Column {
+              width: Theme.iconSize.large
+              height: width + Theme.blockHeight
+              Rectangle {
+                implicitWidth: parent.width
+                implicitHeight: implicitWidth
+                radius: Theme.rounding
+                color: logoutDelegate.focus ? Theme.color.grey : "transparent"
                 Text {
-                    text: logoutItem.icon
-                    anchors.centerIn: parent
-                    font.family: Theme.font.family.material
-                    font.pointSize: parent.width ? parent.width / 2 : 1
-                    color: logoutItem.color
+                  text: logoutDelegate.icon
+                  font.family: Theme.font.family.material
+                  font.pixelSize: height
+                  color: logoutDelegate.color
+                  height: parent.height
+                  verticalAlignment: Text.AlignVCenter
                 }
-                Text {
-                    text: logoutItem.shortcut
-                    font.pointSize: parent.width ? parent.width * 0.1 : 1
-                    font.family: Theme.font.family.mono
-                    color: Theme.color.fg
-                    font.bold: true
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.bottom: parent.bottom
-                }
+              }
+              Text {
+                text: logoutDelegate.shortcut
+                font.pointSize: Theme.font.size.large
+                font.family: Theme.font.family.mono
+                color: Theme.color.fg
+                font.bold: true
+                width: parent.width
+                horizontalAlignment: Text.AlignHCenter
+              }
             }
+          }
         }
-    }
-}
+      }

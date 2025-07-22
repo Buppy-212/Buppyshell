@@ -11,7 +11,7 @@ Scope {
             visible: GlobalState.overlay
             WlrLayershell.layer: WlrLayer.Overlay
             WlrLayershell.namespace: "buppyshell:launcher"
-            WlrLayershell.keyboardFocus: WlrKeyboardFocus.OnDemand
+            WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
             exclusionMode: ExclusionMode.Ignore
             color: "transparent"
             MouseArea {
@@ -26,12 +26,9 @@ Scope {
                 left: true
             }
             Windows {
-                focus: true
                 visible: GlobalState.launcherModule == GlobalState.LauncherModule.Windows
             }
             Logout {
-                focus: true
-                anchors.fill: parent
                 visible: GlobalState.launcherModule == GlobalState.LauncherModule.Logout
             }
         }
