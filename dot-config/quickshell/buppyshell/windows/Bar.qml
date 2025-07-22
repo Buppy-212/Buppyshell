@@ -23,26 +23,26 @@ Variants {
                 left: true
                 bottom: true
             }
-            implicitWidth: Theme.blockWidth + Theme.rounding + 3
-            exclusiveZone: Theme.blockWidth
+            implicitWidth: Theme.width.block + Theme.radius.normalAdjusted
+            exclusiveZone: Theme.width.block
             color: "transparent"
             Rectangle {
                 id: leftRect
                 color: Theme.color.black
                 implicitHeight: parent.height
-                implicitWidth: Theme.blockWidth
+                implicitWidth: Theme.width.block
                 anchors.left: parent.left
                 ColumnLayout {
                     anchors.fill: parent
                     Column {
-                        spacing: 2
+                        spacing: Theme.margin.tiny
                         Layout.alignment: Qt.AlignTop
                         Os {}
                         Workspaces {}
                     }
                     Column {
                         Layout.alignment: Qt.AlignBottom
-                        spacing: 2
+                        spacing: Theme.margin.tiny
                         Inhibitor {}
                         Battery {}
                         Light {}
@@ -55,15 +55,15 @@ Variants {
             RoundCorner {
                 anchors.bottom: parent.bottom
                 anchors.left: parent.left
-                anchors.leftMargin: leftRect.visible ? Theme.blockWidth : 0
-                size: Theme.rounding + 3
+                anchors.leftMargin: Theme.width.block
+                size: Theme.radius.normalAdjusted
                 corner: cornerEnum.bottomLeft
             }
             RoundCorner {
                 anchors.top: parent.top
                 anchors.left: parent.left
-                anchors.leftMargin: leftRect.visible ? Theme.blockWidth : 0
-                size: Theme.rounding + 3
+                anchors.leftMargin: Theme.width.block
+                size: Theme.radius.normalAdjusted
                 corner: cornerEnum.topLeft
             }
         }
@@ -80,19 +80,19 @@ Variants {
                 right: true
                 bottom: true
             }
-            implicitWidth: Theme.blockWidth + Theme.rounding + 3
-            exclusiveZone: Theme.blockWidth
+            implicitWidth: Theme.width.block + Theme.radius.normalAdjusted
+            exclusiveZone: Theme.width.block
             color: "transparent"
             Rectangle {
                 id: rightRect
                 color: Theme.color.black
                 implicitHeight: parent.height
-                implicitWidth: Theme.blockWidth
+                implicitWidth: Theme.width.block
                 anchors.right: parent.right
                 ColumnLayout {
                     anchors.fill: parent
                     Column {
-                        spacing: 2
+                        spacing: Theme.margin.tiny
                         Layout.alignment: Qt.AlignTop
                         Bell {}
                         Volume {}
@@ -106,15 +106,15 @@ Variants {
             RoundCorner {
                 anchors.bottom: parent.bottom
                 anchors.right: parent.right
-                anchors.rightMargin: rightRect.visible ? Theme.blockWidth : 0
-                size: Theme.rounding + 3
+                anchors.rightMargin: Theme.width.block
+                size: Theme.radius.normalAdjusted
                 corner: cornerEnum.bottomRight
             }
             RoundCorner {
                 anchors.top: parent.top
                 anchors.right: parent.right
-                anchors.rightMargin: rightRect.visible ? Theme.blockWidth : 0
-                size: Theme.rounding + 3
+                anchors.rightMargin: Theme.width.block
+                size: Theme.radius.normalAdjusted
                 corner: cornerEnum.topRight
             }
         }

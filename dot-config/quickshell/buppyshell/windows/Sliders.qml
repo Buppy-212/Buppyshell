@@ -80,13 +80,14 @@ Scope {
             Rectangle {
                 anchors.fill: parent
                 color: Theme.color.black
-                radius: Theme.rounding * 4
+                radius: Theme.radius.large
                 height: parent.height
                 width: parent.width * 0.8
                 Row {
-                    anchors.fill: parent
-                    anchors.leftMargin: text.width - Theme.border * 2
-                    spacing: Theme.border
+                    width: parent.width - Theme.margin.large
+                    height: parent.height
+                    spacing: Theme.margin.small
+                    x: Theme.margin.medium
                     Text {
                         id: text
                         anchors.verticalCenter: parent.verticalCenter
@@ -113,7 +114,7 @@ Scope {
                         anchors.verticalCenter: parent.verticalCenter
                         live: false
                         height: text.height / 2
-                        width: parent.width - text.width * 2
+                        width: parent.width - text.width - Theme.margin.medium
                         from: 0
                         to: 100
                         value: sliderWidget.input
@@ -122,7 +123,7 @@ Scope {
                             width: slider.availableWidth
                             height: parent.height
                             color: Theme.color.grey
-                            radius: Theme.rounding
+                            radius: Theme.radius.normal
                             Rectangle {
                                 width: slider.visualPosition * parent.width
                                 height: parent.height
@@ -139,7 +140,7 @@ Scope {
                                         break;
                                     }
                                 }
-                                radius: Theme.rounding
+                                radius: Theme.radius.normal
                             }
                         }
                     }

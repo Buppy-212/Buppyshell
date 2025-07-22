@@ -40,7 +40,7 @@ WlSessionLock {
         Rectangle {
             height: parent.height
             width: Screen.width * 0.33
-            color: "#aa222436"
+            color: Theme.color.bgTranslucent
             anchors.centerIn: parent
             Column {
                 anchors.centerIn: parent
@@ -55,7 +55,7 @@ WlSessionLock {
                     font.bold: true
                 }
                 Column {
-                    spacing: Theme.border * 2
+                    spacing: Theme.margin.small
                     Text {
                         color: Theme.color.fg
                         font.pointSize: Theme.font.size.normal
@@ -68,7 +68,7 @@ WlSessionLock {
                         id: passRect
                         anchors.horizontalCenter: parent.horizontalCenter
                         border.width: Theme.border
-                        radius: Theme.rounding * 2
+                        radius: Theme.radius.medium
                         width: 300
                         height: 60
                         color: Theme.color.bg

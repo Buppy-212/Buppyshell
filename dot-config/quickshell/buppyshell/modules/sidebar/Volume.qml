@@ -11,18 +11,18 @@ Rectangle {
         id: title
         anchors.top: parent.top
         implicitWidth: parent.width
-        implicitHeight: 48
+        implicitHeight: Theme.height.doubleBlock
         color: Theme.color.bg
-        radius: Theme.rounding
+        radius: Theme.radius.normal
         StyledText {
             text: "Volume"
-            font.pointSize: 26
+            font.pointSize: Theme.font.size.doubled
         }
     }
     Rectangle {
         id: volumeWidget
         color: Theme.color.bgalt
-        radius: Theme.rounding
+        radius: Theme.radius.normal
         anchors {
             margins: 36
             topMargin: title.height
@@ -44,7 +44,7 @@ Rectangle {
                     required property PwNode modelData
                     visible: modelData.isSink && modelData.audio && !modelData.isStream
                     implicitWidth: parent.width
-                    implicitHeight: 48
+                    implicitHeight: Theme.height.doubleBlock
                     PwObjectTracker {
                         objects: [sinkDelegate.visible ? sinkDelegate.modelData : null]
                     }
@@ -88,13 +88,13 @@ Rectangle {
                                     width: sinkSlider.availableWidth
                                     height: parent.height
                                     color: Theme.color.grey
-                                    radius: Theme.rounding
+                                    radius: Theme.radius.normal
                                     Rectangle {
                                         width: sinkSlider.visualPosition * parent.width
                                         height: parent.height
                                         color: Theme.color.blue
                                         opacity: sinkDelegate.modelData == Pipewire.defaultAudioSink ? 1 : 0.25
-                                        radius: Theme.rounding
+                                        radius: Theme.radius.normal
                                     }
                                 }
                             }
@@ -125,7 +125,7 @@ Rectangle {
                     required property PwNode modelData
                     visible: modelData.audio && !modelData.isStream && !modelData.isSink
                     implicitWidth: parent.width
-                    implicitHeight: 48
+                    implicitHeight: Theme.height.doubleBlock
                     PwObjectTracker {
                         objects: [sourceDelegate.visible ? sourceDelegate.modelData : null]
                     }
@@ -169,13 +169,13 @@ Rectangle {
                                     width: sourceSlider.availableWidth
                                     height: parent.height
                                     color: Theme.color.grey
-                                    radius: Theme.rounding
+                                    radius: Theme.radius.normal
                                     Rectangle {
                                         width: sourceSlider.visualPosition * parent.width
                                         height: parent.height
                                         color: Theme.color.magenta
                                         opacity: sourceDelegate.modelData == Pipewire.defaultAudioSource ? 1 : 0.25
-                                        radius: Theme.rounding
+                                        radius: Theme.radius.normal
                                     }
                                 }
                             }
@@ -206,7 +206,7 @@ Rectangle {
                     required property PwNode modelData
                     visible: modelData.isStream && modelData.audio
                     implicitWidth: parent.width
-                    implicitHeight: 48
+                    implicitHeight: Theme.height.doubleBlock
                     PwObjectTracker {
                         objects: [streamDelegate.visible ? streamDelegate.modelData : null]
                     }
@@ -247,12 +247,12 @@ Rectangle {
                                     width: streamSlider.availableWidth
                                     height: parent.height
                                     color: Theme.color.grey
-                                    radius: Theme.rounding
+                                    radius: Theme.radius.normal
                                     Rectangle {
                                         width: streamSlider.visualPosition * parent.width
                                         height: parent.height
                                         color: Theme.color.red
-                                        radius: Theme.rounding
+                                        radius: Theme.radius.normal
                                     }
                                 }
                             }

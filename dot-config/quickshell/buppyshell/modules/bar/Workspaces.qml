@@ -9,12 +9,12 @@ import "../../widgets"
 
 Item {
     id: root
-    width: Theme.blockWidth
+    width: Theme.width.block
     height: column.height
     Column {
         id: column
         spacing: 4
-        width: Theme.blockWidth
+        width: Theme.width.block
         Repeater {
             model: Hyprland.workspaces
             delegate: Rectangle {
@@ -25,8 +25,8 @@ Item {
                 property bool focused: modelData.focused
                 anchors.horizontalCenter: parent.horizontalCenter
                 height: occupied ? (modelData.toplevels.values.length + 1) * (width + 2) : 28
-                width: Theme.blockWidth
-                radius: Theme.rounding
+                width: Theme.width.block
+                radius: Theme.radius.normal
                 color: draggedOver | mouse.containsMouse ? Theme.color.grey : focused ? Theme.color.accent : occupied ? Theme.color.bgalt : "transparent"
                 DropArea {
                     anchors.fill: parent
@@ -61,7 +61,7 @@ Item {
                         implicitWidth: workspaceCell.width
                         implicitHeight: workspaceCell.width
                         anchors.horizontalCenter: parent.horizontalCenter
-                        radius: Theme.rounding
+                        radius: Theme.radius.normal
                         color: "transparent"
                         StyledText {
                             id: workspaceText
@@ -130,7 +130,7 @@ Item {
                                 sourceComponent: PopupWindow {
                                     anchor {
                                         window: leftBar
-                                        rect.x: leftRect.width + Theme.border
+                                        rect.x: leftRect.width + Theme.margin.tiny
                                         rect.y: parent == dragArea ? image.y + dragArea.y + root.y : root.y + workspaceCell.y + image.y
                                     }
                                     implicitHeight: image.height
@@ -138,7 +138,7 @@ Item {
                                     color: "transparent"
                                     Rectangle {
                                         anchors.fill: parent
-                                        radius: Theme.rounding
+                                        radius: Theme.radius.normal
                                         color: Theme.color.bg
                                         border.width: 2
                                         border.color: Theme.color.grey

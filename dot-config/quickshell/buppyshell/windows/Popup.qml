@@ -47,8 +47,8 @@ Scope {
             right: true
         }
         margins {
-            top: Theme.border
-            right: Theme.border
+            top: Theme.margin.tiny
+            right: Theme.margin.tiny
         }
         Timer {
             id: timeoutTimer

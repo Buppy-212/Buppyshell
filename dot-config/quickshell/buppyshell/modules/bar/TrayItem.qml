@@ -23,7 +23,7 @@ Block {
             id: menu
             menu: trayItem.modelData.menu
             anchor.window: rightBar
-            anchor.rect.x: Theme.rounding
+            anchor.rect.x: Theme.radius.normal
             anchor.rect.y: trayRoot.y + trayItem.y
             anchor.edges: Edges.Right
             anchor.gravity: Edges.Left | Edges.Bottom
@@ -31,7 +31,7 @@ Block {
         IconImage {
             id: icon
             anchors.centerIn: parent
-            implicitSize: Theme.blockHeight
+            implicitSize: Theme.height.block
             source: {
                 let icon = trayItem.modelData.icon;
                 if (icon.includes("?path=")) {

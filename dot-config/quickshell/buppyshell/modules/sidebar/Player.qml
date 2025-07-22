@@ -17,7 +17,7 @@ Rectangle {
     implicitWidth: 600
     implicitHeight: GlobalState.player ? 300 : 96
     onVisibleChanged: playerWidget.currentIndex = findPlayerctld()
-    radius: Theme.rounding
+    radius: Theme.radius.normal
     color: Theme.color.bg
     MouseBlock {
         onClicked: GlobalState.player = !GlobalState.player
@@ -40,7 +40,7 @@ Rectangle {
         anchors.left: parent.left
         StyledText {
             text: ""
-            font.pointSize: 26
+            font.pointSize: Theme.font.size.doubled
         }
         MouseBlock {
             id: backMouse
@@ -56,11 +56,11 @@ Rectangle {
         spacing: 6
         anchors.fill: parent
         Item {
-            implicitHeight: 48
+            implicitHeight: Theme.height.doubleBlock
             implicitWidth: parent.width
             StyledText {
                 text: Mpris.players.values[playerWidget.currentIndex]?.trackTitle ?? false ? Mpris.players.values[playerWidget.currentIndex].trackTitle : "No Track"
-                font.pointSize: 26
+                font.pointSize: Theme.font.size.doubled
                 color: Theme.color.fg
                 width: parent.width - backBlock.width - forwardBlock.width
                 horizontalAlignment: Text.AlignHCenter
@@ -69,11 +69,10 @@ Rectangle {
         }
         Item {
             visible: GlobalState.player
-            implicitHeight: 24
+            implicitHeight: Theme.height.block
             implicitWidth: parent.width
             StyledText {
                 text: Mpris.players.values[playerWidget.currentIndex]?.trackAlbum ? `${Mpris.players.values[playerWidget.currentIndex]?.trackAlbum} - ${Mpris.players.values[playerWidget.currentIndex]?.trackArtist}` : Mpris.players.values[playerWidget.currentIndex]?.trackArtist
-                font.pointSize: 13
                 color: Theme.color.fg
                 width: parent.width - backBlock.width - forwardBlock.width
                 horizontalAlignment: Text.AlignHCenter
@@ -92,11 +91,11 @@ Rectangle {
         }
         Block {
             hovered: leftMouse.containsMouse
-            implicitHeight: 48
-            implicitWidth: 48
+            implicitHeight: Theme.height.doubleBlock
+            implicitWidth: implicitHeight
             StyledText {
                 text: ""
-                font.pointSize: 26
+                font.pointSize: Theme.font.size.doubled
             }
             MouseBlock {
                 id: leftMouse
@@ -109,12 +108,12 @@ Rectangle {
         }
         Block {
             hovered: playMouse.containsMouse
-            implicitHeight: 48
-            implicitWidth: 48
+            implicitHeight: Theme.height.doubleBlock
+            implicitWidth: implicitHeight
             StyledText {
                 text: Mpris.players.values[playerWidget.currentIndex]?.isPlaying ? "" : ""
                 color: Mpris.players.values[playerWidget.currentIndex]?.dbusName == "org.mpris.MediaPlayer2.playerctld" ? Theme.color.red : Theme.color.fg
-                font.pointSize: 26
+                font.pointSize: Theme.font.size.doubled
             }
             MouseBlock {
                 id: playMouse
@@ -135,11 +134,11 @@ Rectangle {
         }
         Block {
             hovered: rightMouse.containsMouse
-            implicitHeight: 48
-            implicitWidth: 48
+            implicitHeight: Theme.height.doubleBlock
+            implicitWidth: implicitHeight
             StyledText {
                 text: ""
-                font.pointSize: 26
+                font.pointSize: Theme.font.size.doubled
             }
             MouseBlock {
                 id: rightMouse
@@ -167,12 +166,12 @@ Rectangle {
             width: slider.availableWidth
             height: parent.height
             color: Theme.color.grey
-            radius: Theme.rounding
+            radius: Theme.radius.normal
             Rectangle {
                 width: slider.visualPosition * parent.width
                 height: parent.height
                 color: Theme.color.blue
-                radius: Theme.rounding
+                radius: Theme.radius.normal
             }
         }
     }
@@ -185,7 +184,7 @@ Rectangle {
         anchors.right: parent.right
         StyledText {
             text: ""
-            font.pointSize: 26
+            font.pointSize: Theme.font.size.doubled
         }
         MouseBlock {
             id: forwardMouse

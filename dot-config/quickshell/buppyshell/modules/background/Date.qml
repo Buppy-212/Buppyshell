@@ -11,7 +11,7 @@ Rectangle {
         anchors.centerIn: parent
         height: day.height + date.height
         width: day.width
-        spacing: Theme.border
+        spacing: Theme.margin.tiny
         Text {
             id: day
             text: Time.day

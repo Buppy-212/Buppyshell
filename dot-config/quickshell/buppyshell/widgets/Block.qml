@@ -3,8 +3,8 @@ import "../services"
 
 Rectangle {
     property bool hovered: false
-    implicitWidth: Theme.blockWidth
-    implicitHeight: Theme.blockHeight
+    implicitWidth: Theme.width.block
+    implicitHeight: Theme.height.block
     color: hovered ? Theme.color.grey : "transparent"
-    radius: Theme.rounding
+    radius: Theme.radius.normal
 }

@@ -8,10 +8,10 @@ Item {
     clip: true
     visible: width > 0 && height > 0
     implicitHeight: layout.implicitHeight
-    implicitWidth: Theme.blockWidth
+    implicitWidth: Theme.width.block
     Column {
         id: layout
-        spacing: 2
+        spacing: Theme.margin.tiny
         anchors.centerIn: parent
         Repeater {
             id: items

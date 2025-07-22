@@ -8,15 +8,41 @@ Singleton {
     id: root
 
     readonly property Color color: Color {}
-    readonly property int rounding: 8
     readonly property int border: 2
-    readonly property int blockHeight: 24
-    readonly property int blockWidth: 30
     readonly property Font font: Font {}
     readonly property IconSize iconSize: IconSize {}
+    readonly property Margin margin: Margin {}
+    readonly property Height height: Height {}
+    readonly property Width width: Width {}
+    readonly property Radius radius: Radius {}
     property QtObject animation
     property QtObject animationCurves
-    readonly property Notification notification: Notification {}
+
+    component Radius: QtObject {
+        readonly property int normal: 8
+        readonly property int normalAdjusted: 11
+        readonly property int medium: 16
+        readonly property int large: 32
+    }
+
+    component Height: QtObject {
+        readonly property int block: 24
+        readonly property int doubleBlock: 48
+        readonly property int notification: 80
+    }
+
+    component Width: QtObject {
+        readonly property int block: 30
+        readonly property int notification: 528
+        readonly property int sidebar: 600
+    }
+
+    component Margin: QtObject {
+        readonly property int tiny: 2
+        readonly property int small: 4
+        readonly property int medium: 8
+        readonly property int large: 16
+    }
 
     component IconSize: QtObject {
         readonly property int small: 30
@@ -24,15 +50,9 @@ Singleton {
         readonly property int large: 128
     }
 
-    component Notification: QtObject {
-        readonly property int width: 528
-        readonly property int height: 80
-        readonly property int margin: 16
-        readonly property int sidebarWidth: 600
-    }
-
     component Color: QtObject {
         readonly property string bg: "#222436"
+        readonly property string bgTranslucent: "#aa222436"
         readonly property string bgalt: "#2a2c3d"
         readonly property string bgdark: "#1e2030"
         readonly property string fg: "#e9e9ed"
@@ -56,6 +76,7 @@ Singleton {
     component FontSize: QtObject {
         readonly property int normal: 13
         readonly property int large: 15
+        readonly property int doubled: 26
         readonly property int extraLarge: 36
         readonly property int huge: 42
     }

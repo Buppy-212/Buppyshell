@@ -2,7 +2,7 @@ import "../../services"
 import "../../widgets"
 
 Block {
-    implicitHeight: Theme.blockHeight * 2
+    implicitHeight: Theme.height.doubleBlock
     color: "transparent"
     StyledText {
         text: Time.time

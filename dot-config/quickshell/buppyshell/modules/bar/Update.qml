@@ -7,7 +7,7 @@ Block {
     id: updateWidget
     visible: Updates.updates == 0 ? false : true
     hovered: mouse.containsMouse
-    implicitHeight: mouse.containsMouse ? Theme.blockHeight * 2 : Theme.blockHeight
+    implicitHeight: mouse.containsMouse ? Theme.height.doubleBlock : Theme.height.block
     StyledText {
         text: `${Updates.updates}`
         anchors.centerIn: undefined

@@ -7,7 +7,7 @@ Block {
     id: root
     hovered: mouse.containsMouse
     IconImage {
-        implicitSize: Theme.blockHeight - Theme.border
+        implicitSize: Theme.height.block - Theme.margin.tiny
         anchors.centerIn: parent
         source: Qt.resolvedUrl("root:/assets/archlinux.svg")
     }

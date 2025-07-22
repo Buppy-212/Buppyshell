@@ -8,9 +8,9 @@ import "../../services"
 
 Rectangle {
     anchors.centerIn: parent
-    radius: Theme.rounding
-    implicitWidth: logoutList.count * Theme.iconSize.large
-    implicitHeight: Theme.iconSize.large + Theme.blockHeight
+    radius: Theme.radius.normal
+    implicitWidth: logoutList.count * (Theme.iconSize.large + Theme.margin.medium) + Theme.margin.medium
+    implicitHeight: Theme.iconSize.large + Theme.height.block + Theme.margin.large
     color: Theme.color.bg
     Keys.onPressed: event => {
         switch (event.key) {
@@ -45,7 +45,11 @@ Rectangle {
     ListView {
         id: logoutList
         orientation: ListView.Horizontal
-        anchors.fill: parent
+        spacing: Theme.margin.medium
+        width: parent.width - Theme.margin.large
+        height: parent.height - Theme.margin.large
+        x: Theme.margin.medium
+        y: x
         focus: visible
         model: [
             {
@@ -105,32 +109,35 @@ Rectangle {
                 Hyprland.dispatch(command);
             }
             Column {
-              width: Theme.iconSize.large
-              height: width + Theme.blockHeight
-              Rectangle {
-                implicitWidth: parent.width
-                implicitHeight: implicitWidth
-                radius: Theme.rounding
-                color: logoutDelegate.focus ? Theme.color.grey : "transparent"
-                Text {
-                  text: logoutDelegate.icon
-                  font.family: Theme.font.family.material
-                  font.pixelSize: height
-                  color: logoutDelegate.color
-                  height: parent.height
-                  verticalAlignment: Text.AlignVCenter
+                width: Theme.iconSize.large
+                height: width + Theme.height.block
+                spacing: Theme.margin.tiny
+                Rectangle {
+                    implicitWidth: parent.width
+                    implicitHeight: implicitWidth
+                    radius: Theme.radius.normal
+                    color: logoutDelegate.focus ? Theme.color.grey : "transparent"
+                    Text {
+                        text: logoutDelegate.icon
+                        font.family: Theme.font.family.material
+                        font.pixelSize: height
+                        color: logoutDelegate.color
+                        height: parent.height
+                        verticalAlignment: Text.AlignVCenter
+                    }
                 }
-              }
-              Text {
-                text: logoutDelegate.shortcut
-                font.pointSize: Theme.font.size.large
-                font.family: Theme.font.family.mono
-                color: Theme.color.fg
-                font.bold: true
-                width: parent.width
-                horizontalAlignment: Text.AlignHCenter
-              }
+                Text {
+                    text: logoutDelegate.shortcut
+                    width: parent.width
+                    color: Theme.color.fg
+                    font {
+                        pointSize: Theme.font.size.large
+                        family: Theme.font.family.mono
+                        bold: true
+                    }
+                    horizontalAlignment: Text.AlignHCenter
+                }
             }
-          }
         }
-      }
+    }
+}

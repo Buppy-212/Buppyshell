@@ -8,18 +8,18 @@ Rectangle {
         id: title
         anchors.top: parent.top
         implicitWidth: parent.width
-        implicitHeight: 48
+        implicitHeight: Theme.height.doubleBlock
         color: Theme.color.bg
-        radius: Theme.rounding
+        radius: Theme.radius.normal
         StyledText {
             text: "Network"
-            font.pointSize: 26
+            font.pointSize: Theme.font.size.doubled
         }
     }
     Rectangle {
         id: networkWidget
         color: Theme.color.bgalt
-        radius: Theme.rounding
+        radius: Theme.radius.normal
         anchors {
             margins: 36
             topMargin: title.height

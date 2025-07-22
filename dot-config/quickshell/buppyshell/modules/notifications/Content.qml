@@ -7,18 +7,18 @@ import "../../services"
 Rectangle {
     id: notifictionContent
     required property Notification notification
-    implicitWidth: Theme.notification.width
-    implicitHeight: row.height > Theme.notification.height - 20 ? row.height + 20 : Theme.notification.height
+    implicitWidth: Theme.width.notification
+    implicitHeight: row.height > Theme.height.notification - 20 ? row.height + 20 : Theme.height.notification
     color: Theme.color.bg
-    radius: Theme.rounding
+    radius: Theme.radius.normal
     border.width: Theme.border
     border.color: Theme.color.blue
     Row {
         id: row
         width: column.width
         height: column.height
-        spacing: Theme.notification.margin
-        x: Theme.notification.margin
+        spacing: Theme.margin.large
+        x: Theme.margin.large
         anchors.verticalCenter: parent.verticalCenter
         IconImage {
             source: Quickshell.iconPath(notifictionContent.notification?.appIcon, "preferences-desktop-notification-bell")
@@ -27,7 +27,7 @@ Rectangle {
         }
         Column {
             id: column
-            width: Theme.notification.width - Theme.iconSize.medium * 2
+            width: Theme.width.notification - Theme.iconSize.medium * 2
             height: summary.height + body.height
             anchors.verticalCenter: parent.verticalCenter
             Text {
@@ -55,10 +55,10 @@ Rectangle {
         drag.target: parent
         drag.axis: Drag.XAxis
         drag.minimumX: 0
-        drag.maximumX: Theme.notification.sidebarWidth
+        drag.maximumX: Theme.width.sidebar
         drag.filterChildren: true
         onReleased: {
-            notifictionContent.x = Theme.notification.sidebarWidth;
+            notifictionContent.x = Theme.width.sidebar;
             notifictionContent.notification.actions?.invoke();
         }
     }

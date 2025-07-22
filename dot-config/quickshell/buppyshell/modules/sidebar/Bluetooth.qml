@@ -9,18 +9,18 @@ import "../../widgets"
 
 Rectangle {
     id: bluetoothWidget
-    radius: Theme.rounding
+    radius: Theme.radius.normal
     color: Theme.color.bg
     Block {
         hovered: adapterMouse.containsMouse
         anchors.top: parent.top
         anchors.left: parent.left
-        implicitHeight: 48
-        implicitWidth: 36
+        implicitHeight: Theme.height.doubleBlock
+        implicitWidth: implicitHeight
         StyledText {
             text: Bluetooth.defaultAdapter?.enabled ?? Bluetooth.adapters.values[0]?.enabled ? "󰂯" : "󰂲"
             color: Theme.color.blue
-            font.pointSize: 26
+            font.pointSize: Theme.font.size.doubled
         }
         MouseBlock {
             id: adapterMouse
@@ -31,12 +31,12 @@ Rectangle {
         hovered: searchMouse.containsMouse
         anchors.top: parent.top
         anchors.right: parent.right
-        implicitHeight: 48
-        implicitWidth: 48
+        implicitHeight: Theme.height.doubleBlock
+        implicitWidth: implicitHeight
         StyledText {
             text: Bluetooth.defaultAdapter?.discovering ?? Bluetooth.adapters.values[0]?.discovering ? "󰜺" : ""
             color: Theme.color.fg
-            font.pointSize: 26
+            font.pointSize: Theme.font.size.doubled
         }
         MouseBlock {
             id: searchMouse
@@ -47,19 +47,19 @@ Rectangle {
         id: adapterNameItem
         anchors.top: parent.top
         anchors.horizontalCenter: parent.horizontalCenter
-        implicitHeight: 48
+        implicitHeight: Theme.height.doubleBlock
         implicitWidth: adapterName.contentWidth
         StyledText {
             id: adapterName
             text: Bluetooth.defaultAdapter?.name ?? Bluetooth.adapters.values[0]?.name ?? ""
-            font.pointSize: 26
+            font.pointSize: Theme.font.size.doubled
         }
     }
     Rectangle {
         anchors.fill: parent
         anchors.margins: 36
         anchors.topMargin: adapterNameItem.height
-        radius: Theme.rounding
+        radius: Theme.radius.normal
         color: Theme.color.bgalt
         ListView {
             spacing: 8
@@ -75,31 +75,31 @@ Rectangle {
                 color: itemMouse.containsMouse ? Theme.color.grey : modelData.batteryAvailable && modelData.battery <= 0.1 ? Theme.color.red : modelData.connected ? Theme.color.accent : "transparent"
                 RowLayout {
                     anchors.fill: parent
-                Row {
-                    Layout.alignment: Qt.AlignLeft
-                    Layout.fillHeight: true
-                    spacing: 8
-                    IconImage {
-                        implicitSize: parent.height
-                        source: Quickshell.iconPath(bluetoothItem.modelData.icon, "bluetooth")
+                    Row {
+                        Layout.alignment: Qt.AlignLeft
+                        Layout.fillHeight: true
+                        spacing: 8
+                        IconImage {
+                            implicitSize: parent.height
+                            source: Quickshell.iconPath(bluetoothItem.modelData.icon, "bluetooth")
+                        }
+                        StyledText {
+                            text: bluetoothItem.modelData.name
+                            anchors.centerIn: undefined
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
+                        StyledText {
+                            text: bluetoothItem.modelData.batteryAvailable ? `(${bluetoothItem.modelData.battery * 100}%)` : ""
+                            anchors.centerIn: undefined
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
                     }
                     StyledText {
-                        text: bluetoothItem.modelData.name
+                        Layout.alignment: Qt.AlignRight
+                        Layout.rightMargin: 4
+                        text: bluetoothItem.modelData.trusted ? "Trusted" : ""
                         anchors.centerIn: undefined
-                        anchors.verticalCenter: parent.verticalCenter
                     }
-                  StyledText {
-                    text: bluetoothItem.modelData.batteryAvailable ? `(${bluetoothItem.modelData.battery * 100}%)` : ""
-                    anchors.centerIn: undefined
-                    anchors.verticalCenter: parent.verticalCenter
-                  }
-                  }
-                  StyledText {
-                    Layout.alignment: Qt.AlignRight
-                    Layout.rightMargin: 4
-                    text: bluetoothItem.modelData.trusted ? "Trusted" : ""
-                    anchors.centerIn: undefined
-                  }
                 }
                 MouseBlock {
                     id: itemMouse

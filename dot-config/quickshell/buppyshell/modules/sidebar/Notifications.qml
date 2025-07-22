@@ -8,7 +8,7 @@ import "../notifications"
 
 Rectangle {
     implicitWidth: parent.width
-    radius: Theme.rounding
+    radius: Theme.radius.normal
     color: Theme.color.bg
     NotificationServer {
         id: notificationServer
@@ -20,14 +20,14 @@ Rectangle {
             topMargin: title.height
             margins: 36
         }
-        radius: Theme.rounding
+        radius: Theme.radius.normal
         color: Theme.color.bgalt
         ListView {
             implicitHeight: parent.height
-            implicitWidth: Theme.notification.width
+            implicitWidth: Theme.width.notification
             anchors.horizontalCenter: parent.horizontalCenter
             model: notificationServer.trackedNotifications
-            spacing: Theme.border * 2
+            spacing: Theme.margin.small
             delegate: Content {
                 id: content
                 required property Notification modelData
@@ -47,22 +47,22 @@ Rectangle {
         id: title
         anchors.top: parent.top
         implicitWidth: parent.implicitWidth
-        implicitHeight: 48
+        implicitHeight: Theme.height.doubleBlock
         color: Theme.color.bg
-        radius: Theme.rounding
+        radius: Theme.radius.normal
         StyledText {
             text: "Notifications"
-            font.pointSize: 26
+            font.pointSize: Theme.font.size.doubled
         }
         Block {
             hovered: dismissMouse.containsMouse
             anchors.top: parent.top
             anchors.right: parent.right
-            implicitHeight: 48
-            implicitWidth: 48
+            implicitHeight: Theme.height.doubleBlock
+            implicitWidth: implicitHeight
             StyledText {
                 text: "󰆴"
-                font.pointSize: 26
+                font.pointSize: Theme.font.size.doubled
             }
             MouseBlock {
                 id: dismissMouse

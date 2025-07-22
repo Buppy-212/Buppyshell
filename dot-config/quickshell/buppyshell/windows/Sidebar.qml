@@ -1,3 +1,5 @@
+pragma ComponentBehavior: Bound
+
 import Quickshell
 import QtQuick
 import QtQuick.Layouts
@@ -12,18 +14,18 @@ PanelWindow {
         bottom: true
     }
     margins {
-        top: 2
-        bottom: 2
+        top: Theme.margin.tiny
+        bottom: Theme.margin.tiny
     }
     exclusiveZone: 0
     color: "transparent"
-    implicitWidth: 602
+    implicitWidth: Theme.width.sidebar + Theme.margin.tiny
     visible: GlobalState.sidebar
     Rectangle {
         id: sidebar
-        implicitWidth: parent.width - 2
+        implicitWidth: parent.width - Theme.margin.tiny
         implicitHeight: parent.height
-        radius: Theme.rounding
+        radius: Theme.radius.normal
         color: Theme.color.black
         MouseArea {
             anchors.fill: parent
@@ -52,16 +54,19 @@ PanelWindow {
         }
         ColumnLayout {
             anchors.fill: parent
-            spacing: 2
+            spacing: Theme.margin.tiny
             Rectangle {
                 Layout.fillWidth: true
-                implicitHeight: 48
+                implicitHeight: Theme.height.doubleBlock
                 color: Theme.color.bg
-                radius: Theme.rounding
+                radius: Theme.radius.normal
                 Row {
-                    anchors.fill: parent
-                    anchors.margins: 4
-                    spacing: 4
+                    id: row
+                    width: parent.width - Theme.margin.medium
+                    height: parent.height - Theme.margin.medium
+                    x: Theme.margin.small
+                    y: Theme.margin.small
+                    spacing: Theme.margin.small
                     Repeater {
                         model: [
                             {
@@ -92,11 +97,11 @@ PanelWindow {
                             required property bool state
                             hovered: mouse.containsMouse
                             color: hovered ? Theme.color.grey : state ? Theme.color.accent : "transparent"
-                            implicitHeight: 42
-                            implicitWidth: 42
+                            implicitHeight: row.height
+                            implicitWidth: implicitHeight
                             StyledText {
                                 text: delegateBlock.text
-                                font.pointSize: 26
+                                font.pointSize: Theme.font.size.doubled
                             }
                             MouseBlock {
                                 id: mouse
