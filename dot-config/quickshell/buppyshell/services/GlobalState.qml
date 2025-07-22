@@ -26,6 +26,7 @@ Singleton {
     property bool overlay: false
     property bool sidebar: false
     property bool locked: false
+    property bool bar: true
 
     function toggle(stateVar: string): void {
         switch (stateVar) {
@@ -44,6 +45,14 @@ Singleton {
         }
     }
 
+    GlobalShortcut {
+        name: "bar"
+        description: "Toggle bar visibility"
+        appid: "buppyshell"
+        onPressed: {
+            root.bar = !root.bar;
+        }
+    }
     GlobalShortcut {
         name: "windows"
         description: "Toggle window switcher"

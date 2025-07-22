@@ -75,12 +75,12 @@ Rectangle {
                 IconImage {
                     implicitSize: Theme.iconSize.large
                     source: {
-                        if (windowDelegate.modelData.appId.startsWith("steam_app")) {
+                        if (windowDelegate.modelData?.appId.startsWith("steam_app")) {
                             return Quickshell.iconPath("input-gaming");
-                        } else if (windowDelegate.modelData.appId == "") {
+                        } else if (windowDelegate.modelData?.appId == "") {
                             return (Quickshell.iconPath("image-loading"));
                         } else {
-                            return Quickshell.iconPath(windowDelegate.modelData.appId.toLowerCase() ?? "image-loading", windowDelegate.modelData.appId);
+                            return Quickshell.iconPath(windowDelegate.modelData?.appId.toLowerCase() ?? "image-loading", windowDelegate.modelData?.appId);
                         }
                     }
                 }

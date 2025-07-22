@@ -12,6 +12,7 @@ Variants {
         required property ShellScreen modelData
         PanelWindow {
             id: leftBar
+            visible: GlobalState.bar
             screen: scope.modelData
             mask: Region {
                 item: leftRect
@@ -54,20 +55,21 @@ Variants {
             RoundCorner {
                 anchors.bottom: parent.bottom
                 anchors.left: parent.left
-                anchors.leftMargin: Theme.blockWidth
+                anchors.leftMargin: leftRect.visible ? Theme.blockWidth : 0
                 size: Theme.rounding + 3
                 corner: cornerEnum.bottomLeft
             }
             RoundCorner {
                 anchors.top: parent.top
                 anchors.left: parent.left
-                anchors.leftMargin: Theme.blockWidth
+                anchors.leftMargin: leftRect.visible ? Theme.blockWidth : 0
                 size: Theme.rounding + 3
                 corner: cornerEnum.topLeft
             }
         }
         PanelWindow {
             id: rightBar
+            visible: GlobalState.bar
             screen: scope.modelData
             mask: Region {
                 item: rightRect
@@ -104,14 +106,14 @@ Variants {
             RoundCorner {
                 anchors.bottom: parent.bottom
                 anchors.right: parent.right
-                anchors.rightMargin: Theme.blockWidth
+                anchors.rightMargin: rightRect.visible ? Theme.blockWidth : 0
                 size: Theme.rounding + 3
                 corner: cornerEnum.bottomRight
             }
             RoundCorner {
                 anchors.top: parent.top
                 anchors.right: parent.right
-                anchors.rightMargin: Theme.blockWidth
+                anchors.rightMargin: rightRect.visible ? Theme.blockWidth : 0
                 size: Theme.rounding + 3
                 corner: cornerEnum.topRight
             }
