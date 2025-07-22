@@ -7,10 +7,10 @@ import Quickshell.Wayland
 import QtQuick
 import "../../services"
 
-Rectangle {
+ClippingRectangle {
     anchors.centerIn: parent
     radius: Theme.radius.normal
-    implicitWidth: windowList.count * (Theme.iconSize.large + Theme.margin.medium) + Theme.margin.medium
+    implicitWidth: windowList.count * (Theme.iconSize.large + Theme.margin.medium) + Theme.margin.medium < Screen.width ? windowList.count * (Theme.iconSize.large + Theme.margin.medium) + Theme.margin.medium : Screen.width
     implicitHeight: Theme.iconSize.large + Theme.height.block + Theme.margin.large
     color: Theme.color.bg
     Column {
@@ -25,6 +25,7 @@ Rectangle {
             model: ToplevelManager.toplevels
             orientation: ListView.Horizontal
             spacing: Theme.margin.medium
+            snapMode: ListView.SnapToItem
             width: parent.width
             height: Theme.iconSize.large
             focus: visible
