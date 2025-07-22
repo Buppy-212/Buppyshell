@@ -22,17 +22,17 @@ Scope {
     readonly property int mic: Pipewire.defaultAudioSource?.audio.volume * 100
     readonly property bool micMuted: Pipewire.defaultAudioSource?.audio.muted ?? false
     readonly property int input: {
-      switch (source) {
+        switch (source) {
         case Sliders.Source.Volume:
-        return volume
-        break;
+            return volume;
+            break;
         case Sliders.Source.Mic:
-        return mic
-        break;
+            return mic;
+            break;
         case Sliders.Source.Brightness:
-        return brightness
-        break;
-      }
+            return brightness;
+            break;
+        }
     }
     onBrightnessChanged: {
         visible = true;
@@ -41,22 +41,22 @@ Scope {
     }
     onVolumeChanged: {
         visible = true;
-        source = Sliders.Source.Volume
+        source = Sliders.Source.Volume;
         timer.restart();
     }
     onMutedChanged: {
         visible = true;
-        source = Sliders.Source.Volume
+        source = Sliders.Source.Volume;
         timer.restart();
     }
     onMicChanged: {
         visible = true;
-        source = Sliders.Source.Mic
+        source = Sliders.Source.Mic;
         timer.restart();
     }
     onMicMutedChanged: {
         visible = true;
-        source = Sliders.Source.Mic
+        source = Sliders.Source.Mic;
         timer.restart();
     }
     Timer {
@@ -91,17 +91,17 @@ Scope {
                         id: text
                         anchors.verticalCenter: parent.verticalCenter
                         text: {
-                          switch (sliderWidget.source) {
+                            switch (sliderWidget.source) {
                             case Sliders.Source.Volume:
-                            return sliderWidget.muted || sliderWidget.input == 0 ? "volume_off" : "volume_up"
-                            break;
+                                return sliderWidget.muted || sliderWidget.input == 0 ? "volume_off" : "volume_up";
+                                break;
                             case Sliders.Source.Mic:
-                            return sliderWidget.micMuted || sliderWidget.input == 0 ? "mic_off" : "mic"
-                            break;
+                                return sliderWidget.micMuted || sliderWidget.input == 0 ? "mic_off" : "mic";
+                                break;
                             case Sliders.Source.Brightness:
-                            return "light_mode"
-                            break;
-                          }
+                                return "light_mode";
+                                break;
+                            }
                         }
                         font.family: Theme.font.family.material
                         font.pointSize: Theme.font.size.large
@@ -127,17 +127,17 @@ Scope {
                                 width: slider.visualPosition * parent.width
                                 height: parent.height
                                 color: {
-                                  switch (sliderWidget.source) {
+                                    switch (sliderWidget.source) {
                                     case Sliders.Source.Volume:
-                                      return Theme.color.blue
-                                      break;
+                                        return Theme.color.blue;
+                                        break;
                                     case Sliders.Source.Mic:
-                                      return Theme.color.magenta
-                                      break;
+                                        return Theme.color.magenta;
+                                        break;
                                     case Sliders.Source.Brightness:
-                                      return Theme.color.yellow
-                                      break;
-                                  }
+                                        return Theme.color.yellow;
+                                        break;
+                                    }
                                 }
                                 radius: Theme.rounding
                             }

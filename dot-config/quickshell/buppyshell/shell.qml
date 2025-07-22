@@ -9,7 +9,7 @@ ShellRoot {
     Popup {}
     Lockscreen {}
     Sliders {
-        source: Source.Volume
+        source: Sliders.Source.Volume
     }
     Launcher {}
     Sidebar {}
