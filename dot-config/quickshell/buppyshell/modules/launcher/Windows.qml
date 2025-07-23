@@ -26,12 +26,28 @@ ClippingRectangle {
             orientation: ListView.Horizontal
             spacing: Theme.margin.medium
             snapMode: ListView.SnapToItem
+            highlight: Rectangle {
+                color: Theme.color.grey
+                radius: Theme.radius.normal
+            }
+            keyNavigationWraps: true
+            highlightFollowsCurrentItem: true
+            highlightMoveDuration: 0
             width: parent.width
             height: Theme.iconSize.large
             focus: visible
+            displaced: Transition {
+                NumberAnimation {
+                    property: "x"
+                    duration: Theme.animation.elementMoveFast.duration
+                    easing.type: Theme.animation.elementMoveFast.type
+                    easing.bezierCurve: Theme.animation.elementMoveFast.bezierCurve
+                }
+            }
             delegate: WrapperMouseArea {
                 id: windowDelegate
                 required property Toplevel modelData
+                required property int index
                 acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
                 cursorShape: Qt.PointingHandCursor
                 hoverEnabled: true
@@ -60,6 +76,9 @@ ClippingRectangle {
                 }
                 onFocusChanged: {
                     windowList.hoveredTitle = modelData.title;
+                    if (focus) {
+                        windowList.currentIndex = index;
+                    }
                 }
                 onClicked: mouse => {
                     switch (mouse.button) {
