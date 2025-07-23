@@ -31,17 +31,28 @@ Variants {
                 color: Theme.color.black
                 implicitHeight: parent.height
                 implicitWidth: Theme.width.block
-                anchors.left: parent.left
                 ColumnLayout {
                     anchors.fill: parent
-                    Column {
+                    ColumnLayout {
                         spacing: Theme.margin.tiny
                         Layout.alignment: Qt.AlignTop
-                        Os {}
-                        Workspaces {}
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        Os {
+                            Layout.alignment: Qt.AlignTop
+                        }
+                        Workspaces {
+                            Layout.fillHeight: true
+                            Layout.fillWidth: true
+                        }
                     }
-                    Column {
-                        Layout.alignment: Qt.AlignBottom
+                    Rectangle {
+                      color: Theme.color.bg
+                      Layout.alignment: Qt.AlignBottom
+                      Layout.fillWidth: true
+                      Layout.preferredHeight: column.height
+                      Column {
+                        id: column
                         spacing: Theme.margin.tiny
                         Inhibitor {}
                         Battery {}
@@ -49,6 +60,7 @@ Variants {
                         Update {}
                         Clock {}
                         Power {}
+                      }
                     }
                 }
             }

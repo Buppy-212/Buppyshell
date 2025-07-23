@@ -46,10 +46,8 @@ Rectangle {
         id: logoutList
         orientation: ListView.Horizontal
         spacing: Theme.margin.medium
-        width: parent.width - Theme.margin.large
-        height: parent.height - Theme.margin.large
-        x: Theme.margin.medium
-        y: x
+        anchors.fill: parent
+        anchors.margins: Theme.margin.medium
         focus: visible
         model: [
             {

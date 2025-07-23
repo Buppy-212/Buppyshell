@@ -9,12 +9,9 @@ import "../../widgets"
 
 Item {
     id: root
-    width: Theme.width.block
-    height: column.height
     Column {
-        id: column
-        spacing: 4
-        width: Theme.width.block
+        spacing: Theme.margin.medium
+        anchors.fill: parent
         Repeater {
             model: Hyprland.workspaces
             delegate: Rectangle {
@@ -23,9 +20,8 @@ Item {
                 property bool draggedOver: false
                 property bool occupied: modelData.toplevels.values.length
                 property bool focused: modelData.focused
-                anchors.horizontalCenter: parent.horizontalCenter
-                height: occupied ? (modelData.toplevels.values.length + 1) * (width + 2) : 28
-                width: Theme.width.block
+                height: occupied ? (modelData.toplevels.values.length + 1) * (width + Theme.margin.tiny) : width - Theme.margin.tiny
+                width: parent.width
                 radius: Theme.radius.normal
                 color: draggedOver | mouse.containsMouse ? Theme.color.grey : focused ? Theme.color.accent : occupied ? Theme.color.bgalt : "transparent"
                 DropArea {
@@ -54,13 +50,11 @@ Item {
                     animation: Theme.animation.elementMove.numberAnimation.createObject(this)
                 }
                 Column {
-                    spacing: 2
-                    width: workspaceCell.width
+                    spacing: Theme.margin.tiny
                     anchors.fill: parent
                     Rectangle {
-                        implicitWidth: workspaceCell.width
-                        implicitHeight: workspaceCell.width
-                        anchors.horizontalCenter: parent.horizontalCenter
+                        implicitWidth: parent.width
+                        implicitHeight: implicitWidth
                         radius: Theme.radius.normal
                         color: "transparent"
                         StyledText {
@@ -83,7 +77,6 @@ Item {
                             required property HyprlandToplevel modelData
                             property bool silent: true
                             property bool caught: false
-                            anchors.horizontalCenter: toplevelRepeater.horizontalCenter
                             implicitSize: Theme.iconSize.small
                             Drag.active: mouseArea.drag.active
                             Drag.hotSpot: Qt.point(implicitSize / 2, implicitSize / 2)
@@ -131,10 +124,10 @@ Item {
                                     anchor {
                                         window: leftBar
                                         rect.x: leftRect.width + Theme.margin.tiny
-                                        rect.y: parent == dragArea ? image.y + dragArea.y + root.y : root.y + workspaceCell.y + image.y
+                                        rect.y: image.parent == dragArea ? image.y + dragArea.y + root.y : root.y + workspaceCell.y + image.y
                                     }
                                     implicitHeight: image.height
-                                    implicitWidth: title.width + 12
+                                    implicitWidth: title.width + Theme.margin.large
                                     color: "transparent"
                                     Rectangle {
                                         anchors.fill: parent
@@ -158,6 +151,6 @@ Item {
     }
     Item {
         id: dragArea
-        anchors.centerIn: parent
+        anchors.fill: parent
     }
 }

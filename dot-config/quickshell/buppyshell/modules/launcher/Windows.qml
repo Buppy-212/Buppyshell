@@ -14,10 +14,8 @@ ClippingRectangle {
     implicitHeight: Theme.iconSize.large + Theme.height.block + Theme.margin.large
     color: Theme.color.bg
     Column {
-        width: parent.width - Theme.margin.large
-        height: parent.height - Theme.margin.large
-        x: Theme.margin.medium
-        y: x
+        anchors.fill: parent
+        anchors.margins: Theme.margin.medium
         spacing: Theme.margin.tiny
         ListView {
             id: windowList
@@ -97,7 +95,7 @@ ClippingRectangle {
                 }
                 Rectangle {
                     implicitHeight: Theme.iconSize.large
-                    implicitWidth: Theme.iconSize.large
+                    implicitWidth: implicitHeight
                     color: windowDelegate.focus ? Theme.color.grey : "transparent"
                     radius: Theme.radius.normal
                     IconImage {
