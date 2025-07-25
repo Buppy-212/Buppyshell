@@ -12,7 +12,6 @@ Item {
     width: cols * Theme.iconSize.large * 1.5
     height: parent.height
     anchors.horizontalCenter: parent.horizontalCenter
-    Keys.onEscapePressed: GlobalState.launcher = false
     Rectangle {
         implicitWidth: Screen.width / 3
         implicitHeight: Theme.height.doubleBlock
@@ -35,27 +34,57 @@ Item {
             font.family: Theme.font.family.mono
             font.bold: true
             Keys.onPressed: event => {
-                switch (event.key) {
-                case Qt.Key_Tab:
-                    windowList.incrementCurrentIndex();
-                    break;
-                case Qt.Key_Backtab:
-                    windowList.decrementCurrentIndex();
-                    break;
-                case Qt.Key_Delete:
-                    windowList.currentItem.modelData.close();
-                    break;
-                case Qt.Key_Return:
-                    Hyprland.dispatch(`focuswindow address:0x${windowList.currentItem.modelData.HyprlandToplevel.handle.address}`);
-                    GlobalState.launcher = false;
-                    break;
+                if (event.modifiers & Qt.ControlModifier) {
+                    switch (event.key) {
+                    case Qt.Key_J:
+                        windowList.incrementCurrentIndex();
+                        break;
+                    case Qt.Key_K:
+                        windowList.decrementCurrentIndex();
+                        break;
+                    case Qt.Key_N:
+                        windowList.incrementCurrentIndex();
+                        break;
+                    case Qt.Key_P:
+                        windowList.decrementCurrentIndex();
+                        break;
+                    case Qt.Key_O:
+                        Hyprland.dispatch(`focuswindow address:0x${windowList.currentItem.modelData.HyprlandToplevel.handle.address}`);
+                        GlobalState.launcher = false;
+                        break;
+                    case Qt.Key_Semicolon:
+                        GlobalState.launcher = false;
+                        break;
+                    case Qt.Key_C:
+                        GlobalState.launcher = false;
+                        break;
+                    }
+                } else {
+                    switch (event.key) {
+                    case Qt.Key_Tab:
+                        windowList.incrementCurrentIndex();
+                        break;
+                    case Qt.Key_Backtab:
+                        windowList.decrementCurrentIndex();
+                        break;
+                    case Qt.Key_Delete:
+                        windowList.currentItem.modelData.close();
+                        break;
+                    case Qt.Key_Escape:
+                        GlobalState.launcher = false;
+                        break;
+                    case Qt.Key_Return:
+                        Hyprland.dispatch(`focuswindow address:0x${windowList.currentItem.modelData.HyprlandToplevel.handle.address}`);
+                        GlobalState.launcher = false;
+                        break;
+                    }
                 }
             }
         }
     }
     ListView {
         id: windowList
-        readonly property int rows: (Screen.height * 0.9) / (Theme.iconSize.large + Theme.margin.medium * 3)
+        readonly property int rows: (Screen.height * 0.9) / (Theme.iconSize.large + Theme.margin.medium)
         clip: true
         model: Windows.query(input.text)
         spacing: Theme.margin.medium
@@ -69,7 +98,7 @@ Item {
         highlightFollowsCurrentItem: true
         highlightMoveDuration: 0
         highlightResizeDuration: 0
-        height: rows * (Theme.iconSize.large + Theme.margin.medium * 3)
+        height: rows * (Theme.iconSize.large + Theme.margin.medium)
         width: parent.width
         displaced: Transition {
             NumberAnimation {

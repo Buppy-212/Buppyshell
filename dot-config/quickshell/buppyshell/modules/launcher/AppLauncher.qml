@@ -10,7 +10,6 @@ Item {
     width: cols * appList.cellWidth
     height: parent.height
     anchors.horizontalCenter: parent.horizontalCenter
-    Keys.onEscapePressed: GlobalState.launcher = false
     Rectangle {
         implicitWidth: Screen.width / 3
         implicitHeight: Theme.height.doubleBlock
@@ -33,17 +32,53 @@ Item {
             font.family: Theme.font.family.mono
             font.bold: true
             Keys.onPressed: event => {
-                switch (event.key) {
-                case Qt.Key_Tab:
-                    appList.moveCurrentIndexRight();
-                    break;
-                case Qt.Key_Backtab:
-                    appList.moveCurrentIndexLeft();
-                    break;
-                case Qt.Key_Return:
-                    Quickshell.execDetached(["uwsm", "app", "--", `${appList.currentItem.modelData.id}.desktop`]);
-                    GlobalState.launcher = false;
-                    break;
+                if (event.modifiers & Qt.ControlModifier) {
+                    switch (event.key) {
+                    case Qt.Key_J:
+                        appList.moveCurrentIndexDown();
+                        break;
+                    case Qt.Key_K:
+                        appList.moveCurrentIndexUp();
+                        break;
+                    case Qt.Key_L:
+                        appList.moveCurrentIndexRight();
+                        break;
+                    case Qt.Key_H:
+                        appList.moveCurrentIndexLeft();
+                        break;
+                    case Qt.Key_N:
+                        appList.moveCurrentIndexRight();
+                        break;
+                    case Qt.Key_P:
+                        appList.moveCurrentIndexLeft();
+                        break;
+                    case Qt.Key_O:
+                        Quickshell.execDetached(["uwsm", "app", "--", `${appList.currentItem.modelData.id}.desktop`]);
+                        GlobalState.launcher = false;
+                        break;
+                    case Qt.Key_Semicolon:
+                        GlobalState.launcher = false;
+                        break;
+                    case Qt.Key_C:
+                        GlobalState.launcher = false;
+                        break;
+                    }
+                } else {
+                    switch (event.key) {
+                    case Qt.Key_Escape:
+                        GlobalState.launcher = false;
+                        break;
+                    case Qt.Key_Tab:
+                        appList.moveCurrentIndexRight();
+                        break;
+                    case Qt.Key_Backtab:
+                        appList.moveCurrentIndexLeft();
+                        break;
+                    case Qt.Key_Return:
+                        Quickshell.execDetached(["uwsm", "app", "--", `${appList.currentItem.modelData.id}.desktop`]);
+                        GlobalState.launcher = false;
+                        break;
+                    }
                 }
             }
         }
