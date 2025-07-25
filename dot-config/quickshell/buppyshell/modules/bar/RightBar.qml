@@ -1,3 +1,5 @@
+pragma ComponentBehavior: Bound
+
 import QtQuick
 import QtQuick.Layouts
 import qs.modules.bar
@@ -21,6 +23,7 @@ Rectangle {
             Network {}
             Player {}
             Loader {
+                id: loader
                 active: rightRect.enableTray
                 sourceComponent: tray
             }
@@ -28,6 +31,8 @@ Rectangle {
     }
     Component {
         id: tray
-        Tray {}
+        Tray {
+            relativeY: loader.y
+        }
     }
 }

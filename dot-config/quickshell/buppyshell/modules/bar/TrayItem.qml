@@ -24,7 +24,7 @@ Block {
             menu: trayItem.modelData.menu
             anchor.window: rightBar
             anchor.rect.x: Theme.radius.normal
-            anchor.rect.y: trayRoot.y + trayItem.y
+            anchor.rect.y: trayRoot.relativeY + trayItem.y
             anchor.edges: Edges.Right
             anchor.gravity: Edges.Left | Edges.Bottom
         }
