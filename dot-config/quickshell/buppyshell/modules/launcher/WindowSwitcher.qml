@@ -67,6 +67,12 @@ Item {
                     case Qt.Key_Backtab:
                         windowList.decrementCurrentIndex();
                         break;
+                    case Qt.Key_Down:
+                        windowList.incrementCurrentIndex();
+                        break;
+                    case Qt.Key_Up:
+                        windowList.decrementCurrentIndex();
+                        break;
                     case Qt.Key_Delete:
                         windowList.currentItem.modelData.close();
                         break;
@@ -100,14 +106,6 @@ Item {
         highlightResizeDuration: 0
         height: rows * (Theme.iconSize.large + Theme.margin.medium)
         width: parent.width
-        displaced: Transition {
-            NumberAnimation {
-                property: "y"
-                duration: Theme.animation.elementMoveFast.duration
-                easing.type: Theme.animation.elementMoveFast.type
-                easing.bezierCurve: Theme.animation.elementMoveFast.bezierCurve
-            }
-        }
         delegate: WrapperMouseArea {
             id: windowDelegate
             required property Toplevel modelData

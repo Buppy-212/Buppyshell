@@ -74,6 +74,18 @@ Item {
                     case Qt.Key_Backtab:
                         appList.moveCurrentIndexLeft();
                         break;
+                    case Qt.Key_Down:
+                        appList.moveCurrentIndexDown();
+                        break;
+                    case Qt.Key_Up:
+                        appList.moveCurrentIndexUp();
+                        break;
+                    case Qt.Key_Right:
+                        appList.moveCurrentIndexRight();
+                        break;
+                    case Qt.Key_Left:
+                        appList.moveCurrentIndexLeft();
+                        break;
                     case Qt.Key_Return:
                         Quickshell.execDetached(["uwsm", "app", "--", `${appList.currentItem.modelData.id}.desktop`]);
                         GlobalState.launcher = false;
@@ -96,7 +108,6 @@ Item {
             radius: Theme.radius.normal
         }
         anchors.centerIn: parent
-        keyNavigationWraps: true
         highlightFollowsCurrentItem: true
         highlightMoveDuration: 0
         height: rows * cellHeight
