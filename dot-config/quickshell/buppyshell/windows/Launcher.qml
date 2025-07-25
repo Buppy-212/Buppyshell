@@ -1,8 +1,8 @@
 import Quickshell
 import QtQuick
 import Quickshell.Wayland
-import "../services"
-import "../modules/launcher"
+import qs.services
+import qs.modules.launcher
 
 Scope {
     LazyLoader {
@@ -25,7 +25,7 @@ Scope {
                 bottom: true
                 left: true
             }
-            Windows {
+            WindowSwitcher {
                 visible: GlobalState.launcherModule == GlobalState.LauncherModule.Windows
             }
             Logout {
