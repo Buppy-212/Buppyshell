@@ -12,8 +12,19 @@ Rectangle {
     implicitWidth: logoutList.count * (Theme.iconSize.large + Theme.margin.medium) + Theme.margin.medium
     implicitHeight: Theme.iconSize.large + Theme.height.block + Theme.margin.large
     color: Theme.color.bg
+    focus: visible
     Keys.onPressed: event => {
         switch (event.key) {
+        case Qt.Key_Return:
+            GlobalState.overlay = false;
+            Hyprland.dispatch(logoutList.currentItem.command);
+            break;
+        case Qt.Key_Tab:
+            logoutList.incrementCurrentIndex();
+            break;
+        case Qt.Key_Backtab:
+            logoutList.decrementCurrentIndex();
+            break;
         case Qt.Key_Escape:
             GlobalState.overlay = false;
             break;
@@ -48,43 +59,45 @@ Rectangle {
         spacing: Theme.margin.medium
         anchors.fill: parent
         anchors.margins: Theme.margin.medium
-        focus: visible
+        keyNavigationWraps: true
+        highlightFollowsCurrentItem: true
+        highlightMoveDuration: 0
         model: [
             {
                 icon: "power_settings_new",
                 color: Theme.color.red,
                 command: "exec systemctl poweroff",
-                shortcut: "s"
+                text: `<font color=${Theme.color.red}>S</font>hutdown`
             },
             {
                 icon: "restart_alt",
                 color: Theme.color.orange,
                 command: "exec systemctl reboot",
-                shortcut: "r"
+                text: `<font color=${Theme.color.orange}>R</font>eboot`
             },
             {
                 icon: "logout",
                 color: Theme.color.green,
                 command: "exec uwsm stop",
-                shortcut: "o"
+                text: `L<font color=${Theme.color.green}>o</font>gout`
             },
             {
                 icon: "lock",
                 color: Theme.color.cyan,
                 command: "global buppyshell:lock",
-                shortcut: "l"
+                text: `<font color=${Theme.color.cyan}>L</font>ock`
             },
             {
                 icon: "pause_circle",
                 color: Theme.color.blue,
                 command: "exec systemctl suspend",
-                shortcut: "u"
+                text: `S<font color=${Theme.color.blue}>u</font>spend`
             },
             {
                 icon: "mode_standby",
                 color: Theme.color.magenta,
                 command: "exec systemctl hibernate",
-                shortcut: "h"
+                text: `<font color=${Theme.color.magenta}>H</font>ibernate`
             },
         ]
         delegate: WrapperMouseArea {
@@ -92,17 +105,13 @@ Rectangle {
             required property string icon
             required property string color
             required property string command
-            required property string shortcut
+            required property string text
+            required property int index
             acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
             cursorShape: Qt.PointingHandCursor
             hoverEnabled: true
-            focusPolicy: Qt.TabFocus
-            onEntered: focus = true
+            onEntered: logoutList.currentIndex = logoutDelegate.index
             onClicked: {
-                GlobalState.overlay = false;
-                Hyprland.dispatch(command);
-            }
-            Keys.onReturnPressed: {
                 GlobalState.overlay = false;
                 Hyprland.dispatch(command);
             }
@@ -114,7 +123,7 @@ Rectangle {
                     implicitWidth: parent.width
                     implicitHeight: implicitWidth
                     radius: Theme.radius.normal
-                    color: logoutDelegate.focus ? Theme.color.grey : "transparent"
+                    color: logoutDelegate.ListView.isCurrentItem ? Theme.color.grey : "transparent"
                     Text {
                         text: logoutDelegate.icon
                         font.family: Theme.font.family.material
@@ -125,7 +134,8 @@ Rectangle {
                     }
                 }
                 Text {
-                    text: logoutDelegate.shortcut
+                    text: logoutDelegate.text
+                    textFormat: Text.MarkdownText
                     width: parent.width
                     color: Theme.color.fg
                     font {

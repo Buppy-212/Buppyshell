@@ -11,13 +11,13 @@ ClippingRectangle {
     anchors.centerIn: parent
     radius: Theme.radius.normal
     implicitWidth: {
-      if (windowList.count === 0) {
-        return Theme.iconSize.large + Theme.margin.large
-      }
-      if (windowList.count * (Theme.iconSize.large + Theme.margin.medium) + Theme.margin.medium < Screen.width) {
-        return windowList.count * (Theme.iconSize.large + Theme.margin.medium) + Theme.margin.medium
-      }
-      return Screen.width
+        if (windowList.count === 0) {
+            return Theme.iconSize.large + Theme.margin.large;
+        }
+        if (windowList.count * (Theme.iconSize.large + Theme.margin.medium) + Theme.margin.medium < Screen.width) {
+            return windowList.count * (Theme.iconSize.large + Theme.margin.medium) + Theme.margin.medium;
+        }
+        return Screen.width;
     }
     implicitHeight: Theme.iconSize.large + Theme.height.block + 36 + 4 * Theme.margin.medium
     color: Theme.color.bg
@@ -32,36 +32,36 @@ ClippingRectangle {
             implicitWidth: parent.width
             color: Theme.color.grey
             TextInput {
-              id: input
-              onVisibleChanged: text = ""
-              anchors.fill: parent
-              verticalAlignment: Text.AlignVCenter
-              leftPadding: Theme.margin.large
-              rightPadding: Theme.margin.large
-              focus: visible
-              color: Theme.color.fg
-              font.pointSize: Theme.font.size.normal
-              font.family: Theme.font.family.mono
-              font.bold: true
-              Keys.onPressed: event => {
-                switch (event.key) {
-                  case Qt.Key_Tab :
-                  windowList.incrementCurrentIndex()
-                  break;
-                  case Qt.Key_Backtab :
-                  windowList.decrementCurrentIndex()
-                  break;
-                  case Qt.Key_Delete:
-                  modelData.close();
-                  break;
-                  case Qt.Key_Return:
-                  Hyprland.dispatch(`focuswindow address:0x${windowList.currentItem.modelData.HyprlandToplevel.handle.address}`);
-                  GlobalState.overlay = false;
-                  break;
+                id: input
+                onVisibleChanged: text = ""
+                anchors.fill: parent
+                verticalAlignment: Text.AlignVCenter
+                leftPadding: Theme.margin.large
+                rightPadding: Theme.margin.large
+                focus: visible
+                color: Theme.color.fg
+                font.pointSize: Theme.font.size.normal
+                font.family: Theme.font.family.mono
+                font.bold: true
+                Keys.onPressed: event => {
+                    switch (event.key) {
+                    case Qt.Key_Tab:
+                        windowList.incrementCurrentIndex();
+                        break;
+                    case Qt.Key_Backtab:
+                        windowList.decrementCurrentIndex();
+                        break;
+                    case Qt.Key_Delete:
+                        windowList.currentItem.modelData.close();
+                        break;
+                    case Qt.Key_Return:
+                        Hyprland.dispatch(`focuswindow address:0x${windowList.currentItem.modelData.HyprlandToplevel.handle.address}`);
+                        GlobalState.overlay = false;
+                        break;
+                    }
                 }
-              }
             }
-          }
+        }
         ListView {
             id: windowList
             model: Windows.query(input.text)
@@ -140,6 +140,7 @@ ClippingRectangle {
             }
             elide: Text.ElideRight
             horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
         }
     }
 }
