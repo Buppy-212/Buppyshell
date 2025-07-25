@@ -14,7 +14,7 @@ LazyLoader {
         visible: GlobalState.launcher
         WlrLayershell.layer: WlrLayer.Top
         WlrLayershell.namespace: "buppyshell:launcher"
-        WlrLayershell.keyboardFocus: WlrKeyboardFocus.OnDemand
+        WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
         exclusionMode: ExclusionMode.Ignore
         color: Theme.color.black
         MouseArea {
