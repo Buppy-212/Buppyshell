@@ -16,7 +16,8 @@ Singleton {
 
     enum LauncherModule {
         Windows,
-        Logout
+        Logout,
+        Apps
     }
 
     property int sidebarModule: GlobalState.SidebarModule.Notifications
@@ -69,6 +70,15 @@ Singleton {
         onPressed: {
             root.overlay = !root.overlay;
             root.launcherModule = GlobalState.LauncherModule.Logout;
+        }
+    }
+    GlobalShortcut {
+        name: "apps"
+        description: "Toggle application launcher"
+        appid: "buppyshell"
+        onPressed: {
+            root.overlay = !root.overlay;
+            root.launcherModule = GlobalState.LauncherModule.Apps;
         }
     }
     GlobalShortcut {

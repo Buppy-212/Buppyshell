@@ -7,7 +7,7 @@ import Quickshell.Wayland
 import QtQuick
 import qs.services
 
-ClippingRectangle {
+Rectangle {
     anchors.centerIn: parent
     radius: Theme.radius.normal
     implicitWidth: {
@@ -26,7 +26,7 @@ ClippingRectangle {
         anchors.fill: parent
         anchors.margins: Theme.margin.medium
         spacing: Theme.margin.medium
-        ClippingRectangle {
+        Rectangle {
             radius: Theme.radius.large
             implicitHeight: 36
             implicitWidth: parent.width
@@ -64,6 +64,7 @@ ClippingRectangle {
         }
         ListView {
             id: windowList
+            clip: true
             model: Windows.query(input.text)
             orientation: ListView.Horizontal
             spacing: Theme.margin.medium
@@ -108,21 +109,15 @@ ClippingRectangle {
                     }
                 }
                 onEntered: windowList.currentIndex = windowDelegate.index
-                Rectangle {
-                    implicitHeight: Theme.iconSize.large
-                    implicitWidth: implicitHeight
-                    color: windowDelegate.ListView.isCurrentItem ? Theme.color.grey : "transparent"
-                    radius: Theme.radius.normal
-                    IconImage {
-                        implicitSize: Theme.iconSize.large
-                        source: {
-                            if (windowDelegate.modelData?.appId.startsWith("steam_app")) {
-                                return Quickshell.iconPath("input-gaming");
-                            } else if (windowDelegate.modelData?.appId == "") {
-                                return (Quickshell.iconPath("image-loading"));
-                            } else {
-                                return Quickshell.iconPath(windowDelegate.modelData?.appId.toLowerCase() ?? "image-loading", windowDelegate.modelData?.appId);
-                            }
+                IconImage {
+                    implicitSize: Theme.iconSize.large
+                    source: {
+                        if (windowDelegate.modelData?.appId.startsWith("steam_app")) {
+                            return Quickshell.iconPath("input-gaming");
+                        } else if (windowDelegate.modelData?.appId == "") {
+                            return (Quickshell.iconPath("image-loading"));
+                        } else {
+                            return Quickshell.iconPath(windowDelegate.modelData?.appId.toLowerCase() ?? "image-loading", windowDelegate.modelData?.appId);
                         }
                     }
                 }

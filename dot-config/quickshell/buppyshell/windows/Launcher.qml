@@ -11,9 +11,8 @@ Scope {
             visible: GlobalState.overlay
             WlrLayershell.layer: WlrLayer.Overlay
             WlrLayershell.namespace: "buppyshell:launcher"
-            WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
-            exclusionMode: ExclusionMode.Ignore
-            color: "transparent"
+            WlrLayershell.keyboardFocus: WlrKeyboardFocus.OnDemand
+            color: Theme.color.bgTranslucent
             MouseArea {
                 anchors.fill: parent
                 acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
@@ -30,6 +29,9 @@ Scope {
             }
             Logout {
                 visible: GlobalState.launcherModule == GlobalState.LauncherModule.Logout
+            }
+            AppLauncher {
+                visible: GlobalState.launcherModule == GlobalState.LauncherModule.Apps
             }
         }
     }
