@@ -16,7 +16,7 @@ Rectangle {
     Keys.onPressed: event => {
         switch (event.key) {
         case Qt.Key_Return:
-            GlobalState.overlay = false;
+            GlobalState.launcher = false;
             Hyprland.dispatch(logoutList.currentItem.command);
             break;
         case Qt.Key_Tab:
@@ -26,30 +26,30 @@ Rectangle {
             logoutList.decrementCurrentIndex();
             break;
         case Qt.Key_Escape:
-            GlobalState.overlay = false;
+            GlobalState.launcher = false;
             break;
         case Qt.Key_S:
-            GlobalState.overlay = false;
+            GlobalState.launcher = false;
             Quickshell.execDetached(["systemctl", "poweroff"]);
             break;
         case Qt.Key_R:
-            GlobalState.overlay = false;
+            GlobalState.launcher = false;
             Quickshell.execDetached(["systemctl", "reboot"]);
             break;
         case Qt.Key_O:
-            GlobalState.overlay = false;
+            GlobalState.launcher = false;
             Quickshell.execDetached(["uwsm", "stop"]);
             break;
         case Qt.Key_L:
-            GlobalState.overlay = false;
+            GlobalState.launcher = false;
             GlobalState.locked = true;
             break;
         case Qt.Key_U:
-            GlobalState.overlay = false;
+            GlobalState.launcher = false;
             Quickshell.execDetached(["systemctl", "suspend"]);
             break;
         case Qt.Key_H:
-            GlobalState.overlay = false;
+            GlobalState.launcher = false;
             Quickshell.execDetached(["systemctl", "hibernate"]);
         }
     }
@@ -112,7 +112,7 @@ Rectangle {
             hoverEnabled: true
             onEntered: logoutList.currentIndex = logoutDelegate.index
             onClicked: {
-                GlobalState.overlay = false;
+                GlobalState.launcher = false;
                 Hyprland.dispatch(command);
             }
             Column {

@@ -24,7 +24,7 @@ Singleton {
     property bool player: false
     property bool bluetooth: false
     property int launcherModule: GlobalState.LauncherModule.Windows
-    property bool overlay: false
+    property bool launcher: false
     property bool sidebar: false
     property bool locked: false
     property bool bar: true
@@ -59,7 +59,7 @@ Singleton {
         description: "Toggle window switcher"
         appid: "buppyshell"
         onPressed: {
-            root.overlay = !root.overlay;
+            root.launcherModule == GlobalState.LauncherModule.Windows ? root.launcher = !root.launcher : root.launcher = true;
             root.launcherModule = GlobalState.LauncherModule.Windows;
         }
     }
@@ -68,7 +68,7 @@ Singleton {
         description: "Toggle logout menu"
         appid: "buppyshell"
         onPressed: {
-            root.overlay = !root.overlay;
+            root.launcherModule == GlobalState.LauncherModule.Logout ? root.launcher = !root.launcher : root.launcher = true;
             root.launcherModule = GlobalState.LauncherModule.Logout;
         }
     }
@@ -77,7 +77,7 @@ Singleton {
         description: "Toggle application launcher"
         appid: "buppyshell"
         onPressed: {
-            root.overlay = !root.overlay;
+            root.launcherModule == GlobalState.LauncherModule.Apps ? root.launcher = !root.launcher : root.launcher = true;
             root.launcherModule = GlobalState.LauncherModule.Apps;
         }
     }

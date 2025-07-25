@@ -26,43 +26,8 @@ Variants {
             implicitWidth: Theme.width.block + Theme.radius.normalAdjusted
             exclusiveZone: Theme.width.block
             color: "transparent"
-            Rectangle {
+            LeftBar {
                 id: leftRect
-                color: Theme.color.black
-                implicitHeight: parent.height
-                implicitWidth: Theme.width.block
-                ColumnLayout {
-                    anchors.fill: parent
-                    ColumnLayout {
-                        spacing: Theme.margin.tiny
-                        Layout.alignment: Qt.AlignTop
-                        Layout.fillHeight: true
-                        Layout.fillWidth: true
-                        Os {
-                            Layout.alignment: Qt.AlignTop
-                        }
-                        Workspaces {
-                            Layout.fillHeight: true
-                            Layout.fillWidth: true
-                        }
-                    }
-                    Rectangle {
-                        color: Theme.color.bg
-                        Layout.alignment: Qt.AlignBottom
-                        Layout.fillWidth: true
-                        Layout.preferredHeight: column.height
-                        Column {
-                            id: column
-                            spacing: Theme.margin.tiny
-                            Inhibitor {}
-                            Battery {}
-                            Light {}
-                            Update {}
-                            Clock {}
-                            Power {}
-                        }
-                    }
-                }
             }
             RoundCorner {
                 anchors.bottom: parent.bottom
@@ -95,25 +60,8 @@ Variants {
             implicitWidth: Theme.width.block + Theme.radius.normalAdjusted
             exclusiveZone: Theme.width.block
             color: "transparent"
-            Rectangle {
+            RightBar {
                 id: rightRect
-                color: Theme.color.black
-                implicitHeight: parent.height
-                implicitWidth: Theme.width.block
-                anchors.right: parent.right
-                ColumnLayout {
-                    anchors.fill: parent
-                    Column {
-                        spacing: Theme.margin.tiny
-                        Layout.alignment: Qt.AlignTop
-                        Bell {}
-                        Volume {}
-                        Bluetooth {}
-                        Network {}
-                        Player {}
-                        Tray {}
-                    }
-                }
             }
             RoundCorner {
                 anchors.bottom: parent.bottom

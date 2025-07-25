@@ -1,6 +1,7 @@
 pragma ComponentBehavior: Bound
 
 import Quickshell
+import Quickshell.Wayland
 import QtQuick
 import QtQuick.Layouts
 import qs.modules.sidebar
@@ -17,6 +18,8 @@ PanelWindow {
         top: Theme.margin.tiny
         bottom: Theme.margin.tiny
     }
+    WlrLayershell.layer: WlrLayer.Overlay
+    WlrLayershell.namespace: "buppyshell:sidebar"
     exclusiveZone: 0
     color: "transparent"
     implicitWidth: Theme.width.sidebar + Theme.margin.tiny

@@ -21,7 +21,7 @@ Rectangle {
     }
     implicitHeight: Theme.iconSize.large + Theme.height.block + 36 + 4 * Theme.margin.medium
     color: Theme.color.bg
-    Keys.onEscapePressed: GlobalState.overlay = false
+    Keys.onEscapePressed: GlobalState.launcher = false
     Column {
         anchors.fill: parent
         anchors.margins: Theme.margin.medium
@@ -56,7 +56,7 @@ Rectangle {
                         break;
                     case Qt.Key_Return:
                         Hyprland.dispatch(`focuswindow address:0x${windowList.currentItem.modelData.HyprlandToplevel.handle.address}`);
-                        GlobalState.overlay = false;
+                        GlobalState.launcher = false;
                         break;
                     }
                 }
@@ -97,14 +97,14 @@ Rectangle {
                     switch (mouse.button) {
                     case Qt.LeftButton:
                         Hyprland.dispatch(`focuswindow address:0x${modelData.HyprlandToplevel.handle.address}`);
-                        GlobalState.overlay = false;
+                        GlobalState.launcher = false;
                         break;
                     case Qt.MiddleButton:
                         modelData.close();
                         break;
                     case Qt.RightButton:
                         Hyprland.dispatch(`movetoworkspace ${Hyprland.focusedWorkspace.id}, address:0x${modelData.HyprlandToplevel.handle.address}`);
-                        GlobalState.overlay = false;
+                        GlobalState.launcher = false;
                         break;
                     }
                 }

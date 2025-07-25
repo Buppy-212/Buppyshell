@@ -15,7 +15,7 @@ Block {
             if (mouse.button == Qt.MiddleButton) {
                 Quickshell.execDetached(["systemctl", "poweroff"]);
             } else {
-                GlobalState.overlay = !GlobalState.overlay;
+                GlobalState.launcher = !GlobalState.launcher;
                 GlobalState.launcherModule = GlobalState.LauncherModule.Logout;
             }
         }

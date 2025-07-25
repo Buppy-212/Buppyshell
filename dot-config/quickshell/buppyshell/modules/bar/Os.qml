@@ -13,6 +13,9 @@ Block {
     }
     MouseBlock {
         id: mouse
-        onClicked: Quickshell.execDetached(["uwsm", "app", "--", "rofi-wrapper", "drun", "menu"])
+        onClicked: {
+            GlobalState.launcherModule == GlobalState.LauncherModule.Apps ? GlobalState.launcher = !GlobalState.launcher : GlobalState.launcher = true
+            GlobalState.launcherModule = GlobalState.LauncherModule.Apps
+        }
     }
 }
