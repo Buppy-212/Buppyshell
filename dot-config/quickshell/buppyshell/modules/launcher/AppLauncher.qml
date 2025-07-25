@@ -5,16 +5,14 @@ import Quickshell.Widgets
 import QtQuick
 import qs.services
 
-Column {
-    id: column
+Item {
     readonly property int cols: (Screen.width * 0.75 - Theme.margin.large) / appList.cellWidth
     width: cols * appList.cellWidth
     height: parent.height
-    spacing: Theme.margin.large
     anchors.horizontalCenter: parent.horizontalCenter
     Keys.onEscapePressed: GlobalState.launcher = false
     Rectangle {
-        implicitWidth: 600
+        implicitWidth: Screen.width / 3
         implicitHeight: Theme.height.doubleBlock
         radius: Theme.radius.large
         color: Theme.color.bgalt
@@ -26,6 +24,7 @@ Column {
             onVisibleChanged: text = ""
             anchors.fill: parent
             verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
             leftPadding: Theme.margin.large
             rightPadding: Theme.margin.large
             focus: visible
@@ -56,7 +55,7 @@ Column {
         clip: true
         cellHeight: Theme.iconSize.large + Theme.height.block * 4
         cellWidth: Theme.iconSize.large * 1.5
-        snapMode: ListView.SnapToItem
+        snapMode: GridView.SnapToRow
         highlight: Rectangle {
             color: Theme.color.bgalt
             radius: Theme.radius.normal

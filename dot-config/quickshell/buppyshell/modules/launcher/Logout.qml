@@ -6,12 +6,10 @@ import Quickshell.Hyprland
 import QtQuick
 import qs.services
 
-Rectangle {
+Item {
     anchors.centerIn: parent
-    radius: Theme.radius.normal
-    implicitWidth: logoutList.count * (Theme.iconSize.large + Theme.margin.medium) + Theme.margin.medium
+    implicitWidth: logoutList.count * (Theme.iconSize.large + Theme.margin.large) + Theme.margin.medium
     implicitHeight: Theme.iconSize.large + Theme.height.block + Theme.margin.large
-    color: Theme.color.bg
     focus: visible
     Keys.onPressed: event => {
         switch (event.key) {
@@ -56,10 +54,14 @@ Rectangle {
     ListView {
         id: logoutList
         orientation: ListView.Horizontal
-        spacing: Theme.margin.medium
+        spacing: Theme.margin.large
         anchors.fill: parent
         anchors.margins: Theme.margin.medium
         keyNavigationWraps: true
+        highlight: Rectangle {
+            color: Theme.color.bgalt
+            radius: Theme.radius.normal
+        }
         highlightFollowsCurrentItem: true
         highlightMoveDuration: 0
         model: [
@@ -118,20 +120,15 @@ Rectangle {
             Column {
                 width: Theme.iconSize.large
                 height: width + Theme.height.block
-                spacing: Theme.margin.tiny
-                Rectangle {
-                    implicitWidth: parent.width
-                    implicitHeight: implicitWidth
-                    radius: Theme.radius.normal
-                    color: logoutDelegate.ListView.isCurrentItem ? Theme.color.grey : "transparent"
-                    Text {
-                        text: logoutDelegate.icon
-                        font.family: Theme.font.family.material
-                        font.pixelSize: height
-                        color: logoutDelegate.color
-                        height: parent.height
-                        verticalAlignment: Text.AlignVCenter
-                    }
+                spacing: Theme.margin.medium
+                Text {
+                    text: logoutDelegate.icon
+                    font.family: Theme.font.family.material
+                    font.pixelSize: height
+                    color: logoutDelegate.color
+                    width: parent.width
+                    height: width
+                    verticalAlignment: Text.AlignVCenter
                 }
                 Text {
                     text: logoutDelegate.text

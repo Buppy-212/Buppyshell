@@ -63,7 +63,9 @@ LazyLoader {
             size: Theme.radius.normalAdjusted
             corner: cornerEnum.topLeft
         }
-        RightBar {}
+        RightBar {
+            enableTray: false
+        }
         RoundCorner {
             anchors.bottom: parent.bottom
             anchors.right: parent.right

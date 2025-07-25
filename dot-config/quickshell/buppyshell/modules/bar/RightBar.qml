@@ -5,6 +5,7 @@ import qs.services
 
 Rectangle {
     id: rightRect
+    property bool enableTray: true
     color: Theme.color.black
     implicitHeight: parent.height
     implicitWidth: Theme.width.block
@@ -19,7 +20,14 @@ Rectangle {
             Bluetooth {}
             Network {}
             Player {}
-            Tray {}
+            Loader {
+                active: rightRect.enableTray
+                sourceComponent: tray
+            }
         }
+    }
+    Component {
+        id: tray
+        Tray {}
     }
 }

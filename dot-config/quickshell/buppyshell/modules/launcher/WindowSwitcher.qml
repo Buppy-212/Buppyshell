@@ -7,108 +7,106 @@ import Quickshell.Wayland
 import QtQuick
 import qs.services
 
-Rectangle {
-    anchors.centerIn: parent
-    radius: Theme.radius.normal
-    implicitWidth: {
-        if (windowList.count === 0) {
-            return Theme.iconSize.large + Theme.margin.large;
-        }
-        if (windowList.count * (Theme.iconSize.large + Theme.margin.medium) + Theme.margin.medium < Screen.width) {
-            return windowList.count * (Theme.iconSize.large + Theme.margin.medium) + Theme.margin.medium;
-        }
-        return Screen.width;
-    }
-    implicitHeight: Theme.iconSize.large + Theme.height.block + 36 + 4 * Theme.margin.medium
-    color: Theme.color.bg
+Item {
+    readonly property int cols: (Screen.width * 0.75 - Theme.margin.large) / (Theme.iconSize.large * 1.5)
+    width: cols * Theme.iconSize.large * 1.5
+    height: parent.height
+    anchors.horizontalCenter: parent.horizontalCenter
     Keys.onEscapePressed: GlobalState.launcher = false
-    Column {
-        anchors.fill: parent
-        anchors.margins: Theme.margin.medium
-        spacing: Theme.margin.medium
-        Rectangle {
-            radius: Theme.radius.large
-            implicitHeight: 36
-            implicitWidth: parent.width
-            color: Theme.color.grey
-            TextInput {
-                id: input
-                onVisibleChanged: text = ""
-                anchors.fill: parent
-                verticalAlignment: Text.AlignVCenter
-                leftPadding: Theme.margin.large
-                rightPadding: Theme.margin.large
-                focus: visible
-                color: Theme.color.fg
-                font.pointSize: Theme.font.size.normal
-                font.family: Theme.font.family.mono
-                font.bold: true
-                Keys.onPressed: event => {
-                    switch (event.key) {
-                    case Qt.Key_Tab:
-                        windowList.incrementCurrentIndex();
-                        break;
-                    case Qt.Key_Backtab:
-                        windowList.decrementCurrentIndex();
-                        break;
-                    case Qt.Key_Delete:
-                        windowList.currentItem.modelData.close();
-                        break;
-                    case Qt.Key_Return:
-                        Hyprland.dispatch(`focuswindow address:0x${windowList.currentItem.modelData.HyprlandToplevel.handle.address}`);
-                        GlobalState.launcher = false;
-                        break;
-                    }
+    Rectangle {
+        implicitWidth: Screen.width / 3
+        implicitHeight: Theme.height.doubleBlock
+        radius: Theme.radius.large
+        color: Theme.color.bgalt
+        anchors.horizontalCenter: parent.horizontalCenter
+        y: Theme.height.block
+        TextInput {
+            id: input
+            clip: true
+            onVisibleChanged: text = ""
+            anchors.fill: parent
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            leftPadding: Theme.margin.large
+            rightPadding: Theme.margin.large
+            focus: visible
+            color: Theme.color.fg
+            font.pointSize: Theme.font.size.normal
+            font.family: Theme.font.family.mono
+            font.bold: true
+            Keys.onPressed: event => {
+                switch (event.key) {
+                case Qt.Key_Tab:
+                    windowList.incrementCurrentIndex();
+                    break;
+                case Qt.Key_Backtab:
+                    windowList.decrementCurrentIndex();
+                    break;
+                case Qt.Key_Delete:
+                    windowList.currentItem.modelData.close();
+                    break;
+                case Qt.Key_Return:
+                    Hyprland.dispatch(`focuswindow address:0x${windowList.currentItem.modelData.HyprlandToplevel.handle.address}`);
+                    GlobalState.launcher = false;
+                    break;
                 }
             }
         }
-        ListView {
-            id: windowList
-            clip: true
-            model: Windows.query(input.text)
-            orientation: ListView.Horizontal
-            spacing: Theme.margin.medium
-            snapMode: ListView.SnapToItem
-            highlight: Rectangle {
-                color: Theme.color.grey
-                radius: Theme.radius.normal
+    }
+    ListView {
+        id: windowList
+        readonly property int rows: (Screen.height * 0.9) / (Theme.iconSize.large + Theme.margin.medium * 3)
+        clip: true
+        model: Windows.query(input.text)
+        spacing: Theme.margin.medium
+        snapMode: ListView.SnapToItem
+        highlight: Rectangle {
+            color: Theme.color.bgalt
+            radius: Theme.radius.normal
+        }
+        anchors.centerIn: parent
+        keyNavigationWraps: true
+        highlightFollowsCurrentItem: true
+        highlightMoveDuration: 0
+        highlightResizeDuration: 0
+        height: rows * (Theme.iconSize.large + Theme.margin.medium * 3)
+        width: parent.width
+        displaced: Transition {
+            NumberAnimation {
+                property: "y"
+                duration: Theme.animation.elementMoveFast.duration
+                easing.type: Theme.animation.elementMoveFast.type
+                easing.bezierCurve: Theme.animation.elementMoveFast.bezierCurve
             }
-            keyNavigationWraps: true
-            highlightFollowsCurrentItem: true
-            highlightMoveDuration: 0
-            width: parent.width
-            height: Theme.iconSize.large
-            displaced: Transition {
-                NumberAnimation {
-                    property: "x"
-                    duration: Theme.animation.elementMoveFast.duration
-                    easing.type: Theme.animation.elementMoveFast.type
-                    easing.bezierCurve: Theme.animation.elementMoveFast.bezierCurve
+        }
+        delegate: WrapperMouseArea {
+            id: windowDelegate
+            required property Toplevel modelData
+            required property int index
+            acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
+            cursorShape: Qt.PointingHandCursor
+            hoverEnabled: true
+            onClicked: mouse => {
+                switch (mouse.button) {
+                case Qt.LeftButton:
+                    Hyprland.dispatch(`focuswindow address:0x${modelData.HyprlandToplevel.handle.address}`);
+                    GlobalState.launcher = false;
+                    break;
+                case Qt.MiddleButton:
+                    modelData.close();
+                    break;
+                case Qt.RightButton:
+                    Hyprland.dispatch(`movetoworkspace ${Hyprland.focusedWorkspace.id}, address:0x${modelData.HyprlandToplevel.handle.address}`);
+                    GlobalState.launcher = false;
+                    break;
                 }
             }
-            delegate: WrapperMouseArea {
-                id: windowDelegate
-                required property Toplevel modelData
-                required property int index
-                acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
-                cursorShape: Qt.PointingHandCursor
-                hoverEnabled: true
-                onClicked: mouse => {
-                    switch (mouse.button) {
-                    case Qt.LeftButton:
-                        Hyprland.dispatch(`focuswindow address:0x${modelData.HyprlandToplevel.handle.address}`);
-                        GlobalState.launcher = false;
-                        break;
-                    case Qt.MiddleButton:
-                        modelData.close();
-                        break;
-                    case Qt.RightButton:
-                        Hyprland.dispatch(`movetoworkspace ${Hyprland.focusedWorkspace.id}, address:0x${modelData.HyprlandToplevel.handle.address}`);
-                        GlobalState.launcher = false;
-                        break;
-                    }
-                }
-                onEntered: windowList.currentIndex = windowDelegate.index
+            onEntered: windowList.currentIndex = windowDelegate.index
+            Row {
+                height: Theme.iconSize.large
+                width: windowList.width
+                anchors.fill: parent
+                spacing: Theme.margin.large
                 IconImage {
                     implicitSize: Theme.iconSize.large
                     source: {
@@ -121,21 +119,20 @@ Rectangle {
                         }
                     }
                 }
+                Text {
+                    height: parent.height
+                    width: windowList.width - Theme.iconSize.large - Theme.margin.large
+                    text: windowDelegate.modelData?.title ?? ""
+                    color: Theme.color.fg
+                    font {
+                        family: Theme.font.family.mono
+                        pointSize: Theme.font.size.normal
+                        bold: true
+                    }
+                    elide: Text.ElideRight
+                    verticalAlignment: Text.AlignVCenter
+                }
             }
-        }
-        Text {
-            height: Theme.height.block
-            width: parent.width
-            text: windowList.currentItem?.modelData.title ?? ""
-            color: Theme.color.fg
-            font {
-                family: Theme.font.family.mono
-                pointSize: Theme.font.size.normal
-                bold: true
-            }
-            elide: Text.ElideRight
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
         }
     }
 }
