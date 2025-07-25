@@ -4,7 +4,7 @@ import Quickshell
 import Quickshell.Widgets
 import Quickshell.Hyprland
 import QtQuick
-import "../../services"
+import qs.services
 
 Rectangle {
     anchors.centerIn: parent

@@ -1,8 +1,8 @@
 import Quickshell.Services.Mpris
 import QtQuick
 import QtQuick.Controls
-import "../../services"
-import "../../widgets"
+import qs.services
+import qs.widgets
 
 Rectangle {
     id: playerWidget

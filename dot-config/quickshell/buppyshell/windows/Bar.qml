@@ -2,8 +2,8 @@ import Quickshell
 import Quickshell.Wayland
 import QtQuick
 import QtQuick.Layouts
-import "../services"
-import "../modules/bar"
+import qs.services
+import qs.modules.bar
 
 Variants {
     model: Quickshell.screens
@@ -47,20 +47,20 @@ Variants {
                         }
                     }
                     Rectangle {
-                      color: Theme.color.bg
-                      Layout.alignment: Qt.AlignBottom
-                      Layout.fillWidth: true
-                      Layout.preferredHeight: column.height
-                      Column {
-                        id: column
-                        spacing: Theme.margin.tiny
-                        Inhibitor {}
-                        Battery {}
-                        Light {}
-                        Update {}
-                        Clock {}
-                        Power {}
-                      }
+                        color: Theme.color.bg
+                        Layout.alignment: Qt.AlignBottom
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: column.height
+                        Column {
+                            id: column
+                            spacing: Theme.margin.tiny
+                            Inhibitor {}
+                            Battery {}
+                            Light {}
+                            Update {}
+                            Clock {}
+                            Power {}
+                        }
                     }
                 }
             }

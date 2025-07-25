@@ -3,8 +3,8 @@ pragma ComponentBehavior: Bound
 import Quickshell
 import Quickshell.Widgets
 import Quickshell.Services.SystemTray
-import "../../services"
-import "../../widgets"
+import qs.services
+import qs.widgets
 
 Block {
     id: trayItem

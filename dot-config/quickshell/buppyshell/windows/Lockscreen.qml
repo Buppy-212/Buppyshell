@@ -3,8 +3,8 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import Quickshell.Services.Pam
 import Quickshell.Wayland
-import "../services"
-import "../modules/background"
+import qs.services
+import qs.modules.background
 
 WlSessionLock {
     id: lock

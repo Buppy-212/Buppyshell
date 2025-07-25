@@ -4,8 +4,8 @@ import Quickshell.Bluetooth
 import Quickshell.Widgets
 import QtQuick
 import QtQuick.Layouts
-import "../../services"
-import "../../widgets"
+import qs.services
+import qs.widgets
 
 Rectangle {
     id: bluetoothWidget

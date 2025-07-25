@@ -5,7 +5,7 @@ import Quickshell.Services.Pipewire
 import Quickshell.Wayland
 import QtQuick
 import QtQuick.Controls
-import "../services"
+import qs.services
 
 Scope {
     id: sliderWidget

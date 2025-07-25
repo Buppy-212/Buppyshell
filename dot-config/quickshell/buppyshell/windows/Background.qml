@@ -1,8 +1,8 @@
 import Quickshell
 import QtQuick
 import Quickshell.Wayland
-import "../services"
-import "../modules/background"
+import qs.services
+import qs.modules.background
 
 Scope {
     Variants {

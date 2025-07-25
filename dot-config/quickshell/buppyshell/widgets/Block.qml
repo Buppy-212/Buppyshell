@@ -1,5 +1,5 @@
 import QtQuick
-import "../services"
+import qs.services
 
 Rectangle {
     property bool hovered: false

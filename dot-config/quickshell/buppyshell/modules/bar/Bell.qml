@@ -1,7 +1,7 @@
 import Quickshell.Hyprland
 import Quickshell.Services.Notifications
-import "../../services"
-import "../../widgets"
+import qs.services
+import qs.widgets
 
 Block {
     hovered: mouse.containsMouse

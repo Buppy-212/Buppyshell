@@ -1,6 +1,6 @@
 import Quickshell
-import "../../services"
-import "../../widgets"
+import qs.services
+import qs.widgets
 
 Block {
     id: block

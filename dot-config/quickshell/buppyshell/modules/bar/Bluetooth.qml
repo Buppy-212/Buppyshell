@@ -1,6 +1,6 @@
 import Quickshell.Bluetooth
-import "../../widgets"
-import "../../services"
+import qs.widgets
+import qs.services
 
 Block {
     hovered: mouse.containsMouse

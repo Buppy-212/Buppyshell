@@ -2,9 +2,9 @@ import QtQuick
 import Quickshell.Services.Notifications
 import Quickshell.Hyprland
 import Quickshell.Widgets
-import "../../services"
-import "../../widgets"
-import "../notifications"
+import qs.services
+import qs.widgets
+import qs.modules.notifications
 
 Rectangle {
     implicitWidth: parent.width

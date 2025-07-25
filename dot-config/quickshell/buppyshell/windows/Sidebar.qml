@@ -3,9 +3,9 @@ pragma ComponentBehavior: Bound
 import Quickshell
 import QtQuick
 import QtQuick.Layouts
-import "../modules/sidebar"
-import "../services"
-import "../widgets"
+import qs.modules.sidebar
+import qs.services
+import qs.widgets
 
 PanelWindow {
     anchors {

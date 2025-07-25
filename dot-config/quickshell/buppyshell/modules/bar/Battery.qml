@@ -1,7 +1,7 @@
 import Quickshell
 import Quickshell.Services.UPower
-import "../../services"
-import "../../widgets"
+import qs.services
+import qs.widgets
 
 Block {
     hovered: mouse.containsMouse

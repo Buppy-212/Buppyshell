@@ -2,8 +2,8 @@ import Quickshell.Services.Pipewire
 import Quickshell.Widgets
 import QtQuick
 import QtQuick.Controls
-import "../../services"
-import "../../widgets"
+import qs.services
+import qs.widgets
 
 Rectangle {
     color: Theme.color.bg

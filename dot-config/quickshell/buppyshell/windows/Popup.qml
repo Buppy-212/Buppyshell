@@ -5,8 +5,8 @@ import Quickshell.Services.Notifications
 import Quickshell.Hyprland
 import Quickshell.Wayland
 import QtQuick
-import "../services"
-import "../modules/notifications"
+import qs.services
+import qs.modules.notifications
 
 Scope {
     id: scope
