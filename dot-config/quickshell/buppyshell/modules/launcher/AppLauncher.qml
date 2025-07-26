@@ -106,7 +106,7 @@ Column {
         readonly property int rows: (Screen.height * 0.9) / appList.cellHeight
         model: Apps.query(input.text)
         clip: true
-        cellHeight: Theme.iconSize.large + Theme.height.block * 4
+        cellHeight: Theme.iconSize.large + Theme.height.block * 3 + Theme.margin.large
         cellWidth: Theme.iconSize.large * 1.5
         snapMode: GridView.SnapToRow
         highlight: Rectangle {
@@ -140,13 +140,16 @@ Column {
             Column {
                 height: appList.cellHeight
                 width: appList.cellWidth
+                topPadding: Theme.margin.medium
+                bottomPadding: Theme.margin.medium
                 IconImage {
                     x: Theme.iconSize.large / 4
+                    y: Theme.height.block
                     implicitSize: Theme.iconSize.large
                     source: Quickshell.iconPath(appDelegate.modelData.icon)
                 }
                 Text {
-                    height: Theme.height.block * 4
+                    height: Theme.height.block * 3
                     width: parent.width
                     padding: Theme.margin.tiny
                     text: modelData.name
