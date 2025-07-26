@@ -48,38 +48,6 @@ LazyLoader {
             color: Theme.color.bg
             opacity: 0.9
         }
-        LeftBar {}
-        RoundCorner {
-            anchors.bottom: parent.bottom
-            anchors.left: parent.left
-            anchors.leftMargin: Theme.width.block
-            size: Theme.radius.normalAdjusted
-            corner: cornerEnum.bottomLeft
-        }
-        RoundCorner {
-            anchors.top: parent.top
-            anchors.left: parent.left
-            anchors.leftMargin: Theme.width.block
-            size: Theme.radius.normalAdjusted
-            corner: cornerEnum.topLeft
-        }
-        RightBar {
-            enableTray: false
-        }
-        RoundCorner {
-            anchors.bottom: parent.bottom
-            anchors.right: parent.right
-            anchors.rightMargin: Theme.width.block
-            size: Theme.radius.normalAdjusted
-            corner: cornerEnum.bottomRight
-        }
-        RoundCorner {
-            anchors.top: parent.top
-            anchors.right: parent.right
-            anchors.rightMargin: Theme.width.block
-            size: Theme.radius.normalAdjusted
-            corner: cornerEnum.topRight
-        }
         WindowSwitcher {
             visible: GlobalState.launcherModule == GlobalState.LauncherModule.Windows
         }

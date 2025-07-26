@@ -4,7 +4,6 @@ import qs.services
 
 Item {
     id: trayRoot
-    required property int relativeY
     readonly property Repeater items: items
     clip: true
     visible: width > 0 && height > 0
