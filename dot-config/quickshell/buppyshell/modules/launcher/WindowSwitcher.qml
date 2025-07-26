@@ -7,12 +7,18 @@ import Quickshell.Wayland
 import QtQuick
 import qs.services
 
-Item {
+Column {
     readonly property int cols: (Screen.width * 0.75 - Theme.margin.large) / (Theme.iconSize.large * 1.5)
     width: cols * Theme.iconSize.large * 1.5
-    height: parent.height
-    anchors.horizontalCenter: parent.horizontalCenter
+    anchors{
+      top: parent.top
+      topMargin: Theme.height.block
+      bottom: parent.bottom
+      horizontalCenter: parent.horizontalCenter
+    }
+    spacing: Theme.height.doubleBlock
     Rectangle {
+        id: searchbar
         implicitWidth: Screen.width / 3
         implicitHeight: Theme.height.doubleBlock
         radius: Theme.radius.large
@@ -99,7 +105,6 @@ Item {
             color: Theme.color.bgalt
             radius: Theme.radius.normal
         }
-        anchors.centerIn: parent
         keyNavigationWraps: true
         highlightFollowsCurrentItem: true
         highlightMoveDuration: 0

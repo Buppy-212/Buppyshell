@@ -5,12 +5,18 @@ import Quickshell.Widgets
 import QtQuick
 import qs.services
 
-Item {
+Column {
     readonly property int cols: (Screen.width * 0.75 - Theme.margin.large) / appList.cellWidth
     width: cols * appList.cellWidth
-    height: parent.height
-    anchors.horizontalCenter: parent.horizontalCenter
+    anchors{
+      top: parent.top
+      topMargin: Theme.height.block
+      bottom: parent.bottom
+      horizontalCenter: parent.horizontalCenter
+    }
+    spacing: Theme.height.doubleBlock
     Rectangle {
+        id: searchbar
         implicitWidth: Screen.width / 3
         implicitHeight: Theme.height.doubleBlock
         radius: Theme.radius.large
@@ -107,7 +113,6 @@ Item {
             color: Theme.color.bgalt
             radius: Theme.radius.normal
         }
-        anchors.centerIn: parent
         highlightFollowsCurrentItem: true
         highlightMoveDuration: 0
         height: rows * cellHeight
@@ -133,8 +138,8 @@ Item {
             }
             onEntered: appList.currentIndex = appDelegate.index
             Column {
-                height: Theme.iconSize.large + Theme.height.block * 4
-                width: Theme.iconSize.large * 1.5
+                height: appList.cellHeight
+                width: appList.cellWidth
                 IconImage {
                     x: Theme.iconSize.large / 4
                     implicitSize: Theme.iconSize.large
