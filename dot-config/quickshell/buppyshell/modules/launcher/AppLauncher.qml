@@ -143,6 +143,7 @@ Item {
                 Text {
                     height: Theme.height.block * 4
                     width: parent.width
+                    padding: Theme.margin.tiny
                     text: modelData.name
                     color: Theme.color.fg
                     wrapMode: Text.Wrap

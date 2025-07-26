@@ -47,7 +47,7 @@ Singleton {
     component IconSize: QtObject {
         readonly property int small: 30
         readonly property int medium: 48
-        readonly property int large: 128
+        readonly property int large: 96
     }
 
     component Color: QtObject {
