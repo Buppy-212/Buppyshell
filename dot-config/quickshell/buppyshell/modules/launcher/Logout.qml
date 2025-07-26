@@ -7,56 +7,101 @@ import QtQuick
 import qs.services
 
 Item {
-    implicitWidth: logoutList.count * (Theme.iconSize.large + Theme.margin.large) + Theme.margin.medium
-    implicitHeight: Theme.iconSize.large + Theme.height.block + Theme.margin.large
+    id: root
     Keys.enabled: visible
     Keys.onPressed: event => {
-        switch (event.key) {
-        case Qt.Key_Return:
-            GlobalState.launcher = false;
-            Hyprland.dispatch(logoutList.currentItem.command);
-            break;
-        case Qt.Key_Tab:
-            logoutList.incrementCurrentIndex();
-            break;
-        case Qt.Key_Backtab:
-            logoutList.decrementCurrentIndex();
-            break;
-        case Qt.Key_Escape:
-            GlobalState.launcher = false;
-            break;
-        case Qt.Key_S:
-            GlobalState.launcher = false;
-            Quickshell.execDetached(["systemctl", "poweroff"]);
-            break;
-        case Qt.Key_R:
-            GlobalState.launcher = false;
-            Quickshell.execDetached(["systemctl", "reboot"]);
-            break;
-        case Qt.Key_O:
-            GlobalState.launcher = false;
-            Quickshell.execDetached(["uwsm", "stop"]);
-            break;
-        case Qt.Key_L:
-            GlobalState.launcher = false;
-            GlobalState.locked = true;
-            break;
-        case Qt.Key_U:
-            GlobalState.launcher = false;
-            Quickshell.execDetached(["systemctl", "suspend"]);
-            break;
-        case Qt.Key_H:
-            GlobalState.launcher = false;
-            Quickshell.execDetached(["systemctl", "hibernate"]);
+        if (event.modifiers & Qt.ControlModifier) {
+            switch (event.key) {
+            case Qt.Key_J:
+                logoutList.moveCurrentIndexDown();
+                break;
+            case Qt.Key_K:
+                logoutList.moveCurrentIndexUp();
+                break;
+            case Qt.Key_L:
+                logoutList.moveCurrentIndexRight();
+                break;
+            case Qt.Key_H:
+                logoutList.moveCurrentIndexLeft();
+                break;
+            case Qt.Key_N:
+                logoutList.moveCurrentIndexRight();
+                break;
+            case Qt.Key_P:
+                logoutList.moveCurrentIndexLeft();
+                break;
+            case Qt.Key_O:
+                GlobalState.launcher = false;
+                Hyprland.dispatch(logoutList.currentItem.command);
+                break;
+            case Qt.Key_Semicolon:
+                GlobalState.launcher = false;
+                break;
+            case Qt.Key_C:
+                GlobalState.launcher = false;
+                break;
+            }
+        } else {
+            switch (event.key) {
+            case Qt.Key_S:
+                GlobalState.launcher = false;
+                Quickshell.execDetached(["systemctl", "poweroff"]);
+                break;
+            case Qt.Key_R:
+                GlobalState.launcher = false;
+                Quickshell.execDetached(["systemctl", "reboot"]);
+                break;
+            case Qt.Key_O:
+                GlobalState.launcher = false;
+                Quickshell.execDetached(["uwsm", "stop"]);
+                break;
+            case Qt.Key_L:
+                GlobalState.launcher = false;
+                GlobalState.locked = true;
+                break;
+            case Qt.Key_U:
+                GlobalState.launcher = false;
+                Quickshell.execDetached(["systemctl", "suspend"]);
+                break;
+            case Qt.Key_H:
+                GlobalState.launcher = false;
+                Quickshell.execDetached(["systemctl", "hibernate"]);
+                break;
+            case Qt.Key_Return:
+                GlobalState.launcher = false;
+                Hyprland.dispatch(logoutList.currentItem.command);
+                break;
+            case Qt.Key_Tab:
+                logoutList.moveCurrentIndexRight();
+                break;
+            case Qt.Key_Backtab:
+                logoutList.moveCurrentIndexLeft();
+                break;
+            case Qt.Key_Down:
+                logoutList.moveCurrentIndexDown();
+                break;
+            case Qt.Key_Up:
+                logoutList.moveCurrentIndexUp();
+                break;
+            case Qt.Key_Right:
+                logoutList.moveCurrentIndexRight();
+                break;
+            case Qt.Key_Left:
+                logoutList.moveCurrentIndexLeft();
+                break;
+            case Qt.Key_Escape:
+                GlobalState.launcher = false;
+                break;
+            }
         }
     }
-    ListView {
+    GridView {
         id: logoutList
-        orientation: ListView.Horizontal
-        spacing: Theme.margin.large
-        anchors.fill: parent
-        anchors.margins: Theme.margin.medium
-        keyNavigationWraps: true
+        cellHeight: parent.height / 2
+        cellWidth: parent.width / 4
+        width: cellWidth * 3
+        height: parent.height
+        anchors.centerIn: parent
         highlight: Rectangle {
             color: Theme.color.bgalt
             radius: Theme.radius.normal
@@ -116,30 +161,35 @@ Item {
                 GlobalState.launcher = false;
                 Hyprland.dispatch(command);
             }
-            Column {
-                width: Theme.iconSize.large
-                height: width + Theme.height.block
-                spacing: Theme.margin.medium
-                Text {
-                    text: logoutDelegate.icon
-                    font.family: Theme.font.family.material
-                    font.pixelSize: height
-                    color: logoutDelegate.color
-                    width: parent.width
-                    height: width
-                    verticalAlignment: Text.AlignVCenter
-                }
-                Text {
-                    text: logoutDelegate.text
-                    textFormat: Text.MarkdownText
-                    width: parent.width
-                    color: Theme.color.fg
-                    font {
-                        pointSize: Theme.font.size.large
-                        family: Theme.font.family.mono
-                        bold: true
+            Item {
+                implicitHeight: logoutList.cellHeight
+                implicitWidth: logoutList.cellWidth
+                Column {
+                    anchors.centerIn: parent
+                    width: parent.width / 2
+                    height: parent.height * 0.75
+                    spacing: Theme.margin.large
+                    Text {
+                        text: logoutDelegate.icon
+                        font.family: Theme.font.family.material
+                        font.pixelSize: height
+                        color: logoutDelegate.color
+                        width: parent.width
+                        height: width
+                        verticalAlignment: Text.AlignVCenter
                     }
-                    horizontalAlignment: Text.AlignHCenter
+                    Text {
+                        text: logoutDelegate.text
+                        textFormat: Text.MarkdownText
+                        width: parent.width
+                        color: Theme.color.fg
+                        font {
+                            pointSize: Theme.font.size.huge
+                            family: Theme.font.family.mono
+                            bold: true
+                        }
+                        horizontalAlignment: Text.AlignHCenter
+                    }
                 }
             }
         }

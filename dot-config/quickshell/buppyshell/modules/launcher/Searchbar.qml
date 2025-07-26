@@ -13,17 +13,8 @@ Item {
         anchors.centerIn: parent
         TextInput {
             id: input
-            property bool accepted
             clip: true
-            onVisibleChanged: {
-                if (accepted) {
-                    text = "";
-                    accepted = false;
-                } else {
-                    selectAll();
-                }
-            }
-            onAccepted: accepted = true
+            onVisibleChanged: text = ""
             focus: true
             anchors.fill: parent
             verticalAlignment: Text.AlignVCenter
@@ -35,6 +26,14 @@ Item {
             font.family: Theme.font.family.mono
             font.bold: true
             Keys.forwardTo: root.forwardTargets
+            Keys.onPressed: event => {
+                if (event.key == Qt.Key_F && event.modifiers & Qt.ControlModifier) {
+                    GlobalState.launcherModule += 1;
+                    if (GlobalState.launcherModule >= forwardTargets.length) {
+                        GlobalState.launcherModule = 0;
+                    }
+                }
+            }
         }
     }
 }

@@ -18,12 +18,24 @@ Item {
             delegate: WrapperMouseArea {
                 id: toplevel
                 required property Toplevel modelData
-                onClicked: {
-                    Quickshell.execDetached(["hyprctl", "dispatch", "focuswindow", `address:0x${toplevel.modelData.HyprlandToplevel.handle.address}`]);
-                    GlobalState.launcher = false;
-                }
                 hoverEnabled: true
+                acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
                 cursorShape: Qt.PointingHandCursor
+                onClicked: mouse => {
+                    switch (mouse.button) {
+                    case Qt.LeftButton:
+                        Quickshell.execDetached(["hyprctl", "dispatch", "focuswindow", `address:0x${toplevel.modelData.HyprlandToplevel.handle.address}`]);
+                        GlobalState.launcher = false;
+                        break;
+                    case Qt.MiddleButton:
+                        modelData.close();
+                        break;
+                    case Qt.RightButton:
+                        Hyprland.dispatch(`movetoworkspace ${Hyprland.focusedWorkspace.id}, address:0x${modelData.HyprlandToplevel.handle.address}`);
+                        GlobalState.launcher = false;
+                        break;
+                    }
+                }
                 Rectangle {
                     id: workspaceId
                     implicitWidth: root.width / toplevelRepeater.count

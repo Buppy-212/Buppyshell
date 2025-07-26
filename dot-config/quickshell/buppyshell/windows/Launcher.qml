@@ -70,6 +70,8 @@ LazyLoader {
             Logout {
                 id: logout
                 Layout.alignment: Qt.AlignHCenter
+                Layout.fillWidth: true
+                Layout.fillHeight: true
                 visible: GlobalState.launcherModule == GlobalState.LauncherModule.Logout
             }
             AppLauncher {
