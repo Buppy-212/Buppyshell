@@ -97,9 +97,10 @@ Item {
     }
     GridView {
         id: logoutList
-        cellHeight: parent.height / 2
-        cellWidth: parent.width / 4
-        width: cellWidth * 3
+        readonly property int cols: parent.width / (Theme.iconSize.large * 2)
+        cellHeight: height / 2
+        cellWidth: width / 3
+        width: cols * Theme.iconSize.large * 1.5
         height: parent.height
         anchors.centerIn: parent
         highlight: Rectangle {
