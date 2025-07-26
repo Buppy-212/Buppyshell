@@ -7,98 +7,69 @@ import Quickshell.Wayland
 import QtQuick
 import qs.services
 
-Column {
-    readonly property int cols: (Screen.width * 0.75 - Theme.margin.large) / (Theme.iconSize.large * 1.5)
-    width: cols * Theme.iconSize.large * 1.5
-    anchors{
-      top: parent.top
-      topMargin: Theme.height.block
-      bottom: parent.bottom
-      horizontalCenter: parent.horizontalCenter
-    }
-    spacing: Theme.height.doubleBlock
-    Rectangle {
-        id: searchbar
-        implicitWidth: Screen.width / 3
-        implicitHeight: Theme.height.doubleBlock
-        radius: Theme.radius.large
-        color: Theme.color.bgalt
-        anchors.horizontalCenter: parent.horizontalCenter
-        y: Theme.height.block
-        TextInput {
-            id: input
-            clip: true
-            onVisibleChanged: text = ""
-            anchors.fill: parent
-            verticalAlignment: Text.AlignVCenter
-            horizontalAlignment: Text.AlignHCenter
-            leftPadding: Theme.margin.large
-            rightPadding: Theme.margin.large
-            focus: visible
-            color: Theme.color.fg
-            font.pointSize: Theme.font.size.normal
-            font.family: Theme.font.family.mono
-            font.bold: true
-            Keys.onPressed: event => {
-                if (event.modifiers & Qt.ControlModifier) {
-                    switch (event.key) {
-                    case Qt.Key_J:
-                        windowList.incrementCurrentIndex();
-                        break;
-                    case Qt.Key_K:
-                        windowList.decrementCurrentIndex();
-                        break;
-                    case Qt.Key_N:
-                        windowList.incrementCurrentIndex();
-                        break;
-                    case Qt.Key_P:
-                        windowList.decrementCurrentIndex();
-                        break;
-                    case Qt.Key_O:
-                        Hyprland.dispatch(`focuswindow address:0x${windowList.currentItem.modelData.HyprlandToplevel.handle.address}`);
-                        GlobalState.launcher = false;
-                        break;
-                    case Qt.Key_Semicolon:
-                        GlobalState.launcher = false;
-                        break;
-                    case Qt.Key_C:
-                        GlobalState.launcher = false;
-                        break;
-                    }
-                } else {
-                    switch (event.key) {
-                    case Qt.Key_Tab:
-                        windowList.incrementCurrentIndex();
-                        break;
-                    case Qt.Key_Backtab:
-                        windowList.decrementCurrentIndex();
-                        break;
-                    case Qt.Key_Down:
-                        windowList.incrementCurrentIndex();
-                        break;
-                    case Qt.Key_Up:
-                        windowList.decrementCurrentIndex();
-                        break;
-                    case Qt.Key_Delete:
-                        windowList.currentItem.modelData.close();
-                        break;
-                    case Qt.Key_Escape:
-                        GlobalState.launcher = false;
-                        break;
-                    case Qt.Key_Return:
-                        Hyprland.dispatch(`focuswindow address:0x${windowList.currentItem.modelData.HyprlandToplevel.handle.address}`);
-                        GlobalState.launcher = false;
-                        break;
-                    }
-                }
+Item {
+    id: root
+    required property string search
+    Keys.enabled: visible
+    Keys.onPressed: event => {
+        if (event.modifiers & Qt.ControlModifier) {
+            switch (event.key) {
+            case Qt.Key_J:
+                windowList.incrementCurrentIndex();
+                break;
+            case Qt.Key_K:
+                windowList.decrementCurrentIndex();
+                break;
+            case Qt.Key_N:
+                windowList.incrementCurrentIndex();
+                break;
+            case Qt.Key_P:
+                windowList.decrementCurrentIndex();
+                break;
+            case Qt.Key_O:
+                Quickshell.execDetached(["hyprctl", "dispatch", "focuswindow", `address:0x${windowList.currentItem.modelData.HyprlandToplevel.handle.address}`]);
+                GlobalState.launcher = false;
+                break;
+            case Qt.Key_Semicolon:
+                GlobalState.launcher = false;
+                break;
+            case Qt.Key_C:
+                GlobalState.launcher = false;
+                break;
+            }
+        } else {
+            switch (event.key) {
+            case Qt.Key_Tab:
+                windowList.incrementCurrentIndex();
+                break;
+            case Qt.Key_Backtab:
+                windowList.decrementCurrentIndex();
+                break;
+            case Qt.Key_Down:
+                windowList.incrementCurrentIndex();
+                break;
+            case Qt.Key_Up:
+                windowList.decrementCurrentIndex();
+                break;
+            case Qt.Key_Delete:
+                windowList.currentItem.modelData.close();
+                break;
+            case Qt.Key_Escape:
+                GlobalState.launcher = false;
+                break;
+            case Qt.Key_Return:
+                Quickshell.execDetached(["hyprctl", "dispatch", "focuswindow", `address:0x${windowList.currentItem.modelData.HyprlandToplevel.handle.address}`]);
+                GlobalState.launcher = false;
+                break;
             }
         }
     }
     ListView {
         id: windowList
-        readonly property int rows: (Screen.height * 0.9) / (Theme.iconSize.large + Theme.margin.medium)
+        readonly property int rows: parent.height / (Theme.iconSize.large + Theme.margin.medium)
+        readonly property int cols: parent.width * 0.75 / (Theme.iconSize.large * 1.5)
         clip: true
-        model: Windows.query(input.text)
+        model: Windows.query(root.search)
         spacing: Theme.margin.medium
         snapMode: ListView.SnapToItem
         highlight: Rectangle {
@@ -110,7 +81,8 @@ Column {
         highlightMoveDuration: 0
         highlightResizeDuration: 0
         height: rows * (Theme.iconSize.large + Theme.margin.medium)
-        width: parent.width
+        width: cols * Theme.iconSize.large * 1.5
+        anchors.centerIn: parent
         delegate: WrapperMouseArea {
             id: windowDelegate
             required property Toplevel modelData
@@ -121,7 +93,7 @@ Column {
             onClicked: mouse => {
                 switch (mouse.button) {
                 case Qt.LeftButton:
-                    Hyprland.dispatch(`focuswindow address:0x${modelData.HyprlandToplevel.handle.address}`);
+                    Quickshell.execDetached(["hyprctl", "dispatch", "focuswindow", `address:0x${modelData.HyprlandToplevel.handle.address}`]);
                     GlobalState.launcher = false;
                     break;
                 case Qt.MiddleButton:

@@ -1,6 +1,7 @@
 pragma ComponentBehavior: Bound
 import Quickshell
 import QtQuick
+import QtQuick.Layouts
 import QtQuick.Effects
 import Quickshell.Wayland
 import qs.services
@@ -48,14 +49,42 @@ LazyLoader {
             color: Theme.color.bg
             opacity: 0.9
         }
-        WindowSwitcher {
-            visible: GlobalState.launcherModule == GlobalState.LauncherModule.Windows
-        }
-        Logout {
-            visible: GlobalState.launcherModule == GlobalState.LauncherModule.Logout
-        }
-        AppLauncher {
-            visible: GlobalState.launcherModule == GlobalState.LauncherModule.Apps
+        ColumnLayout {
+            anchors.fill: parent
+            spacing: Theme.margin.large
+            Searchbar {
+                id: searchbar
+                forwardTargets: [windowSwitcher, logout, appLauncher]
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignTop | Qt.AlignHCenter
+                Layout.preferredHeight: Theme.height.block * 4
+            }
+            WindowSwitcher {
+                id: windowSwitcher
+                Layout.alignment: Qt.AlignHCenter
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                search: searchbar.search
+                visible: GlobalState.launcherModule == GlobalState.LauncherModule.Windows
+            }
+            Logout {
+                id: logout
+                Layout.alignment: Qt.AlignHCenter
+                visible: GlobalState.launcherModule == GlobalState.LauncherModule.Logout
+            }
+            AppLauncher {
+                id: appLauncher
+                Layout.alignment: Qt.AlignHCenter
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                search: searchbar.search
+                visible: GlobalState.launcherModule == GlobalState.LauncherModule.Apps
+            }
+            Taskbar {
+                Layout.preferredHeight: Theme.iconSize.big
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignBottom | Qt.AlignHCenter
+            }
         }
     }
 }

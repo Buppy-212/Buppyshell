@@ -7,10 +7,9 @@ import QtQuick
 import qs.services
 
 Item {
-    anchors.centerIn: parent
     implicitWidth: logoutList.count * (Theme.iconSize.large + Theme.margin.large) + Theme.margin.medium
     implicitHeight: Theme.iconSize.large + Theme.height.block + Theme.margin.large
-    focus: visible
+    Keys.enabled: visible
     Keys.onPressed: event => {
         switch (event.key) {
         case Qt.Key_Return:
