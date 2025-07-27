@@ -38,50 +38,40 @@ WlSessionLock {
             }
         }
         Rectangle {
-            height: parent.height
-            width: Screen.width * 0.33
+            height: column.height + Theme.margin.large
+            width: column.width + Theme.margin.large
             color: Theme.color.bgTranslucent
+            radius: Theme.radius.medium
             anchors.centerIn: parent
             Column {
+                id: column
                 anchors.centerIn: parent
-                spacing: Screen.height * 0.2
+                spacing: Theme.margin.small
                 Text {
-                    id: time
-                    text: Time.lockTime
-                    anchors.horizontalCenter: parent.horizontalCenter
                     color: Theme.color.fg
-                    font.pointSize: Theme.font.size.huge
+                    font.pointSize: Theme.font.size.normal
                     font.family: Theme.font.family.sans
                     font.bold: true
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: pam.message
                 }
-                Column {
-                    spacing: Theme.margin.small
-                    Text {
+                Rectangle {
+                    id: passRect
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    border.width: Theme.border
+                    radius: Theme.radius.medium
+                    width: 300
+                    height: 60
+                    color: Theme.color.bg
+                    TextInput {
+                        id: passwordField
+                        anchors.centerIn: passRect
                         color: Theme.color.fg
-                        font.pointSize: Theme.font.size.normal
-                        font.family: Theme.font.family.sans
-                        font.bold: true
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        text: pam.message
-                    }
-                    Rectangle {
-                        id: passRect
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        border.width: Theme.border
-                        radius: Theme.radius.medium
-                        width: 300
-                        height: 60
-                        color: Theme.color.bg
-                        TextInput {
-                            id: passwordField
-                            anchors.centerIn: passRect
-                            color: Theme.color.fg
-                            visible: true
-                            onAccepted: {
-                                if (pam.responseRequired) {
-                                    pam.respond(text);
-                                    text = "";
-                                }
+                        visible: true
+                        onAccepted: {
+                            if (pam.responseRequired) {
+                                pam.respond(text);
+                                text = "";
                             }
                         }
                     }

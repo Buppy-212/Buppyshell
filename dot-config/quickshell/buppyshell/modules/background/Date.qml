@@ -1,36 +1,48 @@
 import QtQuick
+import qs.modules.bar
 import qs.services
 
 Rectangle {
-    anchors.verticalCenter: parent.verticalCenter
-    anchors.leftMargin: Screen.name === "eDP-1" ? Screen.width * 0.84 : Screen.width * 0.755
-    anchors.fill: parent
-    color: "transparent"
+    anchors {
+        top: parent.top
+        topMargin: Screen.height * 0.02
+        horizontalCenter: parent.horizontalCenter
+    }
+    implicitHeight: column.height * 1.5
+    implicitWidth: column.width * 1.5
+    color: Theme.color.bgTranslucent
+    radius: height
     Column {
-        readonly property int size: Screen.name === "eDP-1" ? Theme.font.size.extraLarge : Theme.font.size.huge
+        id: column
+        height: time.height + date.height
+        width: time.width
         anchors.centerIn: parent
-        height: day.height + date.height
-        width: day.width
-        spacing: Theme.margin.tiny
-        Text {
-            id: day
-            text: Time.day
-            font.pointSize: parent.size
-            font.family: Theme.font.family.handwritten
-            font.bold: true
-            font.italic: true
-            color: Theme.color.fg
-            anchors.horizontalCenter: parent.horizontalCenter
-        }
         Text {
             id: date
             text: Time.date
-            font.pointSize: parent.size * 0.45
-            font.family: Theme.font.family.handwritten
-            font.bold: true
-            font.italic: true
+            font {
+                pixelSize: Screen.width * 0.01
+                family: Theme.font.family.handwritten
+                bold: true
+                italic: true
+            }
             color: Theme.color.fg
-            anchors.horizontalCenter: parent.horizontalCenter
+            width: time.width
+            height: contentHeight * 0.8
+            horizontalAlignment: Text.AlignHCenter
+        }
+        Text {
+            id: time
+            text: Time.time
+            font {
+                pixelSize: Screen.width * 0.025
+                family: Theme.font.family.mono
+                bold: true
+            }
+            color: Theme.color.fg
+            width: contentWidth
+            height: contentHeight * 0.85
+            horizontalAlignment: Text.AlignHCenter
         }
     }
 }
