@@ -28,7 +28,7 @@ Rectangle {
         Column {
             id: column
             width: notificationContent.width - Theme.iconSize.medium * 2
-            height: summary.height + body.height
+            height: body.visible ? summary.height + body.height : summary.height
             anchors.verticalCenter: parent.verticalCenter
             Text {
                 id: summary
@@ -42,6 +42,7 @@ Rectangle {
             Text {
                 id: body
                 wrapMode: Text.Wrap
+                visible: contentWidth > 0
                 width: column.width
                 text: notificationContent.notification?.body ?? ""
                 font.pixelSize: Theme.font.size.normal
