@@ -7,13 +7,12 @@ import qs.widgets
 import qs.modules.notifications
 
 Rectangle {
-    implicitWidth: parent.width
     radius: Theme.radius.normal
     color: Theme.color.bg
     NotificationServer {
         id: notificationServer
     }
-    ClippingRectangle {
+    Rectangle {
         id: notificationList
         anchors {
             fill: parent
@@ -23,14 +22,15 @@ Rectangle {
         radius: Theme.radius.normal
         color: Theme.color.bgalt
         ListView {
-            implicitHeight: parent.height
-            implicitWidth: Theme.width.notification
+            clip: true
+            anchors.fill: parent
             anchors.horizontalCenter: parent.horizontalCenter
             model: notificationServer.trackedNotifications
             spacing: Theme.margin.small
             delegate: Content {
                 id: content
                 required property Notification modelData
+                implicitWidth: parent.width
                 notification: modelData
             }
             removeDisplaced: Transition {
@@ -46,7 +46,7 @@ Rectangle {
     Rectangle {
         id: title
         anchors.top: parent.top
-        implicitWidth: parent.implicitWidth
+        implicitWidth: parent.width
         implicitHeight: Theme.height.doubleBlock
         color: Theme.color.bg
         radius: Theme.radius.normal

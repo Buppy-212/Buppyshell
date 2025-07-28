@@ -33,8 +33,6 @@ Singleton {
 
     component Width: QtObject {
         readonly property int block: 30
-        readonly property int notification: 528
-        readonly property int sidebar: 600
     }
 
     component Margin: QtObject {

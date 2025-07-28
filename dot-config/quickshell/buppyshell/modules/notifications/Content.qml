@@ -6,9 +6,8 @@ import qs.services
 import qs.widgets
 
 Rectangle {
-    id: notifictionContent
+    id: notificationContent
     required property Notification notification
-    implicitWidth: Theme.width.notification
     implicitHeight: row.height > Theme.height.notification - 20 ? row.height + 20 : Theme.height.notification
     color: Theme.color.bg
     radius: Theme.radius.normal
@@ -22,20 +21,20 @@ Rectangle {
         x: Theme.margin.large
         anchors.verticalCenter: parent.verticalCenter
         IconImage {
-            source: Quickshell.iconPath(notifictionContent.notification?.appIcon, "preferences-desktop-notification-bell")
+            source: Quickshell.iconPath(notificationContent.notification?.appIcon, "preferences-desktop-notification-bell")
             implicitSize: Theme.iconSize.medium
             anchors.verticalCenter: column.verticalCenter
         }
         Column {
             id: column
-            width: Theme.width.notification - Theme.iconSize.medium * 2
+            width: notificationContent.width - Theme.iconSize.medium * 2
             height: summary.height + body.height
             anchors.verticalCenter: parent.verticalCenter
             Text {
                 id: summary
                 wrapMode: Text.Wrap
                 width: column.width
-                text: notifictionContent.notification?.summary ?? ""
+                text: notificationContent.notification?.summary ?? ""
                 font.pixelSize: Theme.font.size.large
                 font.bold: true
                 color: Theme.color.fg
@@ -44,7 +43,7 @@ Rectangle {
                 id: body
                 wrapMode: Text.Wrap
                 width: column.width
-                text: notifictionContent.notification?.body ?? ""
+                text: notificationContent.notification?.body ?? ""
                 font.pixelSize: Theme.font.size.normal
                 color: Theme.color.fg
             }
@@ -56,11 +55,10 @@ Rectangle {
         drag.target: parent
         drag.axis: Drag.XAxis
         drag.minimumX: 0
-        drag.maximumX: Theme.width.sidebar
         drag.filterChildren: true
         onReleased: {
-            notifictionContent.x = Theme.width.sidebar;
-            notifictionContent.notification.actions?.invoke();
+            notificationContent.x = parent.width;
+            notificationContent.notification.actions?.invoke();
         }
     }
     Behavior on x {
@@ -70,8 +68,8 @@ Rectangle {
             easing.bezierCurve: Theme.animation.elementMoveExit.bezierCurve
             onRunningChanged: {
                 if (!running) {
-                    notifictionContent.x = 0;
-                    notifictionContent.notification?.dismiss();
+                    notificationContent.x = 0;
+                    notificationContent.notification?.dismiss();
                 }
             }
         }

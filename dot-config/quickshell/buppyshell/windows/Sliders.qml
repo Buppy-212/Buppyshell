@@ -2,6 +2,7 @@ pragma ComponentBehavior: Bound
 
 import Quickshell
 import Quickshell.Services.Pipewire
+import Quickshell.Hyprland
 import Quickshell.Wayland
 import Quickshell.Widgets
 import QtQuick
@@ -67,17 +68,17 @@ Scope {
         running: sliderWidget.visible
         onTriggered: sliderWidget.visible = !sliderWidget.visible
     }
-    LazyLoader {
-        id: loader
-        required property ShellScreen modelData
-        loading: sliderWidget.visible
-        component: PanelWindow {
+    Variants {
+        model: Quickshell.screens
+        PanelWindow {
+            required property ShellScreen modelData
+            screen: modelData
             WlrLayershell.layer: WlrLayer.Overlay
             WlrLayershell.namespace: "buppyshell:slider"
             exclusionMode: ExclusionMode.Ignore
             anchors.bottom: true
             margins.bottom: screen.height / 50
-            visible: sliderWidget.visible
+            visible: sliderWidget.visible && Hyprland.focusedMonitor.name == modelData.name
             color: "transparent"
             implicitHeight: screen.height / 10
             implicitWidth: screen.width / 10

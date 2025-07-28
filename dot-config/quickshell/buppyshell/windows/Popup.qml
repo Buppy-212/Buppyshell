@@ -45,10 +45,12 @@ Scope {
         anchors {
             top: true
             right: true
+            bottom: true
         }
         margins {
             top: Theme.margin.tiny
             right: Theme.margin.tiny
+            bottom: Theme.margin.tiny
         }
         Timer {
             id: timeoutTimer
@@ -63,13 +65,16 @@ Scope {
         }
         color: "transparent"
         exclusiveZone: 0
-        implicitWidth: content.width
-        implicitHeight: content.height
+        implicitWidth: screen.width / 4
+        mask: Region {
+            item: content
+        }
         visible: currentNotification === null ? false : true
         WlrLayershell.namespace: "buppyshell:notification"
         WlrLayershell.layer: WlrLayer.Overlay
         Content {
             id: content
+            implicitWidth: parent.width
             notification: notificationPopup.currentNotification
         }
     }

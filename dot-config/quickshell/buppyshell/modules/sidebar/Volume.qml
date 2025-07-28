@@ -2,6 +2,7 @@ import Quickshell.Services.Pipewire
 import Quickshell.Widgets
 import QtQuick
 import QtQuick.Controls
+import QtQuick.Layouts
 import qs.services
 import qs.widgets
 
@@ -50,12 +51,13 @@ Rectangle {
                     }
                     Column {
                         width: parent.width
+                        height: Theme.height.doubleBlock
                         WrapperMouseArea {
                             cursorShape: Qt.PointingHandCursor
                             acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
                             anchors.horizontalCenter: parent.horizontalCenter
-                            implicitHeight: 24
-                            implicitWidth: sinkRow.width
+                            implicitHeight: parent.height / 2
+                            implicitWidth: parent.width
                             StyledText {
                                 text: sinkDelegate.modelData.description
                                 elide: Text.ElideRight
@@ -64,16 +66,15 @@ Rectangle {
                             }
                             onClicked: Pipewire.preferredDefaultAudioSink = sinkDelegate.modelData
                         }
-                        Row {
-                            id: sinkRow
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            height: 24
+                        RowLayout {
+                            width: parent.width
+                            height: parent.height / 2
                             spacing: 12
                             Slider {
                                 id: sinkSlider
                                 live: false
-                                height: parent.height
-                                width: 400
+                                Layout.fillHeight: true
+                                Layout.fillWidth: true
                                 snapMode: Slider.SnapOnRelease
                                 stepSize: 0.05
                                 from: 0
@@ -101,8 +102,8 @@ Rectangle {
                             WrapperMouseArea {
                                 cursorShape: Qt.PointingHandCursor
                                 acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
-                                implicitHeight: parent.height
-                                implicitWidth: 36
+                                Layout.fillHeight: true
+                                Layout.preferredWidth: 36
                                 StyledText {
                                     readonly property int volume: sinkSlider.value * 100
                                     text: sinkDelegate.modelData.audio?.muted ? "" : `${volume}%`
@@ -131,12 +132,13 @@ Rectangle {
                     }
                     Column {
                         width: parent.width
+                        height: Theme.height.doubleBlock
                         WrapperMouseArea {
                             cursorShape: Qt.PointingHandCursor
                             acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
                             anchors.horizontalCenter: parent.horizontalCenter
-                            implicitHeight: 24
-                            implicitWidth: sourceRow.width
+                            implicitHeight: parent.height / 2
+                            implicitWidth: parent.width
                             StyledText {
                                 text: sourceDelegate.modelData.description
                                 elide: Text.ElideRight
@@ -145,16 +147,15 @@ Rectangle {
                             }
                             onClicked: Pipewire.preferredDefaultAudioSource = sourceDelegate.modelData
                         }
-                        Row {
-                            id: sourceRow
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            height: 24
+                        RowLayout {
+                            width: parent.width
+                            height: parent.height / 2
                             spacing: 12
                             Slider {
                                 id: sourceSlider
                                 live: false
-                                height: parent.height
-                                width: 400
+                                Layout.fillHeight: true
+                                Layout.fillWidth: true
                                 snapMode: Slider.SnapOnRelease
                                 stepSize: 0.05
                                 from: 0
@@ -182,8 +183,8 @@ Rectangle {
                             WrapperMouseArea {
                                 cursorShape: Qt.PointingHandCursor
                                 acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
-                                implicitHeight: parent.height
-                                implicitWidth: 36
+                                Layout.fillHeight: true
+                                Layout.preferredWidth: 36
                                 StyledText {
                                     readonly property int volume: sourceSlider.value * 100
                                     text: sourceDelegate.modelData.audio?.muted ? "" : `${volume}%`
@@ -212,10 +213,11 @@ Rectangle {
                     }
                     Column {
                         width: parent.width
+                        height: Theme.height.doubleBlock
                         Item {
                             anchors.horizontalCenter: parent.horizontalCenter
-                            implicitHeight: 24
-                            implicitWidth: streamRow.width
+                            implicitHeight: parent.height / 2
+                            implicitWidth: parent.width
                             StyledText {
                                 text: streamDelegate.modelData.name
                                 elide: Text.ElideRight
@@ -223,16 +225,15 @@ Rectangle {
                                 horizontalAlignment: Text.AlignHCenter
                             }
                         }
-                        Row {
-                            id: streamRow
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            height: 24
+                        RowLayout {
+                            width: parent.width
+                            height: parent.height / 2
                             spacing: 12
                             Slider {
                                 id: streamSlider
                                 live: false
-                                height: parent.height
-                                width: 400
+                                Layout.fillHeight: true
+                                Layout.fillWidth: true
                                 snapMode: Slider.SnapOnRelease
                                 stepSize: 0.05
                                 from: 0
@@ -259,8 +260,8 @@ Rectangle {
                             WrapperMouseArea {
                                 cursorShape: Qt.PointingHandCursor
                                 acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
-                                implicitHeight: parent.height
-                                implicitWidth: 36
+                                Layout.fillHeight: true
+                                Layout.preferredWidth: 36
                                 StyledText {
                                     readonly property int volume: streamSlider.value * 100
                                     text: streamDelegate.modelData.audio?.muted ? "" : `${volume}%`
