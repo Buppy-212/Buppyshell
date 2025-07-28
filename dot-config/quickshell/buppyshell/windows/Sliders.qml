@@ -68,17 +68,19 @@ Scope {
         onTriggered: sliderWidget.visible = !sliderWidget.visible
     }
     LazyLoader {
+        id: loader
+        required property ShellScreen modelData
         loading: sliderWidget.visible
         component: PanelWindow {
             WlrLayershell.layer: WlrLayer.Overlay
             WlrLayershell.namespace: "buppyshell:slider"
             exclusionMode: ExclusionMode.Ignore
             anchors.bottom: true
-            margins.bottom: Screen.height / 50
+            margins.bottom: screen.height / 50
             visible: sliderWidget.visible
             color: "transparent"
-            implicitHeight: Screen.height / 10
-            implicitWidth: Screen.width / 10
+            implicitHeight: screen.height / 10
+            implicitWidth: screen.width / 10
             Rectangle {
                 anchors.fill: parent
                 color: Theme.color.bgTranslucent

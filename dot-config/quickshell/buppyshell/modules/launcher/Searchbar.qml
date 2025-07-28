@@ -6,7 +6,7 @@ Item {
     required property list<var> forwardTargets
     property string search: input.text
     Rectangle {
-        implicitWidth: Screen.width / 3
+        implicitWidth: parent.width / 3
         implicitHeight: Theme.height.doubleBlock
         radius: Theme.radius.large
         color: Theme.color.bgalt

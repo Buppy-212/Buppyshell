@@ -6,11 +6,11 @@ import qs.widgets
 Rectangle {
     anchors {
         top: parent.top
-        topMargin: Screen.height * 0.02
+        topMargin: parent.height * 0.02
         horizontalCenter: parent.horizontalCenter
     }
-    implicitHeight: Screen.height / 10
-    implicitWidth: Screen.width / 10
+    implicitHeight: parent.height / 10
+    implicitWidth: parent.width / 10
     color: Theme.color.bgTranslucent
     radius: height / 3
     Column {
