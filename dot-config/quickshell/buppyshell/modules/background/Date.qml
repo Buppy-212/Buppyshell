@@ -12,7 +12,7 @@ Rectangle {
     implicitHeight: Screen.height / 10
     implicitWidth: Screen.width / 10
     color: Theme.color.bgTranslucent
-    radius: height / 4
+    radius: height / 3
     Column {
         id: column
         anchors.fill: parent
