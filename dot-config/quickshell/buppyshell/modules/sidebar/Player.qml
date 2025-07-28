@@ -61,9 +61,10 @@ Rectangle {
             StyledText {
                 text: Mpris.players.values[playerWidget.currentIndex]?.trackTitle ?? false ? Mpris.players.values[playerWidget.currentIndex].trackTitle : "No Track"
                 font.pixelSize: Theme.font.size.doubled
-                color: Theme.color.fg
-                width: parent.width - backBlock.width - forwardBlock.width
-                horizontalAlignment: Text.AlignHCenter
+                anchors {
+                    leftMargin: backBlock.width
+                    rightMargin: forwardBlock.width
+                }
                 elide: Text.ElideRight
             }
         }
@@ -73,9 +74,10 @@ Rectangle {
             implicitWidth: parent.width
             StyledText {
                 text: Mpris.players.values[playerWidget.currentIndex]?.trackAlbum ? `${Mpris.players.values[playerWidget.currentIndex]?.trackAlbum} - ${Mpris.players.values[playerWidget.currentIndex]?.trackArtist}` : Mpris.players.values[playerWidget.currentIndex]?.trackArtist ?? ""
-                color: Theme.color.fg
-                width: parent.width - backBlock.width - forwardBlock.width
-                horizontalAlignment: Text.AlignHCenter
+                anchors {
+                    leftMargin: backBlock.width
+                    rightMargin: forwardBlock.width
+                }
                 elide: Text.ElideMiddle
             }
         }

@@ -113,13 +113,14 @@ Item {
                     implicitSize: Theme.iconSize.large
                     source: Quickshell.iconPath(appDelegate.modelData.icon)
                 }
-                StyledText {
+                Item {
                     height: Theme.height.block * 3
                     width: parent.width
-                    padding: Theme.margin.tiny
-                    text: modelData.name
-                    color: Theme.color.fg
-                    wrapMode: Text.Wrap
+                    StyledText {
+                        text: modelData.name
+                        padding: Theme.margin.tiny
+                        wrapMode: Text.Wrap
+                    }
                 }
             }
         }

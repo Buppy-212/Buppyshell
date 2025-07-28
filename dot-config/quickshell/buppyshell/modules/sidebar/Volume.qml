@@ -186,7 +186,7 @@ Rectangle {
                                 implicitWidth: 36
                                 StyledText {
                                     readonly property int volume: sourceSlider.value * 100
-                                    text: sourceDelegate.modelData.audio?.muted ? "" : `${volume}%`
+                                    text: sourceDelegate.modelData.audio?.muted ? "" : `${volume}%`
                                 }
                                 onClicked: sourceDelegate.modelData.audio.muted = !sourceDelegate.modelData.audio.muted
                             }

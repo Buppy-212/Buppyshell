@@ -5,6 +5,7 @@ import Quickshell.Widgets
 import Quickshell.Hyprland
 import QtQuick
 import qs.services
+import qs.widgets
 
 Item {
     id: root
@@ -179,17 +180,12 @@ Item {
                         height: width
                         verticalAlignment: Text.AlignVCenter
                     }
-                    Text {
+                    StyledText {
                         text: logoutDelegate.text
                         textFormat: Text.MarkdownText
                         width: parent.width
-                        color: Theme.color.fg
-                        font {
-                            pixelSize: Theme.font.size.huge
-                            family: Theme.font.family.mono
-                            bold: true
-                        }
-                        horizontalAlignment: Text.AlignHCenter
+                        font.pixelSize: Theme.font.size.huge
+                        anchors.fill: undefined
                     }
                 }
             }
