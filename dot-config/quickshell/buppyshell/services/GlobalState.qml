@@ -90,6 +90,19 @@ Singleton {
         }
     }
     GlobalShortcut {
+        name: "sidebarModule"
+        description: "Toggle sidebar module"
+        appid: "buppyshell"
+        onPressed: {
+            var index = root.sidebarModule;
+            index += 1;
+            if (index >= 4) {
+                index = 0;
+            }
+            root.sidebarModule = index;
+        }
+    }
+    GlobalShortcut {
         name: "lock"
         description: "Reloads toplevels"
         appid: "buppyshell"

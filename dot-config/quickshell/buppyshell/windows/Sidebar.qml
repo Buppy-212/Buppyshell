@@ -15,7 +15,7 @@ Variants {
         id: sidebarWindow
         required property ShellScreen modelData
         property string monitor
-        readonly property bool sidebar: GlobalState.sidebar
+        readonly property bool sidebarVisible: GlobalState.sidebar
         screen: modelData
         anchors {
             top: true
@@ -31,8 +31,8 @@ Variants {
         exclusiveZone: 0
         color: "transparent"
         implicitWidth: screen.width / 4
-        onSidebarChanged: monitor = Hyprland.focusedMonitor.name
-        visible: this.sidebar && monitor === modelData.name
+        onSidebarVisibleChanged: monitor = Hyprland.focusedMonitor.name
+        visible: GlobalState.sidebar && monitor === modelData.name
         Rectangle {
             id: sidebar
             implicitWidth: parent.width - Theme.margin.tiny
