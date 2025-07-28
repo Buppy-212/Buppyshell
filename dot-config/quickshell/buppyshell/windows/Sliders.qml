@@ -78,7 +78,7 @@ Scope {
             exclusionMode: ExclusionMode.Ignore
             anchors.bottom: true
             margins.bottom: screen.height / 50
-            visible: sliderWidget.visible && Hyprland.focusedMonitor.name == modelData.name
+            visible: sliderWidget.visible && modelData.name === Hyprland.focusedMonitor?.name
             color: "transparent"
             implicitHeight: screen.height / 10
             implicitWidth: screen.width / 10

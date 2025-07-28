@@ -31,7 +31,7 @@ Variants {
         exclusiveZone: 0
         color: "transparent"
         implicitWidth: screen.width / 4
-        onSidebarVisibleChanged: monitor = Hyprland.focusedMonitor.name
+        onSidebarVisibleChanged: monitor = Hyprland.focusedMonitor?.name
         visible: GlobalState.sidebar && monitor === modelData.name
         Rectangle {
             id: sidebar
