@@ -84,7 +84,7 @@ Rectangle {
                                 HoverHandler {
                                     cursorShape: Qt.PointingHandCursor
                                 }
-                                background: Rectangle {
+                                background: ClippingRectangle {
                                     width: sinkSlider.availableWidth
                                     height: parent.height
                                     color: Theme.color.grey
@@ -165,7 +165,7 @@ Rectangle {
                                 HoverHandler {
                                     cursorShape: Qt.PointingHandCursor
                                 }
-                                background: Rectangle {
+                                background: ClippingRectangle {
                                     width: sourceSlider.availableWidth
                                     height: parent.height
                                     color: Theme.color.grey
@@ -243,7 +243,7 @@ Rectangle {
                                 HoverHandler {
                                     cursorShape: Qt.PointingHandCursor
                                 }
-                                background: Rectangle {
+                                background: ClippingRectangle {
                                     width: streamSlider.availableWidth
                                     height: parent.height
                                     color: Theme.color.grey

@@ -1,6 +1,7 @@
 import QtQuick
 import qs.modules.bar
 import qs.services
+import qs.widgets
 
 Rectangle {
     anchors {
@@ -8,41 +9,33 @@ Rectangle {
         topMargin: Screen.height * 0.02
         horizontalCenter: parent.horizontalCenter
     }
-    implicitHeight: column.height * 1.5
-    implicitWidth: column.width * 1.5
+    implicitHeight: Screen.height / 10
+    implicitWidth: Screen.width / 10
     color: Theme.color.bgTranslucent
-    radius: height
+    radius: height / 4
     Column {
         id: column
-        height: time.height + date.height
-        width: time.width
-        anchors.centerIn: parent
-        Text {
-            id: date
-            text: Time.date
-            font {
-                pixelSize: Screen.width * 0.01
-                family: Theme.font.family.handwritten
-                bold: true
-                italic: true
+        anchors.fill: parent
+        topPadding: parent.height / 8
+        Item {
+            implicitHeight: parent.height / 4
+            implicitWidth: parent.width
+            StyledText {
+                text: Time.date
+                font {
+                    pixelSize: parent.width / 10
+                    family: Theme.font.family.handwritten
+                    italic: true
+                }
             }
-            color: Theme.color.fg
-            width: time.width
-            height: contentHeight * 0.8
-            horizontalAlignment: Text.AlignHCenter
         }
-        Text {
-            id: time
-            text: Time.time
-            font {
-                pixelSize: Screen.width * 0.025
-                family: Theme.font.family.mono
-                bold: true
+        Item {
+            implicitHeight: parent.height / 2
+            implicitWidth: parent.width
+            StyledText {
+                text: Time.time
+                font.pixelSize: parent.width / 4
             }
-            color: Theme.color.fg
-            width: contentWidth
-            height: contentHeight * 0.85
-            horizontalAlignment: Text.AlignHCenter
         }
     }
 }

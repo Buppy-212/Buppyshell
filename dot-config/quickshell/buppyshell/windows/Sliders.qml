@@ -3,9 +3,11 @@ pragma ComponentBehavior: Bound
 import Quickshell
 import Quickshell.Services.Pipewire
 import Quickshell.Wayland
+import Quickshell.Widgets
 import QtQuick
 import QtQuick.Controls
 import qs.services
+import qs.widgets
 
 Scope {
     id: sliderWidget
@@ -72,73 +74,74 @@ Scope {
             WlrLayershell.namespace: "buppyshell:slider"
             exclusionMode: ExclusionMode.Ignore
             anchors.bottom: true
-            margins.bottom: Screen.height/50
+            margins.bottom: Screen.height / 50
             visible: sliderWidget.visible
             color: "transparent"
-            implicitHeight: Screen.height/20
-            implicitWidth: Screen.width/10
+            implicitHeight: Screen.height / 10
+            implicitWidth: Screen.width / 10
             Rectangle {
                 anchors.fill: parent
                 color: Theme.color.bgTranslucent
-                radius: height
-                Slider {
-                    id: slider
-                    live: false
+                radius: height / 3
+                Column {
                     anchors {
-                      fill: parent
-                      margins: parent.height/4
+                        fill: parent
+                        leftMargin: parent.width / 8
+                        rightMargin: parent.width / 8
                     }
-                    from: 0
-                    to: 100
-                    value: sliderWidget.input
-                    enabled: false
-                    background: Rectangle {
-                        color: Theme.color.grey
-                        radius: height
-                        Rectangle {
-                          width: slider.visualPosition * parent.width
-                          height: parent.height
-                            color: {
+                    topPadding: spacing
+                    spacing: parent.height / 8
+                    Item {
+                        width: parent.width
+                        height: parent.height / 2
+                        StyledText {
+                            text: {
                                 switch (sliderWidget.source) {
                                 case Sliders.Source.Volume:
-                                    return Theme.color.blue;
+                                    return sliderWidget.muted || sliderWidget.input == 0 ? "" : "";
                                     break;
                                 case Sliders.Source.Mic:
-                                    return Theme.color.magenta;
+                                    return sliderWidget.micMuted || sliderWidget.input == 0 ? "" : "";
                                     break;
                                 case Sliders.Source.Brightness:
-                                    return Theme.color.yellow;
+                                    return "";
                                     break;
                                 }
                             }
-                            radius: height
+                            font.pixelSize: height
                         }
                     }
-                    Text {
-                        height: parent.height
-                        width: height
-                        x: height/8
-                        verticalAlignment: Text.AlignVCenter
-                        horizontalAlignment: Text.AlignHCenter
-                        text: {
-                            switch (sliderWidget.source) {
-                            case Sliders.Source.Volume:
-                                return sliderWidget.muted || sliderWidget.input == 0 ? "" : "";
-                                break;
-                            case Sliders.Source.Mic:
-                                return sliderWidget.micMuted || sliderWidget.input == 0 ? "" : "";
-                                break;
-                            case Sliders.Source.Brightness:
-                                return "";
-                                break;
+                    Slider {
+                        id: slider
+                        live: false
+                        width: parent.width
+                        height: parent.height / 8
+                        from: 0
+                        to: 100
+                        value: sliderWidget.input
+                        enabled: false
+                        background: ClippingRectangle {
+                            color: Theme.color.grey
+                            radius: height
+                            Rectangle {
+                                width: slider.visualPosition * parent.width
+                                height: parent.height
+                                color: {
+                                    switch (sliderWidget.source) {
+                                    case Sliders.Source.Volume:
+                                        return Theme.color.blue;
+                                        break;
+                                    case Sliders.Source.Mic:
+                                        return Theme.color.magenta;
+                                        break;
+                                    case Sliders.Source.Brightness:
+                                        return Theme.color.yellow;
+                                        break;
+                                    }
+                                }
+                                radius: height
                             }
                         }
-                        font {
-                            family: Theme.font.family.mono
-                            pixelSize: height * 0.75
-                            bold: true
-                        }
-                        color: Theme.color.fg
                     }
                 }
             }
