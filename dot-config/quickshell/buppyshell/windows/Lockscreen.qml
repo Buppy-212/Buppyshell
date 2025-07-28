@@ -49,7 +49,7 @@ WlSessionLock {
                 spacing: Theme.margin.small
                 Text {
                     color: Theme.color.fg
-                    font.pointSize: Theme.font.size.normal
+                    font.pixelSize: Theme.font.size.normal
                     font.family: Theme.font.family.sans
                     font.bold: true
                     anchors.horizontalCenter: parent.horizontalCenter

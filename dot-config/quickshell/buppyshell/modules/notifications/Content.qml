@@ -3,6 +3,7 @@ import Quickshell.Services.Notifications
 import Quickshell.Widgets
 import QtQuick
 import qs.services
+import qs.widgets
 
 Rectangle {
     id: notifictionContent
@@ -35,7 +36,7 @@ Rectangle {
                 wrapMode: Text.Wrap
                 width: column.width
                 text: notifictionContent.notification?.summary ?? ""
-                font.pointSize: Theme.font.size.large
+                font.pixelSize: Theme.font.size.large
                 font.bold: true
                 color: Theme.color.fg
             }
@@ -44,7 +45,7 @@ Rectangle {
                 wrapMode: Text.Wrap
                 width: column.width
                 text: notifictionContent.notification?.body ?? ""
-                font.pointSize: Theme.font.size.normal
+                font.pixelSize: Theme.font.size.normal
                 color: Theme.color.fg
             }
         }

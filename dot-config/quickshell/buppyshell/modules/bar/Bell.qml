@@ -8,8 +8,9 @@ Block {
     NotificationServer {
         id: notificationServer
     }
-    SymbolText {
-        text: notificationServer.trackedNotifications.values.length ? "notifications_unread" : "notifications"
+    StyledText {
+        text: notificationServer.trackedNotifications.values.length ? "󱅫" : "󰂚"
+        font.pixelSize: height - Theme.margin.small
     }
     MouseBlock {
         id: mouse

@@ -3,19 +3,20 @@ import qs.widgets
 
 Block {
     hovered: playerMouse.containsMouse
-    SymbolText {
-        text: "play_pause"
+    StyledText {
+        text: "󰐎"
+        font.pixelSize: height - Theme.margin.small
     }
     MouseBlock {
         id: playerMouse
         onClicked: mouse => {
-          if (mouse.button == Qt.LeftButton) {
-            GlobalState.sidebar = true;
-            GlobalState.player = !GlobalState.player; 
-          } else {
-            GlobalState.sidebar = ! GlobalState.sidebar
-            GlobalState.player = GlobalState.sidebar
-          }
+            if (mouse.button == Qt.LeftButton) {
+                GlobalState.sidebar = true;
+                GlobalState.player = !GlobalState.player;
+            } else {
+                GlobalState.sidebar = !GlobalState.sidebar;
+                GlobalState.player = GlobalState.sidebar;
+            }
         }
     }
 }

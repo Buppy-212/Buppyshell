@@ -50,6 +50,7 @@ LazyLoader {
             opacity: 0.9
         }
         ColumnLayout {
+            id: column
             anchors.fill: parent
             spacing: Theme.margin.large
             Searchbar {
@@ -83,6 +84,7 @@ LazyLoader {
                 visible: GlobalState.launcherModule == GlobalState.LauncherModule.Apps
             }
             Taskbar {
+                id: taskbar
                 Layout.preferredHeight: Theme.iconSize.big
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignBottom | Qt.AlignHCenter

@@ -14,12 +14,13 @@ Block {
         anchors.top: updateWidget.top
         anchors.horizontalCenter: updateWidget.horizontalCenter
         visible: mouse.containsMouse
+        anchors.fill: undefined
     }
-    SymbolText {
-        text: "system_update_alt"
-        anchors.centerIn: undefined
+    StyledText {
+        text: ""
         anchors.bottom: updateWidget.bottom
         anchors.horizontalCenter: updateWidget.horizontalCenter
+        anchors.fill: undefined
     }
     MouseBlock {
         id: mouse

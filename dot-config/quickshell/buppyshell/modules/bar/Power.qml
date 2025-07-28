@@ -5,9 +5,10 @@ import qs.widgets
 Block {
     id: block
     hovered: mouse.containsMouse
-    SymbolText {
-        text: "power_settings_new"
+    StyledText {
+        text: "⏻"
         color: Theme.color.red
+        font.pixelSize: Theme.font.size.large
     }
     MouseBlock {
         id: mouse

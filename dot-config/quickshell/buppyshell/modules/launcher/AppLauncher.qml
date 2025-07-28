@@ -4,6 +4,7 @@ import Quickshell
 import Quickshell.Widgets
 import QtQuick
 import qs.services
+import qs.widgets
 
 Item {
     id: root
@@ -112,20 +113,13 @@ Item {
                     implicitSize: Theme.iconSize.large
                     source: Quickshell.iconPath(appDelegate.modelData.icon)
                 }
-                Text {
+                StyledText {
                     height: Theme.height.block * 3
                     width: parent.width
                     padding: Theme.margin.tiny
                     text: modelData.name
                     color: Theme.color.fg
                     wrapMode: Text.Wrap
-                    font {
-                        family: Theme.font.family.mono
-                        pointSize: Theme.font.size.normal
-                        bold: true
-                    }
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
                 }
             }
         }

@@ -130,7 +130,7 @@ Item {
                     color: Theme.color.fg
                     font {
                         family: Theme.font.family.mono
-                        pointSize: Theme.font.size.normal
+                        pixelSize: Theme.font.size.normal
                         bold: true
                     }
                     elide: Text.ElideRight

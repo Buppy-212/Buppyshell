@@ -52,7 +52,7 @@ Rectangle {
         radius: Theme.radius.normal
         StyledText {
             text: "Notifications"
-            font.pointSize: Theme.font.size.doubled
+            font.pixelSize: Theme.font.size.doubled
         }
         Block {
             hovered: dismissMouse.containsMouse
@@ -62,7 +62,7 @@ Rectangle {
             implicitWidth: implicitHeight
             StyledText {
                 text: "󰆴"
-                font.pointSize: Theme.font.size.doubled
+                font.pixelSize: Theme.font.size.doubled
             }
             MouseBlock {
                 id: dismissMouse

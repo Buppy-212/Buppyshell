@@ -13,7 +13,7 @@ Rectangle {
         radius: Theme.radius.normal
         StyledText {
             text: "Network"
-            font.pointSize: Theme.font.size.doubled
+            font.pixelSize: Theme.font.size.doubled
         }
     }
     Rectangle {

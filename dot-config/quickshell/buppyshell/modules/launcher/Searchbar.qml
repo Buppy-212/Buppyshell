@@ -22,7 +22,7 @@ Item {
             leftPadding: Theme.margin.large
             rightPadding: Theme.margin.large
             color: Theme.color.fg
-            font.pointSize: Theme.font.size.normal
+            font.pixelSize: Theme.font.size.normal
             font.family: Theme.font.family.mono
             font.bold: true
             Keys.forwardTo: root.forwardTargets

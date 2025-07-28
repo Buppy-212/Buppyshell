@@ -127,7 +127,7 @@ Item {
                                         rect.y: image.parent == dragArea ? image.y + dragArea.y + root.y : root.y + workspaceCell.y + image.y
                                     }
                                     implicitHeight: image.height
-                                    implicitWidth: title.width + Theme.margin.large
+                                    implicitWidth: title.contentWidth + Theme.margin.large
                                     color: "transparent"
                                     Rectangle {
                                         anchors.fill: parent

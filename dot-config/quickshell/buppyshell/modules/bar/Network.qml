@@ -3,9 +3,10 @@ import qs.services
 
 Block {
     hovered: mouse.containsMouse
-    SymbolText {
-        text: "signal_wifi_4_bar"
+    StyledText {
+        text: "󰤨"
         color: Theme.color.green
+        font.pixelSize: height - Theme.margin.small
     }
     MouseBlock {
         id: mouse

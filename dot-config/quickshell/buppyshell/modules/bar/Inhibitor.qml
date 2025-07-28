@@ -3,8 +3,8 @@ import qs.widgets
 
 Block {
     hovered: mouse.containsMouse
-    SymbolText {
-        text: Idle.active ? "visibility_off" : "visibility"
+    StyledText {
+        text: Idle.active ? "" : ""
         color: Theme.color.cyan
     }
     MouseBlock {

@@ -9,12 +9,12 @@ import qs.services
 
 Scope {
     id: sliderWidget
-    property bool visible: false
     enum Source {
         Volume,
         Mic,
         Brightness
     }
+    property bool visible: false
     required property int source
     readonly property int brightness: Brightness.brightness
     readonly property int volume: Pipewire.defaultAudioSink?.audio.volume * 100
@@ -72,77 +72,73 @@ Scope {
             WlrLayershell.namespace: "buppyshell:slider"
             exclusionMode: ExclusionMode.Ignore
             anchors.bottom: true
-            margins.bottom: implicitHeight / 2
+            margins.bottom: Screen.height/50
             visible: sliderWidget.visible
             color: "transparent"
-            implicitHeight: Screen.height / 20
-            implicitWidth: Screen.width / 10
+            implicitHeight: Screen.height/20
+            implicitWidth: Screen.width/10
             Rectangle {
                 anchors.fill: parent
-                color: Theme.color.black
-                radius: Theme.radius.large
-                height: parent.height
-                width: parent.width * 0.8
-                Row {
-                    width: parent.width - Theme.margin.large
-                    height: parent.height
-                    spacing: Theme.margin.small
-                    x: Theme.margin.medium
+                color: Theme.color.bgTranslucent
+                radius: height
+                Slider {
+                    id: slider
+                    live: false
+                    anchors {
+                      fill: parent
+                      margins: parent.height/4
+                    }
+                    from: 0
+                    to: 100
+                    value: sliderWidget.input
+                    enabled: false
+                    background: Rectangle {
+                        color: Theme.color.grey
+                        radius: height
+                        Rectangle {
+                          width: slider.visualPosition * parent.width
+                          height: parent.height
+                            color: {
+                                switch (sliderWidget.source) {
+                                case Sliders.Source.Volume:
+                                    return Theme.color.blue;
+                                    break;
+                                case Sliders.Source.Mic:
+                                    return Theme.color.magenta;
+                                    break;
+                                case Sliders.Source.Brightness:
+                                    return Theme.color.yellow;
+                                    break;
+                                }
+                            }
+                            radius: height
+                        }
+                    }
                     Text {
-                        id: text
-                        anchors.verticalCenter: parent.verticalCenter
+                        height: parent.height
+                        width: height
+                        x: height/8
+                        verticalAlignment: Text.AlignVCenter
+                        horizontalAlignment: Text.AlignHCenter
                         text: {
                             switch (sliderWidget.source) {
                             case Sliders.Source.Volume:
-                                return sliderWidget.muted || sliderWidget.input == 0 ? "volume_off" : "volume_up";
+                                return sliderWidget.muted || sliderWidget.input == 0 ? "" : "";
                                 break;
                             case Sliders.Source.Mic:
-                                return sliderWidget.micMuted || sliderWidget.input == 0 ? "mic_off" : "mic";
+                                return sliderWidget.micMuted || sliderWidget.input == 0 ? "" : "";
                                 break;
                             case Sliders.Source.Brightness:
-                                return "light_mode";
+                                return "";
                                 break;
                             }
                         }
-                        font.family: Theme.font.family.material
-                        font.pointSize: Theme.font.size.large
-                        font.bold: true
-                        color: Theme.color.fg
-                    }
-                    Slider {
-                        id: slider
-                        anchors.verticalCenter: parent.verticalCenter
-                        live: false
-                        height: text.height / 2
-                        width: parent.width - text.width - Theme.margin.medium
-                        from: 0
-                        to: 100
-                        value: sliderWidget.input
-                        enabled: false
-                        background: Rectangle {
-                            width: slider.availableWidth
-                            height: parent.height
-                            color: Theme.color.grey
-                            radius: Theme.radius.normal
-                            Rectangle {
-                                width: slider.visualPosition * parent.width
-                                height: parent.height
-                                color: {
-                                    switch (sliderWidget.source) {
-                                    case Sliders.Source.Volume:
-                                        return Theme.color.blue;
-                                        break;
-                                    case Sliders.Source.Mic:
-                                        return Theme.color.magenta;
-                                        break;
-                                    case Sliders.Source.Brightness:
-                                        return Theme.color.yellow;
-                                        break;
-                                    }
-                                }
-                                radius: Theme.radius.normal
-                            }
+                        font {
+                            family: Theme.font.family.mono
+                            pixelSize: height * 0.75
+                            bold: true
                         }
+                        color: Theme.color.fg
                     }
                 }
             }

@@ -20,7 +20,7 @@ Rectangle {
         StyledText {
             text: Bluetooth.defaultAdapter?.enabled ?? Bluetooth.adapters.values[0]?.enabled ? "󰂯" : "󰂲"
             color: Theme.color.blue
-            font.pointSize: Theme.font.size.doubled
+            font.pixelSize: Theme.font.size.doubled
         }
         MouseBlock {
             id: adapterMouse
@@ -36,7 +36,7 @@ Rectangle {
         StyledText {
             text: Bluetooth.defaultAdapter?.discovering ?? Bluetooth.adapters.values[0]?.discovering ? "󰜺" : ""
             color: Theme.color.fg
-            font.pointSize: Theme.font.size.doubled
+            font.pixelSize: Theme.font.size.doubled
         }
         MouseBlock {
             id: searchMouse
@@ -52,7 +52,7 @@ Rectangle {
         StyledText {
             id: adapterName
             text: Bluetooth.defaultAdapter?.name ?? Bluetooth.adapters.values[0]?.name ?? ""
-            font.pointSize: Theme.font.size.doubled
+            font.pixelSize: Theme.font.size.doubled
         }
     }
     Rectangle {
@@ -85,12 +85,12 @@ Rectangle {
                         }
                         StyledText {
                             text: bluetoothItem.modelData.name
-                            anchors.centerIn: undefined
+                            anchors.fill: undefined
                             anchors.verticalCenter: parent.verticalCenter
                         }
                         StyledText {
                             text: bluetoothItem.modelData.batteryAvailable ? `(${bluetoothItem.modelData.battery * 100}%)` : ""
-                            anchors.centerIn: undefined
+                            anchors.fill: undefined
                             anchors.verticalCenter: parent.verticalCenter
                         }
                     }
@@ -98,7 +98,7 @@ Rectangle {
                         Layout.alignment: Qt.AlignRight
                         Layout.rightMargin: 4
                         text: bluetoothItem.modelData.trusted ? "Trusted" : ""
-                        anchors.centerIn: undefined
+                        anchors.fill: undefined
                     }
                 }
                 MouseBlock {

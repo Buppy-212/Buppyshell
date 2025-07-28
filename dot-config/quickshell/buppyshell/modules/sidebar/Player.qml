@@ -40,7 +40,7 @@ Rectangle {
         anchors.left: parent.left
         StyledText {
             text: ""
-            font.pointSize: Theme.font.size.doubled
+            font.pixelSize: Theme.font.size.doubled
         }
         MouseBlock {
             id: backMouse
@@ -60,7 +60,7 @@ Rectangle {
             implicitWidth: parent.width
             StyledText {
                 text: Mpris.players.values[playerWidget.currentIndex]?.trackTitle ?? false ? Mpris.players.values[playerWidget.currentIndex].trackTitle : "No Track"
-                font.pointSize: Theme.font.size.doubled
+                font.pixelSize: Theme.font.size.doubled
                 color: Theme.color.fg
                 width: parent.width - backBlock.width - forwardBlock.width
                 horizontalAlignment: Text.AlignHCenter
@@ -72,7 +72,7 @@ Rectangle {
             implicitHeight: Theme.height.block
             implicitWidth: parent.width
             StyledText {
-                text: Mpris.players.values[playerWidget.currentIndex]?.trackAlbum ? `${Mpris.players.values[playerWidget.currentIndex]?.trackAlbum} - ${Mpris.players.values[playerWidget.currentIndex]?.trackArtist}` : Mpris.players.values[playerWidget.currentIndex]?.trackArtist
+                text: Mpris.players.values[playerWidget.currentIndex]?.trackAlbum ? `${Mpris.players.values[playerWidget.currentIndex]?.trackAlbum} - ${Mpris.players.values[playerWidget.currentIndex]?.trackArtist}` : Mpris.players.values[playerWidget.currentIndex]?.trackArtist ?? ""
                 color: Theme.color.fg
                 width: parent.width - backBlock.width - forwardBlock.width
                 horizontalAlignment: Text.AlignHCenter
@@ -95,7 +95,7 @@ Rectangle {
             implicitWidth: implicitHeight
             StyledText {
                 text: ""
-                font.pointSize: Theme.font.size.doubled
+                font.pixelSize: Theme.font.size.doubled
             }
             MouseBlock {
                 id: leftMouse
@@ -113,7 +113,7 @@ Rectangle {
             StyledText {
                 text: Mpris.players.values[playerWidget.currentIndex]?.isPlaying ? "" : ""
                 color: Mpris.players.values[playerWidget.currentIndex]?.dbusName == "org.mpris.MediaPlayer2.playerctld" ? Theme.color.red : Theme.color.fg
-                font.pointSize: Theme.font.size.doubled
+                font.pixelSize: Theme.font.size.doubled
             }
             MouseBlock {
                 id: playMouse
@@ -138,7 +138,7 @@ Rectangle {
             implicitWidth: implicitHeight
             StyledText {
                 text: ""
-                font.pointSize: Theme.font.size.doubled
+                font.pixelSize: Theme.font.size.doubled
             }
             MouseBlock {
                 id: rightMouse
@@ -184,7 +184,7 @@ Rectangle {
         anchors.right: parent.right
         StyledText {
             text: ""
-            font.pointSize: Theme.font.size.doubled
+            font.pixelSize: Theme.font.size.doubled
         }
         MouseBlock {
             id: forwardMouse

@@ -4,10 +4,9 @@ import qs.widgets
 Block {
     hovered: mouse.containsMouse
     StyledText {
-        text: mouse.containsMouse ? Brightness.brightness : Brightness.nightlight ? "bedtime" : "light_mode"
+        text: mouse.containsMouse ? Brightness.brightness : Brightness.nightlight ? "" : ""
         color: Theme.color.yellow
-        font.family: mouse.containsMouse ? Theme.font.family.mono : Theme.font.family.material
-        font.pointSize: mouse.containsMouse ? Theme.font.size.normal : Theme.font.size.large
+        font.pixelSize: mouse.containsMouse ? Theme.font.size.normal : Theme.font.size.large
     }
     MouseBlock {
         id: mouse

@@ -104,7 +104,7 @@ PanelWindow {
                             implicitWidth: implicitHeight
                             StyledText {
                                 text: delegateBlock.text
-                                font.pointSize: Theme.font.size.doubled
+                                font.pixelSize: Theme.font.size.doubled
                             }
                             MouseBlock {
                                 id: mouse

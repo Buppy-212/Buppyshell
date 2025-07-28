@@ -4,9 +4,10 @@ import qs.services
 
 Block {
     hovered: mouse.containsMouse
-    SymbolText {
-        text: Bluetooth.defaultAdapter?.enabled ?? Bluetooth.adapters.values[0]?.enabled ? "bluetooth" : "bluetooth_disabled"
+    StyledText {
+        text: Bluetooth.defaultAdapter?.enabled ?? Bluetooth.adapters.values[0]?.enabled ? "󰂯" : "󰂲"
         color: Theme.color.blue
+        font.pixelSize: height - Theme.margin.small
     }
     MouseBlock {
         id: mouse

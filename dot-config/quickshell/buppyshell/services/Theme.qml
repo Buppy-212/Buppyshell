@@ -70,16 +70,17 @@ Singleton {
     }
     component FontFamily: QtObject {
         readonly property string sans: "Adwaita Sans"
-        readonly property string mono: "JetBrainsMono Nerd Font"
+        readonly property string mono: "JetBrainsMono Nerd Font Propo"
         readonly property string material: "Material Symbols Rounded"
         readonly property string handwritten: "Indie Flower"
     }
     component FontSize: QtObject {
-        readonly property int normal: 13
-        readonly property int large: 15
-        readonly property int doubled: 26
-        readonly property int extraLarge: 36
-        readonly property int huge: 42
+        readonly property int normal: 17
+        readonly property int medium: 20
+        readonly property int large: 21
+        readonly property int doubled: 34
+        readonly property int extraLarge: 48
+        readonly property int huge: 56
     }
     component Font: QtObject {
         readonly property FontFamily family: FontFamily {}

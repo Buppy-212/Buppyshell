@@ -185,7 +185,7 @@ Item {
                         width: parent.width
                         color: Theme.color.fg
                         font {
-                            pointSize: Theme.font.size.huge
+                            pixelSize: Theme.font.size.huge
                             family: Theme.font.family.mono
                             bold: true
                         }
