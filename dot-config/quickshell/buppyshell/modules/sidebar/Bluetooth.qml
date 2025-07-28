@@ -86,18 +86,23 @@ Rectangle {
                         StyledText {
                             text: bluetoothItem.modelData.name
                             anchors.fill: undefined
-                            anchors.verticalCenter: parent.verticalCenter
+                            height: parent.height
+                            width: contentWidth
                         }
                         StyledText {
                             text: bluetoothItem.modelData.batteryAvailable ? `(${bluetoothItem.modelData.battery * 100}%)` : ""
                             anchors.fill: undefined
-                            anchors.verticalCenter: parent.verticalCenter
+                            height: parent.height
+                            width: contentWidth
                         }
                     }
                     StyledText {
                         Layout.alignment: Qt.AlignRight
                         Layout.rightMargin: 4
+                        Layout.fillHeight: true
+                        Layout.preferredWidth: contentWidth
                         text: bluetoothItem.modelData.trusted ? "Trusted" : ""
+                        horizontalAlignment: Text.AlignLeft
                         anchors.fill: undefined
                     }
                 }
