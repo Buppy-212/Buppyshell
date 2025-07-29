@@ -14,25 +14,25 @@ Item {
         if (event.modifiers & Qt.ControlModifier) {
             switch (event.key) {
             case Qt.Key_J:
-                appList.moveCurrentIndexDown();
+                appGrid.moveCurrentIndexDown();
                 break;
             case Qt.Key_K:
-                appList.moveCurrentIndexUp();
+                appGrid.moveCurrentIndexUp();
                 break;
             case Qt.Key_L:
-                appList.moveCurrentIndexRight();
+                appGrid.moveCurrentIndexRight();
                 break;
             case Qt.Key_H:
-                appList.moveCurrentIndexLeft();
+                appGrid.moveCurrentIndexLeft();
                 break;
             case Qt.Key_N:
-                appList.moveCurrentIndexRight();
+                appGrid.moveCurrentIndexRight();
                 break;
             case Qt.Key_P:
-                appList.moveCurrentIndexLeft();
+                appGrid.moveCurrentIndexLeft();
                 break;
             case Qt.Key_O:
-                Quickshell.execDetached(["uwsm", "app", "--", `${appList.currentItem.modelData.id}.desktop`]);
+                Quickshell.execDetached(["uwsm", "app", "--", `${appGrid.currentItem.modelData.id}.desktop`]);
                 GlobalState.launcher = false;
                 break;
             case Qt.Key_Semicolon:
@@ -48,34 +48,34 @@ Item {
                 GlobalState.launcher = false;
                 break;
             case Qt.Key_Tab:
-                appList.moveCurrentIndexRight();
+                appGrid.moveCurrentIndexRight();
                 break;
             case Qt.Key_Backtab:
-                appList.moveCurrentIndexLeft();
+                appGrid.moveCurrentIndexLeft();
                 break;
             case Qt.Key_Down:
-                appList.moveCurrentIndexDown();
+                appGrid.moveCurrentIndexDown();
                 break;
             case Qt.Key_Up:
-                appList.moveCurrentIndexUp();
+                appGrid.moveCurrentIndexUp();
                 break;
             case Qt.Key_Right:
-                appList.moveCurrentIndexRight();
+                appGrid.moveCurrentIndexRight();
                 break;
             case Qt.Key_Left:
-                appList.moveCurrentIndexLeft();
+                appGrid.moveCurrentIndexLeft();
                 break;
             case Qt.Key_Return:
-                Quickshell.execDetached(["uwsm", "app", "--", `${appList.currentItem.modelData.id}.desktop`]);
+                Quickshell.execDetached(["uwsm", "app", "--", `${appGrid.currentItem.modelData.id}.desktop`]);
                 GlobalState.launcher = false;
                 break;
             }
         }
     }
     GridView {
-        id: appList
-        readonly property int rows: parent.height / appList.cellHeight
-        readonly property int cols: parent.width * 0.75 / appList.cellWidth
+        id: appGrid
+        readonly property int rows: parent.height / appGrid.cellHeight
+        readonly property int cols: parent.width * 0.75 / appGrid.cellWidth
         model: Apps.query(root.search)
         clip: true
         cellHeight: Theme.iconSize.large + Theme.height.block * 3 + Theme.margin.large
@@ -87,7 +87,7 @@ Item {
         }
         highlightFollowsCurrentItem: true
         highlightMoveDuration: 0
-        width: cols * appList.cellWidth
+        width: cols * appGrid.cellWidth
         height: rows * cellHeight
         anchors.centerIn: parent
         delegate: WrapperMouseArea {
@@ -101,10 +101,10 @@ Item {
                 Quickshell.execDetached(["uwsm", "app", "--", `${appDelegate.modelData.id}.desktop`]);
                 GlobalState.launcher = false;
             }
-            onEntered: appList.currentIndex = appDelegate.index
+            onEntered: appGrid.currentIndex = appDelegate.index
             Column {
-                height: appList.cellHeight
-                width: appList.cellWidth
+                height: appGrid.cellHeight
+                width: appGrid.cellWidth
                 topPadding: Theme.margin.medium
                 bottomPadding: Theme.margin.medium
                 IconImage {
@@ -120,6 +120,7 @@ Item {
                         text: modelData.name
                         padding: Theme.margin.tiny
                         wrapMode: Text.Wrap
+                        color: appDelegate.GridView.isCurrentItem ? Theme.color.accent : Theme.color.fg
                     }
                 }
             }

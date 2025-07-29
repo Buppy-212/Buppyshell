@@ -14,26 +14,26 @@ Item {
         if (event.modifiers & Qt.ControlModifier) {
             switch (event.key) {
             case Qt.Key_J:
-                logoutList.moveCurrentIndexDown();
+                logoutGrid.moveCurrentIndexDown();
                 break;
             case Qt.Key_K:
-                logoutList.moveCurrentIndexUp();
+                logoutGrid.moveCurrentIndexUp();
                 break;
             case Qt.Key_L:
-                logoutList.moveCurrentIndexRight();
+                logoutGrid.moveCurrentIndexRight();
                 break;
             case Qt.Key_H:
-                logoutList.moveCurrentIndexLeft();
+                logoutGrid.moveCurrentIndexLeft();
                 break;
             case Qt.Key_N:
-                logoutList.moveCurrentIndexRight();
+                logoutGrid.moveCurrentIndexRight();
                 break;
             case Qt.Key_P:
-                logoutList.moveCurrentIndexLeft();
+                logoutGrid.moveCurrentIndexLeft();
                 break;
             case Qt.Key_O:
                 GlobalState.launcher = false;
-                Hyprland.dispatch(logoutList.currentItem.command);
+                Hyprland.dispatch(logoutGrid.currentItem.command);
                 break;
             case Qt.Key_Semicolon:
                 GlobalState.launcher = false;
@@ -70,25 +70,25 @@ Item {
                 break;
             case Qt.Key_Return:
                 GlobalState.launcher = false;
-                Hyprland.dispatch(logoutList.currentItem.command);
+                Hyprland.dispatch(logoutGrid.currentItem.command);
                 break;
             case Qt.Key_Tab:
-                logoutList.moveCurrentIndexRight();
+                logoutGrid.moveCurrentIndexRight();
                 break;
             case Qt.Key_Backtab:
-                logoutList.moveCurrentIndexLeft();
+                logoutGrid.moveCurrentIndexLeft();
                 break;
             case Qt.Key_Down:
-                logoutList.moveCurrentIndexDown();
+                logoutGrid.moveCurrentIndexDown();
                 break;
             case Qt.Key_Up:
-                logoutList.moveCurrentIndexUp();
+                logoutGrid.moveCurrentIndexUp();
                 break;
             case Qt.Key_Right:
-                logoutList.moveCurrentIndexRight();
+                logoutGrid.moveCurrentIndexRight();
                 break;
             case Qt.Key_Left:
-                logoutList.moveCurrentIndexLeft();
+                logoutGrid.moveCurrentIndexLeft();
                 break;
             case Qt.Key_Escape:
                 GlobalState.launcher = false;
@@ -97,7 +97,7 @@ Item {
         }
     }
     GridView {
-        id: logoutList
+        id: logoutGrid
         readonly property int cols: parent.width / (Theme.iconSize.large * 2)
         cellHeight: height / 2
         cellWidth: width / 3
@@ -110,6 +110,7 @@ Item {
         }
         highlightFollowsCurrentItem: true
         highlightMoveDuration: 0
+        keyNavigationWraps: true
         model: [
             {
                 icon: "power_settings_new",
@@ -158,14 +159,14 @@ Item {
             acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
             cursorShape: Qt.PointingHandCursor
             hoverEnabled: true
-            onEntered: logoutList.currentIndex = logoutDelegate.index
+            onEntered: logoutGrid.currentIndex = logoutDelegate.index
             onClicked: {
                 GlobalState.launcher = false;
                 Hyprland.dispatch(command);
             }
             Item {
-                implicitHeight: logoutList.cellHeight
-                implicitWidth: logoutList.cellWidth
+                implicitHeight: logoutGrid.cellHeight
+                implicitWidth: logoutGrid.cellWidth
                 Column {
                     anchors.centerIn: parent
                     width: parent.width / 2
@@ -185,6 +186,7 @@ Item {
                         textFormat: Text.MarkdownText
                         width: parent.width
                         font.pixelSize: Theme.font.size.huge
+                        color: logoutDelegate.GridView.isCurrentItem ? Theme.color.accent : Theme.color.fg
                         anchors.fill: undefined
                     }
                 }

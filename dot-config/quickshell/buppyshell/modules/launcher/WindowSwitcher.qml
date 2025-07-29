@@ -6,6 +6,7 @@ import Quickshell.Hyprland
 import Quickshell.Wayland
 import QtQuick
 import qs.services
+import qs.widgets
 
 Item {
     id: root
@@ -123,18 +124,14 @@ Item {
                         }
                     }
                 }
-                Text {
+                StyledText {
                     height: parent.height
                     width: windowList.width - Theme.iconSize.large - Theme.margin.large
-                    text: windowDelegate.modelData?.title ?? ""
-                    color: Theme.color.fg
-                    font {
-                        family: Theme.font.family.mono
-                        pixelSize: Theme.font.size.normal
-                        bold: true
-                    }
+                    anchors.fill: undefined
                     elide: Text.ElideRight
-                    verticalAlignment: Text.AlignVCenter
+                    text: windowDelegate.modelData?.title ?? ""
+                    color: windowDelegate.ListView.isCurrentItem ? Theme.color.accent : Theme.color.fg
+                    horizontalAlignment: Text.AlignLeft
                 }
             }
         }

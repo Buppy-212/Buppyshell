@@ -55,18 +55,14 @@ Item {
                                 }
                             }
                         }
-                        Text {
+                        StyledText {
                             height: parent.height
                             width: parent.width - root.height
+                            anchors.fill: undefined
                             text: toplevel.modelData?.title ?? ""
-                            color: Theme.color.fg
-                            font {
-                                family: Theme.font.family.mono
-                                pixelSize: Theme.font.size.normal
-                                bold: true
-                            }
+                            color: toplevel.containsMouse ? Theme.color.accent : Theme.color.fg
+                            horizontalAlignment: Text.AlignLeft
                             elide: Text.ElideRight
-                            verticalAlignment: Text.AlignVCenter
                         }
                     }
                     Rectangle {
