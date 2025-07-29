@@ -82,7 +82,7 @@ Item {
         cellWidth: Theme.iconSize.large * 1.5
         snapMode: GridView.SnapToRow
         highlight: Rectangle {
-            color: Theme.color.bgalt
+            color: Theme.color.grey
             radius: Theme.radius.normal
         }
         highlightFollowsCurrentItem: true

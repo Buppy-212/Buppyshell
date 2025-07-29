@@ -73,7 +73,7 @@ Item {
         spacing: Theme.margin.medium
         snapMode: ListView.SnapToItem
         highlight: Rectangle {
-            color: Theme.color.bgalt
+            color: Theme.color.grey
             radius: Theme.radius.normal
         }
         keyNavigationWraps: true

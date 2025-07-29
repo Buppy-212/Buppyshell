@@ -105,7 +105,7 @@ Item {
         height: parent.height
         anchors.centerIn: parent
         highlight: Rectangle {
-            color: Theme.color.bgalt
+            color: Theme.color.grey
             radius: Theme.radius.normal
         }
         highlightFollowsCurrentItem: true
