@@ -6,7 +6,7 @@ import qs.widgets
 Rectangle {
     anchors {
         top: parent.top
-        topMargin: parent.height * 0.02
+        topMargin: parent.height / 50
         horizontalCenter: parent.horizontalCenter
     }
     implicitHeight: parent.height / 10

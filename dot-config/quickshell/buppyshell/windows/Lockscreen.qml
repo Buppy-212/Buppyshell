@@ -4,6 +4,7 @@ import QtQuick
 import Quickshell.Services.Pam
 import Quickshell.Wayland
 import qs.services
+import qs.widgets
 import qs.modules.background
 
 WlSessionLock {
@@ -38,30 +39,34 @@ WlSessionLock {
             }
         }
         Rectangle {
-            height: column.height + Theme.margin.large
-            width: column.width + Theme.margin.large
+            height: Screen.height / 10
+            width: Screen.width / 6
             color: Theme.color.bgTranslucent
-            radius: Theme.radius.medium
+            radius: height / 3
             anchors.centerIn: parent
             Column {
-                id: column
-                anchors.centerIn: parent
-                spacing: Theme.margin.small
-                Text {
-                    color: Theme.color.fg
-                    font.pixelSize: Theme.font.size.normal
-                    font.family: Theme.font.family.sans
-                    font.bold: true
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    text: pam.message
+                anchors {
+                  fill: parent
+                  leftMargin: parent.width / 16
+                  rightMargin: parent.width / 16
+                }
+                topPadding: spacing
+                spacing: parent.height / 8
+                Item {
+                    width: parent.width
+                    height: parent.height / 8
+                    StyledText {
+                      text: "Password"
+                      font.pixelSize: height
+                    }
                 }
                 Rectangle {
                     id: passRect
                     anchors.horizontalCenter: parent.horizontalCenter
+                    implicitWidth: parent.width
+                    implicitHeight: parent.height / 2
                     border.width: Theme.border
-                    radius: Theme.radius.medium
-                    width: 300
-                    height: 60
+                    radius: height / 3
                     color: Theme.color.bg
                     TextInput {
                         id: passwordField
