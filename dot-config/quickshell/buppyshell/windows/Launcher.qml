@@ -47,7 +47,7 @@ LazyLoader {
         Rectangle {
             anchors.fill: parent
             color: Theme.color.bg
-            opacity: 0.9
+            opacity: 0.85
         }
         ColumnLayout {
             id: column
