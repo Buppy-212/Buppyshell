@@ -3,6 +3,7 @@ pragma ComponentBehavior: Bound
 import Quickshell
 import Quickshell.Hyprland
 import Quickshell.Wayland
+import Quickshell.Widgets
 import QtQuick
 import QtQuick.Layouts
 import qs.modules.sidebar
@@ -124,25 +125,37 @@ Variants {
                             }
                         }
                     }
-                    Notifications {
-                        visible: GlobalState.sidebarModule == GlobalState.SidebarModule.Notifications
+                    WrapperItem {
                         Layout.fillHeight: true
                         Layout.fillWidth: true
-                    }
-                    Volume {
-                        visible: GlobalState.sidebarModule == GlobalState.SidebarModule.Volume
-                        Layout.fillHeight: true
-                        Layout.fillWidth: true
-                    }
-                    Bluetooth {
-                        visible: GlobalState.sidebarModule == GlobalState.SidebarModule.Bluetooth
-                        Layout.fillHeight: true
-                        Layout.fillWidth: true
-                    }
-                    Network {
-                        visible: GlobalState.sidebarModule == GlobalState.SidebarModule.Network
-                        Layout.fillHeight: true
-                        Layout.fillWidth: true
+                        child: {
+                            switch (GlobalState.sidebarModule) {
+                            case GlobalState.SidebarModule.Notifications:
+                                return notifications;
+                                break;
+                            case GlobalState.SidebarModule.Volume:
+                                return volume;
+                                break;
+                            case GlobalState.SidebarModule.Bluetooth:
+                                return bluetooth;
+                                break;
+                            case GlobalState.SidebarModule.Network:
+                                return network;
+                                break;
+                            }
+                        }
+                        Notifications {
+                            id: notifications
+                        }
+                        Volume {
+                            id: volume
+                        }
+                        Bluetooth {
+                            id: bluetooth
+                        }
+                        Network {
+                            id: network
+                        }
                     }
                     Player {
                         Layout.fillWidth: true

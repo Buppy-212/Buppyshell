@@ -4,10 +4,10 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Effects
 import Quickshell.Wayland
+import Quickshell.Widgets
 import qs.services
 import qs.widgets
 import qs.modules.launcher
-import qs.modules.bar
 
 LazyLoader {
     loading: GlobalState.launcher
@@ -60,28 +60,34 @@ LazyLoader {
                 Layout.alignment: Qt.AlignTop | Qt.AlignHCenter
                 Layout.preferredHeight: Theme.height.block * 4
             }
-            WindowSwitcher {
-                id: windowSwitcher
+            WrapperItem {
                 Layout.alignment: Qt.AlignHCenter
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                search: searchbar.search
-                visible: GlobalState.launcherModule == GlobalState.LauncherModule.Windows
-            }
-            Logout {
-                id: logout
-                Layout.alignment: Qt.AlignHCenter
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                visible: GlobalState.launcherModule == GlobalState.LauncherModule.Logout
-            }
-            AppLauncher {
-                id: appLauncher
-                Layout.alignment: Qt.AlignHCenter
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                search: searchbar.search
-                visible: GlobalState.launcherModule == GlobalState.LauncherModule.Apps
+                WindowSwitcher {
+                    id: windowSwitcher
+                    search: searchbar.search
+                }
+                Logout {
+                    id: logout
+                }
+                AppLauncher {
+                    id: appLauncher
+                    search: searchbar.search
+                }
+                child: {
+                    switch (GlobalState.launcherModule) {
+                    case GlobalState.LauncherModule.Apps:
+                        return appLauncher;
+                        break;
+                    case GlobalState.LauncherModule.Logout:
+                        return logout;
+                        break;
+                    case GlobalState.LauncherModule.Windows:
+                        return windowSwitcher;
+                        break;
+                    }
+                }
             }
             Taskbar {
                 id: taskbar

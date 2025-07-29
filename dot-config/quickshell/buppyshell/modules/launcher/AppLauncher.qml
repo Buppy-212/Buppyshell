@@ -87,6 +87,7 @@ Item {
         }
         highlightFollowsCurrentItem: true
         highlightMoveDuration: 0
+        keyNavigationWraps: true
         width: cols * appGrid.cellWidth
         height: rows * cellHeight
         anchors.centerIn: parent
