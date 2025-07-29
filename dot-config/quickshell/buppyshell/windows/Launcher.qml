@@ -86,6 +86,8 @@ LazyLoader {
                     case GlobalState.LauncherModule.Windows:
                         return windowSwitcher;
                         break;
+                    default:
+                        return null;
                     }
                 }
             }

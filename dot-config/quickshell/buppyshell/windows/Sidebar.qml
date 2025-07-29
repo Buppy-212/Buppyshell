@@ -142,6 +142,8 @@ Variants {
                             case GlobalState.SidebarModule.Network:
                                 return network;
                                 break;
+                            default:
+                                return null;
                             }
                         }
                         Notifications {
