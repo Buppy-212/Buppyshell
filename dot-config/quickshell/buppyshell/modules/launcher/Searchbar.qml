@@ -7,8 +7,8 @@ Item {
     property string search: input.text
     Rectangle {
         implicitWidth: parent.width / 3
-        implicitHeight: Theme.height.doubleBlock
-        radius: Theme.radius.large
+        implicitHeight: parent.height / 2
+        radius: height / 2
         color: Theme.color.bgalt
         anchors.centerIn: parent
         TextInput {
@@ -22,14 +22,19 @@ Item {
             leftPadding: Theme.margin.large
             rightPadding: Theme.margin.large
             color: Theme.color.fg
-            font.pixelSize: Theme.font.size.normal
-            font.family: Theme.font.family.mono
-            font.bold: true
+            font {
+                pixelSize: parent.height / 2
+                family: Theme.font.family.mono
+                bold: true
+            }
+            HoverHandler {
+                cursorShape: Qt.PointingHandCursor
+            }
             Keys.forwardTo: root.forwardTargets
             Keys.onPressed: event => {
                 if (event.key == Qt.Key_F && event.modifiers & Qt.ControlModifier) {
                     GlobalState.launcherModule += 1;
-                    if (GlobalState.launcherModule >= forwardTargets.length) {
+                    if (GlobalState.launcherModule >= root.forwardTargets.length) {
                         GlobalState.launcherModule = 0;
                     }
                 }
