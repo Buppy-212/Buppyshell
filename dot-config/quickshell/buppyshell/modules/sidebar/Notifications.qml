@@ -1,7 +1,6 @@
 import QtQuick
 import Quickshell.Services.Notifications
 import Quickshell.Hyprland
-import Quickshell.Widgets
 import qs.services
 import qs.widgets
 import qs.modules.notifications
@@ -13,7 +12,6 @@ Rectangle {
         id: notificationServer
     }
     Rectangle {
-        id: notificationList
         anchors {
             fill: parent
             topMargin: title.height
@@ -22,6 +20,7 @@ Rectangle {
         radius: Theme.radius.normal
         color: Theme.color.bgalt
         ListView {
+            id: notificationList
             clip: true
             anchors.fill: parent
             anchors.horizontalCenter: parent.horizontalCenter
@@ -30,7 +29,7 @@ Rectangle {
             delegate: Content {
                 id: content
                 required property Notification modelData
-                implicitWidth: parent.width
+                implicitWidth: notificationList.width
                 notification: modelData
             }
             removeDisplaced: Transition {
