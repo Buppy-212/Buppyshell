@@ -11,6 +11,7 @@ import qs.modules.launcher
 LazyLoader {
     loading: GlobalState.launcher
     component: PanelWindow {
+        id: panelWindow
         visible: GlobalState.launcher
         WlrLayershell.layer: WlrLayer.Top
         WlrLayershell.namespace: "buppyshell:launcher"
@@ -59,13 +60,14 @@ LazyLoader {
                 forwardTargets: [loader.item]
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignTop | Qt.AlignHCenter
-                Layout.preferredHeight: Screen.height / 24
+                Layout.preferredHeight: panelWindow.height / 24
             }
             Loader {
                 id: loader
                 Layout.alignment: Qt.AlignHCenter
                 Layout.fillWidth: true
                 Layout.fillHeight: true
+                asynchronous: true
                 sourceComponent: {
                     switch (GlobalState.launcherModule) {
                     case GlobalState.LauncherModule.Apps:
@@ -100,7 +102,7 @@ LazyLoader {
             }
             Taskbar {
                 id: taskbar
-                Layout.preferredHeight: Screen.height / 24
+                Layout.preferredHeight: panelWindow.height / 24
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignBottom | Qt.AlignHCenter
             }

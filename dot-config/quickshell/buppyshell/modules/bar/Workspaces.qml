@@ -120,6 +120,7 @@ Item {
                             }
                             Loader {
                                 active: mouseArea.containsMouse
+                                asynchronous: true
                                 sourceComponent: PopupWindow {
                                     anchor {
                                         window: leftBar

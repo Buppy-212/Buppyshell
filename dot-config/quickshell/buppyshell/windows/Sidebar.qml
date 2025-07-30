@@ -3,7 +3,6 @@ pragma ComponentBehavior: Bound
 import Quickshell
 import Quickshell.Hyprland
 import Quickshell.Wayland
-import Quickshell.Widgets
 import QtQuick
 import QtQuick.Layouts
 import qs.modules.sidebar
@@ -14,6 +13,7 @@ Variants {
     model: Quickshell.screens
     Loader {
         id: sidebarLoader
+        asynchronous: true
         required property ShellScreen modelData
         readonly property bool sidebarVisible: GlobalState.sidebar
         property string monitor
