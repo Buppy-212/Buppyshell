@@ -118,7 +118,7 @@ Item {
                 IconImage {
                     Layout.fillWidth: true
                     Layout.preferredHeight: parent.height * 0.6
-                    implicitSize: height
+                    Layout.preferredWidth: height
                     source: Quickshell.iconPath(appDelegate.modelData.icon)
                 }
                 Item {

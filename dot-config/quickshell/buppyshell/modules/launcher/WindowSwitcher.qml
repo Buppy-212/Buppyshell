@@ -120,7 +120,6 @@ Item {
                 IconImage {
                     Layout.fillHeight: true
                     Layout.preferredWidth: height
-                    implicitSize: height
                     source: {
                         if (windowDelegate.modelData?.appId.startsWith("steam_app")) {
                             return Quickshell.iconPath("input-gaming");
