@@ -6,11 +6,13 @@ Item {
     required property list<Item> forwardTargets
     property string search: input.text
     Rectangle {
-        implicitWidth: parent.width / 3
-        implicitHeight: parent.height / 2
+        anchors {
+          fill: parent
+          leftMargin: parent.width / 3
+          rightMargin: parent.width / 3
+        }
         radius: height / 2
         color: Theme.color.bgalt
-        anchors.centerIn: parent
         TextInput {
             id: input
             clip: true

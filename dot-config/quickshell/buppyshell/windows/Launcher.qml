@@ -4,7 +4,6 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Effects
 import Quickshell.Wayland
-import Quickshell.Widgets
 import qs.services
 import qs.widgets
 import qs.modules.launcher
@@ -50,15 +49,17 @@ LazyLoader {
             opacity: 0.85
         }
         ColumnLayout {
-            id: column
-            anchors.fill: parent
-            spacing: Theme.margin.large
+            anchors {
+                fill: parent
+                topMargin: spacing / 2
+            }
+            spacing: parent.height / 24
             Searchbar {
                 id: searchbar
                 forwardTargets: [loader.item]
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignTop | Qt.AlignHCenter
-                Layout.preferredHeight: Theme.height.block * 4
+                Layout.preferredHeight: Screen.height / 24
             }
             Loader {
                 id: loader
@@ -99,7 +100,7 @@ LazyLoader {
             }
             Taskbar {
                 id: taskbar
-                Layout.preferredHeight: Theme.iconSize.big
+                Layout.preferredHeight: Screen.height / 24
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignBottom | Qt.AlignHCenter
             }

@@ -98,15 +98,16 @@ Item {
     }
     GridView {
         id: logoutGrid
-        readonly property int cols: parent.width / (Theme.iconSize.large * 2)
+        anchors {
+            fill: parent
+            rightMargin: parent.width / 8
+            leftMargin: parent.width / 8
+        }
         cellHeight: height / 2
         cellWidth: width / 3
-        width: cols * Theme.iconSize.large * 1.5
-        height: parent.height
-        anchors.centerIn: parent
         highlight: Rectangle {
             color: Theme.color.grey
-            radius: Theme.radius.normal
+            radius: logoutGrid.cellHeight / 3
         }
         highlightFollowsCurrentItem: true
         highlightMoveDuration: 0
@@ -149,7 +150,7 @@ Item {
                 text: `<font color=${Theme.color.magenta}>H</font>ibernate`
             },
         ]
-        delegate: WrapperMouseArea {
+        delegate: MouseArea {
             id: logoutDelegate
             required property string icon
             required property string color
@@ -164,31 +165,33 @@ Item {
                 GlobalState.launcher = false;
                 Hyprland.dispatch(command);
             }
-            Item {
-                implicitHeight: logoutGrid.cellHeight
-                implicitWidth: logoutGrid.cellWidth
-                Column {
-                    anchors.centerIn: parent
-                    width: parent.width / 2
-                    height: parent.height * 0.75
-                    spacing: Theme.margin.large
-                    Text {
-                        text: logoutDelegate.icon
-                        font.family: Theme.font.family.material
-                        font.pixelSize: height
-                        color: logoutDelegate.color
-                        width: parent.width
-                        height: width
-                        verticalAlignment: Text.AlignVCenter
-                    }
-                    StyledText {
-                        text: logoutDelegate.text
-                        textFormat: Text.MarkdownText
-                        width: parent.width
-                        font.pixelSize: Theme.font.size.huge
-                        color: logoutDelegate.GridView.isCurrentItem ? Theme.color.accent : Theme.color.fg
-                        anchors.fill: undefined
-                    }
+            implicitHeight: logoutGrid.cellHeight
+            implicitWidth: logoutGrid.cellWidth
+            Column {
+                anchors {
+                    fill: parent
+                    topMargin: parent.height / 8
+                    rightMargin: parent.width / 4
+                    bottomMargin: parent.height / 8
+                    leftMargin: parent.width / 4
+                }
+                spacing: parent.height / 32
+                Text {
+                    text: logoutDelegate.icon
+                    font.family: Theme.font.family.material
+                    font.pixelSize: height
+                    color: logoutDelegate.color
+                    width: parent.width
+                    height: width
+                    verticalAlignment: Text.AlignVCenter
+                }
+                StyledText {
+                    text: logoutDelegate.text
+                    textFormat: Text.MarkdownText
+                    width: parent.width
+                    font.pixelSize: Theme.font.size.huge
+                    color: logoutDelegate.GridView.isCurrentItem ? Theme.color.accent : Theme.color.fg
+                    anchors.fill: undefined
                 }
             }
         }

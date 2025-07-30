@@ -5,6 +5,7 @@ import Quickshell.Widgets
 import Quickshell.Hyprland
 import Quickshell.Wayland
 import QtQuick
+import QtQuick.Layouts
 import qs.services
 import qs.widgets
 
@@ -67,24 +68,23 @@ Item {
     }
     ListView {
         id: windowList
-        readonly property int rows: parent.height / (Theme.iconSize.large + Theme.margin.medium)
-        readonly property int cols: parent.width * 0.75 / (Theme.iconSize.large * 1.5)
         clip: true
         model: Windows.query(root.search)
-        spacing: Theme.margin.medium
         snapMode: ListView.SnapToItem
         highlight: Rectangle {
             color: Theme.color.grey
-            radius: Theme.radius.normal
+            radius: height / 4
         }
         keyNavigationWraps: true
         highlightFollowsCurrentItem: true
         highlightMoveDuration: 0
         highlightResizeDuration: 0
-        height: rows * (Theme.iconSize.large + Theme.margin.medium)
-        width: cols * Theme.iconSize.large * 1.5
-        anchors.centerIn: parent
-        delegate: WrapperMouseArea {
+        anchors {
+            fill: parent
+            rightMargin: parent.width / 8
+            leftMargin: parent.width / 8
+        }
+        delegate: MouseArea {
             id: windowDelegate
             required property Toplevel modelData
             required property int index
@@ -107,13 +107,20 @@ Item {
                 }
             }
             onEntered: windowList.currentIndex = windowDelegate.index
-            Row {
-                height: Theme.iconSize.large
-                width: windowList.width
-                anchors.fill: parent
-                spacing: Theme.margin.large
+            implicitHeight: windowList.height / 10
+            implicitWidth: windowList.width
+            RowLayout {
+                anchors {
+                    fill: parent
+                    leftMargin: parent.width / 64
+                    topMargin: parent.height / 32
+                    bottomMargin: parent.height / 32
+                }
+                spacing: anchors.leftMargin
                 IconImage {
-                    implicitSize: Theme.iconSize.large
+                    Layout.fillHeight: true
+                    Layout.preferredWidth: height
+                    implicitSize: height
                     source: {
                         if (windowDelegate.modelData?.appId.startsWith("steam_app")) {
                             return Quickshell.iconPath("input-gaming");
@@ -125,8 +132,9 @@ Item {
                     }
                 }
                 StyledText {
-                    height: parent.height
-                    width: windowList.width - Theme.iconSize.large - Theme.margin.large
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                    font.pixelSize: height / 4
                     anchors.fill: undefined
                     elide: Text.ElideRight
                     text: windowDelegate.modelData?.title ?? ""

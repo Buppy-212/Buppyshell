@@ -3,6 +3,7 @@ pragma ComponentBehavior: Bound
 import Quickshell
 import Quickshell.Widgets
 import QtQuick
+import QtQuick.Layouts
 import qs.services
 import qs.widgets
 
@@ -74,24 +75,24 @@ Item {
     }
     GridView {
         id: appGrid
-        readonly property int rows: parent.height / appGrid.cellHeight
-        readonly property int cols: parent.width * 0.75 / appGrid.cellWidth
         model: Apps.query(root.search)
         clip: true
-        cellHeight: Theme.iconSize.large + Theme.height.block * 3 + Theme.margin.large
-        cellWidth: Theme.iconSize.large * 1.5
+        cellHeight: height / 5
+        cellWidth: width / 9
         snapMode: GridView.SnapToRow
         highlight: Rectangle {
             color: Theme.color.grey
-            radius: Theme.radius.normal
+            radius: width / 4
         }
         highlightFollowsCurrentItem: true
         highlightMoveDuration: 0
         keyNavigationWraps: true
-        width: cols * appGrid.cellWidth
-        height: rows * cellHeight
-        anchors.centerIn: parent
-        delegate: WrapperMouseArea {
+        anchors {
+            fill: parent
+            rightMargin: parent.width / 8
+            leftMargin: parent.width / 8
+        }
+        delegate: MouseArea {
             id: appDelegate
             required property DesktopEntry modelData
             required property int index
@@ -103,23 +104,29 @@ Item {
                 GlobalState.launcher = false;
             }
             onEntered: appGrid.currentIndex = appDelegate.index
-            Column {
-                height: appGrid.cellHeight
-                width: appGrid.cellWidth
-                topPadding: Theme.margin.medium
-                bottomPadding: Theme.margin.medium
+            implicitWidth: appGrid.cellWidth
+            implicitHeight: appGrid.cellHeight
+            ColumnLayout {
+                spacing: 0
+                anchors {
+                    fill: parent
+                    topMargin: parent.height / 20
+                    rightMargin: parent.width / 20
+                    bottomMargin: parent.height / 20
+                    leftMargin: parent.width / 20
+                }
                 IconImage {
-                    x: Theme.iconSize.large / 4
-                    y: Theme.height.block
-                    implicitSize: Theme.iconSize.large
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: parent.height * 0.6
+                    implicitSize: height
                     source: Quickshell.iconPath(appDelegate.modelData.icon)
                 }
                 Item {
-                    height: Theme.height.block * 3
-                    width: parent.width
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
                     StyledText {
                         text: modelData.name
-                        padding: Theme.margin.tiny
+                        font.pixelSize: parent.height / 4
                         wrapMode: Text.Wrap
                         color: appDelegate.GridView.isCurrentItem ? Theme.color.accent : Theme.color.fg
                     }
