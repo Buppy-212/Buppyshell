@@ -71,15 +71,15 @@ Variants {
                     spacing: Theme.margin.tiny
                     Rectangle {
                         Layout.fillWidth: true
-                        implicitHeight: Theme.height.doubleBlock
+                        Layout.preferredHeight: Theme.height.doubleBlock
                         color: Theme.color.bg
                         radius: Theme.radius.normal
                         Row {
                             id: row
-                            width: parent.width - Theme.margin.medium
-                            height: parent.height - Theme.margin.medium
-                            x: Theme.margin.small
-                            y: Theme.margin.small
+                            anchors {
+                                margins: Theme.margin.small
+                                fill: parent
+                            }
                             spacing: Theme.margin.small
                             Repeater {
                                 model: [
@@ -125,41 +125,30 @@ Variants {
                             }
                         }
                     }
-                    WrapperItem {
+                    Loader {
                         Layout.fillHeight: true
                         Layout.fillWidth: true
-                        child: {
+                        source: {
                             switch (GlobalState.sidebarModule) {
                             case GlobalState.SidebarModule.Notifications:
-                                return notifications;
+                                return Quickshell.shellPath("modules/sidebar/Notifications.qml");
                                 break;
                             case GlobalState.SidebarModule.Volume:
-                                return volume;
+                                return Quickshell.shellPath("modules/sidebar/Volume.qml");
                                 break;
                             case GlobalState.SidebarModule.Bluetooth:
-                                return bluetooth;
+                                return Quickshell.shellPath("modules/sidebar/Bluetooth.qml");
                                 break;
                             case GlobalState.SidebarModule.Network:
-                                return network;
+                                return Quickshell.shellPath("modules/sidebar/Network.qml");
                                 break;
                             default:
-                                return null;
+                                return undefined;
                             }
-                        }
-                        Notifications {
-                            id: notifications
-                        }
-                        Volume {
-                            id: volume
-                        }
-                        Bluetooth {
-                            id: bluetooth
-                        }
-                        Network {
-                            id: network
                         }
                     }
                     Player {
+                        Layout.alignment: Qt.AlignBottom
                         Layout.fillWidth: true
                     }
                 }

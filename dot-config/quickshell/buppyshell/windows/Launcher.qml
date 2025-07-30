@@ -55,41 +55,47 @@ LazyLoader {
             spacing: Theme.margin.large
             Searchbar {
                 id: searchbar
-                forwardTargets: [windowSwitcher, logout, appLauncher]
+                forwardTargets: [loader.item]
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignTop | Qt.AlignHCenter
                 Layout.preferredHeight: Theme.height.block * 4
             }
-            WrapperItem {
+            Loader {
+                id: loader
                 Layout.alignment: Qt.AlignHCenter
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                WindowSwitcher {
-                    id: windowSwitcher
-                    search: searchbar.search
-                }
-                Logout {
-                    id: logout
-                }
-                AppLauncher {
-                    id: appLauncher
-                    search: searchbar.search
-                }
-                child: {
+                sourceComponent: {
                     switch (GlobalState.launcherModule) {
                     case GlobalState.LauncherModule.Apps:
                         return appLauncher;
                         break;
-                    case GlobalState.LauncherModule.Logout:
-                        return logout;
-                        break;
                     case GlobalState.LauncherModule.Windows:
                         return windowSwitcher;
                         break;
+                    case GlobalState.LauncherModule.Logout:
+                        return logout;
+                        break;
                     default:
-                        return null;
+                        return undefined;
                     }
                 }
+            }
+            Component {
+                id: appLauncher
+                AppLauncher {
+                    search: searchbar.search
+                }
+            }
+            Component {
+                id: windowSwitcher
+                WindowSwitcher {
+                    search: searchbar.search
+                }
+            }
+            Component {
+                id: logout
+                Logout {}
             }
             Taskbar {
                 id: taskbar

@@ -3,7 +3,7 @@ import qs.services
 
 Item {
     id: root
-    required property list<var> forwardTargets
+    required property list<Item> forwardTargets
     property string search: input.text
     Rectangle {
         implicitWidth: parent.width / 3
@@ -34,7 +34,7 @@ Item {
             Keys.onPressed: event => {
                 if (event.key == Qt.Key_F && event.modifiers & Qt.ControlModifier) {
                     GlobalState.launcherModule += 1;
-                    if (GlobalState.launcherModule >= root.forwardTargets.length) {
+                    if (GlobalState.launcherModule >= 3) {
                         GlobalState.launcherModule = 0;
                     }
                 }
