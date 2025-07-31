@@ -15,7 +15,6 @@ Item {
         uniformCellSizes: true
         spacing: 0
         Repeater {
-            id: toplevelRepeater
             model: ToplevelManager.toplevels
             delegate: MouseArea {
                 id: toplevel

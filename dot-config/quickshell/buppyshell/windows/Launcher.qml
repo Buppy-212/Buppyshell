@@ -9,7 +9,7 @@ import qs.widgets
 import qs.modules.launcher
 
 LazyLoader {
-    loading: GlobalState.launcher
+    loading: true
     component: PanelWindow {
         id: panelWindow
         visible: GlobalState.launcher
@@ -59,14 +59,13 @@ LazyLoader {
                 id: searchbar
                 forwardTargets: [loader.item]
                 Layout.fillWidth: true
-                Layout.alignment: Qt.AlignTop | Qt.AlignHCenter
                 Layout.preferredHeight: panelWindow.height / 24
             }
             Loader {
                 id: loader
                 Layout.alignment: Qt.AlignHCenter
-                Layout.fillWidth: true
                 Layout.fillHeight: true
+                Layout.preferredWidth: parent.width * 0.8
                 asynchronous: true
                 sourceComponent: {
                     switch (GlobalState.launcherModule) {
@@ -101,10 +100,8 @@ LazyLoader {
                 Logout {}
             }
             Taskbar {
-                id: taskbar
                 Layout.preferredHeight: panelWindow.height / 24
                 Layout.fillWidth: true
-                Layout.alignment: Qt.AlignBottom | Qt.AlignHCenter
             }
         }
     }
