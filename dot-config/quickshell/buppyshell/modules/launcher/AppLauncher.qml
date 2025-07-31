@@ -87,11 +87,7 @@ Item {
         highlightFollowsCurrentItem: true
         highlightMoveDuration: 0
         keyNavigationWraps: true
-        anchors {
-            fill: parent
-            rightMargin: parent.width / 8
-            leftMargin: parent.width / 8
-        }
+        anchors.fill: parent
         delegate: MouseArea {
             id: appDelegate
             required property DesktopEntry modelData

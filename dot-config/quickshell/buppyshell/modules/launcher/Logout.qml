@@ -1,7 +1,6 @@
 pragma ComponentBehavior: Bound
 
 import Quickshell
-import Quickshell.Widgets
 import Quickshell.Hyprland
 import QtQuick
 import qs.services
@@ -98,11 +97,7 @@ Item {
     }
     GridView {
         id: logoutGrid
-        anchors {
-            fill: parent
-            rightMargin: parent.width / 8
-            leftMargin: parent.width / 8
-        }
+        anchors.fill: parent
         cellHeight: height / 2
         cellWidth: width / 3
         highlight: Rectangle {

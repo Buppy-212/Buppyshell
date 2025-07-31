@@ -79,11 +79,7 @@ Item {
         highlightFollowsCurrentItem: true
         highlightMoveDuration: 0
         highlightResizeDuration: 0
-        anchors {
-            fill: parent
-            rightMargin: parent.width / 8
-            leftMargin: parent.width / 8
-        }
+        anchors.fill: parent
         delegate: MouseArea {
             id: windowDelegate
             required property Toplevel modelData
