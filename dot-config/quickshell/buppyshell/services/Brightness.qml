@@ -12,22 +12,6 @@ Singleton {
     property int maxBrightness
     property bool nightlight
     Process {
-        id: set
-        command: ["brightnessctl", "-q", "s", `${100 * root.brightness}%`]
-    }
-    Process {
-        id: monitor
-        command: ["ddcutil", "setvcp", "10", root.brightness]
-    }
-    Process {
-        id: filterOn
-        command: ["uwsm", "app", "--", "hyprsunset", "-t", "2500"]
-    }
-    Process {
-        id: filterOff
-        command: ["pkill", "hyprsunset"]
-    }
-    Process {
         command: ["brightnessctl", "m"]
         running: true
         stdout: StdioCollector {
@@ -49,39 +33,30 @@ Singleton {
         command: ["pidof", "hyprsunset"]
         running: true
         stdout: StdioCollector {
-            onStreamFinished: if (text) {
-                root.nightlight = true;
-            } else {
-                root.nightlight = false;
-            }
+            onStreamFinished: text ? root.nightlight = true : root.nightlight = false
         }
     }
 
+    function set(): void {
+      Quickshell.execDetached(["brightnessctl", "-q", "s", `${100 * root.brightness}%`])
+    }
     function toggleNightlight(): void {
-        root.nightlight ? filterOff.startDetached() : filterOn.startDetached();
+        root.nightlight ? Quickshell.execDetached(["pkill", "hyprsunset"]) : Quickshell.execDetached(["uwsm", "app", "--", "hyprsunset", "-t", "2500"]);
         root.nightlight = !root.nightlight;
     }
 
     function inc(): void {
-        if (root.brightness >= 0.95) {
-            root.brightness = 1;
-        } else {
-            root.brightness += 0.05;
-        }
-        set.startDetached();
+        root.brightness >= 0.95 ? root.brightness = 1 : root.brightness += 0.05;
+        root.set();
     }
 
     function dec(): void {
-        if (root.brightness <= 0.05) {
-            root.brightness = 0;
-        } else {
-            root.brightness -= 0.05;
-        }
-        set.startDetached();
+        root.brightness <= 0.05 ? root.brightness = 0 : root.brightness -= 0.05;
+        root.set();
     }
 
     function monitor(): void {
-        monitor.startDetached();
+        Quickshell.execDetached(["ddcutil", "setvcp", "10", root.brightness])
     }
 
     GlobalShortcut {
