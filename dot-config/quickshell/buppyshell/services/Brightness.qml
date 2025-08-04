@@ -8,12 +8,12 @@ import Quickshell.Hyprland
 
 Singleton {
     id: root
-    property int brightness
+    property real brightness
     property int maxBrightness
     property bool nightlight
     Process {
         id: set
-        command: ["brightnessctl", "-q", "s", `${root.brightness}%`]
+        command: ["brightnessctl", "-q", "s", `${100 * root.brightness}%`]
     }
     Process {
         id: monitor
@@ -42,7 +42,7 @@ Singleton {
         command: ["brightnessctl", "g"]
         running: false
         stdout: StdioCollector {
-            onStreamFinished: root.brightness = 100 * text / root.maxBrightness
+            onStreamFinished: root.brightness = text / root.maxBrightness
         }
     }
     Process {
@@ -63,19 +63,19 @@ Singleton {
     }
 
     function inc(): void {
-        if (root.brightness >= 95) {
-            root.brightness = 100;
+        if (root.brightness >= 0.95) {
+            root.brightness = 1;
         } else {
-            root.brightness += 5;
+            root.brightness += 0.05;
         }
         set.startDetached();
     }
 
     function dec(): void {
-        if (root.brightness <= 5) {
+        if (root.brightness <= 0.05) {
             root.brightness = 0;
         } else {
-            root.brightness -= 5;
+            root.brightness -= 0.05;
         }
         set.startDetached();
     }

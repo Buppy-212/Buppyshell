@@ -12,14 +12,12 @@ GridLayout {
     columnSpacing: 0
     rowSpacing: 0
     StyledText {
-        id: title
         text: "Volume"
         Layout.fillWidth: true
         Layout.preferredHeight: Theme.height.doubleBlock
         font.pixelSize: Theme.font.size.doubled
     }
     Rectangle {
-        id: volumeWidget
         color: Theme.color.bgalt
         radius: Theme.radius.normal
         Layout.fillHeight: true
@@ -64,34 +62,17 @@ GridLayout {
                             width: parent.width
                             height: parent.height / 2
                             spacing: 12
-                            Slider {
+                            StyledSlider {
                                 id: sinkSlider
-                                live: false
                                 Layout.fillHeight: true
                                 Layout.fillWidth: true
-                                snapMode: Slider.SnapOnRelease
-                                stepSize: 0.05
-                                from: 0
-                                to: 1
                                 value: sinkDelegate.modelData.audio?.volume ?? 0
                                 onValueChanged: sinkDelegate.modelData.ready ? sinkDelegate.modelData.audio.volume = value : undefined
                                 wheelEnabled: true
                                 HoverHandler {
                                     cursorShape: Qt.PointingHandCursor
                                 }
-                                background: ClippingRectangle {
-                                    width: sinkSlider.availableWidth
-                                    height: parent.height
-                                    color: Theme.color.grey
-                                    radius: Theme.radius.normal
-                                    Rectangle {
-                                        width: sinkSlider.visualPosition * parent.width
-                                        height: parent.height
-                                        color: Theme.color.blue
-                                        opacity: sinkDelegate.modelData == Pipewire.defaultAudioSink ? 1 : 0.25
-                                        radius: Theme.radius.normal
-                                    }
-                                }
+                                backgroundOpacity: sinkDelegate.modelData == Pipewire.defaultAudioSink ? 1 : 0.25
                             }
                             StyledText {
                                 readonly property int volume: sinkSlider.value * 100
@@ -139,34 +120,18 @@ GridLayout {
                             width: parent.width
                             height: parent.height / 2
                             spacing: 12
-                            Slider {
+                            StyledSlider {
                                 id: sourceSlider
-                                live: false
                                 Layout.fillHeight: true
                                 Layout.fillWidth: true
-                                snapMode: Slider.SnapOnRelease
-                                stepSize: 0.05
-                                from: 0
-                                to: 1
                                 value: sourceDelegate.modelData.audio?.volume ?? 0
                                 onValueChanged: sourceDelegate.modelData.ready ? sourceDelegate.modelData.audio.volume = value : undefined
                                 wheelEnabled: true
                                 HoverHandler {
                                     cursorShape: Qt.PointingHandCursor
                                 }
-                                background: ClippingRectangle {
-                                    width: sourceSlider.availableWidth
-                                    height: parent.height
-                                    color: Theme.color.grey
-                                    radius: Theme.radius.normal
-                                    Rectangle {
-                                        width: sourceSlider.visualPosition * parent.width
-                                        height: parent.height
-                                        color: Theme.color.magenta
-                                        opacity: sourceDelegate.modelData == Pipewire.defaultAudioSource ? 1 : 0.25
-                                        radius: Theme.radius.normal
-                                    }
-                                }
+                                backgroundOpacity: sourceDelegate.modelData == Pipewire.defaultAudioSource ? 1 : 0.25
+                                color: Theme.color.magenta
                             }
                             StyledText {
                                 readonly property int volume: sourceSlider.value * 100
@@ -211,33 +176,17 @@ GridLayout {
                             width: parent.width
                             height: parent.height / 2
                             spacing: 12
-                            Slider {
+                            StyledSlider {
                                 id: streamSlider
-                                live: false
                                 Layout.fillHeight: true
                                 Layout.fillWidth: true
-                                snapMode: Slider.SnapOnRelease
-                                stepSize: 0.05
-                                from: 0
-                                to: 1
                                 value: streamDelegate.modelData.audio?.volume ?? 0
                                 onValueChanged: streamDelegate.modelData.ready ? streamDelegate.modelData.audio.volume = value : undefined
                                 wheelEnabled: true
                                 HoverHandler {
                                     cursorShape: Qt.PointingHandCursor
                                 }
-                                background: ClippingRectangle {
-                                    width: streamSlider.availableWidth
-                                    height: parent.height
-                                    color: Theme.color.grey
-                                    radius: Theme.radius.normal
-                                    Rectangle {
-                                        width: streamSlider.visualPosition * parent.width
-                                        height: parent.height
                                         color: Theme.color.red
-                                        radius: Theme.radius.normal
-                                    }
-                                }
                             }
                             StyledText {
                                 readonly property int volume: streamSlider.value * 100

@@ -19,12 +19,12 @@ Scope {
     }
     property bool visible: false
     required property int source
-    readonly property int brightness: Brightness.brightness
-    readonly property int volume: Pipewire.defaultAudioSink?.audio.volume * 100
+    readonly property real brightness: Brightness.brightness
+    readonly property real volume: Pipewire.defaultAudioSink?.audio.volume
     readonly property bool muted: Pipewire.defaultAudioSink?.audio.muted ?? false
-    readonly property int mic: Pipewire.defaultAudioSource?.audio.volume * 100
+    readonly property real mic: Pipewire.defaultAudioSource?.audio.volume
     readonly property bool micMuted: Pipewire.defaultAudioSource?.audio.muted ?? false
-    readonly property int input: {
+    readonly property real input: {
         switch (source) {
         case Sliders.Source.Volume:
             return volume;
@@ -112,35 +112,22 @@ Scope {
                         height: parent.height / 2
                         font.pixelSize: height
                     }
-                    Slider {
-                        id: slider
-                        live: false
+                    StyledSlider {
                         width: parent.width
                         height: parent.height / 8
-                        from: 0
-                        to: 100
                         value: sliderWidget.input
                         enabled: false
-                        background: ClippingRectangle {
-                            color: Theme.color.grey
-                            radius: height
-                            Rectangle {
-                                width: slider.visualPosition * parent.width
-                                height: parent.height
-                                color: {
-                                    switch (sliderWidget.source) {
-                                    case Sliders.Source.Volume:
-                                        return Theme.color.blue;
-                                        break;
-                                    case Sliders.Source.Mic:
-                                        return Theme.color.magenta;
-                                        break;
-                                    case Sliders.Source.Brightness:
-                                        return Theme.color.yellow;
-                                        break;
-                                    }
-                                }
-                                radius: height
+                        color: {
+                            switch (sliderWidget.source) {
+                            case Sliders.Source.Volume:
+                                return Theme.color.blue;
+                                break;
+                            case Sliders.Source.Mic:
+                                return Theme.color.magenta;
+                                break;
+                            case Sliders.Source.Brightness:
+                                return Theme.color.yellow;
+                                break;
                             }
                         }
                     }
