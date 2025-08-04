@@ -65,7 +65,7 @@ GridLayout {
                                 Layout.fillHeight: true
                                 Layout.fillWidth: true
                                 value: sinkDelegate.modelData.audio?.volume ?? 0
-                                onValueChanged: sinkDelegate.modelData.ready ? sinkDelegate.modelData.audio.volume = value : undefined
+                                onMoved: sinkDelegate.modelData.ready ? sinkDelegate.modelData.audio.volume = value : undefined
                                 wheelEnabled: true
                                 HoverHandler {
                                     cursorShape: Qt.PointingHandCursor
@@ -123,7 +123,7 @@ GridLayout {
                                 Layout.fillHeight: true
                                 Layout.fillWidth: true
                                 value: sourceDelegate.modelData.audio?.volume ?? 0
-                                onValueChanged: sourceDelegate.modelData.ready ? sourceDelegate.modelData.audio.volume = value : undefined
+                                onMoved: sourceDelegate.modelData.ready ? sourceDelegate.modelData.audio.volume = value : undefined
                                 wheelEnabled: true
                                 HoverHandler {
                                     cursorShape: Qt.PointingHandCursor
@@ -179,7 +179,7 @@ GridLayout {
                                 Layout.fillHeight: true
                                 Layout.fillWidth: true
                                 value: streamDelegate.modelData.audio?.volume ?? 0
-                                onValueChanged: streamDelegate.modelData.ready ? streamDelegate.modelData.audio.volume = value : undefined
+                                onMoved: streamDelegate.modelData.ready ? streamDelegate.modelData.audio.volume = value : undefined
                                 wheelEnabled: true
                                 HoverHandler {
                                     cursorShape: Qt.PointingHandCursor

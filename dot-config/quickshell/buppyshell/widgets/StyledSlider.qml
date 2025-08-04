@@ -9,9 +9,8 @@ Slider {
     id: slider
     property color color: Theme.color.blue
     property int backgroundOpacity: 1
-    live: false
     snapMode: Slider.SnapOnRelease
-    stepSize: 0.05
+    stepSize: 0.01
     from: 0
     to: 1
     background: ClippingRectangle {

@@ -114,6 +114,7 @@ Scope {
                         width: parent.width
                         height: parent.height / 8
                         value: sliderWidget.input
+                        live: false
                         enabled: false
                         color: {
                             switch (sliderWidget.source) {

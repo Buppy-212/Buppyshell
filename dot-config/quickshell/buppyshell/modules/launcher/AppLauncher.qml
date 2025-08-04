@@ -92,7 +92,6 @@ Item {
             id: appDelegate
             required property DesktopEntry modelData
             required property int index
-            acceptedButtons: Qt.LeftButton
             cursorShape: Qt.PointingHandCursor
             hoverEnabled: true
             onClicked: {

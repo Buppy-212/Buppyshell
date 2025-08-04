@@ -152,7 +152,6 @@ Rectangle {
             top: playbackControls.bottom
         }
         visible: Mpris.players.values[playerWidget.currentIndex]?.positionSupported ?? false
-        live: true
         height: 12
         width: parent.width / 2
         to: Mpris.players.values[playerWidget.currentIndex]?.length ?? 1
