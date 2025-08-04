@@ -4,9 +4,7 @@ import Quickshell
 import Quickshell.Services.Pipewire
 import Quickshell.Hyprland
 import Quickshell.Wayland
-import Quickshell.Widgets
 import QtQuick
-import QtQuick.Controls
 import qs.services
 import qs.widgets
 

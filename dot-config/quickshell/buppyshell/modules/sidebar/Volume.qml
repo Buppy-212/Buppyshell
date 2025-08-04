@@ -1,7 +1,5 @@
 import Quickshell.Services.Pipewire
-import Quickshell.Widgets
 import QtQuick
-import QtQuick.Controls
 import QtQuick.Layouts
 import qs.services
 import qs.widgets
@@ -186,7 +184,7 @@ GridLayout {
                                 HoverHandler {
                                     cursorShape: Qt.PointingHandCursor
                                 }
-                                        color: Theme.color.red
+                                color: Theme.color.red
                             }
                             StyledText {
                                 readonly property int volume: streamSlider.value * 100
