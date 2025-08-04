@@ -10,6 +10,7 @@ Block {
     }
     StyledText {
         text: notificationServer.trackedNotifications.values.length ? "󱅫" : "󰂚"
+        anchors.fill: parent
         font.pixelSize: height - Theme.margin.small
     }
     MouseBlock {

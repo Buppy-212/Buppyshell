@@ -12,6 +12,7 @@ Block {
     }
     StyledText {
         text: volumeWidget.muted || volumeWidget.volume == 0 ? "" : volumeWidget.volume == 100 ? "" : volumeWidget.volume
+        anchors.fill: parent
         color: Theme.color.blue
     }
     MouseBlock {

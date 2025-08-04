@@ -40,6 +40,7 @@ Rectangle {
         anchors.left: parent.left
         StyledText {
             text: ""
+            anchors.fill: parent
             font.pixelSize: Theme.font.size.doubled
         }
         MouseBlock {
@@ -55,31 +56,21 @@ Rectangle {
     Column {
         spacing: 6
         anchors.fill: parent
-        Item {
-            implicitHeight: Theme.height.doubleBlock
-            implicitWidth: parent.width
-            StyledText {
-                text: Mpris.players.values[playerWidget.currentIndex]?.trackTitle ?? false ? Mpris.players.values[playerWidget.currentIndex].trackTitle : "No Track"
-                font.pixelSize: Theme.font.size.doubled
-                anchors {
-                    leftMargin: backBlock.width
-                    rightMargin: forwardBlock.width
-                }
-                elide: Text.ElideRight
-            }
+        StyledText {
+            text: Mpris.players.values[playerWidget.currentIndex]?.trackTitle ?? false ? Mpris.players.values[playerWidget.currentIndex].trackTitle : "No Track"
+            height: Theme.height.doubleBlock
+            width: parent.width - 2 * backBlock.width
+            font.pixelSize: Theme.font.size.doubled
+            anchors.horizontalCenter: parent.horizontalCenter
+            elide: Text.ElideRight
         }
-        Item {
+        StyledText {
+            text: Mpris.players.values[playerWidget.currentIndex]?.trackAlbum ? `${Mpris.players.values[playerWidget.currentIndex]?.trackAlbum} - ${Mpris.players.values[playerWidget.currentIndex]?.trackArtist}` : Mpris.players.values[playerWidget.currentIndex]?.trackArtist ?? ""
             visible: GlobalState.player
-            implicitHeight: Theme.height.block
-            implicitWidth: parent.width
-            StyledText {
-                text: Mpris.players.values[playerWidget.currentIndex]?.trackAlbum ? `${Mpris.players.values[playerWidget.currentIndex]?.trackAlbum} - ${Mpris.players.values[playerWidget.currentIndex]?.trackArtist}` : Mpris.players.values[playerWidget.currentIndex]?.trackArtist ?? ""
-                anchors {
-                    leftMargin: backBlock.width
-                    rightMargin: forwardBlock.width
-                }
-                elide: Text.ElideMiddle
-            }
+            height: Theme.height.block
+            width: parent.width - 2 * backBlock.width
+            anchors.horizontalCenter: parent.horizontalCenter
+            elide: Text.ElideMiddle
         }
     }
     Row {
@@ -97,6 +88,7 @@ Rectangle {
             implicitWidth: implicitHeight
             StyledText {
                 text: ""
+                anchors.fill: parent
                 font.pixelSize: Theme.font.size.doubled
             }
             MouseBlock {
@@ -114,6 +106,7 @@ Rectangle {
             implicitWidth: implicitHeight
             StyledText {
                 text: Mpris.players.values[playerWidget.currentIndex]?.isPlaying ? "" : ""
+                anchors.fill: parent
                 color: Mpris.players.values[playerWidget.currentIndex]?.dbusName == "org.mpris.MediaPlayer2.playerctld" ? Theme.color.red : Theme.color.fg
                 font.pixelSize: Theme.font.size.doubled
             }
@@ -140,6 +133,7 @@ Rectangle {
             implicitWidth: implicitHeight
             StyledText {
                 text: ""
+                anchors.fill: parent
                 font.pixelSize: Theme.font.size.doubled
             }
             MouseBlock {
@@ -186,6 +180,7 @@ Rectangle {
         anchors.right: parent.right
         StyledText {
             text: ""
+            anchors.fill: parent
             font.pixelSize: Theme.font.size.doubled
         }
         MouseBlock {

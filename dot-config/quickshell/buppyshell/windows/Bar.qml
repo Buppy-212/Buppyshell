@@ -33,18 +33,13 @@ Variants {
                 implicitWidth: Theme.width.block
                 ColumnLayout {
                     anchors.fill: parent
-                    ColumnLayout {
-                        spacing: Theme.margin.tiny
-                        Layout.alignment: Qt.AlignTop
+                    spacing: 0
+                    Os {
+                        Layout.preferredHeight: Theme.height.block
+                    }
+                    Workspaces {
                         Layout.fillHeight: true
                         Layout.fillWidth: true
-                        Os {
-                            Layout.alignment: Qt.AlignTop
-                        }
-                        Workspaces {
-                            Layout.fillHeight: true
-                            Layout.fillWidth: true
-                        }
                     }
                     Column {
                         Layout.alignment: Qt.AlignBottom

@@ -1,22 +1,47 @@
 import QtQuick
+import QtQuick.Layouts
 import Quickshell.Services.Notifications
 import Quickshell.Hyprland
 import qs.services
 import qs.widgets
 import qs.modules.notifications
 
-Rectangle {
-    radius: Theme.radius.normal
-    color: Theme.color.bg
+GridLayout {
+    columns: 2
+    rows: 2
+    columnSpacing: 0
+    rowSpacing: 0
     NotificationServer {
         id: notificationServer
     }
-    Rectangle {
-        anchors {
-            fill: parent
-            topMargin: title.height
-            margins: 36
+    StyledText {
+        text: "Notifications"
+        Layout.preferredHeight: Theme.height.doubleBlock
+        Layout.fillWidth: true
+        Layout.leftMargin: Theme.height.doubleBlock
+        font.pixelSize: Theme.font.size.doubled
+    }
+    Block {
+        hovered: dismissMouse.containsMouse
+        Layout.preferredWidth: height
+        Layout.preferredHeight: Theme.height.doubleBlock
+        StyledText {
+            text: "󰆴"
+            anchors.fill: parent
+            font.pixelSize: parent.height * 0.75
         }
+        MouseBlock {
+            id: dismissMouse
+            onClicked: Hyprland.dispatch("global buppyshell:clearNotifs")
+        }
+    }
+    Rectangle {
+        Layout.columnSpan: 2
+        Layout.fillHeight: true
+        Layout.fillWidth: true
+        Layout.rightMargin: 36
+        Layout.bottomMargin: 36
+        Layout.leftMargin: 36
         radius: Theme.radius.normal
         color: Theme.color.bgalt
         ListView {
@@ -39,33 +64,6 @@ Rectangle {
                     easing.type: Theme.animation.elementMoveFast.type
                     easing.bezierCurve: Theme.animation.elementMoveFast.bezierCurve
                 }
-            }
-        }
-    }
-    Rectangle {
-        id: title
-        anchors.top: parent.top
-        implicitWidth: parent.width
-        implicitHeight: Theme.height.doubleBlock
-        color: Theme.color.bg
-        radius: Theme.radius.normal
-        StyledText {
-            text: "Notifications"
-            font.pixelSize: Theme.font.size.doubled
-        }
-        Block {
-            hovered: dismissMouse.containsMouse
-            anchors.top: parent.top
-            anchors.right: parent.right
-            implicitHeight: Theme.height.doubleBlock
-            implicitWidth: implicitHeight
-            StyledText {
-                text: "󰆴"
-                font.pixelSize: Theme.font.size.doubled
-            }
-            MouseBlock {
-                id: dismissMouse
-                onClicked: Hyprland.dispatch("global buppyshell:clearNotifs")
             }
         }
     }

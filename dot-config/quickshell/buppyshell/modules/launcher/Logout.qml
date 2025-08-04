@@ -186,7 +186,6 @@ Item {
                     width: parent.width
                     font.pixelSize: Theme.font.size.huge
                     color: logoutDelegate.GridView.isCurrentItem ? Theme.color.accent : Theme.color.fg
-                    anchors.fill: undefined
                 }
             }
         }

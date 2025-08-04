@@ -6,29 +6,27 @@ import QtQuick.Layouts
 import qs.services
 import qs.widgets
 
-Rectangle {
-    color: Theme.color.bg
-    Rectangle {
+GridLayout {
+    columns: 1
+    rows: 2
+    columnSpacing: 0
+    rowSpacing: 0
+    StyledText {
         id: title
-        anchors.top: parent.top
-        implicitWidth: parent.width
-        implicitHeight: Theme.height.doubleBlock
-        color: Theme.color.bg
-        radius: Theme.radius.normal
-        StyledText {
-            text: "Volume"
-            font.pixelSize: Theme.font.size.doubled
-        }
+        text: "Volume"
+        Layout.fillWidth: true
+        Layout.preferredHeight: Theme.height.doubleBlock
+        font.pixelSize: Theme.font.size.doubled
     }
     Rectangle {
         id: volumeWidget
         color: Theme.color.bgalt
         radius: Theme.radius.normal
-        anchors {
-            margins: 36
-            topMargin: title.height
-            fill: parent
-        }
+        Layout.fillHeight: true
+        Layout.fillWidth: true
+        Layout.rightMargin: 36
+        Layout.bottomMargin: 36
+        Layout.leftMargin: 36
         MouseArea {
             anchors.fill: parent
         }
@@ -52,19 +50,15 @@ Rectangle {
                     Column {
                         width: parent.width
                         height: Theme.height.doubleBlock
-                        WrapperMouseArea {
-                            cursorShape: Qt.PointingHandCursor
-                            acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            implicitHeight: parent.height / 2
-                            implicitWidth: parent.width
-                            StyledText {
-                                text: sinkDelegate.modelData.description
-                                elide: Text.ElideRight
-                                width: parent.width
-                                horizontalAlignment: Text.AlignHCenter
+                        StyledText {
+                            text: sinkDelegate.modelData.description
+                            elide: Text.ElideRight
+                            width: parent.width
+                            height: parent.height / 2
+                            horizontalAlignment: Text.AlignHCenter
+                            MouseBlock {
+                                onClicked: Pipewire.preferredDefaultAudioSink = sinkDelegate.modelData
                             }
-                            onClicked: Pipewire.preferredDefaultAudioSink = sinkDelegate.modelData
                         }
                         RowLayout {
                             width: parent.width
@@ -99,16 +93,14 @@ Rectangle {
                                     }
                                 }
                             }
-                            WrapperMouseArea {
-                                cursorShape: Qt.PointingHandCursor
-                                acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
+                            StyledText {
+                                readonly property int volume: sinkSlider.value * 100
                                 Layout.fillHeight: true
                                 Layout.preferredWidth: 36
-                                StyledText {
-                                    readonly property int volume: sinkSlider.value * 100
-                                    text: sinkDelegate.modelData.audio?.muted ? "" : `${volume}%`
+                                text: sinkDelegate.modelData.audio?.muted ? "" : `${volume}%`
+                                MouseBlock {
+                                    onClicked: sinkDelegate.modelData.audio.muted = !sinkDelegate.modelData.audio.muted
                                 }
-                                onClicked: sinkDelegate.modelData.audio.muted = !sinkDelegate.modelData.audio.muted
                             }
                         }
                     }
@@ -133,19 +125,15 @@ Rectangle {
                     Column {
                         width: parent.width
                         height: Theme.height.doubleBlock
-                        WrapperMouseArea {
-                            cursorShape: Qt.PointingHandCursor
-                            acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            implicitHeight: parent.height / 2
-                            implicitWidth: parent.width
-                            StyledText {
-                                text: sourceDelegate.modelData.description
-                                elide: Text.ElideRight
-                                width: parent.width
-                                horizontalAlignment: Text.AlignHCenter
+                        StyledText {
+                            text: sourceDelegate.modelData.description
+                            elide: Text.ElideRight
+                            width: parent.width
+                            height: parent.height / 2
+                            horizontalAlignment: Text.AlignHCenter
+                            MouseBlock {
+                                onClicked: Pipewire.preferredDefaultAudioSource = sourceDelegate.modelData
                             }
-                            onClicked: Pipewire.preferredDefaultAudioSource = sourceDelegate.modelData
                         }
                         RowLayout {
                             width: parent.width
@@ -180,16 +168,14 @@ Rectangle {
                                     }
                                 }
                             }
-                            WrapperMouseArea {
-                                cursorShape: Qt.PointingHandCursor
-                                acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
+                            StyledText {
+                                readonly property int volume: sourceSlider.value * 100
                                 Layout.fillHeight: true
                                 Layout.preferredWidth: 36
-                                StyledText {
-                                    readonly property int volume: sourceSlider.value * 100
-                                    text: sourceDelegate.modelData.audio?.muted ? "" : `${volume}%`
+                                text: sourceDelegate.modelData.audio?.muted ? "" : `${volume}%`
+                                MouseBlock {
+                                    onClicked: sourceDelegate.modelData.audio.muted = !sourceDelegate.modelData.audio.muted
                                 }
-                                onClicked: sourceDelegate.modelData.audio.muted = !sourceDelegate.modelData.audio.muted
                             }
                         }
                     }
@@ -214,16 +200,12 @@ Rectangle {
                     Column {
                         width: parent.width
                         height: Theme.height.doubleBlock
-                        Item {
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            implicitHeight: parent.height / 2
-                            implicitWidth: parent.width
-                            StyledText {
-                                text: streamDelegate.modelData.name
-                                elide: Text.ElideRight
-                                width: parent.width
-                                horizontalAlignment: Text.AlignHCenter
-                            }
+                        StyledText {
+                            text: streamDelegate.modelData.name
+                            elide: Text.ElideRight
+                            height: parent.height / 2
+                            width: parent.width
+                            horizontalAlignment: Text.AlignHCenter
                         }
                         RowLayout {
                             width: parent.width
@@ -257,16 +239,14 @@ Rectangle {
                                     }
                                 }
                             }
-                            WrapperMouseArea {
-                                cursorShape: Qt.PointingHandCursor
-                                acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
+                            StyledText {
+                                readonly property int volume: streamSlider.value * 100
                                 Layout.fillHeight: true
                                 Layout.preferredWidth: 36
-                                StyledText {
-                                    readonly property int volume: streamSlider.value * 100
-                                    text: streamDelegate.modelData.audio?.muted ? "" : `${volume}%`
+                                text: streamDelegate.modelData.audio?.muted ? "" : `${volume}%`
+                                MouseBlock {
+                                    onClicked: streamDelegate.modelData.audio.muted = !streamDelegate.modelData.audio.muted
                                 }
-                                onClicked: streamDelegate.modelData.audio.muted = !streamDelegate.modelData.audio.muted
                             }
                         }
                     }

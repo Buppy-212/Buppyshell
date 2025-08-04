@@ -117,15 +117,14 @@ Item {
                     Layout.preferredWidth: height
                     source: Quickshell.iconPath(appDelegate.modelData.icon)
                 }
-                Item {
+                StyledText {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    StyledText {
-                        text: modelData.name
-                        font.pixelSize: parent.height / 4
-                        wrapMode: Text.Wrap
-                        color: appDelegate.GridView.isCurrentItem ? Theme.color.accent : Theme.color.fg
-                    }
+                    anchors.fill: undefined
+                    text: modelData.name
+                    font.pixelSize: height / 4
+                    wrapMode: Text.Wrap
+                    color: appDelegate.GridView.isCurrentItem ? Theme.color.accent : Theme.color.fg
                 }
             }
         }

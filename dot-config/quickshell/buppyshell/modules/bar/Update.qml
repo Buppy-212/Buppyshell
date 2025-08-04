@@ -10,17 +10,14 @@ Block {
     implicitHeight: mouse.containsMouse ? Theme.height.doubleBlock : Theme.height.block
     StyledText {
         text: `${Updates.updates}`
-        anchors.centerIn: undefined
         anchors.top: updateWidget.top
         anchors.horizontalCenter: updateWidget.horizontalCenter
         visible: mouse.containsMouse
-        anchors.fill: undefined
     }
     StyledText {
         text: ""
         anchors.bottom: updateWidget.bottom
         anchors.horizontalCenter: updateWidget.horizontalCenter
-        anchors.fill: undefined
     }
     MouseBlock {
         id: mouse

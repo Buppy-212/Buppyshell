@@ -17,25 +17,21 @@ Rectangle {
         id: column
         anchors.fill: parent
         topPadding: parent.height / 8
-        Item {
-            implicitHeight: parent.height / 4
-            implicitWidth: parent.width
-            StyledText {
-                text: Time.date
-                font {
-                    pixelSize: parent.width / 10
-                    family: Theme.font.family.handwritten
-                    italic: true
-                }
+        StyledText {
+            height: parent.height / 4
+            width: parent.width
+            text: Time.date
+            font {
+                pixelSize: width / 10
+                family: Theme.font.family.handwritten
+                italic: true
             }
         }
-        Item {
-            implicitHeight: parent.height / 2
-            implicitWidth: parent.width
-            StyledText {
-                text: Time.time
-                font.pixelSize: parent.width / 4
-            }
+        StyledText {
+            height: parent.height / 2
+            width: parent.width
+            text: Time.time
+            font.pixelSize: width / 4
         }
     }
 }

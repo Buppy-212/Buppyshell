@@ -6,5 +6,6 @@ Block {
     color: "transparent"
     StyledText {
         text: Time.timeGrid
+        anchors.fill: parent
     }
 }

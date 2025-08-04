@@ -1,5 +1,6 @@
 import QtQuick
 import qs.services
+import qs.widgets
 
 Item {
     id: root
@@ -7,31 +8,19 @@ Item {
     property string search: input.text
     Rectangle {
         anchors {
-          fill: parent
-          leftMargin: parent.width / 3
-          rightMargin: parent.width / 3
+            fill: parent
+            leftMargin: parent.width / 3
+            rightMargin: parent.width / 3
         }
         radius: height / 2
         color: Theme.color.bgalt
-        TextInput {
+        StyledTextInput {
             id: input
             clip: true
-            onVisibleChanged: text = ""
             focus: true
             anchors.fill: parent
-            verticalAlignment: Text.AlignVCenter
-            horizontalAlignment: Text.AlignHCenter
-            leftPadding: Theme.margin.large
-            rightPadding: Theme.margin.large
-            color: Theme.color.fg
-            font {
-                pixelSize: parent.height / 2
-                family: Theme.font.family.mono
-                bold: true
-            }
-            HoverHandler {
-                cursorShape: Qt.PointingHandCursor
-            }
+            font.pixelSize: parent.height / 2
+            onVisibleChanged: text = ""
             Keys.forwardTo: root.forwardTargets
             Keys.onPressed: event => {
                 if (event.key == Qt.Key_F && event.modifiers & Qt.ControlModifier) {

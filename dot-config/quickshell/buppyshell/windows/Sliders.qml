@@ -94,25 +94,23 @@ Scope {
                     }
                     topPadding: spacing
                     spacing: parent.height / 8
-                    Item {
+                    StyledText {
+                        text: {
+                            switch (sliderWidget.source) {
+                            case Sliders.Source.Volume:
+                                return sliderWidget.muted || sliderWidget.input == 0 ? "" : "";
+                                break;
+                            case Sliders.Source.Mic:
+                                return sliderWidget.micMuted || sliderWidget.input == 0 ? "" : "";
+                                break;
+                            case Sliders.Source.Brightness:
+                                return "";
+                                break;
+                            }
+                        }
                         width: parent.width
                         height: parent.height / 2
-                        StyledText {
-                            text: {
-                                switch (sliderWidget.source) {
-                                case Sliders.Source.Volume:
-                                    return sliderWidget.muted || sliderWidget.input == 0 ? "" : "";
-                                    break;
-                                case Sliders.Source.Mic:
-                                    return sliderWidget.micMuted || sliderWidget.input == 0 ? "" : "";
-                                    break;
-                                case Sliders.Source.Brightness:
-                                    return "";
-                                    break;
-                                }
-                            }
-                            font.pixelSize: height
-                        }
+                        font.pixelSize: height
                     }
                     Slider {
                         id: slider

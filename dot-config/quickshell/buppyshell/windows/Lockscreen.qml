@@ -46,19 +46,17 @@ WlSessionLock {
             anchors.centerIn: parent
             Column {
                 anchors {
-                  fill: parent
-                  leftMargin: parent.width / 16
-                  rightMargin: parent.width / 16
+                    fill: parent
+                    leftMargin: parent.width / 16
+                    rightMargin: parent.width / 16
                 }
                 topPadding: spacing
                 spacing: parent.height / 8
-                Item {
+                StyledText {
+                    text: "Password"
                     width: parent.width
                     height: parent.height / 8
-                    StyledText {
-                      text: "Password"
-                      font.pixelSize: height
-                    }
+                    font.pixelSize: height
                 }
                 Rectangle {
                     id: passRect
@@ -68,11 +66,10 @@ WlSessionLock {
                     border.width: Theme.border
                     radius: height / 3
                     color: Theme.color.bg
-                    TextInput {
+                    StyledTextInput {
                         id: passwordField
-                        anchors.centerIn: passRect
-                        color: Theme.color.fg
-                        visible: true
+                        anchors.fill: parent
+                        font.pixelSize: parent.height / 2
                         onAccepted: {
                             if (pam.responseRequired) {
                                 pam.respond(text);

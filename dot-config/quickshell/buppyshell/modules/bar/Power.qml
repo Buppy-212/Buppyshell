@@ -8,6 +8,7 @@ Block {
     StyledText {
         text: "⏻"
         color: Theme.color.red
+        anchors.fill: parent
         font.pixelSize: Theme.font.size.large
     }
     MouseBlock {

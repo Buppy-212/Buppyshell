@@ -40,7 +40,7 @@ Variants {
                 implicitWidth: parent.width - Theme.margin.tiny
                 implicitHeight: parent.height
                 radius: Theme.radius.normal
-                color: Theme.color.black
+                color: Theme.color.bg
                 MouseArea {
                     anchors.fill: parent
                     cursorShape: Qt.PointingHandCursor
@@ -66,68 +66,65 @@ Variants {
                         }
                     }
                 }
-                ColumnLayout {
+                GridLayout {
                     anchors.fill: parent
-                    spacing: Theme.margin.tiny
-                    Rectangle {
-                        Layout.fillWidth: true
-                        Layout.preferredHeight: Theme.height.doubleBlock
-                        color: Theme.color.bg
-                        radius: Theme.radius.normal
-                        Row {
-                            id: row
-                            anchors {
-                                margins: Theme.margin.small
+                    columns: 4
+                    rows: 3
+                    Repeater {
+                        model: [
+                            {
+                                text: "󰂚",
+                                state: GlobalState.sidebarModule == GlobalState.SidebarModule.Notifications,
+                                command: "notifications"
+                            },
+                            {
+                                text: "",
+                                state: GlobalState.sidebarModule == GlobalState.SidebarModule.Volume,
+                                command: "volume"
+                            },
+                            {
+                                text: "󰂯",
+                                state: GlobalState.sidebarModule == GlobalState.SidebarModule.Bluetooth,
+                                command: "bluetooth"
+                            },
+                            {
+                                text: "󰖩",
+                                state: GlobalState.sidebarModule == GlobalState.SidebarModule.Network,
+                                command: "network"
+                            },
+                        ]
+                        delegate: Block {
+                            id: delegateBlock
+                            required property string text
+                            required property string command
+                            required property bool state
+                            hovered: mouse.containsMouse
+                            color: hovered ? Theme.color.grey : state ? Theme.color.bgalt : "transparent"
+                            Layout.preferredHeight: Theme.height.doubleBlock
+                            Layout.fillWidth: true
+                            Rectangle {
+                              visible: delegateBlock.state
+                              anchors {
                                 fill: parent
+                                topMargin: parent.height * 0.96
+                              }
+                              color: Theme.color.accent
                             }
-                            spacing: Theme.margin.small
-                            Repeater {
-                                model: [
-                                    {
-                                        text: "󰂚",
-                                        state: GlobalState.sidebarModule == GlobalState.SidebarModule.Notifications,
-                                        command: "notifications"
-                                    },
-                                    {
-                                        text: "",
-                                        state: GlobalState.sidebarModule == GlobalState.SidebarModule.Volume,
-                                        command: "volume"
-                                    },
-                                    {
-                                        text: "󰂯",
-                                        state: GlobalState.sidebarModule == GlobalState.SidebarModule.Bluetooth,
-                                        command: "bluetooth"
-                                    },
-                                    {
-                                        text: "󰖩",
-                                        state: GlobalState.sidebarModule == GlobalState.SidebarModule.Network,
-                                        command: "network"
-                                    },
-                                ]
-                                delegate: Block {
-                                    id: delegateBlock
-                                    required property string text
-                                    required property string command
-                                    required property bool state
-                                    hovered: mouse.containsMouse
-                                    color: hovered ? Theme.color.grey : state ? Theme.color.accent : "transparent"
-                                    implicitHeight: row.height
-                                    implicitWidth: implicitHeight
-                                    StyledText {
-                                        text: delegateBlock.text
-                                        font.pixelSize: Theme.font.size.doubled
-                                    }
-                                    MouseBlock {
-                                        id: mouse
-                                        onClicked: GlobalState.toggle(delegateBlock.command)
-                                    }
-                                }
+                            StyledText {
+                                text: delegateBlock.text
+                                anchors.fill: parent
+                                font.pixelSize: Theme.font.size.doubled
+                            }
+                            MouseBlock {
+                                id: mouse
+                                onClicked: GlobalState.toggle(delegateBlock.command)
                             }
                         }
                     }
                     Loader {
                         Layout.fillHeight: true
                         Layout.fillWidth: true
+                        Layout.columnSpan: 4
                         source: {
                             switch (GlobalState.sidebarModule) {
                             case GlobalState.SidebarModule.Notifications:
@@ -148,8 +145,8 @@ Variants {
                         }
                     }
                     Player {
-                        Layout.alignment: Qt.AlignBottom
                         Layout.fillWidth: true
+                        Layout.columnSpan: 4
                     }
                 }
             }

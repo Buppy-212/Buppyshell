@@ -5,6 +5,7 @@ Block {
     hovered: mouse.containsMouse
     StyledText {
         text: Idle.active ? "" : ""
+        anchors.fill: parent
         color: Theme.color.cyan
     }
     MouseBlock {

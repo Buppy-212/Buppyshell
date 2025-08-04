@@ -6,6 +6,7 @@ Block {
     hovered: mouse.containsMouse
     StyledText {
         text: Bluetooth.defaultAdapter?.enabled ?? Bluetooth.adapters.values[0]?.enabled ? "󰂯" : "󰂲"
+        anchors.fill: parent
         color: Theme.color.blue
         font.pixelSize: height - Theme.margin.small
     }

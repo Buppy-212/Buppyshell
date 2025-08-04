@@ -130,7 +130,6 @@ Item {
                     Layout.fillHeight: true
                     Layout.fillWidth: true
                     font.pixelSize: height / 4
-                    anchors.fill: undefined
                     elide: Text.ElideRight
                     text: windowDelegate.modelData?.title ?? ""
                     color: windowDelegate.ListView.isCurrentItem ? Theme.color.accent : Theme.color.fg

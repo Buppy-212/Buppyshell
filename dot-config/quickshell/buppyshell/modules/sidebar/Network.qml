@@ -1,29 +1,27 @@
 import QtQuick
+import QtQuick.Layouts
 import qs.widgets
 import qs.services
 
-Rectangle {
-    color: Theme.color.bg
-    Rectangle {
-        id: title
-        anchors.top: parent.top
-        implicitWidth: parent.width
-        implicitHeight: Theme.height.doubleBlock
-        color: Theme.color.bg
-        radius: Theme.radius.normal
-        StyledText {
-            text: "Network"
-            font.pixelSize: Theme.font.size.doubled
-        }
+GridLayout {
+    columns: 1
+    columnSpacing: 0
+    rows: 2
+    rowSpacing: 0
+    StyledText {
+        Layout.fillWidth: true
+        Layout.preferredHeight: Theme.height.doubleBlock
+        text: "Network"
+        font.pixelSize: Theme.font.size.doubled
     }
     Rectangle {
         id: networkWidget
         color: Theme.color.bgalt
         radius: Theme.radius.normal
-        anchors {
-            margins: 36
-            topMargin: title.height
-            fill: parent
-        }
+        Layout.fillHeight: true
+        Layout.fillWidth: true
+        Layout.rightMargin: 36
+        Layout.bottomMargin: 36
+        Layout.leftMargin: 36
     }
 }

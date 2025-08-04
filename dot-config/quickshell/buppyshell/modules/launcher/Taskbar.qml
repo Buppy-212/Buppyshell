@@ -60,7 +60,6 @@ Item {
                         StyledText {
                             Layout.fillWidth: true
                             Layout.fillHeight: true
-                            anchors.fill: undefined
                             text: toplevel.modelData?.title ?? ""
                             color: toplevel.containsMouse ? Theme.color.accent : Theme.color.fg
                             horizontalAlignment: Text.AlignLeft
@@ -68,11 +67,12 @@ Item {
                         }
                     }
                     Rectangle {
+                        visible: toplevel.modelData?.activated
                         anchors {
                             fill: parent
                             topMargin: parent.height * 0.96
                         }
-                        color: toplevel.modelData?.activated ? Theme.color.accent : Theme.color.bg
+                        color: Theme.color.accent
                     }
                 }
             }

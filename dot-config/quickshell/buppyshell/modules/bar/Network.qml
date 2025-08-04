@@ -5,6 +5,7 @@ Block {
     hovered: mouse.containsMouse
     StyledText {
         text: "󰤨"
+        anchors.fill: parent
         color: Theme.color.green
         font.pixelSize: height - Theme.margin.small
     }

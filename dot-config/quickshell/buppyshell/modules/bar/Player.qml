@@ -5,6 +5,7 @@ Block {
     hovered: playerMouse.containsMouse
     StyledText {
         text: "󰐎"
+        anchors.fill: parent
         font.pixelSize: height - Theme.margin.small
     }
     MouseBlock {

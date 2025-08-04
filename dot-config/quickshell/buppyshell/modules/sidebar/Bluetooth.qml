@@ -7,61 +7,60 @@ import QtQuick.Layouts
 import qs.services
 import qs.widgets
 
-Rectangle {
+GridLayout {
     id: bluetoothWidget
-    radius: Theme.radius.normal
-    color: Theme.color.bg
+    columns: 3
+    rows: 2
+    columnSpacing: 0
+    rowSpacing: 0
     Block {
         hovered: adapterMouse.containsMouse
-        anchors.top: parent.top
-        anchors.left: parent.left
-        implicitHeight: Theme.height.doubleBlock
-        implicitWidth: implicitHeight
+        Layout.preferredHeight: Theme.height.doubleBlock
+        Layout.preferredWidth: height
         StyledText {
             text: Bluetooth.defaultAdapter?.enabled ?? Bluetooth.adapters.values[0]?.enabled ? "󰂯" : "󰂲"
             color: Theme.color.blue
-            font.pixelSize: Theme.font.size.doubled
+            anchors.fill: parent
+            font.pixelSize: height * 0.75
         }
         MouseBlock {
             id: adapterMouse
             onClicked: Bluetooth.defaultAdapter.enabled = !Bluetooth.defaultAdapter.enabled
         }
     }
+    StyledText {
+        id: adapterName
+        Layout.preferredHeight: Theme.height.doubleBlock
+        Layout.fillWidth: true
+        text: Bluetooth.defaultAdapter?.name ?? Bluetooth.adapters.values[0]?.name ?? ""
+        font.pixelSize: height * 0.75
+    }
     Block {
         hovered: searchMouse.containsMouse
-        anchors.top: parent.top
-        anchors.right: parent.right
-        implicitHeight: Theme.height.doubleBlock
-        implicitWidth: implicitHeight
+        Layout.preferredHeight: Theme.height.doubleBlock
+        Layout.preferredWidth: height
         StyledText {
             text: Bluetooth.defaultAdapter?.discovering ?? Bluetooth.adapters.values[0]?.discovering ? "󰜺" : ""
+            anchors.fill: parent
             color: Theme.color.fg
-            font.pixelSize: Theme.font.size.doubled
+            font.pixelSize: height * 0.75
         }
         MouseBlock {
             id: searchMouse
             onClicked: Bluetooth.defaultAdapter.discovering = !Bluetooth.defaultAdapter.discovering
         }
     }
-    Item {
-        id: adapterNameItem
-        anchors.top: parent.top
-        anchors.horizontalCenter: parent.horizontalCenter
-        implicitHeight: Theme.height.doubleBlock
-        implicitWidth: adapterName.contentWidth
-        StyledText {
-            id: adapterName
-            text: Bluetooth.defaultAdapter?.name ?? Bluetooth.adapters.values[0]?.name ?? ""
-            font.pixelSize: Theme.font.size.doubled
-        }
-    }
     Rectangle {
-        anchors.fill: parent
-        anchors.margins: 36
-        anchors.topMargin: adapterNameItem.height
+        Layout.fillWidth: true
+        Layout.fillHeight: true
+        Layout.columnSpan: 3
+        Layout.rightMargin: 36
+        Layout.bottomMargin: 36
+        Layout.leftMargin: 36
         radius: Theme.radius.normal
         color: Theme.color.bgalt
         ListView {
+            id: bluetoothList
             spacing: 8
             anchors.fill: parent
             anchors.margins: 12
@@ -75,35 +74,25 @@ Rectangle {
                 color: itemMouse.containsMouse ? Theme.color.grey : modelData.batteryAvailable && modelData.battery <= 0.1 ? Theme.color.red : modelData.connected ? Theme.color.accent : "transparent"
                 RowLayout {
                     anchors.fill: parent
-                    Row {
-                        Layout.alignment: Qt.AlignLeft
+                    spacing: 8
+                    IconImage {
                         Layout.fillHeight: true
-                        spacing: 8
-                        IconImage {
-                            implicitSize: parent.height
-                            source: Quickshell.iconPath(bluetoothItem.modelData.icon, "bluetooth")
-                        }
-                        StyledText {
-                            text: bluetoothItem.modelData.name
-                            anchors.fill: undefined
-                            height: parent.height
-                            width: contentWidth
-                        }
-                        StyledText {
-                            text: bluetoothItem.modelData.batteryAvailable ? `(${bluetoothItem.modelData.battery * 100}%)` : ""
-                            anchors.fill: undefined
-                            height: parent.height
-                            width: contentWidth
-                        }
+                        Layout.preferredWidth: height
+                        source: Quickshell.iconPath(bluetoothItem.modelData.icon, "bluetooth")
+                    }
+                    StyledText {
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        horizontalAlignment: Text.AlignLeft
+                        text: bluetoothItem.modelData.batteryAvailable ? `${bluetoothItem.modelData.name} (${bluetoothItem.modelData.battery * 100}%)` : bluetoothItem.modelData.name
                     }
                     StyledText {
                         Layout.alignment: Qt.AlignRight
-                        Layout.rightMargin: 4
                         Layout.fillHeight: true
                         Layout.preferredWidth: contentWidth
+                        Layout.rightMargin: height / 4
                         text: bluetoothItem.modelData.trusted ? "Trusted" : ""
-                        horizontalAlignment: Text.AlignLeft
-                        anchors.fill: undefined
+                        font.pixelSize: height / 2
                     }
                 }
                 MouseBlock {

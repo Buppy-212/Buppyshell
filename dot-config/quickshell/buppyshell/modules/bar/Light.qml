@@ -6,6 +6,7 @@ Block {
     StyledText {
         text: mouse.containsMouse ? Brightness.brightness : Brightness.nightlight ? "" : ""
         color: Theme.color.yellow
+        anchors.fill: parent
         font.pixelSize: mouse.containsMouse ? Theme.font.size.normal : Theme.font.size.large
     }
     MouseBlock {

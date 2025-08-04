@@ -8,7 +8,6 @@ Text {
         pixelSize: Theme.font.size.normal
         bold: true
     }
-    anchors.fill: parent
     horizontalAlignment: Text.AlignHCenter
     verticalAlignment: Text.AlignVCenter
 }

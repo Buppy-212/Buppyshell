@@ -4,80 +4,79 @@ import Quickshell
 import Quickshell.Hyprland
 import Quickshell.Widgets
 import QtQuick
+import QtQuick.Layouts
 import qs.services
 import qs.widgets
 
-Item {
+ColumnLayout {
     id: root
-    Column {
-        spacing: Theme.margin.medium
-        anchors.fill: parent
-        Repeater {
-            model: Hyprland.workspaces
-            delegate: Rectangle {
-                id: workspaceCell
-                required property HyprlandWorkspace modelData
-                property bool draggedOver: false
-                property bool occupied: modelData.toplevels.values.length
-                property bool focused: modelData.focused
-                height: occupied ? (modelData.toplevels.values.length + 1) * (width + Theme.margin.tiny) : width - Theme.margin.tiny
-                width: parent.width
-                radius: Theme.radius.normal
-                color: draggedOver | mouse.containsMouse ? Theme.color.grey : focused ? Theme.color.accent : occupied ? Theme.color.bgalt : "transparent"
-                DropArea {
+    spacing: 0
+    Repeater {
+        model: Hyprland.workspaces
+        delegate: MouseArea {
+            id: workspace
+            required property HyprlandWorkspace modelData
+            property bool draggedOver: false
+            Layout.preferredHeight: ((modelData?.toplevels.values.length ?? 0) + 1) * width
+            Layout.fillWidth: true
+            acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
+            cursorShape: Qt.PointingHandCursor
+            hoverEnabled: true
+            onClicked: if (!workspace.modelData.focused) {
+                workspace.modelData.activate();
+            }
+            DropArea {
+                anchors.fill: parent
+                onEntered: drag => {
+                    drag.source.caught = true;
+                    workspace.draggedOver = true;
+                }
+                onExited: {
+                    drag.source.caught = false;
+                    workspace.draggedOver = false;
+                }
+                onDropped: drop => {
+                    workspace.draggedOver = false;
+                    if (drag.source.silent) {
+                        Hyprland.dispatch(`movetoworkspacesilent ${workspace.modelData.id}, address:0x${drag.source.modelData.address}`);
+                    } else {
+                        Hyprland.dispatch(`movetoworkspace ${workspace.modelData.id}, address:0x${drag.source.modelData.address}`);
+                    }
+                }
+            }
+            Rectangle {
+                anchors.fill: parent
+                color: draggedOver | workspace.containsMouse ? Theme.color.grey : modelData.active ? Theme.color.bgalt : "transparent"
+                Rectangle {
+                    visible: workspace.modelData?.focused
+                    anchors {
+                        fill: parent
+                        rightMargin: parent.width * 0.96
+                    }
+                    color: Theme.color.accent
+                }
+                ColumnLayout {
                     anchors.fill: parent
-                    onEntered: drag => {
-                        drag.source.caught = true;
-                        workspaceCell.draggedOver = true;
-                    }
-                    onExited: {
-                        drag.source.caught = false;
-                        workspaceCell.draggedOver = false;
-                    }
-                    onDropped: drop => {
-                        workspaceCell.draggedOver = false;
-                        if (drag.source.silent) {
-                            Hyprland.dispatch(`movetoworkspacesilent ${workspaceCell.modelData.id}, address:0x${drag.source.modelData.address}`);
-                        } else {
-                            Hyprland.dispatch(`movetoworkspace ${workspaceCell.modelData.id}, address:0x${drag.source.modelData.address}`);
-                        }
-                    }
-                }
-                Behavior on color {
-                    animation: Theme.animation.elementMove.colorAnimation.createObject(this)
-                }
-                Behavior on height {
-                    animation: Theme.animation.elementMove.numberAnimation.createObject(this)
-                }
-                Column {
-                    spacing: Theme.margin.tiny
-                    anchors.fill: parent
-                    Rectangle {
-                        implicitWidth: parent.width
-                        implicitHeight: implicitWidth
-                        radius: Theme.radius.normal
-                        color: "transparent"
-                        StyledText {
-                            id: workspaceText
-                            text: workspaceCell.modelData.id === 10 ? 0 : workspaceCell.modelData.id
-                        }
-                        MouseBlock {
-                            id: mouse
-                            onClicked: if (!workspaceCell.focused) {
-                                workspaceCell.modelData.activate();
-                            }
-                        }
+                    spacing: 0
+                    uniformCellSizes: true
+                    StyledText {
+                        text: workspace.modelData.id === 10 ? 0 : workspace.modelData.id
+                        Layout.alignment: Qt.AlignTop
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: width
+                        color: workspace.containsMouse ? Theme.color.accent : Theme.color.fg
                     }
                     Repeater {
-                        id: toplevelRepeater
-                        width: parent.width
-                        model: workspaceCell.modelData.toplevels
+                        model: workspace.modelData.toplevels
                         delegate: IconImage {
-                            id: image
+                            id: toplevel
                             required property HyprlandToplevel modelData
                             property bool silent: true
                             property bool caught: false
-                            implicitSize: Theme.iconSize.small
+                            visible: silent
+                            Layout.fillHeight: true
+                            Layout.fillWidth: true
+                            implicitSize: width
                             Drag.active: mouseArea.drag.active
                             Drag.hotSpot: Qt.point(implicitSize / 2, implicitSize / 2)
                             source: {
@@ -92,7 +91,7 @@ Item {
                             states: State {
                                 when: mouseArea.drag.active
                                 ParentChange {
-                                    target: image
+                                    target: toplevel
                                     parent: dragArea
                                 }
                             }
@@ -102,11 +101,11 @@ Item {
                                 drag.axis: Drag.YAxis
                                 onClicked: mouse => {
                                     if (mouse.button == Qt.LeftButton) {
-                                        Hyprland.dispatch(`focuswindow address:0x${image.modelData.address}`);
+                                        Hyprland.dispatch(`focuswindow address:0x${toplevel.modelData.address}`);
                                     } else if (mouse.button == Qt.MiddleButton) {
-                                        image.modelData.wayland.close();
+                                        toplevel.modelData.wayland.close();
                                     } else {
-                                        Hyprland.dispatch(`movetoworkspace ${Hyprland.focusedWorkspace.id}, address:0x${image.modelData.address}`);
+                                        Hyprland.dispatch(`movetoworkspace ${Hyprland.focusedWorkspace.id}, address:0x${toplevel.modelData.address}`);
                                     }
                                 }
                                 onReleased: mouse => {
@@ -125,9 +124,9 @@ Item {
                                     anchor {
                                         window: leftBar
                                         rect.x: leftRect.width + Theme.margin.tiny
-                                        rect.y: image.parent == dragArea ? image.y + dragArea.y + root.y : root.y + workspaceCell.y + image.y
+                                        rect.y: toplevel.parent == dragArea ? toplevel.y + dragArea.y + root.y : root.y + workspace.y + toplevel.y
                                     }
-                                    implicitHeight: image.height
+                                    implicitHeight: toplevel.height
                                     implicitWidth: title.contentWidth + Theme.margin.large
                                     color: "transparent"
                                     Rectangle {
@@ -138,7 +137,8 @@ Item {
                                         border.color: Theme.color.grey
                                         StyledText {
                                             id: title
-                                            text: image.modelData.title
+                                            anchors.fill: parent
+                                            text: toplevel.modelData.title
                                         }
                                     }
                                     visible: true
@@ -152,6 +152,7 @@ Item {
     }
     Item {
         id: dragArea
-        anchors.fill: parent
+        Layout.fillWidth: true
+        Layout.fillHeight: true
     }
 }
