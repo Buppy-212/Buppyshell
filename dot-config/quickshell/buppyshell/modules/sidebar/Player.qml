@@ -1,6 +1,5 @@
 import Quickshell.Services.Mpris
 import QtQuick
-import QtQuick.Controls
 import qs.services
 import qs.widgets
 
@@ -146,30 +145,18 @@ Rectangle {
             }
         }
     }
-    Slider {
-        id: slider
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.topMargin: 64
-        anchors.top: playbackControls.bottom
+    StyledSlider {
+        anchors {
+            horizontalCenter: parent.horizontalCenter
+            topMargin: 64
+            top: playbackControls.bottom
+        }
         visible: Mpris.players.values[playerWidget.currentIndex]?.positionSupported ?? false
         live: true
         height: 12
         width: parent.width / 2
-        from: 0
         to: Mpris.players.values[playerWidget.currentIndex]?.length ?? 1
         value: Mpris.players.values[playerWidget.currentIndex]?.position ?? 0
-        background: Rectangle {
-            width: slider.availableWidth
-            height: parent.height
-            color: Theme.color.grey
-            radius: Theme.radius.normal
-            Rectangle {
-                width: slider.visualPosition * parent.width
-                height: parent.height
-                color: Theme.color.blue
-                radius: Theme.radius.normal
-            }
-        }
     }
     Block {
         id: forwardBlock
