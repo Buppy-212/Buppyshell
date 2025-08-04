@@ -1,4 +1,3 @@
-pragma ComponentBehavior: Bound
 pragma Singleton
 
 import Quickshell
@@ -38,7 +37,7 @@ Singleton {
     }
 
     function set(): void {
-      Quickshell.execDetached(["brightnessctl", "-q", "s", `${100 * root.brightness}%`])
+        Quickshell.execDetached(["brightnessctl", "-q", "s", `${100 * root.brightness}%`]);
     }
     function toggleNightlight(): void {
         root.nightlight ? Quickshell.execDetached(["pkill", "hyprsunset"]) : Quickshell.execDetached(["uwsm", "app", "--", "hyprsunset", "-t", "2500"]);
@@ -56,7 +55,7 @@ Singleton {
     }
 
     function monitor(): void {
-        Quickshell.execDetached(["ddcutil", "setvcp", "10", root.brightness])
+        Quickshell.execDetached(["ddcutil", "setvcp", "10", root.brightness]);
     }
 
     GlobalShortcut {
