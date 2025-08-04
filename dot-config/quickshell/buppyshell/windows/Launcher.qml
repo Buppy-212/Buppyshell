@@ -50,6 +50,7 @@ LazyLoader {
             opacity: 0.85
         }
         ColumnLayout {
+            id: column
             anchors {
                 fill: parent
                 topMargin: spacing / 2
@@ -57,9 +58,10 @@ LazyLoader {
             spacing: parent.height / 24
             Searchbar {
                 id: searchbar
-                forwardTargets: [loader.item]
-                Layout.fillWidth: true
                 Layout.preferredHeight: panelWindow.height / 24
+                Layout.preferredWidth: column.width / 3
+                Layout.alignment: Qt.AlignHCenter
+                forwardTargets: [loader.item]
             }
             Loader {
                 id: loader
