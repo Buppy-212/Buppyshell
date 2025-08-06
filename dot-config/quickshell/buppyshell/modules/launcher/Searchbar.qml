@@ -2,26 +2,17 @@ import QtQuick
 import qs.services
 import qs.widgets
 
-Rectangle {
-    id: root
+StyledTextField {
     required property list<Item> forwardTargets
-    property string search: input.text
-    radius: height / 2
-    color: Theme.color.bgalt
-    StyledTextInput {
-        id: input
-        clip: true
-        focus: true
-        anchors.fill: parent
-        font.pixelSize: parent.height / 2
-        onVisibleChanged: text = ""
-        Keys.forwardTo: root.forwardTargets
-        Keys.onPressed: event => {
-            if (event.key == Qt.Key_F && event.modifiers & Qt.ControlModifier) {
-                GlobalState.launcherModule += 1;
-                if (GlobalState.launcherModule >= 3) {
-                    GlobalState.launcherModule = 0;
-                }
+    clip: true
+    focus: true
+    onVisibleChanged: text = ""
+    Keys.forwardTo: forwardTargets
+    Keys.onPressed: event => {
+        if (event.key == Qt.Key_F && event.modifiers & Qt.ControlModifier) {
+            GlobalState.launcherModule += 1;
+            if (GlobalState.launcherModule >= 3) {
+                GlobalState.launcherModule = 0;
             }
         }
     }

@@ -88,13 +88,13 @@ LazyLoader {
             Component {
                 id: appLauncher
                 AppLauncher {
-                    search: searchbar.search
+                    search: searchbar.text
                 }
             }
             Component {
                 id: windowSwitcher
                 WindowSwitcher {
-                    search: searchbar.search
+                    search: searchbar.text
                 }
             }
             Component {

@@ -24,7 +24,6 @@ WlSessionLock {
             onPamMessage: {
                 passRect.border.color = Theme.color.blue;
                 if (responseRequired) {
-                    passwordField.focus = true;
                     passwordField.echoMode = responseVisible ? TextInput.Normal : TextInput.Password;
                 }
             }
@@ -44,38 +43,26 @@ WlSessionLock {
             color: Theme.color.bgTranslucent
             radius: height / 3
             anchors.centerIn: parent
-            Column {
+            StyledTextField {
+                id: passwordField
                 anchors {
                     fill: parent
-                    leftMargin: parent.width / 16
-                    rightMargin: parent.width / 16
+                    margins: parent.height / 4
                 }
-                topPadding: spacing
-                spacing: parent.height / 8
-                StyledText {
-                    text: "Password"
-                    width: parent.width
-                    height: parent.height / 8
-                    font.pixelSize: height
-                }
-                Rectangle {
+                placeholderText: "Password"
+                background: Rectangle {
                     id: passRect
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    implicitWidth: parent.width
-                    implicitHeight: parent.height / 2
-                    border.width: Theme.border
+                    border {
+                        width: 2
+                        color: Theme.color.blue
+                    }
                     radius: height / 3
                     color: Theme.color.bg
-                    StyledTextInput {
-                        id: passwordField
-                        anchors.fill: parent
-                        font.pixelSize: parent.height / 2
-                        onAccepted: {
-                            if (pam.responseRequired) {
-                                pam.respond(text);
-                                text = "";
-                            }
-                        }
+                }
+                onAccepted: {
+                    if (pam.responseRequired) {
+                        pam.respond(text);
+                        text = "";
                     }
                 }
             }
