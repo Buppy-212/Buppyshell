@@ -4,7 +4,7 @@ import qs.services
 import qs.widgets
 
 Rectangle {
-    id: playerWidget
+    id: root
     function findPlayerctld(): int {
         for (var i = 0; i < Mpris.players.values.length; i++) {
             if (Mpris.players.values[i].dbusName == "org.mpris.MediaPlayer2.playerctld") {
@@ -15,11 +15,12 @@ Rectangle {
     property int currentIndex: findPlayerctld()
     implicitWidth: 600
     implicitHeight: GlobalState.player ? 300 : 96
-    onVisibleChanged: playerWidget.currentIndex = findPlayerctld()
+    onVisibleChanged: root.currentIndex = findPlayerctld()
     radius: Theme.radius.normal
     color: Theme.color.bg
-    MouseBlock {
-        onClicked: GlobalState.player = !GlobalState.player
+    MouseArea {
+        anchors.fill: parent
+        cursorShape: Qt.PointingHandCursor
     }
     Behavior on implicitHeight {
         animation: Theme.animation.elementMove.numberAnimation.createObject(this)
@@ -27,28 +28,21 @@ Rectangle {
     Timer {
         repeat: true
         interval: 1000
-        running: Mpris.players.values[playerWidget.currentIndex]?.playbackState == MprisPlaybackState.Playing
-        onTriggered: Mpris.players.values[playerWidget.currentIndex].positionChanged()
+        running: Mpris.players.values[root.currentIndex]?.playbackState == MprisPlaybackState.Playing
+        onTriggered: Mpris.players.values[root.currentIndex].positionChanged()
     }
-    Block {
-        id: backBlock
-        hovered: backMouse.containsMouse
+    StyledButton {
+        id: backButton
         implicitHeight: parent.height
         implicitWidth: 72
-        anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
-        StyledText {
-            text: ""
-            anchors.fill: parent
-            font.pixelSize: Theme.font.size.doubled
-        }
-        MouseBlock {
-            id: backMouse
-            onClicked: {
-                if (playerWidget.currentIndex > 0) {
-                    playerWidget.currentIndex -= 1;
-                } else
-                    (playerWidget.currentIndex = Mpris.players.values.length - 1);
+        text: ""
+        font.pixelSize: Theme.font.size.doubled
+        function tapped() {
+            if (root.currentIndex > 0) {
+                root.currentIndex -= 1;
+            } else {
+                (root.currentIndex = Mpris.players.values.length - 1);
             }
         }
     }
@@ -56,18 +50,18 @@ Rectangle {
         spacing: 6
         anchors.fill: parent
         StyledText {
-            text: Mpris.players.values[playerWidget.currentIndex]?.trackTitle ?? false ? Mpris.players.values[playerWidget.currentIndex].trackTitle : "No Track"
+            text: Mpris.players.values[root.currentIndex]?.trackTitle ?? false ? Mpris.players.values[root.currentIndex].trackTitle : "No Track"
             height: Theme.height.doubleBlock
-            width: parent.width - 2 * backBlock.width
+            width: parent.width - 2 * backButton.width
             font.pixelSize: Theme.font.size.doubled
             anchors.horizontalCenter: parent.horizontalCenter
             elide: Text.ElideRight
         }
         StyledText {
-            text: Mpris.players.values[playerWidget.currentIndex]?.trackAlbum ? `${Mpris.players.values[playerWidget.currentIndex]?.trackAlbum} - ${Mpris.players.values[playerWidget.currentIndex]?.trackArtist}` : Mpris.players.values[playerWidget.currentIndex]?.trackArtist ?? ""
+            text: Mpris.players.values[root.currentIndex]?.trackAlbum ? `${Mpris.players.values[root.currentIndex]?.trackAlbum} - ${Mpris.players.values[root.currentIndex]?.trackArtist}` : Mpris.players.values[root.currentIndex]?.trackArtist ?? ""
             visible: GlobalState.player
             height: Theme.height.block
-            width: parent.width - 2 * backBlock.width
+            width: parent.width - 2 * backButton.width
             anchors.horizontalCenter: parent.horizontalCenter
             elide: Text.ElideMiddle
         }
@@ -81,66 +75,45 @@ Rectangle {
         Behavior on anchors.bottomMargin {
             animation: Theme.animation.elementMove.numberAnimation.createObject(this)
         }
-        Block {
-            hovered: leftMouse.containsMouse
+        StyledButton {
             implicitHeight: Theme.height.doubleBlock
             implicitWidth: implicitHeight
-            StyledText {
-                text: ""
-                anchors.fill: parent
-                font.pixelSize: Theme.font.size.doubled
-            }
-            MouseBlock {
-                id: leftMouse
-                onClicked: {
-                    if (Mpris.players.values[playerWidget.currentIndex].canGoPrevious) {
-                        Mpris.players.values[playerWidget.currentIndex].previous();
-                    }
+            text: ""
+            font.pixelSize: Theme.font.size.doubled
+            function tapped() {
+                if (Mpris.players.values[root.currentIndex].canGoPrevious) {
+                    Mpris.players.values[root.currentIndex].previous();
                 }
             }
         }
-        Block {
-            hovered: playMouse.containsMouse
+        StyledButton {
             implicitHeight: Theme.height.doubleBlock
             implicitWidth: implicitHeight
-            StyledText {
-                text: Mpris.players.values[playerWidget.currentIndex]?.isPlaying ? "" : ""
-                anchors.fill: parent
-                color: Mpris.players.values[playerWidget.currentIndex]?.dbusName == "org.mpris.MediaPlayer2.playerctld" ? Theme.color.red : Theme.color.fg
-                font.pixelSize: Theme.font.size.doubled
-            }
-            MouseBlock {
-                id: playMouse
-                onClicked: mouse => {
-                    switch (mouse.button) {
-                    case Qt.LeftButton:
-                        Mpris.players.values[playerWidget.currentIndex].togglePlaying();
-                        break;
-                    case Qt.MiddleButton:
-                        Mpris.players.values[playerWidget.currentIndex].stop();
-                        break;
-                    case Qt.RightButton:
-                        Mpris.players.values[playerWidget.currentIndex].togglePlaying();
-                        break;
-                    }
+            text: Mpris.players.values[root.currentIndex]?.isPlaying ? "" : ""
+            color: Mpris.players.values[root.currentIndex]?.dbusName == "org.mpris.MediaPlayer2.playerctld" ? Theme.color.red : Theme.color.fg
+            font.pixelSize: Theme.font.size.doubled
+            function tapped(pointEvent, button) {
+                switch (button) {
+                case Qt.LeftButton:
+                    Mpris.players.values[root.currentIndex].togglePlaying();
+                    break;
+                case Qt.MiddleButton:
+                    Mpris.players.values[root.currentIndex].stop();
+                    break;
+                case Qt.RightButton:
+                    Mpris.players.values[root.currentIndex].togglePlaying();
+                    break;
                 }
             }
         }
-        Block {
-            hovered: rightMouse.containsMouse
+        StyledButton {
             implicitHeight: Theme.height.doubleBlock
             implicitWidth: implicitHeight
-            StyledText {
-                text: ""
-                anchors.fill: parent
-                font.pixelSize: Theme.font.size.doubled
-            }
-            MouseBlock {
-                id: rightMouse
-                onClicked: {
-                    if (Mpris.players.values[playerWidget.currentIndex].canGoNext) {
-                        Mpris.players.values[playerWidget.currentIndex].next();
-                    }
+            text: ""
+            font.pixelSize: Theme.font.size.doubled
+            function tapped() {
+                if (Mpris.players.values[root.currentIndex].canGoNext) {
+                    Mpris.players.values[root.currentIndex].next();
                 }
             }
         }
@@ -151,32 +124,24 @@ Rectangle {
             topMargin: 64
             top: playbackControls.bottom
         }
-        visible: Mpris.players.values[playerWidget.currentIndex]?.positionSupported ?? false
+        visible: GlobalState.player && Mpris.players.values[root.currentIndex]?.positionSupported
         height: 12
         width: parent.width / 2
-        to: Mpris.players.values[playerWidget.currentIndex]?.length ?? 1
-        value: Mpris.players.values[playerWidget.currentIndex]?.position ?? 0
+        to: Mpris.players.values[root.currentIndex]?.length ?? 1
+        value: Mpris.players.values[root.currentIndex]?.position ?? 0
     }
-    Block {
+    StyledButton {
         id: forwardBlock
-        hovered: forwardMouse.containsMouse
         implicitHeight: parent.height
         implicitWidth: 72
-        anchors.verticalCenter: parent.verticalCenter
         anchors.right: parent.right
-        StyledText {
-            text: ""
-            anchors.fill: parent
-            font.pixelSize: Theme.font.size.doubled
-        }
-        MouseBlock {
-            id: forwardMouse
-            onClicked: {
-                if (playerWidget.currentIndex < Mpris.players.values.length - 1) {
-                    playerWidget.currentIndex += 1;
-                } else {
-                    playerWidget.currentIndex = 0;
-                }
+        text: ""
+        font.pixelSize: Theme.font.size.doubled
+        function tapped() {
+            if (root.currentIndex < Mpris.players.values.length - 1) {
+                root.currentIndex += 1;
+            } else {
+                root.currentIndex = 0;
             }
         }
     }

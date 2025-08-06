@@ -13,19 +13,14 @@ GridLayout {
     rows: 2
     columnSpacing: 0
     rowSpacing: 0
-    Block {
-        hovered: adapterMouse.containsMouse
+    StyledButton {
         Layout.preferredHeight: Theme.height.doubleBlock
         Layout.preferredWidth: height
-        StyledText {
-            text: Bluetooth.defaultAdapter?.enabled ?? Bluetooth.adapters.values[0]?.enabled ? "󰂯" : "󰂲"
-            color: Theme.color.blue
-            anchors.fill: parent
-            font.pixelSize: height * 0.75
-        }
-        MouseBlock {
-            id: adapterMouse
-            onClicked: Bluetooth.defaultAdapter.enabled = !Bluetooth.defaultAdapter.enabled
+        text: Bluetooth.defaultAdapter?.enabled ?? Bluetooth.adapters.values[0]?.enabled ? "󰂯" : "󰂲"
+        color: Theme.color.blue
+        font.pixelSize: height * 0.75
+        function tapped() {
+            Bluetooth.defaultAdapter.enabled = !Bluetooth.defaultAdapter.enabled;
         }
     }
     StyledText {
@@ -35,19 +30,14 @@ GridLayout {
         text: Bluetooth.defaultAdapter?.name ?? Bluetooth.adapters.values[0]?.name ?? ""
         font.pixelSize: height * 0.75
     }
-    Block {
-        hovered: searchMouse.containsMouse
+    StyledButton {
         Layout.preferredHeight: Theme.height.doubleBlock
         Layout.preferredWidth: height
-        StyledText {
-            text: Bluetooth.defaultAdapter?.discovering ?? Bluetooth.adapters.values[0]?.discovering ? "󰜺" : ""
-            anchors.fill: parent
-            color: Theme.color.fg
-            font.pixelSize: height * 0.75
-        }
-        MouseBlock {
-            id: searchMouse
-            onClicked: Bluetooth.defaultAdapter.discovering = !Bluetooth.defaultAdapter.discovering
+        text: Bluetooth.defaultAdapter?.discovering ?? Bluetooth.adapters.values[0]?.discovering ? "󰜺" : ""
+        color: Theme.color.fg
+        font.pixelSize: height * 0.75
+        function tapped() {
+            Bluetooth.defaultAdapter.discovering = !Bluetooth.defaultAdapter.discovering;
         }
     }
     Rectangle {
@@ -65,14 +55,13 @@ GridLayout {
             anchors.fill: parent
             anchors.margins: 12
             model: Bluetooth.devices
-            delegate: Block {
+            delegate: StyledButton {
                 id: bluetoothItem
                 required property BluetoothDevice modelData
-                hovered: itemMouse.containsMouse
-                implicitWidth: parent.width
-                implicitHeight: 36
-                color: itemMouse.containsMouse ? Theme.color.grey : modelData.batteryAvailable && modelData.battery <= 0.1 ? Theme.color.red : modelData.connected ? Theme.color.accent : "transparent"
-                RowLayout {
+                color: modelData.connected ? Theme.color.accent : Theme.color.fg
+                width: parent.width
+                height: 36
+                contentItem: RowLayout {
                     anchors.fill: parent
                     spacing: 8
                     IconImage {
@@ -85,6 +74,7 @@ GridLayout {
                         Layout.fillWidth: true
                         horizontalAlignment: Text.AlignLeft
                         text: bluetoothItem.modelData.batteryAvailable ? `${bluetoothItem.modelData.name} (${bluetoothItem.modelData.battery * 100}%)` : bluetoothItem.modelData.name
+                        color: bluetoothItem.color
                     }
                     StyledText {
                         Layout.alignment: Qt.AlignRight
@@ -92,23 +82,20 @@ GridLayout {
                         Layout.preferredWidth: contentWidth
                         Layout.rightMargin: height / 4
                         text: bluetoothItem.modelData.trusted ? "Trusted" : ""
-                        font.pixelSize: height / 2
+                        color: bluetoothItem.color
                     }
                 }
-                MouseBlock {
-                    id: itemMouse
-                    onClicked: mouse => {
-                        switch (mouse.button) {
-                        case Qt.LeftButton:
-                            !bluetoothItem.modelData.paired ? bluetoothItem.modelData.pair() : bluetoothItem.modelData.connected ? bluetoothItem.modelData.disconnect() : bluetoothItem.modelData.connect();
-                            break;
-                        case Qt.MiddleButton:
-                            bluetoothItem.modelData.paired ? bluetoothItem.modelData.forget() : bluetoothItem.modelData.cancelPair();
-                            break;
-                        case Qt.RightButton:
-                            bluetoothItem.modelData.trusted = !bluetoothItem.modelData.trusted;
-                            break;
-                        }
+                function tapped(pointEvent, button) {
+                    switch (button) {
+                    case Qt.LeftButton:
+                        !bluetoothItem.modelData.paired ? bluetoothItem.modelData.pair() : bluetoothItem.modelData.connected ? bluetoothItem.modelData.disconnect() : bluetoothItem.modelData.connect();
+                        break;
+                    case Qt.MiddleButton:
+                        bluetoothItem.modelData.paired ? bluetoothItem.modelData.forget() : bluetoothItem.modelData.cancelPair();
+                        break;
+                    case Qt.RightButton:
+                        bluetoothItem.modelData.trusted = !bluetoothItem.modelData.trusted;
+                        break;
                     }
                 }
             }

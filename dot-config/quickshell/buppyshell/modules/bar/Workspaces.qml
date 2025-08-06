@@ -95,8 +95,11 @@ ColumnLayout {
                                     parent: dragArea
                                 }
                             }
-                            MouseBlock {
+                            MouseArea {
                                 id: mouseArea
+                                anchors.fill: parent
+                                cursorShape: Qt.PointingHandCursor
+                                acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
                                 drag.target: parent
                                 drag.axis: Drag.YAxis
                                 onClicked: mouse => {

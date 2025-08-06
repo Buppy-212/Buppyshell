@@ -2,42 +2,35 @@ import Quickshell.Services.Pipewire
 import qs.services
 import qs.widgets
 
-Block {
-    id: volumeWidget
-    hovered: mouse.containsMouse
+StyledButton {
+    id: root
     readonly property int volume: Pipewire.defaultAudioSink?.audio.volume * 100
     readonly property bool muted: Pipewire.defaultAudioSink?.audio.muted ?? false
     PwObjectTracker {
         objects: [Pipewire.defaultAudioSink, Pipewire.defaultAudioSource]
     }
-    StyledText {
-        text: volumeWidget.muted || volumeWidget.volume == 0 ? "" : volumeWidget.volume == 100 ? "" : volumeWidget.volume
-        anchors.fill: parent
-        color: Theme.color.blue
-    }
-    MouseBlock {
-        id: mouse
-        onClicked: mouse => {
-            if (mouse.button == Qt.MiddleButton) {
-                Pipewire.defaultAudioSink.audio.muted = !Pipewire.defaultAudioSink.audio.muted;
-            } else {
-                if (GlobalState.sidebarModule == GlobalState.SidebarModule.Volume || !GlobalState.sidebar) {
-                    GlobalState.sidebar = !GlobalState.sidebar;
-                    GlobalState.player = false;
-                }
-                GlobalState.sidebarModule = GlobalState.SidebarModule.Volume;
+    text: root.muted || root.volume == 0 ? "" : root.volume == 100 ? "" : root.volume
+    color: Theme.color.blue
+    function tapped(pointEvent, button) {
+        if (button == Qt.MiddleButton) {
+            Pipewire.defaultAudioSink.audio.muted = !Pipewire.defaultAudioSink.audio.muted;
+        } else {
+            if (GlobalState.sidebarModule == GlobalState.SidebarModule.Volume || !GlobalState.sidebar) {
+                GlobalState.sidebar = !GlobalState.sidebar;
+                GlobalState.player = false;
             }
+            GlobalState.sidebarModule = GlobalState.SidebarModule.Volume;
         }
-        onWheel: wheel => {
-            if (wheel.angleDelta.y > 0) {
-                if (volumeWidget.volume <= 95) {
-                    Pipewire.defaultAudioSink.audio.volume += 0.05;
-                } else {
-                    Pipewire.defaultAudioSink.audio.volume = 1;
-                }
+    }
+    function scrolled(event) {
+        if (event.angleDelta.y > 0) {
+            if (root.volume <= 95) {
+                Pipewire.defaultAudioSink.audio.volume += 0.05;
             } else {
-                Pipewire.defaultAudioSink.audio.volume -= 0.05;
+                Pipewire.defaultAudioSink.audio.volume = 1;
             }
+        } else {
+            Pipewire.defaultAudioSink.audio.volume -= 0.05;
         }
     }
 }

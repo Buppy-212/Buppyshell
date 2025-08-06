@@ -21,18 +21,13 @@ GridLayout {
         Layout.leftMargin: Theme.height.doubleBlock
         font.pixelSize: Theme.font.size.doubled
     }
-    Block {
-        hovered: dismissMouse.containsMouse
-        Layout.preferredWidth: height
+    StyledButton {
         Layout.preferredHeight: Theme.height.doubleBlock
-        StyledText {
-            text: "󰆴"
-            anchors.fill: parent
-            font.pixelSize: parent.height * 0.75
-        }
-        MouseBlock {
-            id: dismissMouse
-            onClicked: Hyprland.dispatch("global buppyshell:clearNotifs")
+        Layout.preferredWidth: height
+        text: "󰆴"
+        font.pixelSize: height * 0.75
+        function tapped() {
+            Hyprland.dispatch("global buppyshell:clearNotifs");
         }
     }
     Rectangle {

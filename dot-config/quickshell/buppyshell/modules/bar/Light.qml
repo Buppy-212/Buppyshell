@@ -1,29 +1,22 @@
 import qs.services
 import qs.widgets
 
-Block {
-    hovered: mouse.containsMouse
-    StyledText {
-        text: mouse.containsMouse ? Brightness.brightness : Brightness.nightlight ? "" : ""
-        color: Theme.color.yellow
-        anchors.fill: parent
-        font.pixelSize: mouse.containsMouse ? Theme.font.size.normal : Theme.font.size.large
-    }
-    MouseBlock {
-        id: mouse
-        onClicked: mouse => {
-            if (mouse.button == Qt.LeftButton) {
-                Brightness.toggleNightlight();
-            } else {
-                Brightness.monitor();
-            }
+StyledButton {
+    text: hovered ? Math.round(Brightness.brightness * 100) : Brightness.nightlight ? "" : ""
+    font.pixelSize: hovered ? Theme.font.size.normal : Theme.font.size.large
+    color: Theme.color.yellow
+    function tapped(pointEvent, button) {
+        if (button == Qt.LeftButton) {
+            Brightness.toggleNightlight();
+        } else {
+            Brightness.monitor();
         }
-        onWheel: wheel => {
-            if (wheel.angleDelta.y > 0) {
-                Brightness.inc();
-            } else {
-                Brightness.dec();
-            }
+    }
+    function scrolled(event): void {
+        if (event.angleDelta.y > 0) {
+            Brightness.inc();
+        } else {
+            Brightness.dec();
         }
     }
 }

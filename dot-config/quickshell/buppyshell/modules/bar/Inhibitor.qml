@@ -1,15 +1,10 @@
 import qs.services
 import qs.widgets
 
-Block {
-    hovered: mouse.containsMouse
-    StyledText {
-        text: Idle.active ? "" : ""
-        anchors.fill: parent
-        color: Theme.color.cyan
-    }
-    MouseBlock {
-        id: mouse
-        onClicked: Idle.toggleInhibitor()
+StyledButton {
+    text: Idle.active ? "" : ""
+    color: Theme.color.cyan
+    function tapped() {
+        Idle.toggleInhibitor();
     }
 }

@@ -3,6 +3,7 @@ import Quickshell.Wayland
 import QtQuick
 import QtQuick.Layouts
 import qs.services
+import qs.widgets
 import qs.modules.bar
 
 Variants {
@@ -41,16 +42,35 @@ Variants {
                         Layout.fillHeight: true
                         Layout.fillWidth: true
                     }
-                    Column {
+                    ColumnLayout {
                         Layout.alignment: Qt.AlignBottom
                         Layout.fillWidth: true
                         spacing: Theme.margin.tiny
-                        Inhibitor {}
-                        Battery {}
-                        Light {}
-                        Update {}
-                        Clock {}
-                        Power {}
+                        Inhibitor {
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: Theme.height.block
+                        }
+                        Battery {
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: Theme.height.block
+                        }
+                        Light {
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: Theme.height.block
+                        }
+                        Update {
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: hovered ? Theme.height.doubleBlock : Theme.height.block
+                        }
+                        StyledText {
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: Theme.height.doubleBlock
+                            text: Time.timeGrid
+                        }
+                        Power {
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: Theme.height.block
+                        }
                     }
                 }
             }
