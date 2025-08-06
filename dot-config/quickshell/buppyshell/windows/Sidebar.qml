@@ -4,7 +4,6 @@ import Quickshell
 import Quickshell.Hyprland
 import Quickshell.Wayland
 import QtQuick
-import QtQuick.Controls
 import QtQuick.Layouts
 import qs.modules.sidebar
 import qs.services
@@ -68,96 +67,50 @@ Variants {
                         }
                     }
                 }
-                ColumnLayout {
+                GridLayout {
                     anchors.fill: parent
-                    TabBar {
-                      id: bar
-                        width: parent.width
-                        Repeater {
-                          id: repeater
-                            model: [
-                                {
-                                    _text: "󰂚",
-                                    state: GlobalState.sidebarModule == GlobalState.SidebarModule.Notifications,
-                                    command: "notifications"
-                                },
-                                {
-                                    _text: "",
-                                    state: GlobalState.sidebarModule == GlobalState.SidebarModule.Volume,
-                                    command: "volume"
-                                },
-                                {
-                                    _text: "󰂯",
-                                    state: GlobalState.sidebarModule == GlobalState.SidebarModule.Bluetooth,
-                                    command: "bluetooth"
-                                },
-                                {
-                                    _text: "󰖩",
-                                    state: GlobalState.sidebarModule == GlobalState.SidebarModule.Network,
-                                    command: "network"
-                                },
-                            ]
-                            delegate: TabButton {
-                                required property string _text
-                                required property string command
-                                required property bool state
-                                text: _text
-                                width: bar.width / repeater.count
-                                font.pixelSize: height
+                    columns: 4
+                    rows: 3
+                    rowSpacing: 0
+                    columnSpacing: 0
+                    Repeater {
+                        model: [
+                            {
+                                _text: "󰂚",
+                                state: GlobalState.sidebarModule == GlobalState.SidebarModule.Notifications,
+                                command: "notifications"
+                            },
+                            {
+                                _text: "",
+                                state: GlobalState.sidebarModule == GlobalState.SidebarModule.Volume,
+                                command: "volume"
+                            },
+                            {
+                                _text: "󰂯",
+                                state: GlobalState.sidebarModule == GlobalState.SidebarModule.Bluetooth,
+                                command: "bluetooth"
+                            },
+                            {
+                                _text: "󰖩",
+                                state: GlobalState.sidebarModule == GlobalState.SidebarModule.Network,
+                                command: "network"
+                            },
+                        ]
+                        delegate: StyledTabButton {
+                            id: delegateButton
+                            required property string _text
+                            required property string command
+                            required property bool state
+                            selected: state
+                            text: delegateButton._text
+                            font.pixelSize: Theme.font.size.doubled
+                            Layout.preferredHeight: Theme.height.doubleBlock
+                            Layout.fillWidth: true
+                            function tapped() {
+                                GlobalState.toggle(delegateButton.command);
                             }
                         }
                     }
-                    // Repeater {
-                    //     model: [
-                    //         {
-                    //             text: "󰂚",
-                    //             state: GlobalState.sidebarModule == GlobalState.SidebarModule.Notifications,
-                    //             command: "notifications"
-                    //         },
-                    //         {
-                    //             text: "",
-                    //             state: GlobalState.sidebarModule == GlobalState.SidebarModule.Volume,
-                    //             command: "volume"
-                    //         },
-                    //         {
-                    //             text: "󰂯",
-                    //             state: GlobalState.sidebarModule == GlobalState.SidebarModule.Bluetooth,
-                    //             command: "bluetooth"
-                    //         },
-                    //         {
-                    //             text: "󰖩",
-                    //             state: GlobalState.sidebarModule == GlobalState.SidebarModule.Network,
-                    //             command: "network"
-                    //         },
-                    //     ]
-                    //     delegate: Block {
-                    //         id: delegateBlock
-                    //         required property string text
-                    //         required property string command
-                    //         required property bool state
-                    //         hovered: mouse.containsMouse
-                    //         color: hovered ? Theme.color.grey : state ? Theme.color.bgalt : "transparent"
-                    //         Layout.preferredHeight: Theme.height.doubleBlock
-                    //         Layout.fillWidth: true
-                    //         Rectangle {
-                    //             visible: delegateBlock.state
-                    //             anchors {
-                    //                 fill: parent
-                    //                 topMargin: parent.height * 0.96
-                    //             }
-                    //             color: Theme.color.accent
-                    //         }
-                    //         StyledText {
-                    //             text: delegateBlock.text
-                    //             anchors.fill: parent
-                    //             font.pixelSize: Theme.font.size.doubled
-                    //         }
-                    //         MouseBlock {
-                    //             id: mouse
-                    //             onClicked: GlobalState.toggle(delegateBlock.command)
-                    //         }
-                    //     }
-                    // }
                     Loader {
                         Layout.fillHeight: true
                         Layout.fillWidth: true

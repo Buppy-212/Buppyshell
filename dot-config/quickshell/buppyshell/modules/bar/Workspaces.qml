@@ -99,6 +99,7 @@ ColumnLayout {
                                 id: mouseArea
                                 anchors.fill: parent
                                 cursorShape: Qt.PointingHandCursor
+                                hoverEnabled: true
                                 acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
                                 drag.target: parent
                                 drag.axis: Drag.YAxis

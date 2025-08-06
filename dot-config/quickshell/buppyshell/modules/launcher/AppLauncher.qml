@@ -88,20 +88,21 @@ Item {
         highlightMoveDuration: 0
         keyNavigationWraps: true
         anchors.fill: parent
-        delegate: MouseArea {
+        delegate: StyledButton {
             id: appDelegate
             required property DesktopEntry modelData
             required property int index
-            cursorShape: Qt.PointingHandCursor
-            hoverEnabled: true
-            onClicked: {
+            function tapped() {
                 Quickshell.execDetached(["uwsm", "app", "--", `${appDelegate.modelData.id}.desktop`]);
                 GlobalState.launcher = false;
             }
-            onEntered: appGrid.currentIndex = appDelegate.index
+            function entered() {
+                appGrid.currentIndex = appDelegate.index
+            }
+            background: null
             implicitWidth: appGrid.cellWidth
             implicitHeight: appGrid.cellHeight
-            ColumnLayout {
+            contentItem: ColumnLayout {
                 spacing: 0
                 anchors {
                     fill: parent

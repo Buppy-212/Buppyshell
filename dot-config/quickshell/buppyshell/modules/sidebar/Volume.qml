@@ -46,14 +46,13 @@ GridLayout {
                     Column {
                         width: parent.width
                         height: Theme.height.doubleBlock
-                        StyledText {
+                        StyledButton {
                             text: sinkDelegate.modelData.description
-                            elide: Text.ElideRight
                             width: parent.width
                             height: parent.height / 2
-                            horizontalAlignment: Text.AlignHCenter
-                            MouseBlock {
-                                onClicked: Pipewire.preferredDefaultAudioSink = sinkDelegate.modelData
+                            background: null
+                            function tapped() {
+                                Pipewire.preferredDefaultAudioSink = sinkDelegate.modelData;
                             }
                         }
                         RowLayout {
@@ -72,13 +71,13 @@ GridLayout {
                                 }
                                 backgroundOpacity: sinkDelegate.modelData == Pipewire.defaultAudioSink ? 1 : 0.25
                             }
-                            StyledText {
-                                readonly property int volume: sinkSlider.value * 100
+                            StyledButton {
                                 Layout.fillHeight: true
-                                Layout.preferredWidth: 36
-                                text: sinkDelegate.modelData.audio?.muted ? "" : `${volume}%`
-                                MouseBlock {
-                                    onClicked: sinkDelegate.modelData.audio.muted = !sinkDelegate.modelData.audio.muted
+                                Layout.preferredWidth: 42
+                                text: sinkDelegate.modelData.audio?.muted ? "" : `${Math.round(sinkSlider.value * 100)}%`
+                                background: null
+                                function tapped() {
+                                    sinkDelegate.modelData.audio.muted = !sinkDelegate.modelData.audio.muted;
                                 }
                             }
                         }
@@ -104,14 +103,13 @@ GridLayout {
                     Column {
                         width: parent.width
                         height: Theme.height.doubleBlock
-                        StyledText {
+                        StyledButton {
                             text: sourceDelegate.modelData.description
-                            elide: Text.ElideRight
                             width: parent.width
                             height: parent.height / 2
-                            horizontalAlignment: Text.AlignHCenter
-                            MouseBlock {
-                                onClicked: Pipewire.preferredDefaultAudioSource = sourceDelegate.modelData
+                            background: null
+                            function tapped() {
+                                Pipewire.preferredDefaultAudioSource = sourceDelegate.modelData;
                             }
                         }
                         RowLayout {
@@ -131,13 +129,13 @@ GridLayout {
                                 backgroundOpacity: sourceDelegate.modelData == Pipewire.defaultAudioSource ? 1 : 0.25
                                 color: Theme.color.magenta
                             }
-                            StyledText {
-                                readonly property int volume: sourceSlider.value * 100
+                            StyledButton {
                                 Layout.fillHeight: true
-                                Layout.preferredWidth: 36
-                                text: sourceDelegate.modelData.audio?.muted ? "" : `${volume}%`
-                                MouseBlock {
-                                    onClicked: sourceDelegate.modelData.audio.muted = !sourceDelegate.modelData.audio.muted
+                                Layout.preferredWidth: 42
+                                text: sourceDelegate.modelData.audio?.muted ? "" : `${Math.round(sourceSlider.value * 100)}%`
+                                background: null
+                                function tapped() {
+                                    sourceDelegate.modelData.audio.muted = !sourceDelegate.modelData.audio.muted;
                                 }
                             }
                         }
@@ -186,13 +184,13 @@ GridLayout {
                                 }
                                 color: Theme.color.red
                             }
-                            StyledText {
-                                readonly property int volume: streamSlider.value * 100
+                            StyledButton {
                                 Layout.fillHeight: true
-                                Layout.preferredWidth: 36
-                                text: streamDelegate.modelData.audio?.muted ? "" : `${volume}%`
-                                MouseBlock {
-                                    onClicked: streamDelegate.modelData.audio.muted = !streamDelegate.modelData.audio.muted
+                                Layout.preferredWidth: 42
+                                text: streamDelegate.modelData.audio?.muted ? "" : `${Math.round(streamSlider.value * 100)}%`
+                                background: null
+                                function tapped() {
+                                    streamDelegate.modelData.audio.muted = !streamDelegate.modelData.audio.muted;
                                 }
                             }
                         }

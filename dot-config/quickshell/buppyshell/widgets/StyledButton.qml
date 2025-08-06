@@ -6,10 +6,17 @@ Control {
     id: root
     property string text
     property color color: Theme.color.fg
+    property color accentColor: root.color
+    readonly property color buttonColor: hovered ? accentColor : color
+    readonly property bool pressed: tapHandler.pressed
     font {
         pixelSize: Theme.font.size.normal
         family: Theme.font.family.mono
         bold: true
+    }
+    function entered() {
+    }
+    function exited() {
     }
     function tapped(eventPoint, button) {
     }
@@ -19,26 +26,26 @@ Control {
     implicitHeight: Theme.height.block
     contentItem: Text {
         text: root.text
-        color: root.color
-        font: root.font
         anchors.fill: root
+        color: root.buttonColor
+        font: root.font
+        elide: Text.ElideRight
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
     }
     background: Rectangle {
-        id: background
         color: Theme.color.grey
         radius: Theme.radius.normal
-        opacity: root.hovered && !tapHandler.pressed ? 1 : 0
+        opacity: root.hovered && !root.pressed ? 1 : 0
         Behavior on opacity {
             animation: Theme.animation.elementMove.numberAnimation.createObject(this)
         }
     }
     HoverHandler {
         cursorShape: Qt.PointingHandCursor
+        onHoveredChanged: hovered ? root.entered() : root.exited()
     }
     WheelHandler {
-        id: wheelHandler
         onWheel: event => root.scrolled(event)
     }
     TapHandler {

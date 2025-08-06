@@ -55,10 +55,12 @@ GridLayout {
             anchors.fill: parent
             anchors.margins: 12
             model: Bluetooth.devices
-            delegate: StyledButton {
+            delegate: StyledTabButton {
                 id: bluetoothItem
                 required property BluetoothDevice modelData
-                color: modelData.connected ? Theme.color.accent : Theme.color.fg
+                borderSize: height
+                accentColor: selected ? Theme.color.black : Theme.color.accent
+                selected: modelData.connected
                 width: parent.width
                 height: 36
                 contentItem: RowLayout {
@@ -74,7 +76,7 @@ GridLayout {
                         Layout.fillWidth: true
                         horizontalAlignment: Text.AlignLeft
                         text: bluetoothItem.modelData.batteryAvailable ? `${bluetoothItem.modelData.name} (${bluetoothItem.modelData.battery * 100}%)` : bluetoothItem.modelData.name
-                        color: bluetoothItem.color
+                        color: bluetoothItem.buttonColor
                     }
                     StyledText {
                         Layout.alignment: Qt.AlignRight
@@ -82,7 +84,7 @@ GridLayout {
                         Layout.preferredWidth: contentWidth
                         Layout.rightMargin: height / 4
                         text: bluetoothItem.modelData.trusted ? "Trusted" : ""
-                        color: bluetoothItem.color
+                        color: bluetoothItem.buttonColor
                     }
                 }
                 function tapped(pointEvent, button) {

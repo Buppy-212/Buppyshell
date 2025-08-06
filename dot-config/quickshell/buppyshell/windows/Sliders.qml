@@ -18,9 +18,9 @@ Scope {
     property bool visible: false
     required property int source
     readonly property real brightness: Brightness.brightness
-    readonly property real volume: Pipewire.defaultAudioSink?.audio.volume
+    readonly property real volume: Pipewire.defaultAudioSink?.audio.volume ?? 0
     readonly property bool muted: Pipewire.defaultAudioSink?.audio.muted ?? false
-    readonly property real mic: Pipewire.defaultAudioSource?.audio.volume
+    readonly property real mic: Pipewire.defaultAudioSource?.audio.volume ?? 0
     readonly property bool micMuted: Pipewire.defaultAudioSource?.audio.muted ?? false
     readonly property real input: {
         switch (source) {

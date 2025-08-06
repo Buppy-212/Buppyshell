@@ -145,24 +145,24 @@ Item {
                 text: `<font color=${Theme.color.magenta}>H</font>ibernate`
             },
         ]
-        delegate: MouseArea {
+        delegate: StyledButton {
             id: logoutDelegate
             required property string icon
             required property string color
             required property string command
             required property string text
             required property int index
-            acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
-            cursorShape: Qt.PointingHandCursor
-            hoverEnabled: true
-            onEntered: logoutGrid.currentIndex = logoutDelegate.index
-            onClicked: {
+            background: null
+            function tapped() {
                 GlobalState.launcher = false;
                 Hyprland.dispatch(command);
             }
+            function entered() {
+                logoutGrid.currentIndex = logoutDelegate.index;
+            }
             implicitHeight: logoutGrid.cellHeight
             implicitWidth: logoutGrid.cellWidth
-            Column {
+            contentItem: Column {
                 anchors {
                     fill: parent
                     topMargin: parent.height / 8

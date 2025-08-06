@@ -80,14 +80,11 @@ Item {
         highlightMoveDuration: 0
         highlightResizeDuration: 0
         anchors.fill: parent
-        delegate: MouseArea {
+        delegate: StyledButton {
             id: windowDelegate
             required property Toplevel modelData
             required property int index
-            acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
-            cursorShape: Qt.PointingHandCursor
-            hoverEnabled: true
-            onClicked: mouse => {
+            function tapped(pointEvent, button) {
                 switch (mouse.button) {
                 case Qt.LeftButton:
                     Quickshell.execDetached(["hyprctl", "dispatch", "focuswindow", `address:0x${modelData.HyprlandToplevel.handle.address}`]);
@@ -102,10 +99,13 @@ Item {
                     break;
                 }
             }
-            onEntered: windowList.currentIndex = windowDelegate.index
+            function entered() {
+                windowList.currentIndex = windowDelegate.index;
+            }
+            background: null
             implicitHeight: windowList.height / 10
             implicitWidth: windowList.width
-            RowLayout {
+            contentItem: RowLayout {
                 anchors {
                     fill: parent
                     leftMargin: parent.width / 64

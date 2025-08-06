@@ -6,7 +6,7 @@ import Quickshell.Widgets
 import qs.services
 
 Slider {
-    id: slider
+    id: root
     property color color: Theme.color.blue
     property int backgroundOpacity: 1
     snapMode: Slider.SnapOnRelease
@@ -18,10 +18,10 @@ Slider {
         color: Theme.color.grey
         radius: height / 2
         Rectangle {
-            width: slider.visualPosition * slider.availableWidth
+            width: root.visualPosition * root.availableWidth
             height: parent.height
-            color: slider.color
-            opacity: slider.backgroundOpacity
+            color: root.color
+            opacity: root.backgroundOpacity
             radius: height / 2
         }
     }

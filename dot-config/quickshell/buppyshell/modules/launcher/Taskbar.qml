@@ -9,21 +9,47 @@ import QtQuick.Layouts
 import qs.services
 import qs.widgets
 
-Item {
+Rectangle {
+    color: Theme.color.bg
+    visible: ToplevelManager.toplevels.values.length > 0
     RowLayout {
         anchors.fill: parent
         uniformCellSizes: true
         spacing: 0
         Repeater {
             model: ToplevelManager.toplevels
-            delegate: MouseArea {
+            delegate: StyledTabButton {
                 id: toplevel
                 required property Toplevel modelData
-                hoverEnabled: true
-                acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
-                cursorShape: Qt.PointingHandCursor
-                onClicked: mouse => {
-                    switch (mouse.button) {
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+                color: hovered ? Theme.color.accent : Theme.color.fg
+                selected: modelData?.activated
+                contentItem: RowLayout {
+                    IconImage {
+                        Layout.fillHeight: true
+                        Layout.preferredWidth: height
+                        source: {
+                            if (toplevel.modelData?.appId.startsWith("steam_app")) {
+                                return Quickshell.iconPath("input-gaming");
+                            } else if (toplevel.modelData?.appId == "") {
+                                return (Quickshell.iconPath("image-loading"));
+                            } else {
+                                return Quickshell.iconPath(toplevel.modelData?.appId.toLowerCase() ?? "image-loading", toplevel.modelData?.appId);
+                            }
+                        }
+                    }
+                    StyledText {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        text: toplevel.modelData?.title ?? ""
+                        color: toplevel.color
+                        horizontalAlignment: Text.AlignLeft
+                        elide: Text.ElideRight
+                    }
+                }
+                function tapped(pointEvent, button) {
+                    switch (button) {
                     case Qt.LeftButton:
                         Quickshell.execDetached(["hyprctl", "dispatch", "focuswindow", `address:0x${toplevel.modelData.HyprlandToplevel.handle.address}`]);
                         GlobalState.launcher = false;
@@ -35,44 +61,6 @@ Item {
                         Hyprland.dispatch(`movetoworkspace ${Hyprland.focusedWorkspace.id}, address:0x${modelData.HyprlandToplevel.handle.address}`);
                         GlobalState.launcher = false;
                         break;
-                    }
-                }
-                Layout.fillHeight: true
-                Layout.fillWidth: true
-                Rectangle {
-                    anchors.fill: parent
-                    color: toplevel.containsMouse ? Theme.color.grey : toplevel.modelData?.activated ? Theme.color.bgalt : Theme.color.bg
-                    RowLayout {
-                        anchors.fill: parent
-                        IconImage {
-                            Layout.fillHeight: true
-                            Layout.preferredWidth: height
-                            source: {
-                                if (toplevel.modelData?.appId.startsWith("steam_app")) {
-                                    return Quickshell.iconPath("input-gaming");
-                                } else if (toplevel.modelData?.appId == "") {
-                                    return (Quickshell.iconPath("image-loading"));
-                                } else {
-                                    return Quickshell.iconPath(toplevel.modelData?.appId.toLowerCase() ?? "image-loading", toplevel.modelData?.appId);
-                                }
-                            }
-                        }
-                        StyledText {
-                            Layout.fillWidth: true
-                            Layout.fillHeight: true
-                            text: toplevel.modelData?.title ?? ""
-                            color: toplevel.containsMouse ? Theme.color.accent : Theme.color.fg
-                            horizontalAlignment: Text.AlignLeft
-                            elide: Text.ElideRight
-                        }
-                    }
-                    Rectangle {
-                        visible: toplevel.modelData?.activated
-                        anchors {
-                            fill: parent
-                            topMargin: parent.height * 0.96
-                        }
-                        color: Theme.color.accent
                     }
                 }
             }
