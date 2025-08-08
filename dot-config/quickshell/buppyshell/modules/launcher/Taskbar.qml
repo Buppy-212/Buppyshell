@@ -24,7 +24,7 @@ Rectangle {
                 Layout.fillHeight: true
                 Layout.fillWidth: true
                 accentColor: Theme.color.accent
-                selected: modelData?.activated
+                selected: modelData?.activated ?? false
                 contentItem: RowLayout {
                     IconImage {
                         Layout.fillHeight: true
