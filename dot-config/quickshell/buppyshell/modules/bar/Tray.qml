@@ -6,19 +6,19 @@ import qs.services
 Item {
     id: root
     required property PanelWindow bar
-    readonly property Repeater items: items
     clip: true
     visible: width > 0 && height > 0
-    implicitHeight: layout.implicitHeight
+    implicitHeight: column.implicitHeight
     implicitWidth: Theme.width.block
     Column {
-        id: layout
+        id: column
         spacing: Theme.margin.tiny
         anchors.centerIn: parent
         Repeater {
-            id: items
+            id: repeater
             model: SystemTray.items
             TrayItem {
+                id: trayItem
                 tray: root
                 bar: root.bar
             }

@@ -8,6 +8,7 @@ RowLayout {
     spacing: 0
     uniformCellSizes: true
     Repeater {
+        id: repeater
         model: [
             {
                 _text: "󰂚",

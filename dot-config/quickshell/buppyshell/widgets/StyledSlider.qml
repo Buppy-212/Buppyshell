@@ -7,7 +7,7 @@ import qs.services
 
 Slider {
     id: root
-    property color color: Theme.color.blue
+    property alias color: slider.color
     snapMode: Slider.SnapOnRelease
     stepSize: 0.01
     from: 0
@@ -17,9 +17,10 @@ Slider {
         color: Theme.color.grey
         radius: height / 2
         Rectangle {
+            id: slider
             width: root.visualPosition * root.availableWidth
             height: parent.height
-            color: root.color
+            color: Theme.color.blue
             radius: height / 2
         }
     }

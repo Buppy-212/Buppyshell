@@ -4,6 +4,7 @@ import Quickshell
 import Quickshell.Hyprland
 import Quickshell.Wayland
 import QtQuick
+import QtQuick.Controls
 import QtQuick.Layouts
 import qs.modules.sidebar
 import qs.services
@@ -72,45 +73,48 @@ Variants {
                     spacing: 0
                     focus: true
                     Keys.onTabPressed: {
-                        var i = GlobalState.sidebarModule
-                        i += 1
+                        var i = GlobalState.sidebarModule;
+                        i += 1;
                         if (i > 3) {
-                          i = 0
+                            i = 0;
                         }
                         GlobalState.sidebarModule = i;
                     }
                     Keys.onBacktabPressed: {
-                        var i = GlobalState.sidebarModule
-                        i -= 1
+                        var i = GlobalState.sidebarModule;
+                        i -= 1;
                         if (i < 0) {
-                          i = 3
+                            i = 3;
                         }
                         GlobalState.sidebarModule = i;
                     }
+                    Keys.forwardTo: [stackView.currentItem]
                     Tabs {
                         Layout.fillWidth: true
                         Layout.preferredHeight: Theme.height.doubleBlock
                         Layout.maximumHeight: Theme.height.doubleBlock
                     }
-                    Loader {
-                        Layout.fillHeight: true
+                    StackView {
+                        id: stackView
+                        readonly property int sidebarModule: GlobalState.sidebarModule
                         Layout.fillWidth: true
-                        source: {
-                            switch (GlobalState.sidebarModule) {
+                        Layout.fillHeight: true
+                        initialItem: getSidebarModule()
+                        onSidebarModuleChanged: getSidebarModule()
+                        function getSidebarModule(): Item {
+                            switch (sidebarModule) {
                             case GlobalState.SidebarModule.Notifications:
-                                return Quickshell.shellPath("modules/sidebar/Notifications.qml");
+                                stackView.replaceCurrentItem(Quickshell.shellPath("modules/sidebar/Notifications.qml"));
                                 break;
                             case GlobalState.SidebarModule.Volume:
-                                return Quickshell.shellPath("modules/sidebar/Volume.qml");
+                                stackView.replaceCurrentItem(Quickshell.shellPath("modules/sidebar/Volume.qml"));
                                 break;
                             case GlobalState.SidebarModule.Bluetooth:
-                                return Quickshell.shellPath("modules/sidebar/Bluetooth.qml");
+                                stackView.replaceCurrentItem(Quickshell.shellPath("modules/sidebar/Bluetooth.qml"));
                                 break;
                             case GlobalState.SidebarModule.Network:
-                                return Quickshell.shellPath("modules/sidebar/Network.qml");
+                                stackView.replaceCurrentItem(Quickshell.shellPath("modules/sidebar/Network.qml"));
                                 break;
-                            default:
-                                return undefined;
                             }
                         }
                     }

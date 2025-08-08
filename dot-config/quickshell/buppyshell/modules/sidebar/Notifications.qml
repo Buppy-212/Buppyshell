@@ -6,32 +6,21 @@ import qs.services
 import qs.widgets
 import qs.modules.notifications
 
-GridLayout {
-    columns: 2
-    rows: 2
-    columnSpacing: 0
-    rowSpacing: 0
+ColumnLayout {
+    spacing: 0
     NotificationServer {
         id: notificationServer
     }
-    StyledText {
-        text: "Notifications"
+    Header {
         Layout.preferredHeight: Theme.height.doubleBlock
         Layout.fillWidth: true
-        Layout.leftMargin: Theme.height.doubleBlock
-        font.pixelSize: Theme.font.size.doubled
-    }
-    StyledButton {
-        Layout.preferredHeight: Theme.height.doubleBlock
-        Layout.preferredWidth: height
-        text: "󰆴"
-        font.pixelSize: height * 0.75
-        function tapped(): void {
+        title: "Notifications"
+        rightButtonText: "󰆴"
+        function rightButtonTapped(): void {
             Hyprland.dispatch("global buppyshell:clearNotifs");
         }
     }
     Rectangle {
-        Layout.columnSpan: 2
         Layout.fillHeight: true
         Layout.fillWidth: true
         Layout.rightMargin: 36

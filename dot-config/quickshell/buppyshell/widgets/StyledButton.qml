@@ -4,11 +4,11 @@ import qs.services
 
 Control {
     id: root
-    property string text
+    property alias text: text.text
+    readonly property alias buttonColor: text.color
+    readonly property alias pressed: tapHandler.pressed
     property color color: Theme.color.fg
     property color accentColor: root.color
-    readonly property color buttonColor: hovered ? accentColor : color
-    readonly property bool pressed: tapHandler.pressed
     property bool dragged: false
     font {
         pixelSize: Theme.font.size.normal
@@ -26,9 +26,9 @@ Control {
     implicitWidth: Theme.width.block
     implicitHeight: Theme.height.block
     contentItem: Text {
-        text: root.text
-        anchors.fill: root
-        color: root.buttonColor
+        id: text
+        anchors.fill: parent
+        color: root.hovered ? root.accentColor : root.color
         font: root.font
         elide: Text.ElideRight
         horizontalAlignment: Text.AlignHCenter
@@ -37,7 +37,7 @@ Control {
     background: Rectangle {
         color: Theme.color.grey
         radius: Theme.radius.normal
-        opacity: root.hovered || root.dragged && !root.pressed ? 1 : 0
+        opacity: (root.hovered || root.dragged) && !root.pressed ? 1 : 0
         Behavior on opacity {
             animation: Theme.animation.elementMove.numberAnimation.createObject(this)
         }

@@ -7,43 +7,24 @@ import QtQuick.Layouts
 import qs.services
 import qs.widgets
 
-GridLayout {
-    id: bluetoothWidget
-    columns: 3
-    rows: 2
-    columnSpacing: 0
-    rowSpacing: 0
-    StyledButton {
+ColumnLayout {
+    Header {
+        Layout.fillWidth: true
         Layout.preferredHeight: Theme.height.doubleBlock
-        Layout.preferredWidth: height
-        text: Bluetooth.defaultAdapter?.enabled ?? Bluetooth.adapters.values[0]?.enabled ? "󰂯" : "󰂲"
-        color: Theme.color.blue
-        font.pixelSize: height * 0.75
-        function tapped() {
+        title: Bluetooth.defaultAdapter?.name ?? "Bluetooth"
+        leftButtonText: Bluetooth.defaultAdapter?.enabled ?? Bluetooth.adapters.values[0]?.enabled ? "󰂯" : "󰂲"
+        leftButtonColor: Theme.color.blue
+        function leftButtonTapped(): void {
             Bluetooth.defaultAdapter.enabled = !Bluetooth.defaultAdapter.enabled;
         }
-    }
-    StyledText {
-        id: adapterName
-        Layout.preferredHeight: Theme.height.doubleBlock
-        Layout.fillWidth: true
-        text: Bluetooth.defaultAdapter?.name ?? Bluetooth.adapters.values[0]?.name ?? ""
-        font.pixelSize: height * 0.75
-    }
-    StyledButton {
-        Layout.preferredHeight: Theme.height.doubleBlock
-        Layout.preferredWidth: height
-        text: Bluetooth.defaultAdapter?.discovering ?? Bluetooth.adapters.values[0]?.discovering ? "󰜺" : ""
-        color: Theme.color.fg
-        font.pixelSize: height * 0.75
-        function tapped() {
+        rightButtonText: Bluetooth.defaultAdapter?.discovering ?? Bluetooth.adapters.values[0]?.discovering ? "󰜺" : ""
+        function rightButtonTapped(): void {
             Bluetooth.defaultAdapter.discovering = !Bluetooth.defaultAdapter.discovering;
         }
     }
     Rectangle {
         Layout.fillWidth: true
         Layout.fillHeight: true
-        Layout.columnSpan: 3
         Layout.rightMargin: 36
         Layout.bottomMargin: 36
         Layout.leftMargin: 36

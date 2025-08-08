@@ -1,6 +1,8 @@
 pragma ComponentBehavior: Bound
+
 import Quickshell
 import QtQuick
+import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Effects
 import Quickshell.Wayland
@@ -61,45 +63,35 @@ LazyLoader {
                 Layout.preferredHeight: panelWindow.height / 24
                 Layout.preferredWidth: column.width / 3
                 Layout.alignment: Qt.AlignHCenter
-                forwardTargets: [loader.item]
+                forwardTargets: [stackView.currentItem]
             }
-            Loader {
-                id: loader
+            StackView {
+                id: stackView
+                readonly property int launcherModule: GlobalState.launcherModule
                 Layout.alignment: Qt.AlignHCenter
                 Layout.fillHeight: true
                 Layout.preferredWidth: parent.width * 0.8
-                asynchronous: true
-                sourceComponent: {
-                    switch (GlobalState.launcherModule) {
-                    case GlobalState.LauncherModule.Apps:
-                        return appLauncher;
+                onLauncherModuleChanged: {
+                    switch (launcherModule) {
+                    case GlobalState.LauncherModule.AppLauncher:
+                        stackView.replaceCurrentItem(Quickshell.shellPath("modules/launcher/AppLauncher.qml"), {
+                            "search": Qt.binding(function () {
+                                return searchbar.text;
+                            })
+                        });
                         break;
-                    case GlobalState.LauncherModule.Windows:
-                        return windowSwitcher;
+                    case GlobalState.LauncherModule.WindowSwitcher:
+                        stackView.replaceCurrentItem(Quickshell.shellPath("modules/launcher/WindowSwitcher.qml"), {
+                            "search": Qt.binding(function () {
+                                return searchbar.text;
+                            })
+                        });
                         break;
                     case GlobalState.LauncherModule.Logout:
-                        return logout;
+                        stackView.replaceCurrentItem(Quickshell.shellPath("modules/launcher/Logout.qml"));
                         break;
-                    default:
-                        return undefined;
                     }
                 }
-            }
-            Component {
-                id: appLauncher
-                AppLauncher {
-                    search: searchbar.text
-                }
-            }
-            Component {
-                id: windowSwitcher
-                WindowSwitcher {
-                    search: searchbar.text
-                }
-            }
-            Component {
-                id: logout
-                Logout {}
             }
             Taskbar {
                 Layout.preferredHeight: panelWindow.height / 24

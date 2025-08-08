@@ -15,15 +15,15 @@ Singleton {
     }
 
     enum LauncherModule {
-        Windows,
-        Logout,
-        Apps
+        AppLauncher,
+        WindowSwitcher,
+        Logout
     }
 
     property int sidebarModule: GlobalState.SidebarModule.Notifications
     property bool player: false
     property bool bluetooth: false
-    property int launcherModule: GlobalState.LauncherModule.Windows
+    property int launcherModule: GlobalState.LauncherModule.WindowSwitcher
     property bool launcher: false
     property bool sidebar: false
     property bool locked: false
@@ -59,8 +59,8 @@ Singleton {
         description: "Toggle window switcher"
         appid: "buppyshell"
         onPressed: {
-            root.launcherModule == GlobalState.LauncherModule.Windows ? root.launcher = !root.launcher : root.launcher = true;
-            root.launcherModule = GlobalState.LauncherModule.Windows;
+            root.launcherModule == GlobalState.LauncherModule.WindowSwitcher ? root.launcher = !root.launcher : root.launcher = true;
+            root.launcherModule = GlobalState.LauncherModule.WindowSwitcher;
         }
     }
     GlobalShortcut {
@@ -77,8 +77,8 @@ Singleton {
         description: "Toggle application launcher"
         appid: "buppyshell"
         onPressed: {
-            root.launcherModule == GlobalState.LauncherModule.Apps ? root.launcher = !root.launcher : root.launcher = true;
-            root.launcherModule = GlobalState.LauncherModule.Apps;
+            root.launcherModule == GlobalState.LauncherModule.AppLauncher ? root.launcher = !root.launcher : root.launcher = true;
+            root.launcherModule = GlobalState.LauncherModule.AppLauncher;
         }
     }
     GlobalShortcut {

@@ -3,16 +3,12 @@ import QtQuick.Layouts
 import qs.widgets
 import qs.services
 
-GridLayout {
-    columns: 1
-    columnSpacing: 0
-    rows: 2
-    rowSpacing: 0
-    StyledText {
+ColumnLayout {
+    spacing: 0
+    Header {
+        title: "Network"
         Layout.fillWidth: true
         Layout.preferredHeight: Theme.height.doubleBlock
-        text: "Network"
-        font.pixelSize: Theme.font.size.doubled
     }
     Rectangle {
         id: networkWidget

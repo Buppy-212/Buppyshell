@@ -18,7 +18,7 @@ StyledButton {
             color: Theme.color.grey
             anchors.fill: parent
             radius: Theme.radius.normal
-            opacity: root.hovered || root.dragged && !root.pressed ? 1 : 0
+            opacity: (root.hovered || root.dragged) && !root.pressed ? 1 : 0
             Behavior on opacity {
                 animation: Theme.animation.elementMove.numberAnimation.createObject(this)
             }

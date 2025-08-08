@@ -4,16 +4,12 @@ import QtQuick.Layouts
 import qs.services
 import qs.widgets
 
-GridLayout {
-    columns: 1
-    rows: 2
-    columnSpacing: 0
-    rowSpacing: 0
-    StyledText {
-        text: "Volume"
+ColumnLayout {
+    spacing: 0
+    Header {
         Layout.fillWidth: true
         Layout.preferredHeight: Theme.height.doubleBlock
-        font.pixelSize: Theme.font.size.doubled
+        title: "Volume"
     }
     Rectangle {
         color: Theme.color.bgalt
