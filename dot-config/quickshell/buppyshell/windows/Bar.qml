@@ -39,6 +39,7 @@ Variants {
                         Layout.preferredHeight: Theme.height.block
                     }
                     Workspaces {
+                        bar: leftBar
                         Layout.fillHeight: true
                         Layout.fillWidth: true
                     }

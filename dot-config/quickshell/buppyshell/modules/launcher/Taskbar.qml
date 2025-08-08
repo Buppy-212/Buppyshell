@@ -23,7 +23,7 @@ Rectangle {
                 required property Toplevel modelData
                 Layout.fillHeight: true
                 Layout.fillWidth: true
-                color: hovered ? Theme.color.accent : Theme.color.fg
+                accentColor: Theme.color.accent
                 selected: modelData?.activated
                 contentItem: RowLayout {
                     IconImage {
@@ -43,12 +43,12 @@ Rectangle {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
                         text: toplevel.modelData?.title ?? ""
-                        color: toplevel.color
+                        color: toplevel.buttonColor
                         horizontalAlignment: Text.AlignLeft
                         elide: Text.ElideRight
                     }
                 }
-                function tapped(pointEvent, button) {
+                function tapped(pointEvent, button): void {
                     switch (button) {
                     case Qt.LeftButton:
                         Quickshell.execDetached(["hyprctl", "dispatch", "focuswindow", `address:0x${toplevel.modelData.HyprlandToplevel.handle.address}`]);

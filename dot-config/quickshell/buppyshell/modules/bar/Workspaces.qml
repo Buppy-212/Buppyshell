@@ -10,33 +10,28 @@ import qs.widgets
 
 ColumnLayout {
     id: root
+    required property PanelWindow bar
     spacing: 0
     Repeater {
         model: Hyprland.workspaces
-        delegate: MouseArea {
+        delegate: StyledTabButton {
             id: workspace
             required property HyprlandWorkspace modelData
-            property bool draggedOver: false
-            Layout.preferredHeight: ((modelData?.toplevels.values.length ?? 0) + 1) * width
+            Layout.preferredHeight: (toplevelRepeater.count + 1) * width
             Layout.fillWidth: true
-            acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
-            cursorShape: Qt.PointingHandCursor
-            hoverEnabled: true
-            onClicked: if (!workspace.modelData.focused) {
-                workspace.modelData.activate();
+            dragged: dropArea.containsDrag
+            borderSide: StyledTabButton.BorderSide.Left
+            selected: modelData?.focused
+            accentColor: Theme.color.accent
+            function tapped(): void {
+                if (!workspace.modelData.focused) {
+                    workspace.modelData.activate();
+                }
             }
             DropArea {
+                id: dropArea
                 anchors.fill: parent
-                onEntered: drag => {
-                    drag.source.caught = true;
-                    workspace.draggedOver = true;
-                }
-                onExited: {
-                    drag.source.caught = false;
-                    workspace.draggedOver = false;
-                }
                 onDropped: drop => {
-                    workspace.draggedOver = false;
                     if (drag.source.silent) {
                         Hyprland.dispatch(`movetoworkspacesilent ${workspace.modelData.id}, address:0x${drag.source.modelData.address}`);
                     } else {
@@ -44,109 +39,96 @@ ColumnLayout {
                     }
                 }
             }
-            Rectangle {
+            contentItem: ColumnLayout {
                 anchors.fill: parent
-                color: draggedOver | workspace.containsMouse ? Theme.color.grey : modelData.active ? Theme.color.bgalt : "transparent"
-                Rectangle {
-                    visible: workspace.modelData?.focused
-                    anchors {
-                        fill: parent
-                        rightMargin: parent.width * 0.96
-                    }
-                    color: Theme.color.accent
+                spacing: 0
+                StyledText {
+                    text: workspace.modelData.id === 10 ? 0 : workspace.modelData.id
+                    Layout.alignment: Qt.AlignTop
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: width
+                    color: workspace.buttonColor
                 }
-                ColumnLayout {
-                    anchors.fill: parent
-                    spacing: 0
-                    uniformCellSizes: true
-                    StyledText {
-                        text: workspace.modelData.id === 10 ? 0 : workspace.modelData.id
-                        Layout.alignment: Qt.AlignTop
+                Repeater {
+                    id: toplevelRepeater
+                    model: workspace.modelData.toplevels
+                    delegate: IconImage {
+                        id: toplevel
+                        required property HyprlandToplevel modelData
+                        property bool silent: true
                         Layout.fillWidth: true
                         Layout.preferredHeight: width
-                        color: workspace.containsMouse ? Theme.color.accent : Theme.color.fg
-                    }
-                    Repeater {
-                        model: workspace.modelData.toplevels
-                        delegate: IconImage {
-                            id: toplevel
-                            required property HyprlandToplevel modelData
-                            property bool silent: true
-                            property bool caught: false
-                            visible: silent
-                            Layout.fillHeight: true
-                            Layout.fillWidth: true
-                            implicitSize: width
-                            Drag.active: mouseArea.drag.active
-                            Drag.hotSpot: Qt.point(implicitSize / 2, implicitSize / 2)
-                            source: {
-                                if (modelData?.wayland?.appId.startsWith("steam_app")) {
-                                    return Quickshell.iconPath("input-gaming");
-                                } else if (modelData?.wayland?.appId == "") {
-                                    return (Quickshell.iconPath("image-loading"));
+                        Layout.alignment: Qt.AlignTop
+                        implicitSize: width
+                        Drag.active: mouseArea.drag.active
+                        Drag.hotSpot: Qt.point(width / 2, height / 2)
+                        source: {
+                            if (modelData?.wayland?.appId.startsWith("steam_app")) {
+                                return Quickshell.iconPath("input-gaming");
+                            } else if (modelData?.wayland?.appId == "") {
+                                return (Quickshell.iconPath("image-loading"));
+                            } else {
+                                return Quickshell.iconPath(modelData?.wayland?.appId.toLowerCase() ?? "image-loading", modelData?.wayland?.appId);
+                            }
+                        }
+                        states: State {
+                            when: mouseArea.drag.active
+                            ParentChange {
+                                target: toplevel
+                                parent: dragArea
+                            }
+                        }
+                        MouseArea {
+                            id: mouseArea
+                            anchors.fill: parent
+                            cursorShape: Qt.PointingHandCursor
+                            hoverEnabled: true
+                            acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
+                            drag.target: parent
+                            drag.axis: Drag.YAxis
+                            onClicked: mouse => {
+                                if (mouse.button == Qt.LeftButton) {
+                                    Hyprland.dispatch(`focuswindow address:0x${toplevel.modelData.address}`);
+                                } else if (mouse.button == Qt.MiddleButton) {
+                                    toplevel.modelData.wayland.close();
                                 } else {
-                                    return Quickshell.iconPath(modelData?.wayland?.appId.toLowerCase() ?? "image-loading", modelData?.wayland?.appId);
+                                    Hyprland.dispatch(`movetoworkspace ${Hyprland.focusedWorkspace.id}, address:0x${toplevel.modelData.address}`);
                                 }
                             }
-                            states: State {
-                                when: mouseArea.drag.active
-                                ParentChange {
-                                    target: toplevel
-                                    parent: dragArea
+                            onReleased: mouse => {
+                                if (mouse.button == Qt.RightButton) {
+                                    parent.silent = false;
+                                } else {
+                                    parent.silent = true;
                                 }
+                                parent.Drag.drop();
                             }
-                            MouseArea {
-                                id: mouseArea
-                                anchors.fill: parent
-                                cursorShape: Qt.PointingHandCursor
-                                hoverEnabled: true
-                                acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
-                                drag.target: parent
-                                drag.axis: Drag.YAxis
-                                onClicked: mouse => {
-                                    if (mouse.button == Qt.LeftButton) {
-                                        Hyprland.dispatch(`focuswindow address:0x${toplevel.modelData.address}`);
-                                    } else if (mouse.button == Qt.MiddleButton) {
-                                        toplevel.modelData.wayland.close();
-                                    } else {
-                                        Hyprland.dispatch(`movetoworkspace ${Hyprland.focusedWorkspace.id}, address:0x${toplevel.modelData.address}`);
-                                    }
+                        }
+                        Loader {
+                            active: mouseArea.containsMouse
+                            asynchronous: true
+                            sourceComponent: PopupWindow {
+                                anchor {
+                                    window: root.bar
+                                    rect.x: root.parent.width + Theme.margin.tiny
+                                    rect.y: toplevel.parent == dragArea ? toplevel.y + dragArea.y + root.y : root.y + workspace.y + toplevel.y
                                 }
-                                onReleased: mouse => {
-                                    if (mouse.button == Qt.RightButton) {
-                                        parent.silent = false;
-                                    } else {
-                                        parent.silent = true;
-                                    }
-                                    parent.Drag.drop();
-                                }
-                            }
-                            Loader {
-                                active: mouseArea.containsMouse
-                                asynchronous: true
-                                sourceComponent: PopupWindow {
-                                    anchor {
-                                        window: leftBar
-                                        rect.x: leftRect.width + Theme.margin.tiny
-                                        rect.y: toplevel.parent == dragArea ? toplevel.y + dragArea.y + root.y : root.y + workspace.y + toplevel.y
-                                    }
-                                    implicitHeight: toplevel.height
-                                    implicitWidth: title.contentWidth + Theme.margin.large
-                                    color: "transparent"
-                                    Rectangle {
+                                implicitHeight: toplevel.height
+                                implicitWidth: title.contentWidth + Theme.margin.large
+                                color: "transparent"
+                                Rectangle {
+                                    anchors.fill: parent
+                                    radius: Theme.radius.normal
+                                    color: Theme.color.bg
+                                    border.width: Theme.border
+                                    border.color: Theme.color.grey
+                                    StyledText {
+                                        id: title
                                         anchors.fill: parent
-                                        radius: Theme.radius.normal
-                                        color: Theme.color.bg
-                                        border.width: Theme.border
-                                        border.color: Theme.color.grey
-                                        StyledText {
-                                            id: title
-                                            anchors.fill: parent
-                                            text: toplevel.modelData.title
-                                        }
+                                        text: toplevel.modelData.title
                                     }
-                                    visible: true
                                 }
+                                visible: true
                             }
                         }
                     }
