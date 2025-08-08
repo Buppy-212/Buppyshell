@@ -67,54 +67,34 @@ Variants {
                         }
                     }
                 }
-                GridLayout {
+                ColumnLayout {
                     anchors.fill: parent
-                    columns: 4
-                    rows: 3
-                    rowSpacing: 0
-                    columnSpacing: 0
-                    Repeater {
-                        model: [
-                            {
-                                _text: "󰂚",
-                                state: GlobalState.sidebarModule == GlobalState.SidebarModule.Notifications,
-                                command: "notifications"
-                            },
-                            {
-                                _text: "",
-                                state: GlobalState.sidebarModule == GlobalState.SidebarModule.Volume,
-                                command: "volume"
-                            },
-                            {
-                                _text: "󰂯",
-                                state: GlobalState.sidebarModule == GlobalState.SidebarModule.Bluetooth,
-                                command: "bluetooth"
-                            },
-                            {
-                                _text: "󰖩",
-                                state: GlobalState.sidebarModule == GlobalState.SidebarModule.Network,
-                                command: "network"
-                            },
-                        ]
-                        delegate: StyledTabButton {
-                            id: delegateButton
-                            required property string _text
-                            required property string command
-                            required property bool state
-                            selected: state
-                            text: delegateButton._text
-                            font.pixelSize: Theme.font.size.doubled
-                            Layout.preferredHeight: Theme.height.doubleBlock
-                            Layout.fillWidth: true
-                            function tapped(): void {
-                                GlobalState.toggle(delegateButton.command);
-                            }
+                    spacing: 0
+                    focus: true
+                    Keys.onTabPressed: {
+                        var i = GlobalState.sidebarModule
+                        i += 1
+                        if (i > 3) {
+                          i = 0
                         }
+                        GlobalState.sidebarModule = i;
+                    }
+                    Keys.onBacktabPressed: {
+                        var i = GlobalState.sidebarModule
+                        i -= 1
+                        if (i < 0) {
+                          i = 3
+                        }
+                        GlobalState.sidebarModule = i;
+                    }
+                    Tabs {
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: Theme.height.doubleBlock
+                        Layout.maximumHeight: Theme.height.doubleBlock
                     }
                     Loader {
                         Layout.fillHeight: true
                         Layout.fillWidth: true
-                        Layout.columnSpan: 4
                         source: {
                             switch (GlobalState.sidebarModule) {
                             case GlobalState.SidebarModule.Notifications:
@@ -136,7 +116,6 @@ Variants {
                     }
                     Player {
                         Layout.fillWidth: true
-                        Layout.columnSpan: 4
                     }
                 }
             }
