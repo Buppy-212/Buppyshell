@@ -69,7 +69,7 @@ GridLayout {
                                 HoverHandler {
                                     cursorShape: Qt.PointingHandCursor
                                 }
-                                backgroundOpacity: sinkDelegate.modelData == Pipewire.defaultAudioSink ? 1 : 0.25
+                                color: sinkDelegate.modelData == Pipewire.defaultAudioSink ? Theme.color.blue : Qt.darker(Theme.color.blue)
                             }
                             StyledButton {
                                 Layout.fillHeight: true
@@ -126,8 +126,7 @@ GridLayout {
                                 HoverHandler {
                                     cursorShape: Qt.PointingHandCursor
                                 }
-                                backgroundOpacity: sourceDelegate.modelData == Pipewire.defaultAudioSource ? 1 : 0.25
-                                color: Theme.color.magenta
+                                color: sourceDelegate.modelData == Pipewire.defaultAudioSource ? Theme.color.magenta : Qt.darker(Theme.color.magenta)
                             }
                             StyledButton {
                                 Layout.fillHeight: true
