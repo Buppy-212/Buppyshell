@@ -31,8 +31,7 @@ Item {
                 logoutGrid.moveCurrentIndexLeft();
                 break;
             case Qt.Key_O:
-                GlobalState.launcher = false;
-                Hyprland.dispatch(logoutGrid.currentItem.command);
+                logoutGrid.currentItem.tapped();
                 break;
             case Qt.Key_Semicolon:
                 GlobalState.launcher = false;
@@ -68,8 +67,7 @@ Item {
                 Quickshell.execDetached(["systemctl", "hibernate"]);
                 break;
             case Qt.Key_Return:
-                GlobalState.launcher = false;
-                Hyprland.dispatch(logoutGrid.currentItem.command);
+                logoutGrid.currentItem.tapped();
                 break;
             case Qt.Key_Tab:
                 logoutGrid.moveCurrentIndexRight();

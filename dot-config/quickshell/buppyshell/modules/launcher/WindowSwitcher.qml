@@ -29,7 +29,7 @@ Item {
                 windowList.decrementCurrentIndex();
                 break;
             case Qt.Key_O:
-                Quickshell.execDetached(["hyprctl", "dispatch", "focuswindow", `address:0x${windowList.currentItem.modelData.HyprlandToplevel.handle.address}`]);
+                windowList.currentItem.tapped(undefined, Qt.LeftButton);
                 GlobalState.launcher = false;
                 break;
             case Qt.Key_Semicolon:
@@ -60,7 +60,7 @@ Item {
                 GlobalState.launcher = false;
                 break;
             case Qt.Key_Return:
-                Quickshell.execDetached(["hyprctl", "dispatch", "focuswindow", `address:0x${windowList.currentItem.modelData.HyprlandToplevel.handle.address}`]);
+                windowList.currentItem.tapped(undefined, Qt.LeftButton);
                 GlobalState.launcher = false;
                 break;
             }
@@ -85,7 +85,7 @@ Item {
             required property Toplevel modelData
             required property int index
             function tapped(pointEvent, button): void {
-                switch (mouse.button) {
+                switch (button) {
                 case Qt.LeftButton:
                     Quickshell.execDetached(["hyprctl", "dispatch", "focuswindow", `address:0x${modelData.HyprlandToplevel.handle.address}`]);
                     GlobalState.launcher = false;

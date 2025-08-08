@@ -33,7 +33,7 @@ Item {
                 appGrid.moveCurrentIndexLeft();
                 break;
             case Qt.Key_O:
-                Quickshell.execDetached(["uwsm", "app", "--", `${appGrid.currentItem.modelData.id}.desktop`]);
+                appGrid.currentItem.tapped();
                 GlobalState.launcher = false;
                 break;
             case Qt.Key_Semicolon:
@@ -67,7 +67,7 @@ Item {
                 appGrid.moveCurrentIndexLeft();
                 break;
             case Qt.Key_Return:
-                Quickshell.execDetached(["uwsm", "app", "--", `${appGrid.currentItem.modelData.id}.desktop`]);
+                appGrid.currentItem.tapped();
                 GlobalState.launcher = false;
                 break;
             }
@@ -97,7 +97,7 @@ Item {
                 GlobalState.launcher = false;
             }
             function entered() {
-                appGrid.currentIndex = appDelegate.index
+                appGrid.currentIndex = appDelegate.index;
             }
             background: null
             implicitWidth: appGrid.cellWidth
