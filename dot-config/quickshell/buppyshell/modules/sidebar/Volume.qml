@@ -51,7 +51,7 @@ GridLayout {
                             width: parent.width
                             height: parent.height / 2
                             background: null
-                            function tapped() {
+                            function tapped(): void {
                                 Pipewire.preferredDefaultAudioSink = sinkDelegate.modelData;
                             }
                         }
@@ -76,7 +76,7 @@ GridLayout {
                                 Layout.preferredWidth: 42
                                 text: sinkDelegate.modelData.audio?.muted ? "" : `${Math.round(sinkSlider.value * 100)}%`
                                 background: null
-                                function tapped() {
+                                function tapped(): void {
                                     sinkDelegate.modelData.audio.muted = !sinkDelegate.modelData.audio.muted;
                                 }
                             }
@@ -108,7 +108,7 @@ GridLayout {
                             width: parent.width
                             height: parent.height / 2
                             background: null
-                            function tapped() {
+                            function tapped(): void {
                                 Pipewire.preferredDefaultAudioSource = sourceDelegate.modelData;
                             }
                         }
@@ -134,7 +134,7 @@ GridLayout {
                                 Layout.preferredWidth: 42
                                 text: sourceDelegate.modelData.audio?.muted ? "" : `${Math.round(sourceSlider.value * 100)}%`
                                 background: null
-                                function tapped() {
+                                function tapped(): void {
                                     sourceDelegate.modelData.audio.muted = !sourceDelegate.modelData.audio.muted;
                                 }
                             }
@@ -189,7 +189,7 @@ GridLayout {
                                 Layout.preferredWidth: 42
                                 text: streamDelegate.modelData.audio?.muted ? "" : `${Math.round(streamSlider.value * 100)}%`
                                 background: null
-                                function tapped() {
+                                function tapped(): void {
                                     streamDelegate.modelData.audio.muted = !streamDelegate.modelData.audio.muted;
                                 }
                             }

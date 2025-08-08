@@ -6,7 +6,7 @@ StyledButton {
     text: Bluetooth.defaultAdapter?.enabled ?? Bluetooth.adapters.values[0]?.enabled ? "󰂯" : "󰂲"
     color: Theme.color.blue
     font.pixelSize: height - Theme.margin.small
-    function tapped() {
+    function tapped(): void {
         if (GlobalState.sidebarModule == GlobalState.SidebarModule.Bluetooth || !GlobalState.sidebar) {
             GlobalState.sidebar = !GlobalState.sidebar;
             GlobalState.player = false;

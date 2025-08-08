@@ -6,7 +6,7 @@ import qs.widgets
 StyledButton {
     text: Math.round(UPower.displayDevice.percentage * 100)
     color: Theme.color.green
-    function tapped() {
+    function tapped(): void {
         Quickshell.execDetached(["uwsm", "app", "--", "btop.desktop"]);
     }
 }

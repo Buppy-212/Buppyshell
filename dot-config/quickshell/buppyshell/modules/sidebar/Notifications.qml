@@ -26,7 +26,7 @@ GridLayout {
         Layout.preferredWidth: height
         text: "󰆴"
         font.pixelSize: height * 0.75
-        function tapped() {
+        function tapped(): void {
             Hyprland.dispatch("global buppyshell:clearNotifs");
         }
     }

@@ -106,7 +106,7 @@ Variants {
                             font.pixelSize: Theme.font.size.doubled
                             Layout.preferredHeight: Theme.height.doubleBlock
                             Layout.fillWidth: true
-                            function tapped() {
+                            function tapped(): void {
                                 GlobalState.toggle(delegateButton.command);
                             }
                         }

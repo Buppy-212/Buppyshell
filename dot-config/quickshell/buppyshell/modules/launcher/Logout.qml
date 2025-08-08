@@ -153,11 +153,11 @@ Item {
             required property string text
             required property int index
             background: null
-            function tapped() {
+            function tapped(): void {
                 GlobalState.launcher = false;
                 Hyprland.dispatch(command);
             }
-            function entered() {
+            function entered(): void {
                 logoutGrid.currentIndex = logoutDelegate.index;
             }
             implicitHeight: logoutGrid.cellHeight

@@ -5,7 +5,7 @@ StyledButton {
     text: "󰤨"
     color: Theme.color.green
     font.pixelSize: height - Theme.margin.small
-    function tapped() {
+    function tapped(): void {
         if (GlobalState.sidebarModule == GlobalState.SidebarModule.Network || !GlobalState.sidebar) {
             GlobalState.sidebar = !GlobalState.sidebar;
             GlobalState.player = false;

@@ -9,18 +9,19 @@ Control {
     property color accentColor: root.color
     readonly property color buttonColor: hovered ? accentColor : color
     readonly property bool pressed: tapHandler.pressed
+    property bool dragged: false
     font {
         pixelSize: Theme.font.size.normal
         family: Theme.font.family.mono
         bold: true
     }
-    function entered() {
+    function entered(): void {
     }
-    function exited() {
+    function exited(): void {
     }
-    function tapped(eventPoint, button) {
+    function tapped(eventPoint, button): void {
     }
-    function scrolled(event) {
+    function scrolled(event): void {
     }
     implicitWidth: Theme.width.block
     implicitHeight: Theme.height.block
@@ -36,7 +37,7 @@ Control {
     background: Rectangle {
         color: Theme.color.grey
         radius: Theme.radius.normal
-        opacity: root.hovered && !root.pressed ? 1 : 0
+        opacity: root.hovered || root.dragged && !root.pressed ? 1 : 0
         Behavior on opacity {
             animation: Theme.animation.elementMove.numberAnimation.createObject(this)
         }

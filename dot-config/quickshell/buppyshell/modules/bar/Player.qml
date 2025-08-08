@@ -4,7 +4,7 @@ import qs.widgets
 StyledButton {
     text: "󰐎"
     font.pixelSize: height - Theme.margin.small
-    function tapped(pointEvent, button) {
+    function tapped(pointEvent, button): void {
         if (button == Qt.LeftButton) {
             GlobalState.sidebar = true;
             GlobalState.player = !GlobalState.player;

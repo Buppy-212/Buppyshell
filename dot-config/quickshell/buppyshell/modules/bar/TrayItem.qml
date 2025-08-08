@@ -21,7 +21,7 @@ StyledButton {
             return icon;
         }
     }
-    function tapped(eventPoint, button) {
+    function tapped(eventPoint, button): void {
         if (button === Qt.LeftButton) {
             trayItem.modelData.activate();
         } else if (trayItem.modelData.hasMenu) {

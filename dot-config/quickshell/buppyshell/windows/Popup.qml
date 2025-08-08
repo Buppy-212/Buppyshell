@@ -38,7 +38,7 @@ Scope {
     }
     PanelWindow {
         id: notificationPopup
-        function showNotification(notification) {
+        function showNotification(notification): void {
             currentNotification = notification;
         }
         property Notification currentNotification: null

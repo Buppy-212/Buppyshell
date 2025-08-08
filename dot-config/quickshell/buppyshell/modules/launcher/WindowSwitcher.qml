@@ -84,7 +84,7 @@ Item {
             id: windowDelegate
             required property Toplevel modelData
             required property int index
-            function tapped(pointEvent, button) {
+            function tapped(pointEvent, button): void {
                 switch (mouse.button) {
                 case Qt.LeftButton:
                     Quickshell.execDetached(["hyprctl", "dispatch", "focuswindow", `address:0x${modelData.HyprlandToplevel.handle.address}`]);
@@ -99,7 +99,7 @@ Item {
                     break;
                 }
             }
-            function entered() {
+            function entered(): void {
                 windowList.currentIndex = windowDelegate.index;
             }
             background: null

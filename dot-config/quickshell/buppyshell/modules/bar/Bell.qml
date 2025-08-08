@@ -9,7 +9,7 @@ StyledButton {
     }
     text: notificationServer.trackedNotifications.values.length ? "󱅫" : "󰂚"
     font.pixelSize: height - Theme.margin.small
-    function tapped(pointEvent, button) {
+    function tapped(pointEvent, button): void {
         if (button == Qt.MiddleButton) {
             Hyprland.dispatch("global buppyshell:clearNotifs");
         } else {

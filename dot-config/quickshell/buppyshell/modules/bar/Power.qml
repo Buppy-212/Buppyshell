@@ -6,7 +6,7 @@ StyledButton {
     text: "⏻"
     color: Theme.color.red
     font.pixelSize: Theme.font.size.large
-    function tapped(button) {
+    function tapped(button): void {
         if (button == Qt.MiddleButton) {
             Quickshell.execDetached(["systemctl", "poweroff"]);
         } else {
