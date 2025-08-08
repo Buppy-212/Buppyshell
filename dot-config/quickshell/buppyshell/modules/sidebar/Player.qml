@@ -92,7 +92,7 @@ Rectangle {
             text: Mpris.players.values[root.currentIndex]?.isPlaying ? "" : ""
             color: Mpris.players.values[root.currentIndex]?.dbusName == "org.mpris.MediaPlayer2.playerctld" ? Theme.color.red : Theme.color.fg
             font.pixelSize: Theme.font.size.doubled
-            function tapped(pointEvent, button) {
+            function tapped(eventPoint, button) {
                 switch (button) {
                 case Qt.LeftButton:
                     Mpris.players.values[root.currentIndex].togglePlaying();

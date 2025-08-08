@@ -8,7 +8,54 @@ import qs.services
 import qs.widgets
 
 ColumnLayout {
+    Keys.onPressed: event => {
+        switch (event.key) {
+        case Qt.Key_J:
+            bluetoothList.incrementCurrentIndex();
+            break;
+        case Qt.Key_K:
+            bluetoothList.decrementCurrentIndex();
+            break;
+        case Qt.Key_N:
+            bluetoothList.incrementCurrentIndex();
+            break;
+        case Qt.Key_P:
+            bluetoothList.decrementCurrentIndex();
+            break;
+        case Qt.Key_O:
+            bluetoothList.currentItem.tapped(undefined, Qt.LeftButton);
+            break;
+        case Qt.Key_T:
+            bluetoothList.currentItem.tapped(undefined, Qt.RightButton);
+            break;
+        case Qt.Key_D:
+            bluetoothList.currentItem.tapped(undefined, Qt.MiddleButton);
+            break;
+        case Qt.Key_B:
+            header.leftButtonTapped();
+            break;
+        case Qt.Key_S:
+            header.rightButtonTapped();
+            break;
+        case Qt.Key_Down:
+            bluetoothList.incrementCurrentIndex();
+            break;
+        case Qt.Key_Up:
+            bluetoothList.decrementCurrentIndex();
+            break;
+        case Qt.Key_Delete:
+            bluetoothList.currentItem.modelData.close();
+            break;
+        case Qt.Key_Escape:
+            GlobalState.sidebar = false;
+            break;
+        case Qt.Key_Return:
+            bluetoothList.currentItem.tapped(undefined, Qt.LeftButton);
+            break;
+        }
+    }
     Header {
+        id: header
         Layout.fillWidth: true
         Layout.preferredHeight: Theme.height.doubleBlock
         title: Bluetooth.defaultAdapter?.name ?? "Bluetooth"
@@ -35,10 +82,16 @@ ColumnLayout {
             spacing: 8
             anchors.fill: parent
             anchors.margins: 12
+            highlight: Rectangle {
+                color: Theme.color.grey
+                radius: height / 4
+            }
             model: Bluetooth.devices
+            highlightFollowsCurrentItem: true
             delegate: StyledTabButton {
                 id: bluetoothItem
                 required property BluetoothDevice modelData
+                required property int index
                 borderSize: height
                 accentColor: selected ? Theme.color.black : Theme.color.accent
                 selected: modelData.connected
@@ -57,7 +110,7 @@ ColumnLayout {
                         Layout.fillWidth: true
                         horizontalAlignment: Text.AlignLeft
                         text: bluetoothItem.modelData.batteryAvailable ? `${bluetoothItem.modelData.name} (${bluetoothItem.modelData.battery * 100}%)` : bluetoothItem.modelData.name
-                        color: bluetoothItem.buttonColor
+                        color: bluetoothItem.ListView.isCurrentItem ? bluetoothItem.accentColor : bluetoothItem.buttonColor
                     }
                     StyledText {
                         Layout.alignment: Qt.AlignRight
@@ -65,10 +118,13 @@ ColumnLayout {
                         Layout.preferredWidth: contentWidth
                         Layout.rightMargin: height / 4
                         text: bluetoothItem.modelData.trusted ? "Trusted" : ""
-                        color: bluetoothItem.buttonColor
+                        color: bluetoothItem.ListView.isCurrentItem ? bluetoothItem.accentColor : bluetoothItem.buttonColor
                     }
                 }
-                function tapped(pointEvent, button) {
+                function entered() {
+                    bluetoothList.currentIndex = bluetoothItem.index;
+                }
+                function tapped(eventPoint, button) {
                     switch (button) {
                     case Qt.LeftButton:
                         !bluetoothItem.modelData.paired ? bluetoothItem.modelData.pair() : bluetoothItem.modelData.connected ? bluetoothItem.modelData.disconnect() : bluetoothItem.modelData.connect();

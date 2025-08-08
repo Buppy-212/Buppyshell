@@ -11,7 +11,7 @@ StyledButton {
     }
     text: root.muted || root.volume == 0 ? "" : root.volume == 100 ? "" : root.volume
     color: Theme.color.blue
-    function tapped(pointEvent, button): void {
+    function tapped(eventPoint, button): void {
         if (button == Qt.MiddleButton) {
             Pipewire.defaultAudioSink.audio.muted = !Pipewire.defaultAudioSink.audio.muted;
         } else {

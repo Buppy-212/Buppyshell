@@ -1,5 +1,12 @@
 # Quickshell Progress
 
+## Widgets
+
+- [x] StyledSlider
+- [x] StyledButton
+- [ ] StyledListView
+- [ ] StyledGridView
+
 ## Bar
 
 - [x] Workspaces
@@ -53,11 +60,6 @@
 - [x] Lock session
 - [x] Unlock
 - [x] Theming
-
-## Greeter
-
-- [ ] Basic Session management
-- [ ] Kwallet auto unlock
 
 ## Additional Dependencies
 

@@ -5,7 +5,7 @@ StyledButton {
     text: hovered ? Math.round(Brightness.brightness * 100) : Brightness.nightlight ? "" : ""
     font.pixelSize: hovered ? Theme.font.size.normal : Theme.font.size.large
     color: Theme.color.yellow
-    function tapped(pointEvent, button): void {
+    function tapped(eventPoint, button): void {
         if (button == Qt.LeftButton) {
             Brightness.toggleNightlight();
         } else {

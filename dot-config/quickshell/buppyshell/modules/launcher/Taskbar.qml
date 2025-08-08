@@ -48,7 +48,7 @@ Rectangle {
                         elide: Text.ElideRight
                     }
                 }
-                function tapped(pointEvent, button): void {
+                function tapped(eventPoint, button): void {
                     switch (button) {
                     case Qt.LeftButton:
                         Quickshell.execDetached(["hyprctl", "dispatch", "focuswindow", `address:0x${toplevel.modelData.HyprlandToplevel.handle.address}`]);
