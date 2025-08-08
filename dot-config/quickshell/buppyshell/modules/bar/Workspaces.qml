@@ -39,14 +39,14 @@ ColumnLayout {
                     }
                 }
             }
-            contentItem: ColumnLayout {
+            contentItem: Column {
+                id: column
                 anchors.fill: parent
                 spacing: 0
                 StyledText {
                     text: workspace.modelData.id === 10 ? 0 : workspace.modelData.id
-                    Layout.alignment: Qt.AlignTop
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: width
+                    width: column.width
+                    height: width
                     color: workspace.buttonColor
                 }
                 Repeater {
@@ -56,9 +56,8 @@ ColumnLayout {
                         id: toplevel
                         required property HyprlandToplevel modelData
                         property bool silent: true
-                        Layout.fillWidth: true
-                        Layout.preferredHeight: width
-                        Layout.alignment: Qt.AlignTop
+                        width: column.width
+                        height: width
                         implicitSize: width
                         Drag.active: mouseArea.drag.active
                         Drag.hotSpot: Qt.point(width / 2, height / 2)
