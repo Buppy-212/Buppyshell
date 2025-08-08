@@ -1,9 +1,11 @@
+import Quickshell
 import Quickshell.Services.SystemTray
 import QtQuick
 import qs.services
 
 Item {
-    id: trayRoot
+    id: root
+    required property PanelWindow bar
     readonly property Repeater items: items
     clip: true
     visible: width > 0 && height > 0
@@ -16,7 +18,10 @@ Item {
         Repeater {
             id: items
             model: SystemTray.items
-            TrayItem {}
+            TrayItem {
+                tray: root
+                bar: root.bar
+            }
         }
     }
 }

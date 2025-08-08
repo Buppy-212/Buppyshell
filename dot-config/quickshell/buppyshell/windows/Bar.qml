@@ -122,7 +122,9 @@ Variants {
                         Bluetooth {}
                         Network {}
                         Player {}
-                        Tray {}
+                        Tray {
+                            bar: rightBar
+                        }
                     }
                 }
             }
