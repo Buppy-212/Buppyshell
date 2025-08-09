@@ -11,7 +11,6 @@ import qs.widgets
 
 Rectangle {
     color: Theme.color.bg
-    visible: ToplevelManager.toplevels.values.length > 0
     RowLayout {
         anchors.fill: parent
         uniformCellSizes: true

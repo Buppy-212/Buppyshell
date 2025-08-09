@@ -21,6 +21,7 @@ Rectangle {
     MouseArea {
         anchors.fill: parent
         cursorShape: Qt.PointingHandCursor
+        onClicked: GlobalState.player = !GlobalState.player
     }
     Behavior on implicitHeight {
         animation: Theme.animation.elementMove.numberAnimation.createObject(this)

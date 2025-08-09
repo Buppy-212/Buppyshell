@@ -1,3 +1,4 @@
+pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
 import Quickshell.Services.Notifications
@@ -7,12 +8,22 @@ import qs.widgets
 import qs.modules.notifications
 
 ColumnLayout {
+    Keys.forwardTo: [notificationList]
+    Keys.onPressed: event => {
+        switch (event.key) {
+        case Qt.Key_D:
+            notificationList.currentItem.x = notificationList.width;
+            break;
+        case Qt.Key_Return:
+            notificationList.currentItem.modelData.actions?.invoke();
+            break;
+        }
+    }
     spacing: 0
     NotificationServer {
         id: notificationServer
     }
     Header {
-        Layout.preferredHeight: Theme.height.doubleBlock
         Layout.fillWidth: true
         title: "Notifications"
         rightButtonText: "󰆴"
@@ -20,35 +31,22 @@ ColumnLayout {
             Hyprland.dispatch("global buppyshell:clearNotifs");
         }
     }
-    Rectangle {
+    StyledListView {
+        id: notificationList
         Layout.fillHeight: true
         Layout.fillWidth: true
         Layout.rightMargin: 36
         Layout.bottomMargin: 36
         Layout.leftMargin: 36
-        radius: Theme.radius.normal
-        color: Theme.color.bgalt
-        ListView {
-            id: notificationList
-            clip: true
-            anchors.fill: parent
-            anchors.horizontalCenter: parent.horizontalCenter
-            model: notificationServer.trackedNotifications
-            spacing: Theme.margin.small
-            delegate: Content {
-                id: content
-                required property Notification modelData
-                implicitWidth: notificationList.width
-                notification: modelData
-            }
-            removeDisplaced: Transition {
-                NumberAnimation {
-                    property: "y"
-                    duration: Theme.animation.elementMoveFast.duration
-                    easing.type: Theme.animation.elementMoveFast.type
-                    easing.bezierCurve: Theme.animation.elementMoveFast.bezierCurve
-                }
-            }
+        spacing: 2
+        clip: true
+        model: notificationServer.trackedNotifications
+        delegate: Content {
+            id: content
+            required property Notification modelData
+            border.color: ListView.isCurrentItem ? Theme.color.red : Theme.color.blue
+            implicitWidth: notificationList.width
+            notification: modelData
         }
     }
 }

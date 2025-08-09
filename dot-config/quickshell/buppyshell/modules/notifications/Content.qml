@@ -58,8 +58,8 @@ Rectangle {
         drag.minimumX: 0
         drag.filterChildren: true
         onReleased: {
-            notificationContent.x = parent.width;
             notificationContent.notification.actions?.invoke();
+            notificationContent.x = parent.width;
         }
     }
     Behavior on x {

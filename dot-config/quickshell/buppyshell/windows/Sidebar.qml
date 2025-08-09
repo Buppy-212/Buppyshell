@@ -88,6 +88,9 @@ Variants {
                         }
                         GlobalState.sidebarModule = i;
                     }
+                    Keys.onEscapePressed: {
+                        GlobalState.sidebar = false;
+                    }
                     Keys.forwardTo: [stackView.currentItem]
                     Tabs {
                         Layout.fillWidth: true

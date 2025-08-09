@@ -4,6 +4,7 @@ import qs.widgets
 
 Item {
     id: root
+    implicitHeight: Theme.height.doubleBlock
     property alias title: title.text
     property alias leftButtonText: leftButton.text
     property alias leftButtonColor: leftButton.color
