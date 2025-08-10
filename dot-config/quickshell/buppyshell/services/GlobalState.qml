@@ -2,11 +2,14 @@ pragma Singleton
 
 import Quickshell
 import Quickshell.Hyprland
+import Quickshell.Services.Pipewire
 import QtQuick
 
 Singleton {
     id: root
-
+    PwObjectTracker {
+        objects: Pipewire.nodes.values.filter(a => a.audio)
+    }
     enum SidebarModule {
         Notifications,
         Volume,
@@ -20,6 +23,7 @@ Singleton {
         Logout
     }
 
+    property bool doNotDisturb: false
     property int sidebarModule: GlobalState.SidebarModule.Notifications
     property bool player: false
     property bool bluetooth: false

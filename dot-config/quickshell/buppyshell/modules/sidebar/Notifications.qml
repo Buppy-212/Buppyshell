@@ -2,7 +2,6 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
 import Quickshell.Services.Notifications
-import Quickshell.Hyprland
 import qs.services
 import qs.widgets
 import qs.modules.notifications
@@ -12,6 +11,15 @@ ColumnLayout {
     Keys.onPressed: event => {
         switch (event.key) {
         case Qt.Key_D:
+            notificationList.currentItem.x = notificationList.width;
+            break;
+        case Qt.Key_C:
+            header.rightButtonTapped()
+            break;
+        case Qt.Key_N:
+            header.leftButtonTapped()
+            break;
+        case Qt.Key_Delete:
             notificationList.currentItem.x = notificationList.width;
             break;
         case Qt.Key_Return:
@@ -24,11 +32,18 @@ ColumnLayout {
         id: notificationServer
     }
     Header {
+        id: header
         Layout.fillWidth: true
         title: "Notifications"
+        leftButtonText: GlobalState.doNotDisturb ? "󰂠" : "󰂚"
+        function leftButtonTapped(): void {
+          GlobalState.doNotDisturb = !GlobalState.doNotDisturb
+        }
         rightButtonText: "󰆴"
         function rightButtonTapped(): void {
-            Hyprland.dispatch("global buppyshell:clearNotifs");
+            for (var child in notificationList.contentItem.children) {
+                notificationList.contentItem.children[child].x = notificationList.width;
+            }
         }
     }
     StyledListView {
@@ -44,7 +59,7 @@ ColumnLayout {
         delegate: Content {
             id: content
             required property Notification modelData
-            border.color: ListView.isCurrentItem ? Theme.color.red : Theme.color.blue
+            border.color: ListView.isCurrentItem || hovered ? Theme.color.red : Theme.color.blue
             implicitWidth: notificationList.width
             notification: modelData
         }

@@ -6,9 +6,6 @@ StyledButton {
     id: root
     readonly property int volume: Pipewire.defaultAudioSink?.audio.volume * 100
     readonly property bool muted: Pipewire.defaultAudioSink?.audio.muted ?? false
-    PwObjectTracker {
-        objects: [Pipewire.defaultAudioSink, Pipewire.defaultAudioSource]
-    }
     text: root.muted || root.volume == 0 ? "" : root.volume == 100 ? "" : root.volume
     color: Theme.color.blue
     function tapped(eventPoint, button): void {

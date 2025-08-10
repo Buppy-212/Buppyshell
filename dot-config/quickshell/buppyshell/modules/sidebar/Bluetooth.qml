@@ -20,10 +20,10 @@ ColumnLayout {
             bluetoothList.currentItem.tapped(undefined, Qt.MiddleButton);
             break;
         case Qt.Key_B:
-            header.leftButtonTapped()
+            header.leftButtonTapped();
             break;
         case Qt.Key_S:
-            header.rightButtonTapped()
+            header.rightButtonTapped();
             break;
         case Qt.Key_Return:
             bluetoothList.currentItem.tapped(undefined, Qt.LeftButton);
@@ -34,7 +34,6 @@ ColumnLayout {
     Header {
         id: header
         Layout.fillWidth: true
-        Layout.preferredHeight: Theme.height.doubleBlock
         title: Bluetooth.defaultAdapter?.name ?? "Bluetooth"
         leftButtonText: Bluetooth.defaultAdapter?.enabled ?? Bluetooth.adapters.values[0]?.enabled ? "󰂯" : "󰂲"
         leftButtonColor: Theme.color.blue
@@ -50,6 +49,7 @@ ColumnLayout {
         id: bluetoothList
         Layout.fillWidth: true
         Layout.fillHeight: true
+        Layout.bottomMargin: 36
         Layout.rightMargin: 36
         Layout.leftMargin: 36
         clip: true

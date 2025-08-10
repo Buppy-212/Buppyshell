@@ -8,6 +8,7 @@ import qs.widgets
 Rectangle {
     id: notificationContent
     required property Notification notification
+    readonly property alias hovered: mouseArea.containsMouse
     implicitHeight: row.height > Theme.height.notification - 20 ? row.height + 20 : Theme.height.notification
     color: Theme.color.bg
     radius: Theme.radius.normal
@@ -51,7 +52,9 @@ Rectangle {
         }
     }
     MouseArea {
+        id: mouseArea
         anchors.fill: parent
+        hoverEnabled: true
         cursorShape: Qt.PointingHandCursor
         drag.target: parent
         drag.axis: Drag.XAxis

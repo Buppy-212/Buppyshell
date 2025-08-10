@@ -1,3 +1,5 @@
+pragma ComponentBehavior: Bound
+
 import Quickshell.Services.Pipewire
 import QtQuick
 import QtQuick.Layouts
@@ -6,188 +8,125 @@ import qs.widgets
 
 ColumnLayout {
     spacing: 0
+    Keys.forwardTo: [listView]
+    Keys.onPressed: event => {
+        switch (event.key) {
+        case Qt.Key_Left:
+            listView.currentItem.decrease()
+            break;
+        case Qt.Key_Right:
+            listView.currentItem.increase()
+            break;
+        case Qt.Key_H:
+            listView.currentItem.decrease()
+            break;
+        case Qt.Key_L:
+            listView.currentItem.increase()
+            break;
+        case Qt.Key_M:
+            listView.currentItem.increase()
+            break;
+        case Qt.Key_Return:
+            listView.currentItem.makeDefault()
+            break;
+        }
+    }
     Header {
         Layout.fillWidth: true
         Layout.preferredHeight: Theme.height.doubleBlock
         title: "Volume"
     }
-    Rectangle {
-        color: Theme.color.bgalt
-        radius: Theme.radius.normal
-        Layout.fillHeight: true
+    StyledListView {
+        id: listView
         Layout.fillWidth: true
-        Layout.rightMargin: 36
+        Layout.fillHeight: true
         Layout.bottomMargin: 36
+        Layout.rightMargin: 36
         Layout.leftMargin: 36
-        MouseArea {
-            anchors.fill: parent
-        }
-        Column {
-            spacing: 24
-            anchors {
-                fill: parent
-                margins: 12
+        model: Pipewire.nodes.values.filter(a => a.audio).sort((a,b) => (b.isSink - a.isSink) - 2*(b.isStream - a.isStream))
+        delegate: Item {
+            id: delegate
+            required property PwNode modelData
+            function mute(): void {
+              delegate.modelData.audio.muted = !delegate.modelData.audio.muted;
             }
-            Repeater {
-                model: Pipewire.nodes
-                delegate: Item {
-                    id: sinkDelegate
-                    required property PwNode modelData
-                    visible: modelData.isSink && modelData.audio && !modelData.isStream
-                    implicitWidth: parent.width
-                    implicitHeight: Theme.height.doubleBlock
-                    PwObjectTracker {
-                        objects: [sinkDelegate.visible ? sinkDelegate.modelData : null]
-                    }
-                    Column {
-                        width: parent.width
-                        height: Theme.height.doubleBlock
-                        StyledButton {
-                            text: sinkDelegate.modelData.description
-                            width: parent.width
-                            height: parent.height / 2
-                            background: null
-                            function tapped(): void {
-                                Pipewire.preferredDefaultAudioSink = sinkDelegate.modelData;
-                            }
-                        }
-                        RowLayout {
-                            width: parent.width
-                            height: parent.height / 2
-                            spacing: 12
-                            StyledSlider {
-                                id: sinkSlider
-                                Layout.fillHeight: true
-                                Layout.fillWidth: true
-                                value: sinkDelegate.modelData.audio?.volume ?? 0
-                                onMoved: sinkDelegate.modelData.ready ? sinkDelegate.modelData.audio.volume = value : undefined
-                                wheelEnabled: true
-                                HoverHandler {
-                                    cursorShape: Qt.PointingHandCursor
-                                }
-                                color: sinkDelegate.modelData == Pipewire.defaultAudioSink ? Theme.color.blue : Qt.darker(Theme.color.blue)
-                            }
-                            StyledButton {
-                                Layout.fillHeight: true
-                                Layout.preferredWidth: 42
-                                text: sinkDelegate.modelData.audio?.muted ? "" : `${Math.round(sinkSlider.value * 100)}%`
-                                background: null
-                                function tapped(): void {
-                                    sinkDelegate.modelData.audio.muted = !sinkDelegate.modelData.audio.muted;
-                                }
-                            }
-                        }
+            function makeDefault(): void {
+              if (delegate.modelData.isSink) {
+                Pipewire.preferredDefaultAudioSink = delegate.modelData;
+              } else if (!delegate.modelData.isStream) {
+                Pipewire.preferredDefaultAudioSource = delegate.modelData;
+              }
+            }
+            function increase(): void {
+              slider.increase()
+              slider.moved()
+            }
+            function decrease(): void {
+              slider.decrease()
+              slider.moved()
+            }
+            implicitWidth: parent.width
+            implicitHeight: 72
+            ColumnLayout {
+                spacing: 4
+                anchors {
+                  fill: parent
+                  margins: 12
+                }
+                StyledButton {
+                    text: delegate.modelData.isStream ? delegate.modelData.name : delegate.modelData.description
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: parent.height / 3
+                    background: null
+                    function tapped(): void {
+                      delegate.makeDefault()
                     }
                 }
-            }
-            Rectangle {
-                implicitHeight: 2
-                implicitWidth: parent.width
-                color: Theme.color.black
-            }
-            Repeater {
-                model: Pipewire.nodes
-                delegate: Item {
-                    id: sourceDelegate
-                    required property PwNode modelData
-                    visible: modelData.audio && !modelData.isStream && !modelData.isSink
-                    implicitWidth: parent.width
-                    implicitHeight: Theme.height.doubleBlock
-                    PwObjectTracker {
-                        objects: [sourceDelegate.visible ? sourceDelegate.modelData : null]
-                    }
-                    Column {
-                        width: parent.width
-                        height: Theme.height.doubleBlock
-                        StyledButton {
-                            text: sourceDelegate.modelData.description
-                            width: parent.width
-                            height: parent.height / 2
-                            background: null
-                            function tapped(): void {
-                                Pipewire.preferredDefaultAudioSource = sourceDelegate.modelData;
-                            }
+                RowLayout {
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                    spacing: 0
+                    StyledSlider {
+                        id: slider
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        value: delegate.modelData.audio?.volume ?? 0
+                        onMoved: delegate.modelData.ready ? delegate.modelData.audio.volume = value : undefined
+                        wheelEnabled: true
+                        HoverHandler {
+                            cursorShape: Qt.PointingHandCursor
                         }
-                        RowLayout {
-                            width: parent.width
-                            height: parent.height / 2
-                            spacing: 12
-                            StyledSlider {
-                                id: sourceSlider
-                                Layout.fillHeight: true
-                                Layout.fillWidth: true
-                                value: sourceDelegate.modelData.audio?.volume ?? 0
-                                onMoved: sourceDelegate.modelData.ready ? sourceDelegate.modelData.audio.volume = value : undefined
-                                wheelEnabled: true
-                                HoverHandler {
-                                    cursorShape: Qt.PointingHandCursor
-                                }
-                                color: sourceDelegate.modelData == Pipewire.defaultAudioSource ? Theme.color.magenta : Qt.darker(Theme.color.magenta)
+                        color: {
+                            var col = Theme.color.magenta;
+                            if (delegate.modelData.isSink) {
+                                col = Theme.color.blue;
                             }
-                            StyledButton {
-                                Layout.fillHeight: true
-                                Layout.preferredWidth: 42
-                                text: sourceDelegate.modelData.audio?.muted ? "" : `${Math.round(sourceSlider.value * 100)}%`
-                                background: null
-                                function tapped(): void {
-                                    sourceDelegate.modelData.audio.muted = !sourceDelegate.modelData.audio.muted;
-                                }
+                            if (delegate.modelData != Pipewire.defaultAudioSink && delegate.modelData != Pipewire.defaultAudioSource) {
+                                col = Qt.darker(col);
                             }
+                            if (delegate.modelData.isStream) {
+                                col = Theme.color.red;
+                            }
+                            return col;
                         }
                     }
-                }
-            }
-            Rectangle {
-                implicitHeight: 2
-                implicitWidth: parent.width
-                color: Theme.color.black
-            }
-            Repeater {
-                model: Pipewire.nodes
-                delegate: Item {
-                    id: streamDelegate
-                    required property PwNode modelData
-                    visible: modelData.isStream && modelData.audio
-                    implicitWidth: parent.width
-                    implicitHeight: Theme.height.doubleBlock
-                    PwObjectTracker {
-                        objects: [streamDelegate.visible ? streamDelegate.modelData : null]
-                    }
-                    Column {
-                        width: parent.width
-                        height: Theme.height.doubleBlock
-                        StyledText {
-                            text: streamDelegate.modelData.name
-                            elide: Text.ElideRight
-                            height: parent.height / 2
-                            width: parent.width
-                            horizontalAlignment: Text.AlignHCenter
+                    StyledButton {
+                        id: button
+                        Layout.fillHeight: true
+                        Layout.preferredWidth: 40
+                        text: {
+                          var volume = Math.round(delegate.modelData.audio.volume * 100)
+                          if (!delegate.modelData.isSink && !delegate.modelData.isStream) {
+                            if (delegate.modelData.audio?.muted ?? true) { volume = "" }
+                          } else {
+                            if (delegate.modelData.audio?.muted ?? true) { volume = "" }
+                          }
+                          return volume
                         }
-                        RowLayout {
-                            width: parent.width
-                            height: parent.height / 2
-                            spacing: 12
-                            StyledSlider {
-                                id: streamSlider
-                                Layout.fillHeight: true
-                                Layout.fillWidth: true
-                                value: streamDelegate.modelData.audio?.volume ?? 0
-                                onMoved: streamDelegate.modelData.ready ? streamDelegate.modelData.audio.volume = value : undefined
-                                wheelEnabled: true
-                                HoverHandler {
-                                    cursorShape: Qt.PointingHandCursor
-                                }
-                                color: Theme.color.red
-                            }
-                            StyledButton {
-                                Layout.fillHeight: true
-                                Layout.preferredWidth: 42
-                                text: streamDelegate.modelData.audio?.muted ? "" : `${Math.round(streamSlider.value * 100)}%`
-                                background: null
-                                function tapped(): void {
-                                    streamDelegate.modelData.audio.muted = !streamDelegate.modelData.audio.muted;
-                                }
-                            }
+                        color: slider.color
+                        background: null
+                        function tapped(): void {
+                          delegate.mute()
                         }
                     }
                 }

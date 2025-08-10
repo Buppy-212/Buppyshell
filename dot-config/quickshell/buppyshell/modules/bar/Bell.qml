@@ -1,4 +1,3 @@
-import Quickshell.Hyprland
 import Quickshell.Services.Notifications
 import qs.services
 import qs.widgets
@@ -7,17 +6,13 @@ StyledButton {
     NotificationServer {
         id: notificationServer
     }
-    text: notificationServer.trackedNotifications.values.length ? "󱅫" : "󰂚"
+    text: notificationServer.trackedNotifications.values.length ? "󱅫" : GlobalState.doNotDisturb ? "󰂠" : "󰂚"
     font.pixelSize: height - Theme.margin.small
     function tapped(eventPoint, button): void {
-        if (button == Qt.MiddleButton) {
-            Hyprland.dispatch("global buppyshell:clearNotifs");
-        } else {
-            if (GlobalState.sidebarModule == GlobalState.SidebarModule.Notifications || !GlobalState.sidebar) {
-                GlobalState.sidebar = !GlobalState.sidebar;
-                GlobalState.player = false;
-            }
-            GlobalState.sidebarModule = GlobalState.SidebarModule.Notifications;
+        if (GlobalState.sidebarModule == GlobalState.SidebarModule.Notifications || !GlobalState.sidebar) {
+            GlobalState.sidebar = !GlobalState.sidebar;
+            GlobalState.player = false;
         }
+        GlobalState.sidebarModule = GlobalState.SidebarModule.Notifications;
     }
 }

@@ -2,14 +2,13 @@ pragma ComponentBehavior: Bound
 
 import Quickshell
 import Quickshell.Services.Notifications
-import Quickshell.Hyprland
 import Quickshell.Wayland
 import QtQuick
 import qs.services
 import qs.modules.notifications
 
 Scope {
-    id: scope
+    id: root
     NotificationServer {
         id: notificationServer
         bodySupported: true
@@ -31,7 +30,7 @@ Scope {
                     trackedNotifications.values[i].dismiss();
                 }
             }
-            if (!GlobalState.sidebar) {
+            if (!GlobalState.sidebar && !GlobalState.doNotDisturb) {
                 notificationPopup.showNotification(notification);
             }
         }
@@ -85,11 +84,5 @@ Scope {
                 notifications[i].dismiss();
             }
         }
-    }
-    GlobalShortcut {
-        name: "clearNotifs"
-        description: "Dismiss all notifications"
-        appid: "buppyshell"
-        onPressed: scope.clearNotifs()
     }
 }

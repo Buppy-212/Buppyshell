@@ -14,7 +14,7 @@ Slider {
     to: 1
     background: ClippingRectangle {
         anchors.fill: parent
-        color: Theme.color.grey
+        color: Theme.color.black
         radius: height / 2
         Rectangle {
             id: slider
