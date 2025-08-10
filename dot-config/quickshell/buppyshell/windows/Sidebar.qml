@@ -123,6 +123,10 @@ Variants {
                     }
                     Player {
                         Layout.fillWidth: true
+                        Layout.preferredHeight: GlobalState.player ? 288 : 96
+                        Behavior on Layout.preferredHeight {
+                            animation: Theme.animation.elementMove.numberAnimation.createObject(this)
+                        }
                     }
                 }
             }

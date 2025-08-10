@@ -13,8 +13,6 @@ Rectangle {
         }
     }
     property int currentIndex: findPlayerctld()
-    implicitWidth: 600
-    implicitHeight: GlobalState.player ? 300 : 96
     onVisibleChanged: root.currentIndex = findPlayerctld()
     radius: Theme.radius.normal
     color: Theme.color.bg
@@ -22,9 +20,6 @@ Rectangle {
         anchors.fill: parent
         cursorShape: Qt.PointingHandCursor
         onClicked: GlobalState.player = !GlobalState.player
-    }
-    Behavior on implicitHeight {
-        animation: Theme.animation.elementMove.numberAnimation.createObject(this)
     }
     Timer {
         repeat: true
@@ -35,10 +30,10 @@ Rectangle {
     StyledButton {
         id: backButton
         implicitHeight: parent.height
-        implicitWidth: 72
+        implicitWidth: root.width / 8
         anchors.left: parent.left
         text: ""
-        font.pixelSize: Theme.font.size.doubled
+        font.pixelSize: width / 2
         function tapped() {
             if (root.currentIndex > 0) {
                 root.currentIndex -= 1;
@@ -52,9 +47,9 @@ Rectangle {
         anchors.fill: parent
         StyledText {
             text: Mpris.players.values[root.currentIndex]?.trackTitle ?? false ? Mpris.players.values[root.currentIndex].trackTitle : "No Track"
-            height: Theme.height.doubleBlock
+            height: GlobalState.player ? root.height / 6 : root.height / 2
             width: parent.width - 2 * backButton.width
-            font.pixelSize: Theme.font.size.doubled
+            font.pixelSize: height * 0.75
             anchors.horizontalCenter: parent.horizontalCenter
             elide: Text.ElideRight
         }
@@ -69,9 +64,11 @@ Rectangle {
     }
     Row {
         id: playbackControls
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: GlobalState.player ? parent.height / 2 - height / 2 : 0
-        anchors.horizontalCenter: parent.horizontalCenter
+        anchors {
+            bottom: parent.bottom
+            bottomMargin: GlobalState.player ? parent.height / 2 - height / 2 : 0
+            horizontalCenter: parent.horizontalCenter
+        }
         spacing: 24
         Behavior on anchors.bottomMargin {
             animation: Theme.animation.elementMove.numberAnimation.createObject(this)
@@ -80,7 +77,7 @@ Rectangle {
             implicitHeight: Theme.height.doubleBlock
             implicitWidth: implicitHeight
             text: ""
-            font.pixelSize: Theme.font.size.doubled
+            font.pixelSize: height * 0.75
             function tapped() {
                 if (Mpris.players.values[root.currentIndex].canGoPrevious) {
                     Mpris.players.values[root.currentIndex].previous();
@@ -92,7 +89,7 @@ Rectangle {
             implicitWidth: implicitHeight
             text: Mpris.players.values[root.currentIndex]?.isPlaying ? "" : ""
             color: Mpris.players.values[root.currentIndex]?.dbusName == "org.mpris.MediaPlayer2.playerctld" ? Theme.color.red : Theme.color.fg
-            font.pixelSize: Theme.font.size.doubled
+            font.pixelSize: height * 0.75
             function tapped(eventPoint, button) {
                 switch (button) {
                 case Qt.LeftButton:
@@ -111,7 +108,7 @@ Rectangle {
             implicitHeight: Theme.height.doubleBlock
             implicitWidth: implicitHeight
             text: ""
-            font.pixelSize: Theme.font.size.doubled
+            font.pixelSize: height * 0.75
             function tapped() {
                 if (Mpris.players.values[root.currentIndex].canGoNext) {
                     Mpris.players.values[root.currentIndex].next();
@@ -122,22 +119,25 @@ Rectangle {
     StyledSlider {
         anchors {
             horizontalCenter: parent.horizontalCenter
-            topMargin: 64
-            top: playbackControls.bottom
+            bottom: parent.bottom
+            bottomMargin: root.height / 8
         }
         visible: GlobalState.player && Mpris.players.values[root.currentIndex]?.positionSupported
-        height: 12
+        height: root.height / 16
         width: parent.width / 2
         to: Mpris.players.values[root.currentIndex]?.length ?? 1
         value: Mpris.players.values[root.currentIndex]?.position ?? 0
+        HoverHandler {
+            cursorShape: Qt.PointingHandCursor
+        }
     }
     StyledButton {
         id: forwardBlock
         implicitHeight: parent.height
-        implicitWidth: 72
+        implicitWidth: root.width / 8
         anchors.right: parent.right
         text: ""
-        font.pixelSize: Theme.font.size.doubled
+        font.pixelSize: width / 2
         function tapped() {
             if (root.currentIndex < Mpris.players.values.length - 1) {
                 root.currentIndex += 1;
