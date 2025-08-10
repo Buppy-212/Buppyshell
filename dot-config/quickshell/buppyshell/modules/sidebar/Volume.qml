@@ -12,22 +12,22 @@ ColumnLayout {
     Keys.onPressed: event => {
         switch (event.key) {
         case Qt.Key_Left:
-            listView.currentItem.decrease()
+            listView.currentItem.decrease();
             break;
         case Qt.Key_Right:
-            listView.currentItem.increase()
+            listView.currentItem.increase();
             break;
         case Qt.Key_H:
-            listView.currentItem.decrease()
+            listView.currentItem.decrease();
             break;
         case Qt.Key_L:
-            listView.currentItem.increase()
+            listView.currentItem.increase();
             break;
         case Qt.Key_M:
-            listView.currentItem.increase()
+            listView.currentItem.increase();
             break;
         case Qt.Key_Return:
-            listView.currentItem.makeDefault()
+            listView.currentItem.makeDefault();
             break;
         }
     }
@@ -43,35 +43,45 @@ ColumnLayout {
         Layout.bottomMargin: 36
         Layout.rightMargin: 36
         Layout.leftMargin: 36
-        model: Pipewire.nodes.values.filter(a => a.audio).sort((a,b) => (b.isSink - a.isSink) - 2*(b.isStream - a.isStream))
+        model: Pipewire.nodes.values.filter(a => a.audio).sort((a, b) => {
+            let score = (b.isSink - a.isSink) + 2 * (a.isStream - b.isStream);
+            if (a.score === b.score) {
+                if (a.description && b.description) {
+                    score += a.description.localeCompare(b.description) / 16;
+                } else {
+                    score += a.name.localeCompare(b.name) / 16;
+                }
+            }
+            return score;
+        })
         delegate: Item {
             id: delegate
             required property PwNode modelData
             function mute(): void {
-              delegate.modelData.audio.muted = !delegate.modelData.audio.muted;
+                delegate.modelData.audio.muted = !delegate.modelData.audio.muted;
             }
             function makeDefault(): void {
-              if (delegate.modelData.isSink) {
-                Pipewire.preferredDefaultAudioSink = delegate.modelData;
-              } else if (!delegate.modelData.isStream) {
-                Pipewire.preferredDefaultAudioSource = delegate.modelData;
-              }
+                if (delegate.modelData.isSink) {
+                    Pipewire.preferredDefaultAudioSink = delegate.modelData;
+                } else if (!delegate.modelData.isStream) {
+                    Pipewire.preferredDefaultAudioSource = delegate.modelData;
+                }
             }
             function increase(): void {
-              slider.increase()
-              slider.moved()
+                slider.increase();
+                slider.moved();
             }
             function decrease(): void {
-              slider.decrease()
-              slider.moved()
+                slider.decrease();
+                slider.moved();
             }
-            implicitWidth: parent.width
+            implicitWidth: listView.width
             implicitHeight: 72
             ColumnLayout {
                 spacing: 4
                 anchors {
-                  fill: parent
-                  margins: 12
+                    fill: parent
+                    margins: 12
                 }
                 StyledButton {
                     text: delegate.modelData.isStream ? delegate.modelData.name : delegate.modelData.description
@@ -79,7 +89,7 @@ ColumnLayout {
                     Layout.preferredHeight: parent.height / 3
                     background: null
                     function tapped(): void {
-                      delegate.makeDefault()
+                        delegate.makeDefault();
                     }
                 }
                 RowLayout {
@@ -115,18 +125,22 @@ ColumnLayout {
                         Layout.fillHeight: true
                         Layout.preferredWidth: 40
                         text: {
-                          var volume = Math.round(delegate.modelData.audio.volume * 100)
-                          if (!delegate.modelData.isSink && !delegate.modelData.isStream) {
-                            if (delegate.modelData.audio?.muted ?? true) { volume = "" }
-                          } else {
-                            if (delegate.modelData.audio?.muted ?? true) { volume = "" }
-                          }
-                          return volume
+                            var volume = Math.round(delegate.modelData.audio.volume * 100);
+                            if (!delegate.modelData.isSink && !delegate.modelData.isStream) {
+                                if (delegate.modelData.audio?.muted ?? true) {
+                                    volume = "";
+                                }
+                            } else {
+                                if (delegate.modelData.audio?.muted ?? true) {
+                                    volume = "";
+                                }
+                            }
+                            return volume;
                         }
                         color: slider.color
                         background: null
                         function tapped(): void {
-                          delegate.mute()
+                            delegate.mute();
                         }
                     }
                 }
