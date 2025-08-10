@@ -11,13 +11,13 @@ ColumnLayout {
     Keys.onPressed: event => {
         switch (event.key) {
         case Qt.Key_O:
-            bluetoothList.currentItem.tapped(undefined, Qt.LeftButton);
+            listView.currentItem.tapped(undefined, Qt.LeftButton);
             break;
         case Qt.Key_T:
-            bluetoothList.currentItem.tapped(undefined, Qt.RightButton);
+            listView.currentItem.tapped(undefined, Qt.RightButton);
             break;
         case Qt.Key_D:
-            bluetoothList.currentItem.tapped(undefined, Qt.MiddleButton);
+            listView.currentItem.tapped(undefined, Qt.MiddleButton);
             break;
         case Qt.Key_B:
             header.leftButtonTapped();
@@ -26,11 +26,11 @@ ColumnLayout {
             header.rightButtonTapped();
             break;
         case Qt.Key_Return:
-            bluetoothList.currentItem.tapped(undefined, Qt.LeftButton);
+            listView.currentItem.tapped(undefined, Qt.LeftButton);
             break;
         }
     }
-    Keys.forwardTo: [bluetoothList]
+    Keys.forwardTo: [listView]
     Header {
         id: header
         Layout.fillWidth: true
@@ -46,7 +46,7 @@ ColumnLayout {
         }
     }
     StyledListView {
-        id: bluetoothList
+        id: listView
         Layout.fillWidth: true
         Layout.fillHeight: true
         Layout.bottomMargin: 36
@@ -55,13 +55,13 @@ ColumnLayout {
         clip: true
         model: Bluetooth.devices
         delegate: StyledTabButton {
-            id: bluetoothItem
+            id: delegate
             required property BluetoothDevice modelData
             required property int index
             borderSize: height
             accentColor: selected ? Theme.color.black : Theme.color.accent
             selected: modelData.connected
-            width: parent.width
+            width: listView.width
             height: 48
             contentItem: RowLayout {
                 anchors.fill: parent
@@ -69,14 +69,14 @@ ColumnLayout {
                 IconImage {
                     Layout.fillHeight: true
                     Layout.preferredWidth: height
-                    source: Quickshell.iconPath(bluetoothItem.modelData.icon, "bluetooth")
+                    source: Quickshell.iconPath(delegate.modelData.icon, "bluetooth")
                 }
                 StyledText {
                     Layout.fillHeight: true
                     Layout.fillWidth: true
                     horizontalAlignment: Text.AlignLeft
-                    text: bluetoothItem.modelData.batteryAvailable ? `${bluetoothItem.modelData.name} (${bluetoothItem.modelData.battery * 100}%)` : bluetoothItem.modelData.name
-                    color: bluetoothItem.ListView.isCurrentItem ? bluetoothItem.accentColor : bluetoothItem.buttonColor
+                    text: delegate.modelData.batteryAvailable ? `${delegate.modelData.name} (${delegate.modelData.battery * 100}%)` : delegate.modelData.name
+                    color: delegate.ListView.isCurrentItem ? delegate.accentColor : delegate.buttonColor
                     font.pixelSize: width / 16
                     fontSizeMode: Text.Fit
                 }
@@ -85,25 +85,25 @@ ColumnLayout {
                     Layout.fillHeight: true
                     Layout.preferredWidth: contentWidth
                     Layout.rightMargin: height / 4
-                    visible: bluetoothItem.modelData.trusted
+                    visible: delegate.modelData.trusted
                     font.pixelSize: height / 2
                     text: ""
                     color: Theme.color.green
                 }
             }
             function entered() {
-                bluetoothList.currentIndex = bluetoothItem.index;
+                listView.currentIndex = delegate.index;
             }
             function tapped(eventPoint, button) {
                 switch (button) {
                 case Qt.LeftButton:
-                    !bluetoothItem.modelData.paired ? bluetoothItem.modelData.pair() : bluetoothItem.modelData.connected ? bluetoothItem.modelData.disconnect() : bluetoothItem.modelData.connect();
+                    !delegate.modelData.paired ? delegate.modelData.pair() : delegate.modelData.connected ? delegate.modelData.disconnect() : delegate.modelData.connect();
                     break;
                 case Qt.MiddleButton:
-                    bluetoothItem.modelData.paired ? bluetoothItem.modelData.forget() : bluetoothItem.modelData.cancelPair();
+                    delegate.modelData.paired ? delegate.modelData.forget() : delegate.modelData.cancelPair();
                     break;
                 case Qt.RightButton:
-                    bluetoothItem.modelData.trusted = !bluetoothItem.modelData.trusted;
+                    delegate.modelData.trusted = !delegate.modelData.trusted;
                     break;
                 }
             }
