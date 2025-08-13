@@ -7,6 +7,7 @@ import Quickshell.Hyprland
 
 Singleton {
     id: root
+    readonly property int brightnessPercentage: brightness * 100
     property real brightness
     property int maxBrightness
     property bool nightlight
@@ -37,7 +38,7 @@ Singleton {
     }
 
     function set(): void {
-        Quickshell.execDetached(["brightnessctl", "-q", "s", `${100 * root.brightness}%`]);
+        Quickshell.execDetached(["brightnessctl", "-q", "s", `${root.brightnessPercentage}%`]);
     }
     function toggleNightlight(): void {
         root.nightlight ? Quickshell.execDetached(["pkill", "hyprsunset"]) : Quickshell.execDetached(["uwsm", "app", "--", "hyprsunset", "-t", "2500"]);
@@ -55,7 +56,7 @@ Singleton {
     }
 
     function monitor(): void {
-        Quickshell.execDetached(["ddcutil", "setvcp", "10", root.brightness]);
+        Quickshell.execDetached(["ddcutil", "setvcp", "10", root.brightnessPercentage]);
     }
 
     GlobalShortcut {

@@ -47,6 +47,7 @@ Control {
         onHoveredChanged: hovered ? root.entered() : root.exited()
     }
     WheelHandler {
+        acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
         onWheel: event => root.scrolled(event)
     }
     TapHandler {
