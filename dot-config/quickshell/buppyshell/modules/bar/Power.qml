@@ -10,8 +10,8 @@ StyledButton {
         if (button == Qt.MiddleButton) {
             Quickshell.execDetached(["systemctl", "poweroff"]);
         } else {
-            GlobalState.launcherModule == GlobalState.LauncherModule.Logout ? GlobalState.launcher = !GlobalState.launcher : GlobalState.launcher = true;
             GlobalState.launcherModule = GlobalState.LauncherModule.Logout;
+            GlobalState.launcher = true;
         }
     }
 }

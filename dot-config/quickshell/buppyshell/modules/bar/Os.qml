@@ -12,7 +12,7 @@ StyledButton {
         source: Qt.resolvedUrl("root:/assets/archlinux.svg")
     }
     function tapped(): void {
-        GlobalState.launcherModule == GlobalState.LauncherModule.Apps ? GlobalState.launcher = !GlobalState.launcher : GlobalState.launcher = true;
-        GlobalState.launcherModule = GlobalState.LauncherModule.Apps;
+        GlobalState.launcherModule = GlobalState.LauncherModule.AppLauncher;
+        GlobalState.launcher = true;
     }
 }
