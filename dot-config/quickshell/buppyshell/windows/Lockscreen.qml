@@ -45,6 +45,7 @@ WlSessionLock {
             anchors.centerIn: parent
             StyledTextField {
                 id: passwordField
+                focus: true
                 anchors {
                     fill: parent
                     margins: parent.height / 4
