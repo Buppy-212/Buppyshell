@@ -52,7 +52,6 @@ ColumnLayout {
         Layout.bottomMargin: 36
         Layout.rightMargin: 36
         Layout.leftMargin: 36
-        clip: true
         model: Bluetooth.devices
         delegate: StyledTabButton {
             id: delegate

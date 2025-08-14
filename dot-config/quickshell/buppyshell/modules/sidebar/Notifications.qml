@@ -14,10 +14,10 @@ ColumnLayout {
             notificationList.currentItem.x = notificationList.width;
             break;
         case Qt.Key_C:
-            header.rightButtonTapped()
+            header.rightButtonTapped();
             break;
         case Qt.Key_N:
-            header.leftButtonTapped()
+            header.leftButtonTapped();
             break;
         case Qt.Key_Delete:
             notificationList.currentItem.x = notificationList.width;
@@ -37,7 +37,7 @@ ColumnLayout {
         title: "Notifications"
         leftButtonText: GlobalState.doNotDisturb ? "󰂠" : "󰂚"
         function leftButtonTapped(): void {
-          GlobalState.doNotDisturb = !GlobalState.doNotDisturb
+            GlobalState.doNotDisturb = !GlobalState.doNotDisturb;
         }
         rightButtonText: "󰆴"
         function rightButtonTapped(): void {
@@ -54,7 +54,6 @@ ColumnLayout {
         Layout.bottomMargin: 36
         Layout.leftMargin: 36
         spacing: 2
-        clip: true
         model: notificationServer.trackedNotifications
         delegate: Content {
             id: content
