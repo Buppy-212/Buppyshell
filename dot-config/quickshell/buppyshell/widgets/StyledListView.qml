@@ -6,7 +6,9 @@ ListView {
     property alias background: background.sourceComponent
     required model
     required delegate
+    snapMode: ListView.SnapToItem
     spacing: 0
+    clip: true
     Loader {
         id: background
         anchors.fill: parent
@@ -17,6 +19,9 @@ ListView {
             radius: Theme.radius.normal
         }
     }
+    highlightFollowsCurrentItem: true
+    highlightMoveDuration: 100
+    highlightResizeDuration: 0
     highlight: Rectangle {
         color: Theme.color.grey
         radius: height / 4
@@ -29,7 +34,7 @@ ListView {
             easing.bezierCurve: Theme.animation.elementMoveFast.bezierCurve
         }
     }
-    highlightFollowsCurrentItem: true
+    keyNavigationWraps: true
     Keys.onPressed: event => {
         switch (event.key) {
         case Qt.Key_J:
@@ -42,6 +47,12 @@ ListView {
             root.incrementCurrentIndex();
             break;
         case Qt.Key_P:
+            root.decrementCurrentIndex();
+            break;
+        case Qt.Key_Tab:
+            root.incrementCurrentIndex();
+            break;
+        case Qt.Key_Backtab:
             root.decrementCurrentIndex();
             break;
         }
