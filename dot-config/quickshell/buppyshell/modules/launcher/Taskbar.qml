@@ -29,12 +29,10 @@ Rectangle {
                         Layout.fillHeight: true
                         Layout.preferredWidth: height
                         source: {
-                            if (toplevel.modelData?.appId.startsWith("steam_app")) {
+                            if (toplevel?.modelData?.appId.startsWith("steam_app")) {
                                 return Quickshell.iconPath("input-gaming");
-                            } else if (toplevel.modelData?.appId == "") {
-                                return (Quickshell.iconPath("image-loading"));
                             } else {
-                                return Quickshell.iconPath(toplevel.modelData?.appId.toLowerCase() ?? "image-loading", toplevel.modelData?.appId);
+                                return Quickshell.iconPath(toplevel?.modelData?.appId?.toLowerCase() ?? "image-loading", toplevel.modelData?.appId);
                             }
                         }
                     }

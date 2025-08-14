@@ -64,10 +64,8 @@ ColumnLayout {
                         source: {
                             if (modelData?.wayland?.appId.startsWith("steam_app")) {
                                 return Quickshell.iconPath("input-gaming");
-                            } else if (modelData?.wayland?.appId == "") {
-                                return (Quickshell.iconPath("image-loading"));
                             } else {
-                                return Quickshell.iconPath(modelData?.wayland?.appId.toLowerCase() ?? "image-loading", modelData?.wayland?.appId);
+                                return Quickshell.iconPath(modelData?.wayland?.appId?.toLowerCase() ?? "image-loading", modelData?.wayland?.appId);
                             }
                         }
                         states: State {
@@ -86,12 +84,16 @@ ColumnLayout {
                             drag.target: parent
                             drag.axis: Drag.YAxis
                             onClicked: mouse => {
-                                if (mouse.button == Qt.LeftButton) {
+                                switch (mouse.button) {
+                                case Qt.LeftButton:
                                     Hyprland.dispatch(`focuswindow address:0x${toplevel.modelData.address}`);
-                                } else if (mouse.button == Qt.MiddleButton) {
+                                    break;
+                                case Qt.MiddleButton:
                                     toplevel.modelData.wayland.close();
-                                } else {
+                                    break;
+                                case Qt.RightButton:
                                     Hyprland.dispatch(`movetoworkspace ${Hyprland.focusedWorkspace.id}, address:0x${toplevel.modelData.address}`);
+                                    break;
                                 }
                             }
                             onReleased: mouse => {
