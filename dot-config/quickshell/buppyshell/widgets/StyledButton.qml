@@ -52,7 +52,6 @@ Control {
     }
     TapHandler {
         id: tapHandler
-        cursorShape: Qt.PointingHandCursor
         longPressThreshold: 0
         acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
         onTapped: (eventPoint, button) => root.tapped(eventPoint, button)

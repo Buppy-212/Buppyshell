@@ -54,7 +54,7 @@ Scope {
         Timer {
             id: timeoutTimer
             interval: 3000
-            running: notificationPopup.currentNotification !== null
+            running: notificationPopup.currentNotification !== null && !content.Drag.active
             onTriggered: {
                 if (notificationPopup.currentNotification) {
                     notificationPopup.currentNotification = null;
