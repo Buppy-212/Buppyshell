@@ -76,7 +76,7 @@ ColumnLayout {
                     horizontalAlignment: Text.AlignLeft
                     text: delegate.modelData.batteryAvailable ? `${delegate.modelData.name} (${delegate.modelData.battery * 100}%)` : delegate.modelData.name
                     color: delegate.ListView.isCurrentItem ? delegate.accentColor : delegate.buttonColor
-                    font.pixelSize: width / 16
+                    font.pixelSize: width / 16 > height / 2 ? height / 2 : width / 16
                     fontSizeMode: Text.Fit
                 }
                 StyledText {
