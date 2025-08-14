@@ -24,7 +24,7 @@ ColumnLayout {
             listView.currentItem.increase();
             break;
         case Qt.Key_M:
-            listView.currentItem.increase();
+            listView.currentItem.mute();
             break;
         case Qt.Key_Return:
             listView.currentItem.makeDefault();
