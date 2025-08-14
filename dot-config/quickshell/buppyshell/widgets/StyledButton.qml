@@ -5,6 +5,7 @@ import qs.services
 Control {
     id: root
     property alias text: text.text
+    property alias scrollable: wheelHandler.enabled
     readonly property alias buttonColor: text.color
     readonly property alias pressed: tapHandler.pressed
     property color color: Theme.color.fg
@@ -47,6 +48,8 @@ Control {
         onHoveredChanged: hovered ? root.entered() : root.exited()
     }
     WheelHandler {
+        id: wheelHandler
+        enabled: false
         acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
         onWheel: event => root.scrolled(event)
     }

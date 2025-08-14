@@ -8,6 +8,7 @@ StyledButton {
     readonly property bool muted: Pipewire.defaultAudioSink?.audio.muted ?? false
     text: root.muted || root.volume == 0 ? "" : root.volume == 100 ? "" : root.volume
     color: Theme.color.blue
+    scrollable: true
     function tapped(eventPoint, button): void {
         if (button == Qt.MiddleButton) {
             Pipewire.defaultAudioSink.audio.muted = !Pipewire.defaultAudioSink.audio.muted;
