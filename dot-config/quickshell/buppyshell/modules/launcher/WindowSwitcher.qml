@@ -9,132 +9,73 @@ import QtQuick.Layouts
 import qs.services
 import qs.widgets
 
-Item {
+StyledListView {
     id: root
     required property string search
-    Keys.enabled: visible
     Keys.onPressed: event => {
-        if (event.modifiers & Qt.ControlModifier) {
-            switch (event.key) {
-            case Qt.Key_J:
-                windowList.incrementCurrentIndex();
-                break;
-            case Qt.Key_K:
-                windowList.decrementCurrentIndex();
-                break;
-            case Qt.Key_N:
-                windowList.incrementCurrentIndex();
-                break;
-            case Qt.Key_P:
-                windowList.decrementCurrentIndex();
-                break;
-            case Qt.Key_O:
-                windowList.currentItem.tapped(undefined, Qt.LeftButton);
-                GlobalState.launcher = false;
-                break;
-            case Qt.Key_Semicolon:
-                GlobalState.launcher = false;
-                break;
-            case Qt.Key_C:
-                GlobalState.launcher = false;
-                break;
-            }
-        } else {
-            switch (event.key) {
-            case Qt.Key_Tab:
-                windowList.incrementCurrentIndex();
-                break;
-            case Qt.Key_Backtab:
-                windowList.decrementCurrentIndex();
-                break;
-            case Qt.Key_Down:
-                windowList.incrementCurrentIndex();
-                break;
-            case Qt.Key_Up:
-                windowList.decrementCurrentIndex();
-                break;
-            case Qt.Key_Delete:
-                windowList.currentItem.modelData.close();
-                break;
-            case Qt.Key_Escape:
-                GlobalState.launcher = false;
-                break;
-            case Qt.Key_Return:
-                windowList.currentItem.tapped(undefined, Qt.LeftButton);
-                GlobalState.launcher = false;
-                break;
-            }
+        switch (event.key) {
+        case Qt.Key_Delete:
+            root.currentItem.modelData.close();
+            break;
+        case Qt.Key_Return:
+            root.currentItem.tapped(undefined, Qt.LeftButton);
+            break;
         }
     }
-    ListView {
-        id: windowList
-        clip: true
-        model: Windows.query(root.search)
-        snapMode: ListView.SnapToItem
-        highlight: Rectangle {
-            color: Theme.color.grey
-            radius: height / 4
+    background: null
+    model: Windows.query(root.search)
+    delegate: StyledButton {
+        id: toplevel
+        required property Toplevel modelData
+        required property int index
+        function tapped(pointEvent, button): void {
+            switch (button) {
+            case Qt.LeftButton:
+                Quickshell.execDetached(["hyprctl", "dispatch", "focuswindow", `address:0x${modelData.HyprlandToplevel.handle.address}`]);
+                GlobalState.launcher = false;
+                break;
+            case Qt.MiddleButton:
+                modelData.close();
+                break;
+            case Qt.RightButton:
+                Hyprland.dispatch(`movetoworkspace ${Hyprland.focusedWorkspace.id}, address:0x${modelData.HyprlandToplevel.handle.address}`);
+                GlobalState.launcher = false;
+                break;
+            }
         }
-        keyNavigationWraps: true
-        highlightFollowsCurrentItem: true
-        highlightMoveDuration: 0
-        highlightResizeDuration: 0
-        anchors.fill: parent
-        delegate: StyledButton {
-            id: windowDelegate
-            required property Toplevel modelData
-            required property int index
-            function tapped(pointEvent, button): void {
-                switch (button) {
-                case Qt.LeftButton:
-                    Quickshell.execDetached(["hyprctl", "dispatch", "focuswindow", `address:0x${modelData.HyprlandToplevel.handle.address}`]);
-                    GlobalState.launcher = false;
-                    break;
-                case Qt.MiddleButton:
-                    modelData.close();
-                    break;
-                case Qt.RightButton:
-                    Hyprland.dispatch(`movetoworkspace ${Hyprland.focusedWorkspace.id}, address:0x${modelData.HyprlandToplevel.handle.address}`);
-                    GlobalState.launcher = false;
-                    break;
-                }
+        function entered(): void {
+            root.currentIndex = toplevel.index;
+        }
+        background: null
+        implicitHeight: root.height / 10
+        implicitWidth: root.width
+        contentItem: RowLayout {
+            anchors {
+                fill: parent
+                leftMargin: parent.width / 64
+                topMargin: parent.height / 32
+                bottomMargin: parent.height / 32
             }
-            function entered(): void {
-                windowList.currentIndex = windowDelegate.index;
-            }
-            background: null
-            implicitHeight: windowList.height / 10
-            implicitWidth: windowList.width
-            contentItem: RowLayout {
-                anchors {
-                    fill: parent
-                    leftMargin: parent.width / 64
-                    topMargin: parent.height / 32
-                    bottomMargin: parent.height / 32
-                }
-                spacing: anchors.leftMargin
-                IconImage {
-                    Layout.fillHeight: true
-                    Layout.preferredWidth: height
-                    source: {
-                        if (windowDelegate.modelData?.appId.startsWith("steam_app")) {
-                            return Quickshell.iconPath("input-gaming");
-                        } else if (windowDelegate.modelData?.appId == "") {
-                            return (Quickshell.iconPath("image-loading"));
-                        } else {
-                            return Quickshell.iconPath(windowDelegate.modelData?.appId.toLowerCase() ?? "image-loading", windowDelegate.modelData?.appId);
-                        }
+            spacing: anchors.leftMargin
+            IconImage {
+                Layout.fillHeight: true
+                Layout.preferredWidth: height
+                source: {
+                    if (toplevel?.modelData?.appId?.startsWith("steam_app")) {
+                        return Quickshell.iconPath("input-gaming");
+                    } else {
+                        return Quickshell.iconPath(toplevel?.modelData?.appId?.toLowerCase() ?? "image-loading", toplevel?.modelData?.appId);
                     }
                 }
-                StyledText {
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
-                    font.pixelSize: height / 4
-                    elide: Text.ElideRight
-                    text: windowDelegate.modelData?.title ?? ""
-                    color: windowDelegate.ListView.isCurrentItem ? Theme.color.accent : Theme.color.fg
-                    horizontalAlignment: Text.AlignLeft
-                }
+            }
+            StyledText {
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+                font.pixelSize: height / 4
+                elide: Text.ElideRight
+                text: toplevel.modelData?.title ?? ""
+                color: toplevel.ListView.isCurrentItem ? Theme.color.accent : Theme.color.fg
+                horizontalAlignment: Text.AlignLeft
             }
         }
     }
