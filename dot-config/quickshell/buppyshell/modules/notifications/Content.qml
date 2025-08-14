@@ -59,6 +59,7 @@ Rectangle {
         id: dragHandler
         xAxis.minimum: 0
         yAxis.enabled: false
+        cursorShape: Qt.ClosedHandCursor
         onGrabChanged: (transition, point) => {
             if (transition === PointerDevice.GrabExclusive) {
                 behavior.enabled = false;
@@ -70,7 +71,7 @@ Rectangle {
     }
     HoverHandler {
         id: hoverHandler
-        cursorShape: Qt.PointingHandCursor
+        cursorShape: Qt.OpenHandCursor
     }
     Behavior on x {
         id: behavior
