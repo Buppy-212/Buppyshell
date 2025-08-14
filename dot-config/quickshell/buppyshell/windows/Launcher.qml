@@ -20,10 +20,9 @@ LazyLoader {
         WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
         exclusionMode: ExclusionMode.Ignore
         color: Theme.color.black
-        MouseArea {
-            anchors.fill: parent
+        TapHandler {
             acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
-            onClicked: GlobalState.launcher = false
+            onTapped: GlobalState.launcher = false
         }
         anchors {
             top: true

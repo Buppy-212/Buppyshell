@@ -43,19 +43,21 @@ Variants {
                 implicitHeight: parent.height
                 radius: Theme.radius.normal
                 color: Theme.color.bg
-                MouseArea {
-                    anchors.fill: parent
-                    cursorShape: Qt.PointingHandCursor
-                    drag.target: parent
-                    drag.axis: Drag.XAxis
-                    drag.minimumX: 0
-                    drag.maximumX: parent.width
-                    drag.filterChildren: false
-                    onReleased: {
-                        parent.x = parent.width;
+                DragHandler {
+                    cursorShape: Qt.ClosedHandCursor
+                    xAxis.minimum: 0
+                    yAxis.enabled: false
+                    onGrabChanged: (transition, point) => {
+                        if (transition === PointerDevice.GrabExclusive) {
+                            behavior.enabled = false;
+                        } else if (transition === PointerDevice.UngrabExclusive) {
+                            behavior.enabled = true;
+                            sidebar.x = sidebar.width;
+                        }
                     }
                 }
                 Behavior on x {
+                    id: behavior
                     NumberAnimation {
                         duration: Theme.animation.elementMoveExit.duration
                         easing.type: Theme.animation.elementMoveExit.type

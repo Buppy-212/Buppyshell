@@ -16,10 +16,11 @@ Rectangle {
     onVisibleChanged: root.currentIndex = findPlayerctld()
     radius: Theme.radius.normal
     color: Theme.color.bg
-    MouseArea {
-        anchors.fill: parent
+    TapHandler {
+        onTapped: GlobalState.player = !GlobalState.player
+    }
+    HoverHandler {
         cursorShape: Qt.PointingHandCursor
-        onClicked: GlobalState.player = !GlobalState.player
     }
     Timer {
         repeat: true
