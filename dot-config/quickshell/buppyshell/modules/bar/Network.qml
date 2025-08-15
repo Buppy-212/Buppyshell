@@ -6,7 +6,7 @@ StyledButton {
     color: Theme.color.green
     font.pixelSize: height - Theme.margin.small
     function tapped(): void {
-        if (GlobalState.sidebarModule == GlobalState.SidebarModule.Network || !GlobalState.sidebar) {
+        if (GlobalState.sidebarModule === GlobalState.SidebarModule.Network || !GlobalState.sidebar) {
             GlobalState.sidebar = !GlobalState.sidebar;
             GlobalState.player = false;
         }

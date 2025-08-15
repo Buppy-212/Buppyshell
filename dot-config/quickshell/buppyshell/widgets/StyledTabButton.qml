@@ -25,10 +25,10 @@ StyledButton {
         }
         Rectangle {
             anchors {
-                top: root.borderSide != StyledTabButton.BorderSide.Bottom ? parent.top : undefined
-                right: root.borderSide != StyledTabButton.BorderSide.Left ? parent.right : undefined
-                bottom: root.borderSide != StyledTabButton.BorderSide.Top ? parent.bottom : undefined
-                left: root.borderSide != StyledTabButton.BorderSide.Right ? parent.left : undefined
+                top: root.borderSide !== StyledTabButton.BorderSide.Bottom ? parent.top : undefined
+                right: root.borderSide !== StyledTabButton.BorderSide.Left ? parent.right : undefined
+                bottom: root.borderSide !== StyledTabButton.BorderSide.Top ? parent.bottom : undefined
+                left: root.borderSide !== StyledTabButton.BorderSide.Right ? parent.left : undefined
             }
             radius: Theme.radius.normal
             visible: root.selected

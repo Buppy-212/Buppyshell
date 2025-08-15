@@ -97,7 +97,7 @@ ColumnLayout {
                                 }
                             }
                             onReleased: mouse => {
-                                if (mouse.button == Qt.RightButton) {
+                                if (mouse.button === Qt.RightButton) {
                                     parent.silent = false;
                                 } else {
                                     parent.silent = true;
@@ -112,7 +112,7 @@ ColumnLayout {
                                 anchor {
                                     window: root.bar
                                     rect.x: root.parent.width + Theme.margin.tiny
-                                    rect.y: toplevel.parent == dragArea ? toplevel.y + dragArea.y + root.y : root.y + workspace.y + toplevel.y
+                                    rect.y: toplevel.parent === dragArea ? toplevel.y + dragArea.y + root.y : root.y + workspace.y + toplevel.y
                                 }
                                 implicitHeight: toplevel.height
                                 implicitWidth: title.contentWidth + Theme.margin.large

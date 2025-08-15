@@ -96,10 +96,10 @@ Scope {
                         text: {
                             switch (sliderWidget.source) {
                             case Sliders.Source.Volume:
-                                return sliderWidget.muted || sliderWidget.input == 0 ? "" : "";
+                                return sliderWidget.muted || sliderWidget.input === 0 ? "" : "";
                                 break;
                             case Sliders.Source.Mic:
-                                return sliderWidget.micMuted || sliderWidget.input == 0 ? "" : "";
+                                return sliderWidget.micMuted || sliderWidget.input === 0 ? "" : "";
                                 break;
                             case Sliders.Source.Brightness:
                                 return "";

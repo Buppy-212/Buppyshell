@@ -7,7 +7,7 @@ StyledButton {
     color: Theme.color.blue
     font.pixelSize: height - Theme.margin.small
     function tapped(): void {
-        if (GlobalState.sidebarModule == GlobalState.SidebarModule.Bluetooth || !GlobalState.sidebar) {
+        if (GlobalState.sidebarModule === GlobalState.SidebarModule.Bluetooth || !GlobalState.sidebar) {
             GlobalState.sidebar = !GlobalState.sidebar;
             GlobalState.player = false;
         }

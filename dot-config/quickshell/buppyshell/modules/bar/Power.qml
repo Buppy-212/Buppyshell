@@ -7,9 +7,11 @@ StyledButton {
     color: Theme.color.red
     font.pixelSize: Theme.font.size.large
     function tapped(button): void {
-        if (button == Qt.MiddleButton) {
+        switch (button) {
+        case Qt.MiddleButton:
             Quickshell.execDetached(["systemctl", "poweroff"]);
-        } else {
+            break;
+        default:
             GlobalState.launcherModule = GlobalState.LauncherModule.Logout;
             GlobalState.launcher = true;
         }

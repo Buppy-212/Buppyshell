@@ -9,7 +9,7 @@ StyledButton {
     text: notificationServer.trackedNotifications.values.length ? "󱅫" : GlobalState.doNotDisturb ? "󰂠" : "󰂚"
     font.pixelSize: height - Theme.margin.small
     function tapped(eventPoint, button): void {
-        if (GlobalState.sidebarModule == GlobalState.SidebarModule.Notifications || !GlobalState.sidebar) {
+        if (GlobalState.sidebarModule === GlobalState.SidebarModule.Notifications || !GlobalState.sidebar) {
             GlobalState.sidebar = !GlobalState.sidebar;
             GlobalState.player = false;
         }

@@ -63,7 +63,7 @@ Singleton {
         description: "Toggle window switcher"
         appid: "buppyshell"
         onPressed: {
-            root.launcherModule == GlobalState.LauncherModule.WindowSwitcher ? root.launcher = !root.launcher : root.launcher = true;
+            root.launcherModule === GlobalState.LauncherModule.WindowSwitcher ? root.launcher = !root.launcher : root.launcher = true;
             root.launcherModule = GlobalState.LauncherModule.WindowSwitcher;
         }
     }
@@ -72,7 +72,7 @@ Singleton {
         description: "Toggle logout menu"
         appid: "buppyshell"
         onPressed: {
-            root.launcherModule == GlobalState.LauncherModule.Logout ? root.launcher = !root.launcher : root.launcher = true;
+            root.launcherModule === GlobalState.LauncherModule.Logout ? root.launcher = !root.launcher : root.launcher = true;
             root.launcherModule = GlobalState.LauncherModule.Logout;
         }
     }
@@ -81,7 +81,7 @@ Singleton {
         description: "Toggle application launcher"
         appid: "buppyshell"
         onPressed: {
-            root.launcherModule == GlobalState.LauncherModule.AppLauncher ? root.launcher = !root.launcher : root.launcher = true;
+            root.launcherModule === GlobalState.LauncherModule.AppLauncher ? root.launcher = !root.launcher : root.launcher = true;
             root.launcherModule = GlobalState.LauncherModule.AppLauncher;
         }
     }

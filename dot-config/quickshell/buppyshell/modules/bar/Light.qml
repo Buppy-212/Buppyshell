@@ -7,9 +7,11 @@ StyledButton {
     color: Theme.color.yellow
     scrollable: true
     function tapped(eventPoint, button): void {
-        if (button == Qt.LeftButton) {
+        switch (button) {
+        case Qt.LeftButton:
             Brightness.toggleNightlight();
-        } else {
+            break;
+        default:
             Brightness.monitor();
         }
     }

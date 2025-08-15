@@ -6,14 +6,16 @@ StyledButton {
     id: root
     readonly property int volume: Pipewire.defaultAudioSink?.audio.volume * 100
     readonly property bool muted: Pipewire.defaultAudioSink?.audio.muted ?? false
-    text: root.muted || root.volume == 0 ? "" : root.volume == 100 ? "" : root.volume
+    text: root.muted || root.volume === 0 ? "" : root.volume === 100 ? "" : root.volume
     color: Theme.color.blue
     scrollable: true
     function tapped(eventPoint, button): void {
-        if (button == Qt.MiddleButton) {
+        switch (button) {
+        case Qt.MiddleButton:
             Pipewire.defaultAudioSink.audio.muted = !Pipewire.defaultAudioSink.audio.muted;
-        } else {
-            if (GlobalState.sidebarModule == GlobalState.SidebarModule.Volume || !GlobalState.sidebar) {
+            break;
+        default:
+            if (GlobalState.sidebarModule === GlobalState.SidebarModule.Volume || !GlobalState.sidebar) {
                 GlobalState.sidebar = !GlobalState.sidebar;
                 GlobalState.player = false;
             }

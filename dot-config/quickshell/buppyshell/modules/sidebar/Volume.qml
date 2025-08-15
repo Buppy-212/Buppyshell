@@ -124,7 +124,7 @@ ColumnLayout {
                         Layout.fillHeight: true
                         Layout.preferredWidth: 40
                         text: {
-                            var volume = Math.round(delegate.modelData.audio.volume * 100);
+                            var volume = Math.trunc(delegate.modelData.audio.volume * 100);
                             if (!delegate.modelData.isSink && !delegate.modelData.isStream) {
                                 if (delegate.modelData.audio?.muted ?? true) {
                                     volume = "";

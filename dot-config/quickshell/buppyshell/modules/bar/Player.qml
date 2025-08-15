@@ -5,12 +5,14 @@ StyledButton {
     text: "󰐎"
     font.pixelSize: height - Theme.margin.small
     function tapped(eventPoint, button): void {
-        if (button == Qt.LeftButton) {
+        switch (button) {
+        case Qt.LeftButton:
             GlobalState.sidebar = true;
             GlobalState.player = !GlobalState.player;
-        } else {
+            break;
+        default:
+            GlobalState.player = !GlobalState.sidebar;
             GlobalState.sidebar = !GlobalState.sidebar;
-            GlobalState.player = GlobalState.sidebar;
         }
     }
 }

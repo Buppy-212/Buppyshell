@@ -5,15 +5,14 @@ import qs.widgets
 
 Rectangle {
     id: root
+    property int currentIndex: findPlayerctld()
     function findPlayerctld(): int {
         for (var i = 0; i < Mpris.players.values.length; i++) {
-            if (Mpris.players.values[i].dbusName == "org.mpris.MediaPlayer2.playerctld") {
+            if (Mpris.players.values[i].dbusName === "org.mpris.MediaPlayer2.playerctld") {
                 return i;
             }
         }
     }
-    property int currentIndex: findPlayerctld()
-    onVisibleChanged: root.currentIndex = findPlayerctld()
     radius: Theme.radius.normal
     color: Theme.color.bg
     TapHandler {
@@ -25,7 +24,7 @@ Rectangle {
     Timer {
         repeat: true
         interval: 1000
-        running: Mpris.players.values[root.currentIndex]?.playbackState == MprisPlaybackState.Playing
+        running: Mpris.players.values[root.currentIndex]?.playbackState === MprisPlaybackState.Playing
         onTriggered: Mpris.players.values[root.currentIndex].positionChanged()
     }
     StyledButton {
@@ -89,7 +88,7 @@ Rectangle {
             implicitHeight: Theme.height.doubleBlock
             implicitWidth: implicitHeight
             text: Mpris.players.values[root.currentIndex]?.isPlaying ? "" : ""
-            color: Mpris.players.values[root.currentIndex]?.dbusName == "org.mpris.MediaPlayer2.playerctld" ? Theme.color.red : Theme.color.fg
+            color: Mpris.players.values[root.currentIndex]?.dbusName === "org.mpris.MediaPlayer2.playerctld" ? Theme.color.red : Theme.color.fg
             font.pixelSize: height * 0.75
             function tapped(eventPoint, button) {
                 switch (button) {
