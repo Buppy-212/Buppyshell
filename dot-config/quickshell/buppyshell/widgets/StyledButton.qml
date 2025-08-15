@@ -11,11 +11,6 @@ Control {
     property color color: Theme.color.fg
     property color accentColor: root.color
     property bool dragged: false
-    font {
-        pixelSize: Theme.font.size.normal
-        family: Theme.font.family.mono
-        bold: true
-    }
     function entered(): void {
     }
     function exited(): void {
@@ -26,6 +21,11 @@ Control {
     }
     implicitWidth: Theme.width.block
     implicitHeight: Theme.height.block
+    font {
+        pixelSize: Theme.font.size.normal
+        family: Theme.font.family.mono
+        bold: true
+    }
     contentItem: Text {
         id: text
         anchors.fill: parent

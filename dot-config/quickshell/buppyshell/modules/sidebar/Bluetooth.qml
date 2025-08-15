@@ -57,11 +57,31 @@ ColumnLayout {
             id: delegate
             required property BluetoothDevice modelData
             required property int index
-            borderSize: height
+            function entered(): void {
+                listView.currentIndex = delegate.index;
+            }
+            function tapped(eventPoint, button): void {
+                switch (button) {
+                case Qt.LeftButton:
+                    !delegate.modelData.paired ? delegate.modelData.pair() : delegate.modelData.connected ? delegate.modelData.disconnect() : delegate.modelData.connect();
+                    break;
+                case Qt.MiddleButton:
+                    delegate.modelData.paired ? delegate.modelData.forget() : delegate.modelData.cancelPair();
+                    break;
+                case Qt.RightButton:
+                    delegate.modelData.trusted = !delegate.modelData.trusted;
+                    break;
+                }
+            }
             accentColor: selected ? Theme.color.black : Theme.color.accent
             selected: modelData.connected
-            width: listView.width
-            height: 48
+            implicitWidth: listView.width
+            implicitHeight: 48
+            background: Rectangle {
+              visible: delegate.selected
+              color: Theme.color.accent
+              radius: height / 4
+            }
             contentItem: RowLayout {
                 anchors.fill: parent
                 spacing: height / 4
@@ -76,7 +96,7 @@ ColumnLayout {
                     horizontalAlignment: Text.AlignLeft
                     text: delegate.modelData.batteryAvailable ? `${delegate.modelData.name} (${delegate.modelData.battery * 100}%)` : delegate.modelData.name
                     color: delegate.ListView.isCurrentItem ? delegate.accentColor : delegate.buttonColor
-                    font.pixelSize: width / 16 > height / 2 ? height / 2 : width / 16
+                    font.pixelSize: height / 2
                     fontSizeMode: Text.Fit
                 }
                 StyledText {
@@ -88,22 +108,6 @@ ColumnLayout {
                     font.pixelSize: height / 2
                     text: ""
                     color: Theme.color.green
-                }
-            }
-            function entered() {
-                listView.currentIndex = delegate.index;
-            }
-            function tapped(eventPoint, button) {
-                switch (button) {
-                case Qt.LeftButton:
-                    !delegate.modelData.paired ? delegate.modelData.pair() : delegate.modelData.connected ? delegate.modelData.disconnect() : delegate.modelData.connect();
-                    break;
-                case Qt.MiddleButton:
-                    delegate.modelData.paired ? delegate.modelData.forget() : delegate.modelData.cancelPair();
-                    break;
-                case Qt.RightButton:
-                    delegate.modelData.trusted = !delegate.modelData.trusted;
-                    break;
                 }
             }
         }

@@ -13,15 +13,17 @@ Slider {
     from: 0
     to: 1
     background: ClippingRectangle {
-        anchors.fill: parent
         color: Theme.color.black
         radius: height / 2
         Rectangle {
             id: slider
-            width: root.visualPosition * root.availableWidth
-            height: parent.height
+            implicitWidth: root.visualPosition * root.availableWidth
+            implicitHeight: parent.height
             color: Theme.color.blue
             radius: height / 2
         }
+    }
+    HoverHandler {
+        cursorShape: root.pressed ? Qt.ClosedHandCursor : Qt.PointingHandCursor
     }
 }

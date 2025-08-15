@@ -27,7 +27,7 @@ ColumnLayout {
             listView.currentItem.mute();
             break;
         case Qt.Key_Return:
-            listView.currentItem.makeDefault();
+            listView.currentItem.tapped();
             break;
         }
     }
@@ -54,18 +54,12 @@ ColumnLayout {
             }
             return score;
         })
-        delegate: Item {
+        delegate: StyledButton {
             id: delegate
             required property PwNode modelData
+            required property int index
             function mute(): void {
                 delegate.modelData.audio.muted = !delegate.modelData.audio.muted;
-            }
-            function makeDefault(): void {
-                if (delegate.modelData.isSink) {
-                    Pipewire.preferredDefaultAudioSink = delegate.modelData;
-                } else if (!delegate.modelData.isStream) {
-                    Pipewire.preferredDefaultAudioSource = delegate.modelData;
-                }
             }
             function increase(): void {
                 slider.increase();
@@ -75,26 +69,34 @@ ColumnLayout {
                 slider.decrease();
                 slider.moved();
             }
+            function entered(): void {
+                listView.currentIndex = delegate.index;
+            }
+            function tapped(): void {
+                if (delegate.modelData.isSink) {
+                    Pipewire.preferredDefaultAudioSink = delegate.modelData;
+                } else if (!delegate.modelData.isStream) {
+                    Pipewire.preferredDefaultAudioSource = delegate.modelData;
+                }
+            }
+            background: null
+            accentColor: Theme.color.accent
+            visible: delegate.modelData?.ready ?? false
             implicitWidth: listView.width
             implicitHeight: 72
-            ColumnLayout {
+            contentItem: ColumnLayout {
                 spacing: 4
-                anchors {
-                    fill: parent
-                    margins: 12
-                }
-                StyledButton {
+                StyledText {
                     text: delegate.modelData.isStream ? delegate.modelData.name : delegate.modelData.description
+                    color: delegate.ListView.isCurrentItem ? delegate.accentColor : delegate.buttonColor
+                    elide: Text.ElideRight
                     Layout.fillWidth: true
                     Layout.preferredHeight: parent.height / 3
-                    background: null
-                    function tapped(): void {
-                        delegate.makeDefault();
-                    }
                 }
                 RowLayout {
                     Layout.fillHeight: true
                     Layout.fillWidth: true
+                    Layout.bottomMargin: 6
                     spacing: 0
                     StyledSlider {
                         id: slider
@@ -103,9 +105,6 @@ ColumnLayout {
                         value: delegate.modelData.audio?.volume ?? 0
                         onMoved: delegate.modelData.ready ? delegate.modelData.audio.volume = value : undefined
                         wheelEnabled: true
-                        HoverHandler {
-                            cursorShape: Qt.PointingHandCursor
-                        }
                         color: {
                             var col = Theme.color.magenta;
                             if (delegate.modelData.isSink) {
