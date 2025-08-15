@@ -80,14 +80,14 @@ Variants {
                 anchors.left: parent.left
                 anchors.leftMargin: Theme.width.block
                 size: Theme.radius.normalAdjusted
-                corner: cornerEnum.bottomLeft
+                corner: RoundCorner.Corner.BottomLeft
             }
             RoundCorner {
                 anchors.top: parent.top
                 anchors.left: parent.left
                 anchors.leftMargin: Theme.width.block
                 size: Theme.radius.normalAdjusted
-                corner: cornerEnum.topLeft
+                corner: RoundCorner.Corner.TopLeft
             }
         }
         PanelWindow {
@@ -133,14 +133,14 @@ Variants {
                 anchors.right: parent.right
                 anchors.rightMargin: Theme.width.block
                 size: Theme.radius.normalAdjusted
-                corner: cornerEnum.bottomRight
+                corner: RoundCorner.Corner.BottomRight
             }
             RoundCorner {
                 anchors.top: parent.top
                 anchors.right: parent.right
                 anchors.rightMargin: Theme.width.block
                 size: Theme.radius.normalAdjusted
-                corner: cornerEnum.topRight
+                corner: RoundCorner.Corner.TopRight
             }
         }
     }

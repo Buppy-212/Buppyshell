@@ -11,15 +11,14 @@ Item {
         canvas.requestPaint();
     }
 
-    readonly property QtObject cornerEnum: QtObject {
-        id: cornerEnum
-        readonly property int topLeft: 0
-        readonly property int topRight: 1
-        readonly property int bottomLeft: 2
-        readonly property int bottomRight: 3
+    enum Corner {
+        TopLeft,
+        TopRight,
+        BottomLeft,
+        BottomRight
     }
 
-    property int corner: cornerEnum.topLeft // Default to TopLeft
+    property int corner: RoundCorner.Corner.TopLeft // Default to TopLeft
 
     width: size
     height: size
@@ -36,19 +35,19 @@ Item {
 
             ctx.beginPath();
             switch (root.corner) {
-            case cornerEnum.topLeft:
+            case RoundCorner.Corner.TopLeft:
                 ctx.arc(r, r, r, Math.PI, 3 * Math.PI / 2);
                 ctx.lineTo(0, 0);
                 break;
-            case cornerEnum.topRight:
+            case RoundCorner.Corner.TopRight:
                 ctx.arc(0, r, r, 3 * Math.PI / 2, 2 * Math.PI);
                 ctx.lineTo(r, 0);
                 break;
-            case cornerEnum.bottomLeft:
+            case RoundCorner.Corner.BottomLeft:
                 ctx.arc(r, 0, r, Math.PI / 2, Math.PI);
                 ctx.lineTo(0, r);
                 break;
-            case cornerEnum.bottomRight:
+            case RoundCorner.Corner.BottomRight:
                 ctx.arc(0, 0, r, 0, Math.PI / 2);
                 ctx.lineTo(r, r);
                 break;
