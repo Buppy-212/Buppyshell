@@ -34,10 +34,12 @@ StyledButton {
     QsMenuAnchor {
         id: menu
         menu: root.modelData.menu
-        anchor.window: root.bar
-        anchor.rect.x: Theme.radius.normal
-        anchor.rect.y: tray.y + root.y
-        anchor.edges: Edges.Right
-        anchor.gravity: Edges.Left | Edges.Bottom
+        anchor {
+            window: root.bar
+            rect.x: Theme.radius.normal
+            rect.y: tray.y + root.y
+            edges: Edges.Right
+            gravity: Edges.Left | Edges.Bottom
+        }
     }
 }
