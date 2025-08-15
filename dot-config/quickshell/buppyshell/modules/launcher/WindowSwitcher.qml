@@ -12,14 +12,11 @@ import qs.widgets
 StyledListView {
     id: root
     required property string search
+    Keys.onReturnPressed: root.currentItem.tapped(undefined, Qt.LeftButton)
+    Keys.onDeletePressed: root.currentItem.modelData.close()
     Keys.onPressed: event => {
-        switch (event.key) {
-        case Qt.Key_Delete:
-            root.currentItem.modelData.close();
-            break;
-        case Qt.Key_Return:
+        if (event.modifiers === Qt.ControlModifier && event.key === Qt.Key_O) {
             root.currentItem.tapped(undefined, Qt.LeftButton);
-            break;
         }
     }
     background: null

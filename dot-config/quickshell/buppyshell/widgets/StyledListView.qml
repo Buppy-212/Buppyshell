@@ -9,16 +9,6 @@ ListView {
     snapMode: ListView.SnapToItem
     spacing: 0
     clip: true
-    Loader {
-        id: background
-        anchors.fill: parent
-        asynchronous: true
-        z: -1
-        sourceComponent: Rectangle {
-            color: Theme.color.bgalt
-            radius: Theme.radius.normal
-        }
-    }
     highlightFollowsCurrentItem: true
     highlightMoveDuration: 100
     highlightResizeDuration: 0
@@ -55,6 +45,16 @@ ListView {
         case Qt.Key_Backtab:
             root.decrementCurrentIndex();
             break;
+        }
+    }
+    Loader {
+        id: background
+        anchors.fill: parent
+        asynchronous: true
+        z: -1
+        sourceComponent: Rectangle {
+            color: Theme.color.bgalt
+            radius: Theme.radius.normal
         }
     }
 }

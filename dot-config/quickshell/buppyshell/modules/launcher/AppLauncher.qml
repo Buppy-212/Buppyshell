@@ -13,9 +13,11 @@ StyledGridView {
     cellHeight: height / 5
     cellWidth: width / 9
     background: null
-    Keys.onReturnPressed: {
-        root.currentItem.tapped();
-        GlobalState.launcher = false;
+    Keys.onReturnPressed: root.currentItem.tapped()
+    Keys.onPressed: event => {
+        if (event.modifiers === Qt.ControlModifier && event.key === Qt.Key_O) {
+            root.currentItem.tapped();
+        }
     }
     model: Apps.query(root.search)
     delegate: StyledButton {

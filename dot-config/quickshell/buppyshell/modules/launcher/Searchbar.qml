@@ -11,13 +11,23 @@ StyledTextField {
         GlobalState.launcher = false;
     }
     Keys.onPressed: event => {
-        if (event.key == Qt.Key_F && event.modifiers & Qt.ControlModifier) {
-            var index = GlobalState.launcherModule;
-            index += 1;
-            if (index >= 3) {
-                index = 0;
+        if (event.modifiers === Qt.ControlModifier) {
+            switch (event.key) {
+            case Qt.Key_F:
+                var index = GlobalState.launcherModule;
+                index += 1;
+                if (index >= 3) {
+                    index = 0;
+                }
+                GlobalState.launcherModule = index;
+                break;
+            case Qt.Key_C:
+                GlobalState.launcher = false;
+                break;
+            case Qt.Key_Semicolon:
+                GlobalState.launcher = false;
+                break;
             }
-            GlobalState.launcherModule = index;
         }
     }
 }

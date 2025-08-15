@@ -7,16 +7,6 @@ GridView {
     required model
     required delegate
     clip: true
-    Loader {
-        id: background
-        anchors.fill: parent
-        asynchronous: true
-        z: -1
-        sourceComponent: Rectangle {
-            color: Theme.color.bgalt
-            radius: Theme.radius.normal
-        }
-    }
     snapMode: GridView.SnapToRow
     highlightFollowsCurrentItem: true
     highlightMoveDuration: 100
@@ -50,6 +40,16 @@ GridView {
         case Qt.Key_Backtab:
             root.moveCurrentIndexLeft();
             break;
+        }
+    }
+    Loader {
+        id: background
+        anchors.fill: parent
+        asynchronous: true
+        z: -1
+        sourceComponent: Rectangle {
+            color: Theme.color.bgalt
+            radius: Theme.radius.normal
         }
     }
 }
