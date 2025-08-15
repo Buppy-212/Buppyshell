@@ -72,11 +72,17 @@ ColumnLayout {
             function entered(): void {
                 listView.currentIndex = delegate.index;
             }
-            function tapped(): void {
-                if (delegate.modelData.isSink) {
-                    Pipewire.preferredDefaultAudioSink = delegate.modelData;
-                } else if (!delegate.modelData.isStream) {
-                    Pipewire.preferredDefaultAudioSource = delegate.modelData;
+            function tapped(eventPoint, button): void {
+                switch (button) {
+                case Qt.LeftButton:
+                    if (delegate.modelData.isSink) {
+                        Pipewire.preferredDefaultAudioSink = delegate.modelData;
+                    } else if (!delegate.modelData.isStream) {
+                        Pipewire.preferredDefaultAudioSource = delegate.modelData;
+                    }
+                    break;
+                default:
+                    delegate.mute();
                 }
             }
             background: null
@@ -110,7 +116,7 @@ ColumnLayout {
                             if (delegate.modelData.isSink) {
                                 col = Theme.color.blue;
                             }
-                            if (delegate.modelData != Pipewire.defaultAudioSink && delegate.modelData != Pipewire.defaultAudioSource) {
+                            if (delegate.modelData !== Pipewire.defaultAudioSink && delegate.modelData !== Pipewire.defaultAudioSource) {
                                 col = Qt.darker(col);
                             }
                             if (delegate.modelData.isStream) {
@@ -118,28 +124,35 @@ ColumnLayout {
                             }
                             return col;
                         }
-                    }
-                    StyledButton {
-                        id: button
-                        Layout.fillHeight: true
-                        Layout.preferredWidth: 40
-                        text: {
-                            var volume = Math.trunc(delegate.modelData.audio.volume * 100);
-                            if (!delegate.modelData.isSink && !delegate.modelData.isStream) {
-                                if (delegate.modelData.audio?.muted ?? true) {
-                                    volume = "";
-                                }
-                            } else {
-                                if (delegate.modelData.audio?.muted ?? true) {
-                                    volume = "";
-                                }
+                        handle: Rectangle {
+                            id: button
+                            anchors {
+                                top: parent.top
+                                bottom: parent.bottom
+                                right: parent.right
+                                margins: 2
                             }
-                            return volume;
-                        }
-                        color: slider.color
-                        background: null
-                        function tapped(): void {
-                            delegate.mute();
+                            color: Theme.color.black
+                            implicitWidth: height * 1.5
+                            radius: height / 2
+                            StyledText {
+                                id: text
+                                anchors.fill: parent
+                                text: {
+                                    var volume = Math.trunc(delegate.modelData.audio.volume * 100);
+                                    if (!delegate.modelData.isSink && !delegate.modelData.isStream) {
+                                        if (delegate.modelData.audio?.muted ?? true) {
+                                            volume = "";
+                                        }
+                                    } else {
+                                        if (delegate.modelData.audio?.muted ?? true) {
+                                            volume = "";
+                                        }
+                                    }
+                                    return volume;
+                                }
+                                color: slider.color
+                            }
                         }
                     }
                 }
