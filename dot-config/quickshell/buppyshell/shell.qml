@@ -23,11 +23,8 @@ ShellRoot {
                 modelData: scope.modelData
                 source: Osd.Volume
             }
-            LazyLoader {
-                loading: true
-                component: Sidebar {
-                    modelData: scope.modelData
-                }
+            Sidebar {
+                modelData: scope.modelData
             }
             LazyLoader {
                 loading: true
