@@ -25,7 +25,6 @@ Singleton {
 
     property bool doNotDisturb: false
     property int sidebarModule: GlobalState.SidebarModule.Notifications
-    property bool player: false
     property bool bluetooth: false
     property int launcherModule: GlobalState.LauncherModule.WindowSwitcher
     property bool launcher: false
