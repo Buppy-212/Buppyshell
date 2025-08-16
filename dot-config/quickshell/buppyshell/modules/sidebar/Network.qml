@@ -4,6 +4,7 @@ import qs.widgets
 import qs.services
 
 ColumnLayout {
+    id: root
     spacing: 0
     Header {
         title: "Network"
@@ -16,8 +17,5 @@ ColumnLayout {
         radius: Theme.radius.normal
         Layout.fillHeight: true
         Layout.fillWidth: true
-        Layout.rightMargin: 36
-        Layout.bottomMargin: 36
-        Layout.leftMargin: 36
     }
 }

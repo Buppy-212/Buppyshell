@@ -74,10 +74,8 @@ Singleton {
     }
     component FontSize: QtObject {
         readonly property int normal: 17
-        readonly property int medium: 20
-        readonly property int large: 21
+        readonly property int large: 22
         readonly property int doubled: 34
-        readonly property int extraLarge: 48
         readonly property int huge: 56
     }
     component Font: QtObject {

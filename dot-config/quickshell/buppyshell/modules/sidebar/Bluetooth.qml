@@ -8,6 +8,7 @@ import qs.services
 import qs.widgets
 
 ColumnLayout {
+    id: root
     Keys.onPressed: event => {
         switch (event.key) {
         case Qt.Key_O:
@@ -49,9 +50,6 @@ ColumnLayout {
         id: listView
         Layout.fillWidth: true
         Layout.fillHeight: true
-        Layout.bottomMargin: 36
-        Layout.rightMargin: 36
-        Layout.leftMargin: 36
         model: Bluetooth.devices
         delegate: StyledTabButton {
             id: delegate
@@ -78,9 +76,9 @@ ColumnLayout {
             implicitWidth: listView.width
             implicitHeight: 48
             background: Rectangle {
-              visible: delegate.selected
-              color: Theme.color.accent
-              radius: height / 4
+                visible: delegate.selected
+                color: Theme.color.accent
+                radius: height / 4
             }
             contentItem: RowLayout {
                 anchors.fill: parent

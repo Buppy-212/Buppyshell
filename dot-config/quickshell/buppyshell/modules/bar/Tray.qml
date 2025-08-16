@@ -7,13 +7,11 @@ Item {
     id: root
     required property PanelWindow bar
     clip: true
-    visible: width > 0 && height > 0
-    implicitHeight: column.implicitHeight
-    implicitWidth: Theme.width.block
+    visible: repeater.count > 0
     Column {
         id: column
-        spacing: Theme.margin.tiny
-        anchors.centerIn: parent
+        spacing: 2
+        anchors.fill: parent
         Repeater {
             id: repeater
             model: SystemTray.items
@@ -21,6 +19,8 @@ Item {
                 id: trayItem
                 tray: root
                 bar: root.bar
+                implicitWidth: root.width
+                implicitHeight: width * 0.8
             }
         }
     }

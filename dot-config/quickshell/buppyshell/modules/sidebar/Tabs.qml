@@ -40,7 +40,7 @@ RowLayout {
             text: delegateButton._text
             Layout.fillWidth: true
             Layout.fillHeight: true
-            font.pixelSize: Theme.font.size.doubled
+            font.pixelSize: height * 0.75
             function tapped(): void {
                 GlobalState.toggle(delegateButton.command);
             }

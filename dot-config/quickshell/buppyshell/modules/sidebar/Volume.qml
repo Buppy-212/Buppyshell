@@ -7,6 +7,7 @@ import qs.services
 import qs.widgets
 
 ColumnLayout {
+    id: root
     spacing: 0
     Keys.forwardTo: [listView]
     Keys.onPressed: event => {
@@ -40,9 +41,6 @@ ColumnLayout {
         id: listView
         Layout.fillWidth: true
         Layout.fillHeight: true
-        Layout.bottomMargin: 36
-        Layout.rightMargin: 36
-        Layout.leftMargin: 36
         model: Pipewire.nodes.values.filter(a => a.audio).sort((a, b) => {
             let score = (b.isSink - a.isSink) + 2 * (a.isStream - b.isStream);
             if (a.score === b.score) {

@@ -7,6 +7,7 @@ import qs.widgets
 import qs.modules.notifications
 
 ColumnLayout {
+    id: root
     Keys.forwardTo: [notificationList]
     Keys.onPressed: event => {
         switch (event.key) {
@@ -50,9 +51,6 @@ ColumnLayout {
         id: notificationList
         Layout.fillHeight: true
         Layout.fillWidth: true
-        Layout.rightMargin: 36
-        Layout.bottomMargin: 36
-        Layout.leftMargin: 36
         spacing: 2
         model: notificationServer.trackedNotifications
         delegate: Content {

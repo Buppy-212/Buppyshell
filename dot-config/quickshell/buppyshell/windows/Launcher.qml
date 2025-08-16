@@ -5,6 +5,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Effects
+import Quickshell.Hyprland
 import Quickshell.Wayland
 import qs.services
 import qs.widgets
@@ -12,7 +13,13 @@ import qs.modules.launcher
 
 PanelWindow {
     id: root
-    visible: GlobalState.launcher
+    required property ShellScreen modelData
+    readonly property bool launcherVisible: GlobalState.launcher
+    property string monitor
+    onLauncherVisibleChanged: {
+        root.monitor = Hyprland.focusedMonitor?.name ?? "";
+    }
+    visible: GlobalState.launcher && modelData.name === monitor
     WlrLayershell.layer: WlrLayer.Top
     WlrLayershell.namespace: "buppyshell:launcher"
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive

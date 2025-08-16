@@ -1,5 +1,6 @@
 //@ pragma UseQApplication
 
+pragma ComponentBehavior: Bound
 import Quickshell
 import "windows"
 
@@ -22,15 +23,19 @@ ShellRoot {
                 modelData: scope.modelData
                 source: Osd.Volume
             }
+            LazyLoader {
+                loading: true
+                component: Sidebar {
+                    modelData: scope.modelData
+                }
+            }
+            LazyLoader {
+                loading: true
+                component: Launcher {
+                    modelData: scope.modelData
+                }
+            }
         }
-    }
-    LazyLoader {
-        loading: true
-        component: Sidebar {}
-    }
-    LazyLoader {
-        loading: true
-        component: Launcher {}
     }
     LazyLoader {
         loading: true

@@ -1,6 +1,7 @@
 pragma ComponentBehavior: Bound
 
 import Quickshell
+import Quickshell.Hyprland
 import Quickshell.Wayland
 import QtQuick
 import QtQuick.Controls
@@ -11,12 +12,18 @@ import qs.widgets
 
 PanelWindow {
     id: root
+    required property ShellScreen modelData
+    readonly property bool sidebarVisible: GlobalState.sidebar
+    property string monitor
     anchors {
         top: true
         right: true
         bottom: true
     }
-    visible: GlobalState.sidebar
+    onSidebarVisibleChanged: {
+        root.monitor = Hyprland.focusedMonitor?.name ?? "";
+    }
+    visible: GlobalState.sidebar && modelData.name === monitor
     WlrLayershell.layer: WlrLayer.Overlay
     WlrLayershell.namespace: "buppyshell:sidebar"
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.OnDemand
@@ -94,6 +101,9 @@ PanelWindow {
                 readonly property int sidebarModule: GlobalState.sidebarModule
                 Layout.fillWidth: true
                 Layout.fillHeight: true
+                Layout.bottomMargin: sidebar.width / 20
+                Layout.rightMargin: sidebar.width / 20
+                Layout.leftMargin: sidebar.width / 20
                 initialItem: getSidebarModule()
                 onSidebarModuleChanged: getSidebarModule()
                 function getSidebarModule(): Item {

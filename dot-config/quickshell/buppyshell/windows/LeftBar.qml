@@ -33,7 +33,7 @@ PanelWindow {
             spacing: 0
             Os {
                 Layout.fillWidth: true
-                Layout.preferredHeight: width * 0.8
+                Layout.preferredHeight: Theme.height.block
             }
             Workspaces {
                 bar: root
@@ -46,28 +46,28 @@ PanelWindow {
                 spacing: 2
                 Inhibitor {
                     Layout.fillWidth: true
-                    Layout.preferredHeight: width * 0.8
+                    Layout.preferredHeight: Theme.height.block
                 }
                 Battery {
                     Layout.fillWidth: true
-                    Layout.preferredHeight: width * 0.8
+                    Layout.preferredHeight: Theme.height.block
                 }
                 Light {
                     Layout.fillWidth: true
-                    Layout.preferredHeight: width * 0.8
+                    Layout.preferredHeight: Theme.height.block
                 }
                 Update {
                     Layout.fillWidth: true
-                    Layout.preferredHeight: hovered ? width * 1.6 : width * 0.8
+                    Layout.preferredHeight: hovered ? Theme.height.doubleBlock : Theme.height.block
                 }
                 StyledText {
                     Layout.fillWidth: true
-                    Layout.preferredHeight: width * 1.6
+                    Layout.preferredHeight: Theme.height.doubleBlock
                     text: Time.timeGrid
                 }
                 Power {
                     Layout.fillWidth: true
-                    Layout.preferredHeight: width * 0.8
+                    Layout.preferredHeight: Theme.height.block
                 }
             }
         }

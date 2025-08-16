@@ -34,19 +34,19 @@ PanelWindow {
             spacing: 2
             Bell {
                 Layout.fillWidth: true
-                Layout.preferredHeight: width * 0.8
+                Layout.preferredHeight: Theme.height.block
             }
             Volume {
                 Layout.fillWidth: true
-                Layout.preferredHeight: width * 0.8
+                Layout.preferredHeight: Theme.height.block
             }
             Bluetooth {
                 Layout.fillWidth: true
-                Layout.preferredHeight: width * 0.8
+                Layout.preferredHeight: Theme.height.block
             }
             Network {
                 Layout.fillWidth: true
-                Layout.preferredHeight: width * 0.8
+                Layout.preferredHeight: Theme.height.block
             }
             Tray {
                 Layout.fillWidth: true
