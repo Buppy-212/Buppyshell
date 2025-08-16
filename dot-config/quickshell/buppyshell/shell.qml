@@ -26,11 +26,8 @@ ShellRoot {
             Sidebar {
                 modelData: scope.modelData
             }
-            LazyLoader {
-                loading: true
-                component: Launcher {
-                    modelData: scope.modelData
-                }
+            Launcher {
+                modelData: scope.modelData
             }
         }
     }
