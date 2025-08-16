@@ -52,6 +52,8 @@ ColumnLayout {
         id: notificationList
         Layout.fillHeight: true
         Layout.fillWidth: true
+        Layout.rightMargin: root.width / 16
+        Layout.leftMargin: root.width / 16
         spacing: 2
         model: notificationServer.trackedNotifications
         delegate: Content {

@@ -102,8 +102,6 @@ PanelWindow {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 Layout.bottomMargin: sidebar.width / 20
-                Layout.rightMargin: sidebar.width / 20
-                Layout.leftMargin: sidebar.width / 20
                 initialItem: getSidebarModule()
                 onSidebarModuleChanged: getSidebarModule()
                 function getSidebarModule(): Item {

@@ -24,7 +24,7 @@ Item {
             bottom: parent.bottom
             left: parent.left
         }
-        implicitWidth: height
+        implicitWidth: root.width / 8
         font.pixelSize: height * 0.75
         visible: text
     }
@@ -48,7 +48,7 @@ Item {
             right: parent.right
             bottom: parent.bottom
         }
-        implicitWidth: height
+        implicitWidth: root.width / 8
         font.pixelSize: height * 0.75
         visible: text
     }

@@ -17,5 +17,7 @@ ColumnLayout {
         radius: Theme.radius.normal
         Layout.fillHeight: true
         Layout.fillWidth: true
+        Layout.rightMargin: root.width / 16
+        Layout.leftMargin: root.width / 16
     }
 }

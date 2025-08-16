@@ -51,6 +51,8 @@ ColumnLayout {
         id: listView
         Layout.fillWidth: true
         Layout.fillHeight: true
+        Layout.rightMargin: root.width / 16
+        Layout.leftMargin: root.width / 16
         model: Bluetooth.devices
         delegate: StyledTabButton {
             id: delegate

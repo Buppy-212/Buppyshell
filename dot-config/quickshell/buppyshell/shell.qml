@@ -2,6 +2,7 @@
 
 pragma ComponentBehavior: Bound
 import Quickshell
+import QtQuick
 import "windows"
 
 ShellRoot {
@@ -20,7 +21,7 @@ ShellRoot {
     Variants {
         model: Quickshell.screens
         delegate: Osd {
-          source: Osd.Volume
+            source: Osd.Volume
         }
     }
     Variants {

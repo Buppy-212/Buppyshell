@@ -41,6 +41,8 @@ ColumnLayout {
         id: listView
         Layout.fillWidth: true
         Layout.fillHeight: true
+        Layout.rightMargin: root.width / 16
+        Layout.leftMargin: root.width / 16
         model: Pipewire.nodes.values.filter(a => a.audio).sort((a, b) => {
             let score = (b.isSink - a.isSink) + 2 * (a.isStream - b.isStream);
             if (a.score === b.score) {
