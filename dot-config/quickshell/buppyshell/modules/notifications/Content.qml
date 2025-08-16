@@ -63,7 +63,7 @@ Rectangle {
         onGrabChanged: (transition, point) => {
             if (transition === PointerDevice.GrabExclusive) {
                 behavior.enabled = false;
-            } else if (transition === PointerDevice.UngrabExclusive) {
+            } else if (transition === PointerDevice.UngrabExclusive && root.x !== 0) {
                 behavior.enabled = true;
                 root.x = root.width;
             }
