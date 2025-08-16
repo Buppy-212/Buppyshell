@@ -7,8 +7,46 @@ import QtQuick
 import qs.services
 import qs.modules.notifications
 
-Scope {
+PanelWindow {
     id: root
+    property Notification currentNotification: null
+    function clearNotifs(): void {
+        if (GlobalState.sidebar) {
+            var notifications = notificationServer.trackedNotifications.values.slice();
+            for (var i = 0; i < notifications.length; i++) {
+                notifications[i].dismiss();
+            }
+        }
+    }
+    anchors {
+        top: true
+        right: true
+        bottom: true
+    }
+    margins {
+        top: 2
+        right: 2
+        bottom: 2
+    }
+    color: "transparent"
+    exclusiveZone: 0
+    implicitWidth: screen.width / 4
+    mask: Region {
+        item: content
+    }
+    visible: currentNotification === null ? false : true
+    WlrLayershell.namespace: "buppyshell:notification"
+    WlrLayershell.layer: WlrLayer.Overlay
+    Timer {
+        interval: 3000
+        running: root.currentNotification !== null && !content.Drag.active
+        onTriggered: {
+            if (root.currentNotification) {
+                root.currentNotification = null;
+                content.x = 0;
+            }
+        }
+    }
     NotificationServer {
         id: notificationServer
         bodySupported: true
@@ -31,58 +69,17 @@ Scope {
                 }
             }
             if (!GlobalState.sidebar && !GlobalState.doNotDisturb) {
-                notificationPopup.showNotification(notification);
+                root.currentNotification = notification;
             }
         }
     }
-    PanelWindow {
-        id: notificationPopup
-        function showNotification(notification): void {
-            currentNotification = notification;
-        }
-        property Notification currentNotification: null
+    Content {
+        id: content
         anchors {
-            top: true
-            right: true
-            bottom: true
+            top: parent.top
+            right: parent.right
+            left: parent.left
         }
-        margins {
-            top: Theme.margin.tiny
-            right: Theme.margin.tiny
-            bottom: Theme.margin.tiny
-        }
-        Timer {
-            id: timeoutTimer
-            interval: 3000
-            running: notificationPopup.currentNotification !== null && !content.Drag.active
-            onTriggered: {
-                if (notificationPopup.currentNotification) {
-                    notificationPopup.currentNotification = null;
-                    content.x = 0;
-                }
-            }
-        }
-        color: "transparent"
-        exclusiveZone: 0
-        implicitWidth: screen.width / 4
-        mask: Region {
-            item: content
-        }
-        visible: currentNotification === null ? false : true
-        WlrLayershell.namespace: "buppyshell:notification"
-        WlrLayershell.layer: WlrLayer.Overlay
-        Content {
-            id: content
-            implicitWidth: parent.width
-            notification: notificationPopup.currentNotification
-        }
-    }
-    function clearNotifs(): void {
-        if (GlobalState.sidebar) {
-            var notifications = notificationServer.trackedNotifications.values.slice();
-            for (var i = 0; i < notifications.length; i++) {
-                notifications[i].dismiss();
-            }
-        }
+        notification: root.currentNotification
     }
 }
