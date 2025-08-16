@@ -7,34 +7,31 @@ import "windows"
 ShellRoot {
     Variants {
         model: Quickshell.screens
-        Scope {
-            id: scope
-            required property ShellScreen modelData
-            LeftBar {
-                modelData: scope.modelData
-            }
-            RightBar {
-                modelData: scope.modelData
-            }
-            Background {
-                modelData: scope.modelData
-            }
-            Osd {
-                modelData: scope.modelData
-                source: Osd.Volume
-            }
-            Sidebar {
-                modelData: scope.modelData
-            }
-            Launcher {
-                modelData: scope.modelData
-            }
+        delegate: LeftBar {}
+    }
+    Variants {
+        model: Quickshell.screens
+        delegate: RightBar {}
+    }
+    Variants {
+        model: Quickshell.screens
+        delegate: Background {}
+    }
+    Variants {
+        model: Quickshell.screens
+        delegate: Osd {
+          source: Osd.Volume
         }
     }
-    LazyLoader {
-        loading: true
-        component: Popup {}
+    Variants {
+        model: Quickshell.screens
+        delegate: Sidebar {}
     }
+    Variants {
+        model: Quickshell.screens
+        delegate: Launcher {}
+    }
+    Popup {}
     LazyLoader {
         loading: true
         component: Lockscreen {}
