@@ -24,8 +24,20 @@ ShellRoot {
             }
         }
     }
-    Sidebar {}
-    Launcher {}
-    Popup {}
-    Lockscreen {}
+    LazyLoader {
+        loading: true
+        component: Sidebar {}
+    }
+    LazyLoader {
+        loading: true
+        component: Launcher {}
+    }
+    LazyLoader {
+        loading: true
+        component: Popup {}
+    }
+    LazyLoader {
+        loading: true
+        component: Lockscreen {}
+    }
 }

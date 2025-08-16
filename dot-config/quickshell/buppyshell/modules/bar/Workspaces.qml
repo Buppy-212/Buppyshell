@@ -105,10 +105,9 @@ ColumnLayout {
                                 parent.Drag.drop();
                             }
                         }
-                        Loader {
+                        LazyLoader {
                             active: mouseArea.containsMouse
-                            asynchronous: true
-                            sourceComponent: PopupWindow {
+                            component: PopupWindow {
                                 anchor {
                                     window: root.bar
                                     rect.x: root.parent.width + Theme.margin.tiny
