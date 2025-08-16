@@ -15,6 +15,7 @@ Loader {
     required property ShellScreen modelData
     readonly property bool sidebarVisible: GlobalState.sidebar
     property string monitor
+    asynchronous: true
     onSidebarVisibleChanged: {
         root.monitor = Hyprland.focusedMonitor?.name ?? "";
     }
