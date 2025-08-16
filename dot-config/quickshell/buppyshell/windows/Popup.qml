@@ -75,11 +75,8 @@ PanelWindow {
     }
     Content {
         id: content
-        anchors {
-            top: parent.top
-            right: parent.right
-            left: parent.left
-        }
+        anchors.top: parent.top
+        implicitWidth: parent.width
         notification: root.currentNotification
     }
 }
