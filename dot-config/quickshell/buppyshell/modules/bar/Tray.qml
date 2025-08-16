@@ -20,7 +20,7 @@ Item {
                 tray: root
                 bar: root.bar
                 implicitWidth: root.width
-                implicitHeight: width * 0.8
+                implicitHeight: Theme.height.block
             }
         }
     }
