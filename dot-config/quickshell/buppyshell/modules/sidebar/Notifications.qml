@@ -35,6 +35,7 @@ ColumnLayout {
     Header {
         id: header
         Layout.fillWidth: true
+        Layout.maximumHeight: Screen.height / 30
         title: "Notifications"
         leftButtonText: GlobalState.doNotDisturb ? "󰂠" : "󰂚"
         function leftButtonTapped(): void {

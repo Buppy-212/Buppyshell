@@ -9,7 +9,7 @@ ColumnLayout {
     Header {
         title: "Network"
         Layout.fillWidth: true
-        Layout.preferredHeight: Theme.height.doubleBlock
+        Layout.maximumHeight: Screen.height / 30
     }
     Rectangle {
         id: networkWidget

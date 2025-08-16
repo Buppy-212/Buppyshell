@@ -35,6 +35,7 @@ ColumnLayout {
     Header {
         id: header
         Layout.fillWidth: true
+        Layout.maximumHeight: Screen.height / 30
         title: Bluetooth.defaultAdapter?.name ?? "Bluetooth"
         leftButtonText: Bluetooth.defaultAdapter?.enabled ?? Bluetooth.adapters.values[0]?.enabled ? "󰂯" : "󰂲"
         leftButtonColor: Theme.color.blue
