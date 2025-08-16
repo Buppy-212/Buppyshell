@@ -18,9 +18,9 @@ ShellRoot {
             Background {
                 modelData: scope.modelData
             }
-            Sliders {
+            Osd {
                 modelData: scope.modelData
-                source: Sliders.Source.Volume
+                source: Osd.Volume
             }
         }
     }
