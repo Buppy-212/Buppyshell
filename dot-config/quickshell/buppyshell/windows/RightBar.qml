@@ -12,7 +12,7 @@ PanelWindow {
     visible: GlobalState.bar
     screen: root.modelData
     mask: Region {
-        item: rightRect
+        item: rectangle
     }
     WlrLayershell.namespace: "buppyshell:rightbar"
     anchors {
@@ -24,38 +24,45 @@ PanelWindow {
     exclusiveZone: Theme.width.block
     color: "transparent"
     Rectangle {
-        id: rightRect
+        id: rectangle
         color: Theme.color.black
         implicitHeight: parent.height
         implicitWidth: Theme.width.block
         anchors.right: parent.right
         ColumnLayout {
             anchors.fill: parent
-            Column {
-                spacing: Theme.margin.tiny
-                Layout.alignment: Qt.AlignTop
-                Bell {}
-                Volume {}
-                Bluetooth {}
-                Network {}
-                Tray {
-                    bar: root
-                }
+            spacing: 2
+            Bell {
+                Layout.fillWidth: true
+                Layout.preferredHeight: width * 0.8
+            }
+            Volume {
+                Layout.fillWidth: true
+                Layout.preferredHeight: width * 0.8
+            }
+            Bluetooth {
+                Layout.fillWidth: true
+                Layout.preferredHeight: width * 0.8
+            }
+            Network {
+                Layout.fillWidth: true
+                Layout.preferredHeight: width * 0.8
+            }
+            Tray {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                bar: root
             }
         }
     }
     RoundCorner {
         anchors.bottom: parent.bottom
-        anchors.right: parent.right
-        anchors.rightMargin: Theme.width.block
-        size: Theme.radius.normalAdjusted
-        corner: RoundCorner.Corner.BottomRight
+        anchors.left: parent.left
+        corner: RoundCorner.BottomRight
     }
     RoundCorner {
         anchors.top: parent.top
-        anchors.right: parent.right
-        anchors.rightMargin: Theme.width.block
-        size: Theme.radius.normalAdjusted
-        corner: RoundCorner.Corner.TopRight
+        anchors.left: parent.left
+        corner: RoundCorner.TopRight
     }
 }

@@ -10,9 +10,9 @@ PanelWindow {
     id: root
     required property ShellScreen modelData
     visible: GlobalState.bar
-    screen: root.modelData
+    screen: modelData
     mask: Region {
-        item: leftRect
+        item: rectangle
     }
     WlrLayershell.namespace: "buppyshell:leftbar"
     anchors {
@@ -24,7 +24,7 @@ PanelWindow {
     exclusiveZone: Theme.width.block
     color: "transparent"
     Rectangle {
-        id: leftRect
+        id: rectangle
         color: Theme.color.black
         implicitHeight: parent.height
         implicitWidth: Theme.width.block
@@ -32,7 +32,8 @@ PanelWindow {
             anchors.fill: parent
             spacing: 0
             Os {
-                Layout.preferredHeight: Theme.height.block
+                Layout.fillWidth: true
+                Layout.preferredHeight: width * 0.8
             }
             Workspaces {
                 bar: root
@@ -42,47 +43,43 @@ PanelWindow {
             ColumnLayout {
                 Layout.alignment: Qt.AlignBottom
                 Layout.fillWidth: true
-                spacing: Theme.margin.tiny
+                spacing: 2
                 Inhibitor {
                     Layout.fillWidth: true
-                    Layout.preferredHeight: Theme.height.block
+                    Layout.preferredHeight: width * 0.8
                 }
                 Battery {
                     Layout.fillWidth: true
-                    Layout.preferredHeight: Theme.height.block
+                    Layout.preferredHeight: width * 0.8
                 }
                 Light {
                     Layout.fillWidth: true
-                    Layout.preferredHeight: Theme.height.block
+                    Layout.preferredHeight: width * 0.8
                 }
                 Update {
                     Layout.fillWidth: true
-                    Layout.preferredHeight: hovered ? Theme.height.doubleBlock : Theme.height.block
+                    Layout.preferredHeight: hovered ? width * 1.6 : width * 0.8
                 }
                 StyledText {
                     Layout.fillWidth: true
-                    Layout.preferredHeight: Theme.height.doubleBlock
+                    Layout.preferredHeight: width * 1.6
                     text: Time.timeGrid
                 }
                 Power {
                     Layout.fillWidth: true
-                    Layout.preferredHeight: Theme.height.block
+                    Layout.preferredHeight: width * 0.8
                 }
             }
         }
     }
     RoundCorner {
         anchors.bottom: parent.bottom
-        anchors.left: parent.left
-        anchors.leftMargin: Theme.width.block
-        size: Theme.radius.normalAdjusted
-        corner: RoundCorner.Corner.BottomLeft
+        anchors.right: parent.right
+        corner: RoundCorner.BottomLeft
     }
     RoundCorner {
         anchors.top: parent.top
-        anchors.left: parent.left
-        anchors.leftMargin: Theme.width.block
-        size: Theme.radius.normalAdjusted
-        corner: RoundCorner.Corner.TopLeft
+        anchors.right: parent.right
+        corner: RoundCorner.TopLeft
     }
 }

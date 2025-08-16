@@ -80,7 +80,7 @@ PanelWindow {
                 case GlobalState.LauncherModule.WindowSwitcher:
                     stackView.replaceCurrentItem(Quickshell.shellPath("modules/launcher/WindowSwitcher.qml"), {
                         "search": Qt.binding(function () {
-                            return root.text;
+                            return searchbar.text;
                         })
                     });
                     break;
