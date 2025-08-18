@@ -4,7 +4,7 @@ import qs.widgets
 
 Item {
     id: root
-    implicitHeight: Theme.blockHeight * 2
+    implicitHeight: Theme.doubledBlockHeight
     property alias title: title.text
     property alias leftButtonText: leftButton.text
     property alias leftButtonColor: leftButton.color
@@ -25,7 +25,7 @@ Item {
             left: parent.left
         }
         implicitWidth: root.width / 8
-        font.pixelSize: height * 0.75
+        font.pixelSize: Theme.font.size.doubled
         visible: text
     }
     StyledText {
@@ -36,7 +36,8 @@ Item {
             bottom: parent.bottom
             left: leftButton.right
         }
-        font.pixelSize: height * 0.75
+        font.pixelSize: Theme.font.size.doubled
+        fontSizeMode: Text.Fit
     }
     StyledButton {
         id: rightButton
@@ -49,7 +50,7 @@ Item {
             bottom: parent.bottom
         }
         implicitWidth: root.width / 8
-        font.pixelSize: height * 0.75
+        font.pixelSize: Theme.font.size.doubled
         visible: text
     }
 }

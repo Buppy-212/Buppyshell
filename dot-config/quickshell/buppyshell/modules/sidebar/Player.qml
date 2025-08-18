@@ -6,7 +6,10 @@ import qs.widgets
 
 Item {
     id: root
+    implicitHeight: Theme.blockHeight * 5
+
     property int currentIndex: findPlayerctld()
+
     function findPlayerctld(): int {
         for (var i = 0; i < Mpris.players.values.length; i++) {
             if (Mpris.players.values[i].dbusName === "org.mpris.MediaPlayer2.playerctld") {
@@ -14,13 +17,15 @@ Item {
             }
         }
     }
+
     StyledButton {
         id: backButton
+
         implicitHeight: parent.height
         implicitWidth: root.width / 8
         anchors.left: parent.left
         text: ""
-        font.pixelSize: width / 2
+        font.pixelSize: Theme.font.size.doubled
         function tapped() {
             if (root.currentIndex > 0) {
                 root.currentIndex -= 1;
@@ -29,6 +34,7 @@ Item {
             }
         }
     }
+
     ColumnLayout {
         spacing: height / 10
         anchors {
@@ -37,38 +43,44 @@ Item {
             bottom: parent.bottom
             left: backButton.right
         }
+
         StyledText {
             text: Mpris.players.values[root.currentIndex]?.trackTitle ?? false ? Mpris.players.values[root.currentIndex].trackTitle : "No Track"
             Layout.fillWidth: true
             Layout.preferredHeight: parent.height / 5
-            font.pixelSize: height
+            font.pixelSize: Theme.font.size.doubled
             elide: Text.ElideRight
         }
+
         Row {
             id: playbackControls
+
             Layout.fillHeight: true
             Layout.alignment: Qt.AlignHCenter
-            spacing: 24
+            spacing: Theme.blockHeight / 2
+
             Behavior on anchors.bottomMargin {
                 animation: Theme.animation.elementMove.numberAnimation.createObject(this)
             }
+
             StyledButton {
                 implicitHeight: parent.height
                 implicitWidth: implicitHeight
                 text: ""
-                font.pixelSize: height * 0.75
+                font.pixelSize: Theme.font.size.doubled
                 function tapped() {
                     if (Mpris.players.values[root.currentIndex].canGoPrevious) {
                         Mpris.players.values[root.currentIndex].previous();
                     }
                 }
             }
+
             StyledButton {
                 implicitHeight: parent.height
                 implicitWidth: implicitHeight
                 text: Mpris.players.values[root.currentIndex]?.isPlaying ? "" : ""
                 color: Mpris.players.values[root.currentIndex]?.dbusName === "org.mpris.MediaPlayer2.playerctld" ? Theme.color.red : Theme.color.fg
-                font.pixelSize: height * 0.75
+                font.pixelSize: Theme.font.size.doubled
                 function tapped(eventPoint, button) {
                     switch (button) {
                     case Qt.LeftButton:
@@ -83,11 +95,12 @@ Item {
                     }
                 }
             }
+
             StyledButton {
                 implicitHeight: parent.height
                 implicitWidth: implicitHeight
                 text: ""
-                font.pixelSize: height * 0.75
+                font.pixelSize: Theme.font.size.doubled
                 function tapped() {
                     if (Mpris.players.values[root.currentIndex].canGoNext) {
                         Mpris.players.values[root.currentIndex].next();
@@ -100,17 +113,17 @@ Item {
             Layout.fillWidth: true
             Layout.preferredHeight: parent.height * 0.15
             Layout.bottomMargin: parent.height / 20
-            font.pixelSize: height
             elide: Text.ElideMiddle
         }
     }
     StyledButton {
         id: forwardButton
+
         implicitHeight: parent.height
         implicitWidth: root.width / 8
         anchors.right: parent.right
         text: ""
-        font.pixelSize: width / 2
+        font.pixelSize: Theme.font.size.doubled
         function tapped() {
             if (root.currentIndex < Mpris.players.values.length - 1) {
                 root.currentIndex += 1;

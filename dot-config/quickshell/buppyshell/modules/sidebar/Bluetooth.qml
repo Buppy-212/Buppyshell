@@ -9,6 +9,7 @@ import qs.widgets
 
 ColumnLayout {
     id: root
+
     Keys.onPressed: event => {
         switch (event.key) {
         case Qt.Key_O:
@@ -32,10 +33,11 @@ ColumnLayout {
         }
     }
     Keys.forwardTo: [listView]
+
     Header {
         id: header
+
         Layout.fillWidth: true
-        Layout.maximumHeight: Screen.height / 30
         title: Bluetooth.defaultAdapter?.name ?? "Bluetooth"
         leftButtonText: Bluetooth.defaultAdapter?.enabled ?? Bluetooth.adapters.values[0]?.enabled ? "󰂯" : "󰂲"
         leftButtonColor: Theme.color.blue
@@ -47,8 +49,10 @@ ColumnLayout {
             Bluetooth.defaultAdapter.discovering = !Bluetooth.defaultAdapter.discovering;
         }
     }
+
     StyledListView {
         id: listView
+
         Layout.fillWidth: true
         Layout.fillHeight: true
         Layout.rightMargin: root.width / 16
@@ -56,8 +60,10 @@ ColumnLayout {
         model: Bluetooth.devices
         delegate: StyledTabButton {
             id: delegate
+
             required property BluetoothDevice modelData
             required property int index
+
             function entered(): void {
                 listView.currentIndex = delegate.index;
             }
@@ -74,10 +80,11 @@ ColumnLayout {
                     break;
                 }
             }
+
             accentColor: selected ? Theme.color.black : Theme.color.accent
             selected: modelData.connected
             implicitWidth: listView.width
-            implicitHeight: 48
+            implicitHeight: Theme.doubledBlockHeight
             background: Rectangle {
                 visible: delegate.selected
                 color: Theme.color.accent
@@ -85,28 +92,31 @@ ColumnLayout {
             }
             contentItem: RowLayout {
                 anchors.fill: parent
-                spacing: height / 4
+                spacing: Theme.margin
+
                 IconImage {
                     Layout.fillHeight: true
                     Layout.preferredWidth: height
                     source: Quickshell.iconPath(delegate.modelData.icon, "bluetooth")
                 }
+
                 StyledText {
                     Layout.fillHeight: true
                     Layout.fillWidth: true
                     horizontalAlignment: Text.AlignLeft
                     text: delegate.modelData.batteryAvailable ? `${delegate.modelData.name} (${delegate.modelData.battery * 100}%)` : delegate.modelData.name
                     color: delegate.ListView.isCurrentItem ? delegate.accentColor : delegate.buttonColor
-                    font.pixelSize: height / 2
+                    font.pixelSize: Theme.font.size.large
                     fontSizeMode: Text.Fit
                 }
+
                 StyledText {
                     Layout.alignment: Qt.AlignRight
                     Layout.fillHeight: true
                     Layout.preferredWidth: contentWidth
                     Layout.rightMargin: height / 4
                     visible: delegate.modelData.trusted
-                    font.pixelSize: height / 2
+                    font.pixelSize: Theme.font.size.large
                     text: ""
                     color: Theme.color.green
                 }

@@ -93,12 +93,12 @@ PanelWindow {
 
             Update {
                 Layout.fillWidth: true
-                Layout.preferredHeight: hovered ? Theme.blockHeight * 2 : Theme.blockHeight
+                Layout.preferredHeight: hovered ? Theme.doubledBlockHeight : Theme.blockHeight
             }
 
             StyledText {
                 Layout.fillWidth: true
-                Layout.preferredHeight: Theme.blockHeight * 2
+                Layout.preferredHeight: Theme.doubledBlockHeight
                 text: Time.timeGrid
             }
 

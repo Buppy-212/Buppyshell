@@ -8,6 +8,7 @@ import qs.modules.notifications
 
 ColumnLayout {
     id: root
+
     Keys.forwardTo: [notificationList]
     Keys.onPressed: event => {
         switch (event.key) {
@@ -29,13 +30,15 @@ ColumnLayout {
         }
     }
     spacing: 0
+
     NotificationServer {
         id: notificationServer
     }
+
     Header {
         id: header
+
         Layout.fillWidth: true
-        Layout.maximumHeight: Screen.height / 30
         title: "Notifications"
         leftButtonText: GlobalState.doNotDisturb ? "󰂠" : "󰂚"
         function leftButtonTapped(): void {
@@ -48,8 +51,10 @@ ColumnLayout {
             }
         }
     }
+
     StyledListView {
         id: notificationList
+
         Layout.fillHeight: true
         Layout.fillWidth: true
         Layout.rightMargin: root.width / 16
@@ -58,7 +63,9 @@ ColumnLayout {
         model: notificationServer.trackedNotifications
         delegate: Content {
             id: content
+
             required property Notification modelData
+
             border.color: ListView.isCurrentItem || hovered ? Theme.color.red : Theme.color.blue
             implicitWidth: notificationList.width
             notification: modelData

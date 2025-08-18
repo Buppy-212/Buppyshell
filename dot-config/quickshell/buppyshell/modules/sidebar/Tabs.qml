@@ -5,8 +5,10 @@ import qs.widgets
 
 RowLayout {
     id: root
+
     spacing: 0
     uniformCellSizes: true
+
     Repeater {
         id: repeater
         model: [
@@ -33,17 +35,20 @@ RowLayout {
         ]
         delegate: StyledTabButton {
             id: delegateButton
+
             required property string _text
             required property string command
             required property int sidebarModule
+
+            function tapped(): void {
+                GlobalState.toggle(delegateButton.command);
+            }
+
             selected: GlobalState.sidebarModule == sidebarModule
             text: delegateButton._text
             Layout.fillWidth: true
             Layout.fillHeight: true
-            font.pixelSize: height * 0.75
-            function tapped(): void {
-                GlobalState.toggle(delegateButton.command);
-            }
+            font.pixelSize: Theme.font.size.doubled
         }
     }
 }

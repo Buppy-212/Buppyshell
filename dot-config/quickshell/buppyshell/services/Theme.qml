@@ -14,6 +14,7 @@ Singleton {
     readonly property int spacing: 2
     readonly property int iconSize: 48
     readonly property int blockHeight: 24
+    readonly property int doubledBlockHeight: 2 * blockHeight
     readonly property int blockWidth: 30
     readonly property int barWidth: 40
     readonly property Color color: Color {}
@@ -47,7 +48,7 @@ Singleton {
     component FontSize: QtObject {
         readonly property int normal: 17
         readonly property int large: 22
-        readonly property int doubled: 34
+        readonly property int doubled: normal * 2
         readonly property int huge: 56
     }
     component Font: QtObject {

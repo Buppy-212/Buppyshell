@@ -12,9 +12,11 @@ import qs.widgets
 
 Loader {
     id: root
+
     required property ShellScreen modelData
     readonly property bool sidebarVisible: GlobalState.sidebar
     property string monitor
+
     asynchronous: true
     onSidebarVisibleChanged: {
         root.monitor = Hyprland.focusedMonitor?.name ?? "";
@@ -27,22 +29,25 @@ Loader {
             bottom: true
             left: !Theme.barOnRight
         }
+        color: "transparent"
+        implicitWidth: screen.width / 4
+        exclusiveZone: 0
         WlrLayershell.layer: WlrLayer.Overlay
         WlrLayershell.namespace: "buppyshell:sidebar"
         WlrLayershell.keyboardFocus: WlrKeyboardFocus.OnDemand
-        exclusiveZone: 0
-        color: "transparent"
-        implicitWidth: screen.width / 4
+
         Rectangle {
             id: sidebar
+
             anchors {
                 top: parent.top
                 bottom: parent.bottom
-                margins: 2
+                margins: Theme.border
             }
-            implicitWidth: parent.width - 2
+            implicitWidth: parent.width - Theme.border
             radius: Theme.radius
             color: Theme.color.bg
+
             DragHandler {
                 cursorShape: Qt.ClosedHandCursor
                 xAxis.minimum: 0
@@ -56,8 +61,10 @@ Loader {
                     }
                 }
             }
+
             Behavior on x {
                 id: behavior
+
                 NumberAnimation {
                     duration: Theme.animation.elementMoveExit.duration
                     easing.type: Theme.animation.elementMoveExit.type
@@ -70,6 +77,7 @@ Loader {
                     }
                 }
             }
+
             ColumnLayout {
                 anchors.fill: parent
                 spacing: 0
@@ -94,17 +102,19 @@ Loader {
                     GlobalState.sidebar = false;
                 }
                 Keys.forwardTo: [stackView.currentItem]
+
                 Tabs {
                     Layout.fillWidth: true
-                    Layout.preferredHeight: sidebar.height / 30
-                    Layout.maximumHeight: sidebar.height / 30
+                    Layout.preferredHeight: Theme.doubledBlockHeight
+                    Layout.maximumHeight: Theme.doubledBlockHeight
                 }
+
                 StackView {
                     id: stackView
                     readonly property int sidebarModule: GlobalState.sidebarModule
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    Layout.bottomMargin: sidebar.width / 20
+                    Layout.bottomMargin: Theme.blockHeight
                     initialItem: getSidebarModule()
                     onSidebarModuleChanged: getSidebarModule()
                     function getSidebarModule(): Item {
@@ -124,9 +134,9 @@ Loader {
                         }
                     }
                 }
+
                 Player {
                     Layout.fillWidth: true
-                    Layout.preferredHeight: sidebar.height / 10
                 }
             }
         }

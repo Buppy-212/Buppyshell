@@ -8,6 +8,7 @@ import qs.widgets
 
 ColumnLayout {
     id: root
+
     spacing: 0
     Keys.forwardTo: [listView]
     Keys.onPressed: event => {
@@ -32,13 +33,15 @@ ColumnLayout {
             break;
         }
     }
+
     Header {
         Layout.fillWidth: true
-        Layout.maximumHeight: Screen.height / 30
         title: "Volume"
     }
+
     StyledListView {
         id: listView
+
         Layout.fillWidth: true
         Layout.fillHeight: true
         Layout.rightMargin: root.width / 16
@@ -56,8 +59,10 @@ ColumnLayout {
         })
         delegate: StyledButton {
             id: delegate
+
             required property PwNode modelData
             required property int index
+
             function mute(): void {
                 delegate.modelData.audio.muted = !delegate.modelData.audio.muted;
             }
@@ -85,27 +90,32 @@ ColumnLayout {
                     delegate.mute();
                 }
             }
+
             background: null
             accentColor: Theme.color.accent
             visible: delegate.modelData?.ready ?? false
             implicitWidth: listView.width
-            implicitHeight: 72
+            implicitHeight: Theme.blockHeight * 3
             contentItem: ColumnLayout {
-                spacing: 4
+                spacing: Theme.spacing
+
                 StyledText {
                     text: delegate.modelData.isStream ? delegate.modelData.name : delegate.modelData.description
                     color: delegate.ListView.isCurrentItem ? delegate.accentColor : delegate.buttonColor
                     elide: Text.ElideRight
                     Layout.fillWidth: true
-                    Layout.preferredHeight: parent.height / 3
+                    Layout.preferredHeight: Theme.blockHeight
                 }
+
                 RowLayout {
                     Layout.fillHeight: true
                     Layout.fillWidth: true
-                    Layout.bottomMargin: 6
+                    Layout.bottomMargin: Theme.spacing
                     spacing: 0
+
                     StyledSlider {
                         id: slider
+
                         Layout.fillHeight: true
                         Layout.fillWidth: true
                         value: delegate.modelData.audio?.volume ?? 0
@@ -126,18 +136,22 @@ ColumnLayout {
                         }
                         handle: Rectangle {
                             id: button
+
                             anchors {
                                 top: parent.top
                                 bottom: parent.bottom
                                 right: parent.right
-                                margins: 2
+                                margins: Theme.border
                             }
                             color: Theme.color.black
-                            implicitWidth: height * 1.5
+                            implicitWidth: Theme.blockWidth * 1.5
                             radius: height / 2
+
                             StyledText {
                                 id: text
+
                                 anchors.fill: parent
+                                color: slider.color
                                 text: {
                                     var volume = Math.trunc(delegate.modelData.audio.volume * 100);
                                     if (!delegate.modelData.isSink && !delegate.modelData.isStream) {
@@ -151,7 +165,6 @@ ColumnLayout {
                                     }
                                     return volume;
                                 }
-                                color: slider.color
                             }
                         }
                     }
