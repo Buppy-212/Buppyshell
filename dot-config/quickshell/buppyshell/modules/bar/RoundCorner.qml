@@ -3,7 +3,7 @@ import qs.services
 
 Item {
     id: root
-    property int size: Theme.radius.normalAdjusted
+    property int size: Theme.radius + 3
     property color color: Theme.color.black
     property int corner: RoundCorner.TopLeft
     enum Orientation {

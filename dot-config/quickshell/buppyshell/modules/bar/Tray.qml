@@ -5,7 +5,6 @@ import qs.services
 
 ScrollView {
     id: root
-    property bool onRight: true
     ScrollBar.vertical.policy: ScrollBar.AlwaysOff
     clip: true
     visible: repeater.count > 0
@@ -19,8 +18,7 @@ ScrollView {
             TrayItem {
                 id: trayItem
                 implicitWidth: root.width
-                implicitHeight: Theme.width.block
-                onRight: root.onRight
+                implicitHeight: Theme.blockWidth
             }
         }
     }

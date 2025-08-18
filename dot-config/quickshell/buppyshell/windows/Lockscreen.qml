@@ -8,8 +8,8 @@ import qs.widgets
 import qs.modules.background
 
 WlSessionLock {
-    id: lock
     locked: GlobalState.locked
+
     WlSessionLockSurface {
         Image {
             id: image
@@ -17,34 +17,38 @@ WlSessionLock {
             fillMode: Image.PreserveAspectCrop
             source: Wallpaper.path
         }
+
         Date {}
+
         PamContext {
             id: pam
             active: true
             onPamMessage: {
-                passRect.border.color = Theme.color.blue;
+                textFieldBackground.border.color = Theme.color.blue;
                 if (responseRequired) {
-                    passwordField.echoMode = responseVisible ? TextInput.Normal : TextInput.Password;
+                    textField.echoMode = responseVisible ? TextInput.Normal : TextInput.Password;
                 }
             }
             onCompleted: function (result) {
                 if (result === PamResult.Success) {
                     GlobalState.locked = false;
                 } else {
-                    passRect.border.color = Theme.color.red;
+                    textFieldBackgroune.border.color = Theme.color.red;
                     pam.active = true;
                     pam.start();
                 }
             }
         }
+
         Rectangle {
             height: Screen.height / 10
             width: Screen.width / 6
             color: Theme.color.bgTranslucent
             radius: height / 3
             anchors.centerIn: parent
+
             StyledTextField {
-                id: passwordField
+                id: textField
                 focus: true
                 anchors {
                     fill: parent
@@ -52,7 +56,7 @@ WlSessionLock {
                 }
                 placeholderText: "Password"
                 background: Rectangle {
-                    id: passRect
+                    id: textFieldBackground
                     border {
                         width: 2
                         color: Theme.color.blue

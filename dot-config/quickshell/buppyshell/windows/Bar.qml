@@ -8,110 +8,128 @@ import qs.modules.bar
 
 PanelWindow {
     id: root
+
     required property ShellScreen modelData
-    property bool onRight: true
-    visible: GlobalState.bar
-    screen: root.modelData
+
+    screen: modelData
+    anchors {
+        top: true
+        right: Theme.barOnRight
+        bottom: true
+        left: !Theme.barOnRight
+    }
+    implicitWidth: modelData.width
+    color: "transparent"
     mask: Region {
         item: rectangle
     }
+    exclusiveZone: Theme.barWidth
     WlrLayershell.namespace: "buppyshell:rightbar"
-    anchors {
-        top: true
-        right: root.onRight
-        bottom: true
-        left: !root.onRight
-    }
-    implicitWidth: modelData.width
-    exclusiveZone: Theme.width.bar
-    color: "transparent"
+
     Rectangle {
         id: rectangle
-        color: Theme.color.black
+
         anchors {
             top: parent.top
-            right: root.onRight ? parent.right : undefined
+            right: Theme.barOnRight ? parent.right : undefined
             bottom: parent.bottom
-            left: !root.onRight ? parent.left : undefined
+            left: !Theme.barOnRight ? parent.left : undefined
         }
-        implicitWidth: Theme.width.bar
+        implicitWidth: Theme.barWidth
+        color: Theme.color.black
+
         ColumnLayout {
             anchors.fill: parent
-            spacing: 2
+            spacing: Theme.spacing
+
             Os {
                 Layout.fillWidth: true
-                Layout.preferredHeight: Theme.height.block
+                Layout.preferredHeight: Theme.blockHeight
             }
+
             Bell {
                 Layout.fillWidth: true
-                Layout.preferredHeight: Theme.height.block
+                Layout.preferredHeight: Theme.blockHeight
             }
+
             Workspaces {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                onRight: root.onRight
             }
+
             Tray {
                 Layout.fillWidth: true
-                onRight: root.onRight
             }
+
             Volume {
                 Layout.fillWidth: true
-                Layout.preferredHeight: Theme.height.block
+                Layout.preferredHeight: Theme.blockHeight
             }
+
             Bluetooth {
                 Layout.fillWidth: true
-                Layout.preferredHeight: Theme.height.block
+                Layout.preferredHeight: Theme.blockHeight
             }
+
             Inhibitor {
                 Layout.fillWidth: true
-                Layout.preferredHeight: Theme.height.block
+                Layout.preferredHeight: Theme.blockHeight
             }
+
             Network {
                 Layout.fillWidth: true
-                Layout.preferredHeight: Theme.height.block
+                Layout.preferredHeight: Theme.blockHeight
             }
+
             Battery {
                 Layout.fillWidth: true
-                Layout.preferredHeight: Theme.height.block
+                Layout.preferredHeight: Theme.blockHeight
             }
+
             Light {
                 Layout.fillWidth: true
-                Layout.preferredHeight: Theme.height.block
+                Layout.preferredHeight: Theme.blockHeight
             }
+
             Update {
                 Layout.fillWidth: true
-                Layout.preferredHeight: hovered ? Theme.height.doubleBlock : Theme.height.block
+                Layout.preferredHeight: hovered ? Theme.blockHeight * 2 : Theme.blockHeight
             }
+
             StyledText {
                 Layout.fillWidth: true
-                Layout.preferredHeight: Theme.height.doubleBlock
+                Layout.preferredHeight: Theme.blockHeight * 2
                 text: Time.timeGrid
             }
+
             Power {
                 Layout.fillWidth: true
-                Layout.preferredHeight: Theme.height.block
+                Layout.preferredHeight: Theme.blockHeight
             }
         }
     }
+
     RoundCorner {
         anchors.top: parent.top
-        anchors.left: root.onRight ? parent.left : rectangle.right
+        anchors.left: Theme.barOnRight ? parent.left : rectangle.right
         corner: RoundCorner.TopLeft
     }
+
     RoundCorner {
         anchors.bottom: parent.bottom
-        anchors.left: root.onRight ? parent.left : rectangle.right
+        anchors.left: Theme.barOnRight ? parent.left : rectangle.right
         corner: RoundCorner.BottomLeft
     }
+
     RoundCorner {
         anchors.bottom: parent.bottom
-        anchors.right: root.onRight ? rectangle.left : parent.right
+        anchors.right: Theme.barOnRight ? rectangle.left : parent.right
         corner: RoundCorner.BottomRight
     }
+
     RoundCorner {
         anchors.top: parent.top
-        anchors.right: root.onRight ? rectangle.left : parent.right
+        anchors.right: Theme.barOnRight ? rectangle.left : parent.right
         corner: RoundCorner.TopRight
     }
 }

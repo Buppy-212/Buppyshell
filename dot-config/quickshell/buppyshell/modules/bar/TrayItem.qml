@@ -10,7 +10,6 @@ import qs.widgets
 StyledButton {
     id: root
     required property SystemTrayItem modelData
-    property bool onRight: true
     contentItem: IconImage {
         id: icon
         anchors.fill: parent
@@ -45,8 +44,8 @@ StyledButton {
         menu: root.modelData.menu
         anchor {
             item: root
-            edges: root.onRight ? Edges.Left | Edges.Top : Edges.Right | Edges.Top
-            gravity: root.onRight ? Edges.Left | Edges.Bottom : Edges.Right | Edges.Bottom
+            edges: Theme.barOnRight ? Edges.Left | Edges.Top : Edges.Right | Edges.Top
+            gravity: Theme.barOnRight ? Edges.Left | Edges.Bottom : Edges.Right | Edges.Bottom
         }
     }
 }

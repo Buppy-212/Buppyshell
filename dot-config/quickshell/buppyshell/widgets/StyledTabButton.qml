@@ -16,12 +16,12 @@ StyledButton {
     background: Item {
         Rectangle {
             anchors.fill: parent
-            topRightRadius: root.borderSide === StyledTabButton.Right || root.borderSide === StyledTabButton.Top ? 0 : Theme.radius.normal
-            topLeftRadius: root.borderSide === StyledTabButton.Left || root.borderSide === StyledTabButton.Top ? 0 : Theme.radius.normal
-            bottomRightRadius: root.borderSide === StyledTabButton.Right || root.borderSide === StyledTabButton.Bottom ? 0 : Theme.radius.normal
-            bottomLeftRadius: root.borderSide === StyledTabButton.Left || root.borderSide === StyledTabButton.Bottom ? 0 : Theme.radius.normal
+            topRightRadius: root.borderSide === StyledTabButton.Right || root.borderSide === StyledTabButton.Top ? 0 : Theme.radius
+            topLeftRadius: root.borderSide === StyledTabButton.Left || root.borderSide === StyledTabButton.Top ? 0 : Theme.radius
+            bottomRightRadius: root.borderSide === StyledTabButton.Right || root.borderSide === StyledTabButton.Bottom ? 0 : Theme.radius
+            bottomLeftRadius: root.borderSide === StyledTabButton.Left || root.borderSide === StyledTabButton.Bottom ? 0 : Theme.radius
             color: Theme.color.grey
-            radius: Theme.radius.normal
+            radius: Theme.radius
             opacity: (root.hovered || root.dragged) && !root.pressed ? 1 : 0
             Behavior on opacity {
                 animation: Theme.animation.elementMove.numberAnimation.createObject(this)

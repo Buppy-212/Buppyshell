@@ -10,7 +10,6 @@ import qs.widgets
 
 ScrollView {
     id: root
-    property bool onRight: true
     ScrollBar.vertical.policy: ScrollBar.AlwaysOff
     Column {
         Repeater {
@@ -18,7 +17,7 @@ ScrollView {
             delegate: StyledTabButton {
                 id: workspace
                 required property HyprlandWorkspace modelData
-                implicitHeight: (toplevelRepeater.count + 1) * Theme.width.block
+                implicitHeight: (toplevelRepeater.count + 1) * Theme.blockWidth
                 implicitWidth: root.width
                 dragged: dropArea.containsDrag
                 borderSide: StyledTabButton.Right
@@ -47,7 +46,7 @@ ScrollView {
                     StyledText {
                         text: workspace.modelData.id === 10 ? 0 : workspace.modelData.id
                         width: column.width
-                        height: Theme.width.block
+                        height: Theme.blockWidth
                         color: workspace.buttonColor
                     }
                     Repeater {
@@ -58,7 +57,7 @@ ScrollView {
                             required property HyprlandToplevel modelData
                             property bool silent: true
                             width: column.width
-                            height: Theme.width.block
+                            height: Theme.blockWidth
                             implicitSize: height
                             Drag.active: mouseArea.drag.active
                             Drag.hotSpot: Qt.point(width / 2, height / 2)
@@ -111,26 +110,29 @@ ScrollView {
                                 component: PopupWindow {
                                     anchor {
                                         item: toplevel
-                                        edges: root.onRight ? Edges.Left : Edges.Right
-                                        gravity: root.onRight ? Edges.Left : Edges.Right
+                                        edges: Theme.barOnRight ? Edges.Left : Edges.Right
+                                        gravity: Theme.barOnRight ? Edges.Left : Edges.Right
                                     }
                                     implicitHeight: toplevel.height
-                                    implicitWidth: title.contentWidth + Theme.margin.large
+                                    implicitWidth: title.implicitWidth
+                                    visible: true
                                     color: "transparent"
+
                                     Rectangle {
-                                        id: rectangle
                                         anchors.fill: parent
-                                        radius: Theme.radius.normal
+                                        radius: Theme.radius
                                         color: Theme.color.bg
                                         border.width: Theme.border
                                         border.color: Theme.color.grey
+
                                         StyledText {
                                             id: title
+
+                                            padding: Theme.margin
                                             anchors.fill: parent
                                             text: toplevel.modelData.title
                                         }
                                     }
-                                    visible: true
                                 }
                             }
                         }

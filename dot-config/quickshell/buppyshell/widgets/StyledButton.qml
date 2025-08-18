@@ -19,8 +19,8 @@ Control {
     }
     function scrolled(event): void {
     }
-    implicitWidth: Theme.width.block
-    implicitHeight: Theme.height.block
+    implicitWidth: Theme.blockWidth
+    implicitHeight: Theme.blockHeight
     font {
         pixelSize: Theme.font.size.normal
         family: Theme.font.family.mono
@@ -37,7 +37,7 @@ Control {
     }
     background: Rectangle {
         color: Theme.color.grey
-        radius: Theme.radius.normal
+        radius: Theme.radius
         opacity: (root.hovered || root.dragged) && !root.pressed ? 1 : 0
         Behavior on opacity {
             animation: Theme.animation.elementMove.numberAnimation.createObject(this)

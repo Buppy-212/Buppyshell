@@ -10,11 +10,13 @@ import qs.widgets
 
 PanelWindow {
     id: root
+
     enum Source {
         Volume,
         Mic,
         Brightness
     }
+
     required property ShellScreen modelData
     required property int source
     property bool ready: false
@@ -36,6 +38,7 @@ PanelWindow {
             break;
         }
     }
+
     onBrightnessChanged: {
         ready = true;
         source = Osd.Brightness;
@@ -61,26 +64,30 @@ PanelWindow {
         source = Osd.Mic;
         timer.restart();
     }
+
     screen: modelData
-    WlrLayershell.layer: WlrLayer.Overlay
-    WlrLayershell.namespace: "buppyshell:slider"
-    exclusionMode: ExclusionMode.Ignore
     anchors.bottom: true
     margins.bottom: screen.height / 50
-    visible: root.ready && modelData.name === Hyprland.focusedMonitor?.name
-    color: "transparent"
     implicitHeight: screen.height / 10
     implicitWidth: screen.width / 10
+    visible: root.ready && modelData.name === Hyprland.focusedMonitor?.name
+    color: "transparent"
+    exclusionMode: ExclusionMode.Ignore
+    WlrLayershell.layer: WlrLayer.Overlay
+    WlrLayershell.namespace: "buppyshell:slider"
+
     Timer {
         id: timer
         interval: 2000
         running: root.ready
         onTriggered: root.ready = false
     }
+
     Rectangle {
         anchors.fill: parent
         color: Theme.color.bgTranslucent
         radius: height / 3
+
         Column {
             anchors {
                 fill: parent
@@ -89,6 +96,7 @@ PanelWindow {
             }
             topPadding: spacing
             spacing: parent.height / 8
+
             StyledText {
                 text: {
                     switch (root.source) {
@@ -107,6 +115,7 @@ PanelWindow {
                 height: parent.height / 2
                 font.pixelSize: height
             }
+
             StyledSlider {
                 width: parent.width
                 height: parent.height / 8

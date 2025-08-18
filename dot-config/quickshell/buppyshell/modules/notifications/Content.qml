@@ -8,35 +8,45 @@ import qs.widgets
 
 Rectangle {
     id: root
+
     required property Notification notification
     readonly property alias hovered: hoverHandler.hovered
-    implicitHeight: row.height > Theme.height.notification - 16 ? column.height + 16 : Theme.height.notification
+
+    implicitHeight: row.height
     color: Theme.color.bg
-    radius: Theme.radius.normal
+    radius: Theme.radius
     border.width: Theme.border
     border.color: Theme.color.blue
     Drag.active: dragHandler.active
+
     RowLayout {
         id: row
+
         anchors {
             top: parent.top
             right: parent.right
             left: parent.left
-            margins: Theme.margin.medium
         }
-        spacing: Theme.margin.medium
+        spacing: 0
+
         IconImage {
-            source: Quickshell.iconPath(root.notification?.appIcon, "preferences-desktop-notification-bell")
-            Layout.preferredWidth: Theme.iconSize.medium
-            Layout.preferredHeight: width
+            Layout.preferredWidth: Theme.iconSize
+            Layout.preferredHeight: Theme.iconSize
+            Layout.margins: Theme.margin
             Layout.alignment: Qt.AlignVCenter
+            source: Quickshell.iconPath(root.notification?.appIcon, "preferences-desktop-notification-bell")
         }
+
         Column {
             id: column
+
             Layout.fillWidth: true
             Layout.fillHeight: true
+            Layout.margins: Theme.margin
+
             Text {
                 id: summary
+
                 wrapMode: Text.Wrap
                 width: column.width
                 text: root.notification?.summary ?? ""
@@ -44,8 +54,10 @@ Rectangle {
                 font.bold: true
                 color: Theme.color.fg
             }
+
             Text {
                 id: body
+
                 wrapMode: Text.Wrap
                 visible: contentWidth > 0
                 width: column.width
@@ -55,8 +67,10 @@ Rectangle {
             }
         }
     }
+
     DragHandler {
         id: dragHandler
+
         xAxis.minimum: 0
         yAxis.enabled: false
         cursorShape: Qt.ClosedHandCursor
@@ -69,12 +83,16 @@ Rectangle {
             }
         }
     }
+
     HoverHandler {
         id: hoverHandler
+
         cursorShape: Qt.OpenHandCursor
     }
+
     Behavior on x {
         id: behavior
+
         NumberAnimation {
             duration: Theme.animation.elementMoveExit.duration
             easing.type: Theme.animation.elementMoveExit.type

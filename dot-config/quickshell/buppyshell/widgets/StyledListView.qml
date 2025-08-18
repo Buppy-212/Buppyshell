@@ -54,7 +54,7 @@ ListView {
         z: -1
         sourceComponent: Rectangle {
             color: Theme.color.bgalt
-            radius: Theme.radius.normal
+            radius: Theme.radius
         }
     }
 }

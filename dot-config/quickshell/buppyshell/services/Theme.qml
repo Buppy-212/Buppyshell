@@ -7,48 +7,19 @@ import QtQuick
 Singleton {
     id: root
 
-    readonly property Color color: Color {}
+    readonly property bool barOnRight: true
+    readonly property int radius: 8
+    readonly property int margin: 8
     readonly property int border: 2
+    readonly property int spacing: 2
+    readonly property int iconSize: 48
+    readonly property int blockHeight: 24
+    readonly property int blockWidth: 30
+    readonly property int barWidth: 40
+    readonly property Color color: Color {}
     readonly property Font font: Font {}
-    readonly property IconSize iconSize: IconSize {}
-    readonly property Margin margin: Margin {}
-    readonly property Height height: Height {}
-    readonly property Width width: Width {}
-    readonly property Radius radius: Radius {}
     property QtObject animation
     property QtObject animationCurves
-
-    component Radius: QtObject {
-        readonly property int normal: 8
-        readonly property int normalAdjusted: 11
-        readonly property int medium: 16
-        readonly property int large: 32
-    }
-
-    component Height: QtObject {
-        readonly property int block: 24
-        readonly property int doubleBlock: 48
-        readonly property int notification: 80
-    }
-
-    component Width: QtObject {
-        readonly property int block: 30
-        readonly property int bar: 40
-    }
-
-    component Margin: QtObject {
-        readonly property int tiny: 2
-        readonly property int small: 4
-        readonly property int medium: 8
-        readonly property int large: 16
-    }
-
-    component IconSize: QtObject {
-        readonly property int small: 30
-        readonly property int medium: 48
-        readonly property int big: 64
-        readonly property int large: 96
-    }
 
     component Color: QtObject {
         readonly property string bg: "#222436"

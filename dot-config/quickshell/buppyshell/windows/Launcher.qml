@@ -13,28 +13,33 @@ import qs.modules.launcher
 
 PanelWindow {
     id: root
+
     required property ShellScreen modelData
     readonly property bool launcherVisible: GlobalState.launcher
     property string monitor
+
     onLauncherVisibleChanged: {
         root.monitor = Hyprland.focusedMonitor?.name ?? "";
     }
-    visible: GlobalState.launcher && modelData.name === monitor
-    WlrLayershell.layer: WlrLayer.Top
-    WlrLayershell.namespace: "buppyshell:launcher"
-    WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
-    exclusionMode: ExclusionMode.Ignore
-    color: Theme.color.black
-    TapHandler {
-        acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
-        onTapped: GlobalState.launcher = false
-    }
+
     anchors {
         top: true
         right: true
         bottom: true
         left: true
     }
+    visible: GlobalState.launcher && modelData.name === monitor
+    color: Theme.color.black
+    exclusionMode: ExclusionMode.Ignore
+    WlrLayershell.layer: WlrLayer.Top
+    WlrLayershell.namespace: "buppyshell:launcher"
+    WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
+
+    TapHandler {
+        acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
+        onTapped: GlobalState.launcher = false
+    }
+
     Image {
         id: background
         anchors.fill: parent
@@ -42,6 +47,7 @@ PanelWindow {
         source: Wallpaper.path
         visible: false
     }
+
     MultiEffect {
         autoPaddingEnabled: false
         source: background
@@ -50,13 +56,15 @@ PanelWindow {
         blurMax: 64
         blurEnabled: true
     }
+
     Rectangle {
         anchors.fill: parent
-        color: Theme.color.bg
-        opacity: 0.85
+        color: Theme.color.bgTranslucent
     }
+
     ColumnLayout {
         id: column
+
         anchors {
             fill: parent
             topMargin: spacing / 2
@@ -69,12 +77,16 @@ PanelWindow {
             Layout.alignment: Qt.AlignHCenter
             forwardTargets: [stackView.currentItem]
         }
+
         StackView {
             id: stackView
+
             readonly property int launcherModule: GlobalState.launcherModule
+
             Layout.alignment: Qt.AlignHCenter
             Layout.fillHeight: true
             Layout.preferredWidth: parent.width * 0.8
+
             onLauncherModuleChanged: {
                 switch (launcherModule) {
                 case GlobalState.LauncherModule.AppLauncher:
@@ -97,6 +109,7 @@ PanelWindow {
                 }
             }
         }
+
         Taskbar {
             Layout.preferredHeight: root.height / 24
             Layout.fillWidth: true

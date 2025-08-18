@@ -23,8 +23,9 @@ Loader {
     sourceComponent: PanelWindow {
         anchors {
             top: true
-            right: true
+            right: Theme.barOnRight
             bottom: true
+            left: !Theme.barOnRight
         }
         WlrLayershell.layer: WlrLayer.Overlay
         WlrLayershell.namespace: "buppyshell:sidebar"
@@ -40,7 +41,7 @@ Loader {
                 margins: 2
             }
             implicitWidth: parent.width - 2
-            radius: Theme.radius.normal
+            radius: Theme.radius
             color: Theme.color.bg
             DragHandler {
                 cursorShape: Qt.ClosedHandCursor

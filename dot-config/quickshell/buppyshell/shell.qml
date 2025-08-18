@@ -8,7 +8,7 @@ import "windows"
 ShellRoot {
     Variants {
         model: Quickshell.screens
-        delegate: Bar {onRight: true}
+        delegate: Bar {}
     }
     Variants {
         model: Quickshell.screens

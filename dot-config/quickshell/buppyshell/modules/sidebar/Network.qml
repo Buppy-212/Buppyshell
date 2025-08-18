@@ -14,7 +14,7 @@ ColumnLayout {
     Rectangle {
         id: networkWidget
         color: Theme.color.bgalt
-        radius: Theme.radius.normal
+        radius: Theme.radius
         Layout.fillHeight: true
         Layout.fillWidth: true
         Layout.rightMargin: root.width / 16
