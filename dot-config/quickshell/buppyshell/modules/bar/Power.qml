@@ -5,7 +5,7 @@ import qs.widgets
 StyledButton {
     text: "⏻"
     color: Theme.color.red
-    font.pixelSize: Theme.font.size.large
+    font.pixelSize: Theme.font.size.medium
     function tapped(button): void {
         switch (button) {
         case Qt.MiddleButton:

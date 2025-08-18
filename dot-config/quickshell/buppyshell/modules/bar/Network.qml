@@ -4,7 +4,7 @@ import qs.services
 StyledButton {
     text: "󰤨"
     color: Theme.color.green
-    font.pixelSize: Theme.font.size.large
+    font.pixelSize: Theme.font.size.medium
     function tapped(): void {
         if (GlobalState.sidebarModule === GlobalState.SidebarModule.Network || !GlobalState.sidebar) {
             GlobalState.sidebar = !GlobalState.sidebar;
