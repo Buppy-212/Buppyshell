@@ -50,7 +50,7 @@ Rectangle {
                 wrapMode: Text.Wrap
                 width: column.width
                 text: root.notification?.summary ?? ""
-                font.pixelSize: Theme.font.size.large
+                font.pixelSize: Theme.font.size.medium
                 font.bold: true
                 color: Theme.color.fg
             }

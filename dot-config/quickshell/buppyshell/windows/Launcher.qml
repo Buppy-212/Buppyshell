@@ -70,9 +70,10 @@ PanelWindow {
             topMargin: spacing / 2
         }
         spacing: parent.height / 24
+
         Searchbar {
             id: searchbar
-            Layout.preferredHeight: root.height / 24
+            Layout.preferredHeight: Theme.doubledBlockHeight
             Layout.preferredWidth: column.width / 3
             Layout.alignment: Qt.AlignHCenter
             forwardTargets: [stackView.currentItem]
@@ -111,7 +112,7 @@ PanelWindow {
         }
 
         Taskbar {
-            Layout.preferredHeight: root.height / 24
+            Layout.preferredHeight: Theme.doubledBlockHeight
             Layout.fillWidth: true
         }
     }

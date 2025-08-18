@@ -10,7 +10,7 @@ TextField {
     implicitHeight: 50
     implicitWidth: 250
     font {
-        pixelSize: height / 2
+        pixelSize: Theme.font.size.large
         family: Theme.font.family.mono
         bold: true
     }

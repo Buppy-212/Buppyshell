@@ -3,7 +3,9 @@ import qs.services
 
 GridView {
     id: root
+
     property alias background: background.sourceComponent
+
     required model
     required delegate
     clip: true
@@ -42,8 +44,10 @@ GridView {
             break;
         }
     }
+
     Loader {
         id: background
+
         anchors.fill: parent
         asynchronous: true
         z: -1

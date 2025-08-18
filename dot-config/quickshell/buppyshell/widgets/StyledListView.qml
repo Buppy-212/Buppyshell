@@ -1,9 +1,11 @@
 import QtQuick
+import QtQuick.Controls
 import qs.services
 
 ListView {
     id: root
     property alias background: background.sourceComponent
+    property alias scrollbarWidth: scrollbar.width
     required model
     required delegate
     snapMode: ListView.SnapToItem
@@ -25,6 +27,9 @@ ListView {
         }
     }
     keyNavigationWraps: true
+    ScrollBar.vertical: ScrollBar {
+        id: scrollbar
+    }
     Keys.onPressed: event => {
         switch (event.key) {
         case Qt.Key_J:
