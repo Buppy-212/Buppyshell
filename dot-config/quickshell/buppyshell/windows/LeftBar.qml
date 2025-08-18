@@ -26,50 +26,13 @@ PanelWindow {
     Rectangle {
         id: rectangle
         color: Theme.color.black
-        implicitHeight: parent.height
-        implicitWidth: Theme.width.block
-        ColumnLayout {
-            anchors.fill: parent
-            spacing: 0
-            Os {
-                Layout.fillWidth: true
-                Layout.preferredHeight: Theme.height.block
-            }
-            Workspaces {
-                bar: root
-                Layout.fillHeight: true
-                Layout.fillWidth: true
-            }
-            ColumnLayout {
-                Layout.alignment: Qt.AlignBottom
-                Layout.fillWidth: true
-                spacing: 2
-                Inhibitor {
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: Theme.height.block
-                }
-                Battery {
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: Theme.height.block
-                }
-                Light {
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: Theme.height.block
-                }
-                Update {
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: hovered ? Theme.height.doubleBlock : Theme.height.block
-                }
-                StyledText {
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: Theme.height.doubleBlock
-                    text: Time.timeGrid
-                }
-                Power {
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: Theme.height.block
-                }
-            }
+        anchors {
+          fill: parent
+          rightMargin: Theme.radius.normalAdjusted
+        }
+        Workspaces {
+          anchors.fill: parent
+          orientation: Workspaces.Left
         }
     }
     RoundCorner {

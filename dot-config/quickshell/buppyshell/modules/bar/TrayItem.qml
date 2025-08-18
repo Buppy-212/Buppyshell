@@ -10,8 +10,6 @@ import qs.widgets
 StyledButton {
     id: root
     required property SystemTrayItem modelData
-    required property PanelWindow bar
-    required property Item tray
     contentItem: IconImage {
         id: icon
         anchors.fill: parent
@@ -35,10 +33,8 @@ StyledButton {
         id: menu
         menu: root.modelData.menu
         anchor {
-            window: root.bar
-            rect.x: Theme.radius.normal
-            rect.y: tray.y + root.y
-            edges: Edges.Right
+            item: root
+            edges: Edges.Left | Edges.Top
             gravity: Edges.Left | Edges.Bottom
         }
     }

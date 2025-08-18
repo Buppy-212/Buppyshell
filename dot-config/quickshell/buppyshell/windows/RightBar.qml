@@ -20,21 +20,34 @@ PanelWindow {
         right: true
         bottom: true
     }
-    implicitWidth: Theme.width.block + Theme.radius.normalAdjusted
-    exclusiveZone: Theme.width.block
+    implicitWidth: Theme.width.doubleBlock + Theme.radius.normalAdjusted
+    exclusiveZone: Theme.width.doubleBlock
     color: "transparent"
     Rectangle {
         id: rectangle
         color: Theme.color.black
-        implicitHeight: parent.height
-        implicitWidth: Theme.width.block
-        anchors.right: parent.right
+        anchors {
+            fill: parent
+            leftMargin: Theme.radius.normalAdjusted
+        }
         ColumnLayout {
             anchors.fill: parent
             spacing: 2
+            Os {
+                Layout.fillWidth: true
+                Layout.preferredHeight: Theme.height.block
+            }
             Bell {
                 Layout.fillWidth: true
                 Layout.preferredHeight: Theme.height.block
+            }
+            Workspaces {
+                Layout.fillWidth: true
+                orientation: Workspaces.Right
+            }
+            Tray {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
             }
             Volume {
                 Layout.fillWidth: true
@@ -44,14 +57,34 @@ PanelWindow {
                 Layout.fillWidth: true
                 Layout.preferredHeight: Theme.height.block
             }
+            Inhibitor {
+                Layout.fillWidth: true
+                Layout.preferredHeight: Theme.height.block
+            }
             Network {
                 Layout.fillWidth: true
                 Layout.preferredHeight: Theme.height.block
             }
-            Tray {
+            Battery {
                 Layout.fillWidth: true
-                Layout.fillHeight: true
-                bar: root
+                Layout.preferredHeight: Theme.height.block
+            }
+            Light {
+                Layout.fillWidth: true
+                Layout.preferredHeight: Theme.height.block
+            }
+            Update {
+                Layout.fillWidth: true
+                Layout.preferredHeight: hovered ? Theme.height.doubleBlock : Theme.height.block
+            }
+            StyledText {
+                Layout.fillWidth: true
+                Layout.preferredHeight: Theme.height.doubleBlock
+                text: Time.timeGrid
+            }
+            Power {
+                Layout.fillWidth: true
+                Layout.preferredHeight: Theme.height.block
             }
         }
     }

@@ -1,11 +1,11 @@
-import Quickshell
 import Quickshell.Services.SystemTray
 import QtQuick
+import QtQuick.Controls
 import qs.services
 
-Item {
+ScrollView {
     id: root
-    required property PanelWindow bar
+    ScrollBar.vertical.policy: ScrollBar.AlwaysOff
     clip: true
     visible: repeater.count > 0
     Column {
@@ -17,10 +17,8 @@ Item {
             model: SystemTray.items
             TrayItem {
                 id: trayItem
-                tray: root
-                bar: root.bar
                 implicitWidth: root.width
-                implicitHeight: Theme.height.block
+                implicitHeight: Theme.width.block
             }
         }
     }
