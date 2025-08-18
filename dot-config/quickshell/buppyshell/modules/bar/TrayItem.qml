@@ -10,6 +10,7 @@ import qs.widgets
 StyledButton {
     id: root
     required property SystemTrayItem modelData
+    property bool onRight: true
     contentItem: IconImage {
         id: icon
         anchors.fill: parent
@@ -22,11 +23,21 @@ StyledButton {
             return icon;
         }
     }
+    scrollable: true
+    function scrolled(event) {
+        root.modelData.scroll(event.angleDelta.y, true);
+    }
     function tapped(eventPoint, button): void {
-        if (button === Qt.LeftButton) {
+        switch (button) {
+        case Qt.LeftButton:
             root.modelData.activate();
-        } else if (root.modelData.hasMenu) {
+            break;
+        case Qt.MiddleButton:
+            root.modelData.secondaryActivate();
+            break;
+        case Qt.RightButton:
             menu.open();
+            break;
         }
     }
     QsMenuAnchor {
@@ -34,8 +45,8 @@ StyledButton {
         menu: root.modelData.menu
         anchor {
             item: root
-            edges: Edges.Left | Edges.Top
-            gravity: Edges.Left | Edges.Bottom
+            edges: root.onRight ? Edges.Left | Edges.Top : Edges.Right | Edges.Top
+            gravity: root.onRight ? Edges.Left | Edges.Bottom : Edges.Right | Edges.Bottom
         }
     }
 }

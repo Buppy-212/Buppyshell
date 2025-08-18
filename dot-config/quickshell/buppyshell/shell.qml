@@ -6,13 +6,9 @@ import QtQuick
 import "windows"
 
 ShellRoot {
-    // Variants {
-    //     model: Quickshell.screens
-    //     delegate: LeftBar {}
-    // }
     Variants {
         model: Quickshell.screens
-        delegate: RightBar {}
+        delegate: Bar {onRight: true}
     }
     Variants {
         model: Quickshell.screens

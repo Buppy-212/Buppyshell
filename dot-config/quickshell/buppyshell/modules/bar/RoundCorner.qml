@@ -6,7 +6,7 @@ Item {
     property int size: Theme.radius.normalAdjusted
     property color color: Theme.color.black
     property int corner: RoundCorner.TopLeft
-    enum Side {
+    enum Orientation {
         TopLeft,
         TopRight,
         BottomLeft,

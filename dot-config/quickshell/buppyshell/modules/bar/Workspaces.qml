@@ -10,13 +10,7 @@ import qs.widgets
 
 ScrollView {
     id: root
-    property int orientation: Workspaces.Top
-    enum Orientation {
-        Top,
-        Right,
-        Bottom,
-        Left
-    }
+    property bool onRight: true
     ScrollBar.vertical.policy: ScrollBar.AlwaysOff
     Column {
         Repeater {
@@ -117,36 +111,8 @@ ScrollView {
                                 component: PopupWindow {
                                     anchor {
                                         item: toplevel
-                                        edges: {
-                                            switch (root.orientation) {
-                                            case Workspaces.Top:
-                                                return Edges.Bottom;
-                                                break;
-                                            case Workspaces.Right:
-                                                return Edges.Left;
-                                                break;
-                                            case Workspaces.Bottom:
-                                                return Edges.Top;
-                                                break;
-                                            default:
-                                                return Edges.Right;
-                                            }
-                                        }
-                                        gravity: {
-                                            switch (root.orientation) {
-                                            case Workspaces.Top:
-                                                return Edges.Bottom;
-                                                break;
-                                            case Workspaces.Right:
-                                                return Edges.Left;
-                                                break;
-                                            case Workspaces.Bottom:
-                                                return Edges.Top;
-                                                break;
-                                            default:
-                                                return Edges.Right;
-                                            }
-                                        }
+                                        edges: root.onRight ? Edges.Left : Edges.Right
+                                        gravity: root.onRight ? Edges.Left : Edges.Right
                                     }
                                     implicitHeight: toplevel.height
                                     implicitWidth: title.contentWidth + Theme.margin.large

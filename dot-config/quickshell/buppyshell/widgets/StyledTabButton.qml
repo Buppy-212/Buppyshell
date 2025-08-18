@@ -6,7 +6,7 @@ StyledButton {
     id: root
     property bool selected: false
     property int borderSide: StyledTabButton.Bottom
-    property int borderSize: 1
+    property int borderSize: 3
     enum BorderSide {
         Top,
         Right,
@@ -15,8 +15,12 @@ StyledButton {
     }
     background: Item {
         Rectangle {
-            color: Theme.color.grey
             anchors.fill: parent
+            topRightRadius: root.borderSide === StyledTabButton.Right || root.borderSide === StyledTabButton.Top ? 0 : Theme.radius.normal
+            topLeftRadius: root.borderSide === StyledTabButton.Left || root.borderSide === StyledTabButton.Top ? 0 : Theme.radius.normal
+            bottomRightRadius: root.borderSide === StyledTabButton.Right || root.borderSide === StyledTabButton.Bottom ? 0 : Theme.radius.normal
+            bottomLeftRadius: root.borderSide === StyledTabButton.Left || root.borderSide === StyledTabButton.Bottom ? 0 : Theme.radius.normal
+            color: Theme.color.grey
             radius: Theme.radius.normal
             opacity: (root.hovered || root.dragged) && !root.pressed ? 1 : 0
             Behavior on opacity {
@@ -30,9 +34,8 @@ StyledButton {
                 bottom: root.borderSide !== StyledTabButton.Top ? parent.bottom : undefined
                 left: root.borderSide !== StyledTabButton.Right ? parent.left : undefined
             }
-            radius: Theme.radius.normal
-            visible: root.selected
-            color: Theme.color.accent
+            radius: root.borderSize
+            color: root.selected ? Theme.color.accent : Theme.color.bgalt
             implicitHeight: root.borderSize
             implicitWidth: root.borderSize
         }

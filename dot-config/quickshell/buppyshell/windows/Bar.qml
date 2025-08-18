@@ -9,6 +9,7 @@ import qs.modules.bar
 PanelWindow {
     id: root
     required property ShellScreen modelData
+    property bool onRight: true
     visible: GlobalState.bar
     screen: root.modelData
     mask: Region {
@@ -17,19 +18,23 @@ PanelWindow {
     WlrLayershell.namespace: "buppyshell:rightbar"
     anchors {
         top: true
-        right: true
+        right: root.onRight
         bottom: true
+        left: !root.onRight
     }
-    implicitWidth: Theme.width.doubleBlock + Theme.radius.normalAdjusted
-    exclusiveZone: Theme.width.doubleBlock
+    implicitWidth: modelData.width
+    exclusiveZone: Theme.width.bar
     color: "transparent"
     Rectangle {
         id: rectangle
         color: Theme.color.black
         anchors {
-            fill: parent
-            leftMargin: Theme.radius.normalAdjusted
+            top: parent.top
+            right: root.onRight ? parent.right : undefined
+            bottom: parent.bottom
+            left: !root.onRight ? parent.left : undefined
         }
+        implicitWidth: Theme.width.bar
         ColumnLayout {
             anchors.fill: parent
             spacing: 2
@@ -43,11 +48,12 @@ PanelWindow {
             }
             Workspaces {
                 Layout.fillWidth: true
-                orientation: Workspaces.Right
+                Layout.fillHeight: true
+                onRight: root.onRight
             }
             Tray {
                 Layout.fillWidth: true
-                Layout.fillHeight: true
+                onRight: root.onRight
             }
             Volume {
                 Layout.fillWidth: true
@@ -89,13 +95,23 @@ PanelWindow {
         }
     }
     RoundCorner {
+        anchors.top: parent.top
+        anchors.left: root.onRight ? parent.left : rectangle.right
+        corner: RoundCorner.TopLeft
+    }
+    RoundCorner {
         anchors.bottom: parent.bottom
-        anchors.left: parent.left
+        anchors.left: root.onRight ? parent.left : rectangle.right
+        corner: RoundCorner.BottomLeft
+    }
+    RoundCorner {
+        anchors.bottom: parent.bottom
+        anchors.right: root.onRight ? rectangle.left : parent.right
         corner: RoundCorner.BottomRight
     }
     RoundCorner {
         anchors.top: parent.top
-        anchors.left: parent.left
+        anchors.right: root.onRight ? rectangle.left : parent.right
         corner: RoundCorner.TopRight
     }
 }

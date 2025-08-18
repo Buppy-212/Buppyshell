@@ -33,7 +33,7 @@ Singleton {
 
     component Width: QtObject {
         readonly property int block: 30
-        readonly property int doubleBlock: 40
+        readonly property int bar: 40
     }
 
     component Margin: QtObject {
