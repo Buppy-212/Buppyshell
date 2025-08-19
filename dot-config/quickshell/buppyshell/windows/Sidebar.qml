@@ -111,12 +111,9 @@ Loader {
 
                 StackView {
                     id: stackView
+
                     readonly property int sidebarModule: GlobalState.sidebarModule
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    Layout.bottomMargin: Theme.blockHeight
-                    initialItem: getSidebarModule()
-                    onSidebarModuleChanged: getSidebarModule()
+
                     function getSidebarModule(): Item {
                         switch (sidebarModule) {
                         case GlobalState.SidebarModule.Notifications:
@@ -133,6 +130,12 @@ Loader {
                             break;
                         }
                     }
+
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    Layout.bottomMargin: Theme.blockHeight
+                    initialItem: getSidebarModule()
+                    onSidebarModuleChanged: getSidebarModule()
                 }
 
                 Player {
