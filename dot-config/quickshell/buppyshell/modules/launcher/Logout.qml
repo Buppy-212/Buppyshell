@@ -11,35 +11,35 @@ StyledListView {
     id: root
 
     interactive: false
+    Keys.onReturnPressed: root.currentItem.tapped()
     Keys.onPressed: event => {
-        switch (event.key) {
-        case Qt.Key_S:
-            GlobalState.launcher = false;
-            Quickshell.execDetached(["systemctl", "poweroff"]);
-            break;
-        case Qt.Key_R:
-            GlobalState.launcher = false;
-            Quickshell.execDetached(["systemctl", "reboot"]);
-            break;
-        case Qt.Key_O:
-            GlobalState.launcher = false;
-            Quickshell.execDetached(["uwsm", "stop"]);
-            break;
-        case Qt.Key_L:
-            GlobalState.launcher = false;
-            GlobalState.locked = true;
-            break;
-        case Qt.Key_U:
-            GlobalState.launcher = false;
-            Quickshell.execDetached(["systemctl", "suspend"]);
-            break;
-        case Qt.Key_H:
-            GlobalState.launcher = false;
-            Quickshell.execDetached(["systemctl", "hibernate"]);
-            break;
-        case Qt.Key_Return:
-            root.currentItem.tapped();
-            break;
+        if (event.modifiers === Qt.NoModifier) {
+            switch (event.key) {
+            case Qt.Key_S:
+                GlobalState.launcher = false;
+                Quickshell.execDetached(["systemctl", "poweroff"]);
+                break;
+            case Qt.Key_R:
+                GlobalState.launcher = false;
+                Quickshell.execDetached(["systemctl", "reboot"]);
+                break;
+            case Qt.Key_O:
+                GlobalState.launcher = false;
+                Quickshell.execDetached(["uwsm", "stop"]);
+                break;
+            case Qt.Key_L:
+                GlobalState.launcher = false;
+                GlobalState.locked = true;
+                break;
+            case Qt.Key_U:
+                GlobalState.launcher = false;
+                Quickshell.execDetached(["systemctl", "suspend"]);
+                break;
+            case Qt.Key_H:
+                GlobalState.launcher = false;
+                Quickshell.execDetached(["systemctl", "hibernate"]);
+                break;
+            }
         }
     }
     background: null
@@ -48,37 +48,37 @@ StyledListView {
             icon: "power_settings_new",
             color: Theme.color.red,
             command: "exec systemctl poweroff",
-            text: `<font color=${Theme.color.red}>S</font>hutdown`
+            text: "Shutdown"
         },
         {
             icon: "restart_alt",
             color: Theme.color.orange,
             command: "exec systemctl reboot",
-            text: `<font color=${Theme.color.orange}>R</font>eboot`
+            text: "Reboot"
         },
         {
             icon: "logout",
             color: Theme.color.green,
             command: "exec uwsm stop",
-            text: `L<font color=${Theme.color.green}>o</font>gout`
+            text: "Logout"
         },
         {
             icon: "lock",
             color: Theme.color.cyan,
             command: "global buppyshell:lock",
-            text: `<font color=${Theme.color.cyan}>L</font>ock`
+            text: "Lock"
         },
         {
             icon: "pause_circle",
             color: Theme.color.blue,
             command: "exec systemctl suspend",
-            text: `S<font color=${Theme.color.blue}>u</font>spend`
+            text: "Suspend"
         },
         {
             icon: "mode_standby",
             color: Theme.color.magenta,
             command: "exec systemctl hibernate",
-            text: `<font color=${Theme.color.magenta}>H</font>ibernate`
+            text: "Hibernate"
         },
     ]
     delegate: StyledButton {
@@ -97,18 +97,16 @@ StyledListView {
         function entered(): void {
             root.currentIndex = logoutDelegate.index;
         }
-        background: null
 
+        background: null
         implicitHeight: Theme.blockHeight * 4
         implicitWidth: root.width
         contentItem: RowLayout {
             anchors {
                 fill: parent
-                leftMargin: parent.width / 64
-                topMargin: parent.height / 32
-                bottomMargin: parent.height / 32
+                margins: Theme.margin
             }
-            spacing: anchors.leftMargin
+            spacing: Theme.margin
 
             Text {
                 id: symbol
@@ -124,7 +122,6 @@ StyledListView {
 
             StyledText {
                 text: logoutDelegate.text
-                textFormat: Text.MarkdownText
                 Layout.fillHeight: true
                 Layout.fillWidth: true
                 font.pixelSize: Theme.font.size.doubled
