@@ -15,10 +15,17 @@ StyledListView {
     required property string search
 
     Keys.onReturnPressed: root.currentItem.tapped(undefined, Qt.LeftButton)
-    Keys.onDeletePressed: root.currentItem.modelData.close()
+    Keys.onDeletePressed: root.currentItem.tapped(undefined, Qt.MiddleButton)
     Keys.onPressed: event => {
-        if (event.modifiers === Qt.ControlModifier && event.key === Qt.Key_O) {
-            root.currentItem.tapped(undefined, Qt.LeftButton);
+        if (event.modifiers === Qt.ControlModifier) {
+            switch (event.key) {
+            case Qt.Key_O:
+                root.currentItem.tapped(undefined, Qt.LeftButton);
+                break;
+            case Qt.Key_D:
+                root.currentItem.tapped(undefined, Qt.MiddleButton);
+                break;
+            }
         }
     }
     background: null
@@ -54,11 +61,9 @@ StyledListView {
         contentItem: RowLayout {
             anchors {
                 fill: parent
-                leftMargin: parent.width / 64
-                topMargin: parent.height / 32
-                bottomMargin: parent.height / 32
+                margins: Theme.margin
             }
-            spacing: anchors.leftMargin
+            spacing: Theme.margin
 
             IconImage {
                 Layout.fillHeight: true
