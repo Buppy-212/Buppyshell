@@ -11,7 +11,9 @@ import qs.widgets
 
 StyledListView {
     id: root
+
     required property string search
+
     Keys.onReturnPressed: root.currentItem.tapped(undefined, Qt.LeftButton)
     Keys.onDeletePressed: root.currentItem.modelData.close()
     Keys.onPressed: event => {
@@ -23,8 +25,10 @@ StyledListView {
     model: Windows.query(root.search)
     delegate: StyledButton {
         id: toplevel
+
         required property Toplevel modelData
         required property int index
+
         function tapped(pointEvent, button): void {
             switch (button) {
             case Qt.LeftButton:
@@ -43,8 +47,9 @@ StyledListView {
         function entered(): void {
             root.currentIndex = toplevel.index;
         }
+
         background: null
-        implicitHeight: root.height / 10
+        implicitHeight: Theme.blockHeight * 4
         implicitWidth: root.width
         contentItem: RowLayout {
             anchors {
@@ -54,6 +59,7 @@ StyledListView {
                 bottomMargin: parent.height / 32
             }
             spacing: anchors.leftMargin
+
             IconImage {
                 Layout.fillHeight: true
                 Layout.preferredWidth: height
@@ -68,7 +74,7 @@ StyledListView {
             StyledText {
                 Layout.fillHeight: true
                 Layout.fillWidth: true
-                font.pixelSize: height / 4
+                font.pixelSize: Theme.font.size.doubled
                 elide: Text.ElideRight
                 text: toplevel.modelData?.title ?? ""
                 color: toplevel.ListView.isCurrentItem ? Theme.color.accent : Theme.color.fg

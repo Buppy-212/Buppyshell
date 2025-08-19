@@ -3,11 +3,14 @@ pragma ComponentBehavior: Bound
 import Quickshell
 import Quickshell.Hyprland
 import QtQuick
+import QtQuick.Layouts
 import qs.services
 import qs.widgets
 
-StyledGridView {
+StyledListView {
     id: root
+
+    interactive: false
     Keys.onPressed: event => {
         switch (event.key) {
         case Qt.Key_S:
@@ -40,8 +43,6 @@ StyledGridView {
         }
     }
     background: null
-    cellHeight: height / 2
-    cellWidth: width / 3
     model: [
         {
             icon: "power_settings_new",
@@ -82,12 +83,13 @@ StyledGridView {
     ]
     delegate: StyledButton {
         id: logoutDelegate
+
         required property string icon
         required property string color
         required property string command
         required property string text
         required property int index
-        background: null
+
         function tapped(): void {
             GlobalState.launcher = false;
             Hyprland.dispatch(command);
@@ -95,32 +97,39 @@ StyledGridView {
         function entered(): void {
             root.currentIndex = logoutDelegate.index;
         }
-        implicitHeight: root.cellHeight
-        implicitWidth: root.cellWidth
-        contentItem: Column {
+        background: null
+
+        implicitHeight: Theme.blockHeight * 4
+        implicitWidth: root.width
+        contentItem: RowLayout {
             anchors {
                 fill: parent
-                topMargin: parent.height / 8
-                rightMargin: parent.width / 4
-                bottomMargin: parent.height / 8
-                leftMargin: parent.width / 4
+                leftMargin: parent.width / 64
+                topMargin: parent.height / 32
+                bottomMargin: parent.height / 32
             }
-            spacing: parent.height / 32
+            spacing: anchors.leftMargin
+
             Text {
+                id: symbol
+
+                Layout.fillHeight: true
+                Layout.preferredWidth: height
                 text: logoutDelegate.icon
                 font.family: Theme.font.family.material
                 font.pixelSize: height
                 color: logoutDelegate.color
-                width: parent.width
-                height: width
                 verticalAlignment: Text.AlignVCenter
             }
+
             StyledText {
                 text: logoutDelegate.text
                 textFormat: Text.MarkdownText
-                width: parent.width
-                font.pixelSize: Theme.font.size.huge
-                color: logoutDelegate.GridView.isCurrentItem ? Theme.color.accent : Theme.color.fg
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+                font.pixelSize: Theme.font.size.doubled
+                color: logoutDelegate.ListView.isCurrentItem ? Theme.color.accent : Theme.color.fg
+                horizontalAlignment: Text.AlignLeft
             }
         }
     }

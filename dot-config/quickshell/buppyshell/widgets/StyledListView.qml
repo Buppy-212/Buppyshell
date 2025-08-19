@@ -4,10 +4,11 @@ import qs.services
 
 ListView {
     id: root
+
     property alias background: background.sourceComponent
-    property alias scrollbarWidth: scrollbar.width
     required model
     required delegate
+
     snapMode: ListView.SnapToItem
     spacing: 0
     clip: true
@@ -29,6 +30,10 @@ ListView {
     keyNavigationWraps: true
     ScrollBar.vertical: ScrollBar {
         id: scrollbar
+        opacity: hovered || pressed ? 1 : 0
+        Behavior on opacity {
+            animation: Theme.animation.elementMove.numberAnimation.createObject(this)
+        }
     }
     Keys.onPressed: event => {
         switch (event.key) {

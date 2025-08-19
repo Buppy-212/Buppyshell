@@ -16,6 +16,6 @@ TextField {
     }
     background: Rectangle {
         color: Theme.color.bgalt
-        radius: height / 2
+        radius: height / 4
     }
 }

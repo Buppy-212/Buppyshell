@@ -30,23 +30,6 @@ Singleton {
     property bool sidebar: false
     property bool locked: false
 
-    function toggle(stateVar: string): void {
-        switch (stateVar) {
-        case "bluetooth":
-            root.sidebarModule = GlobalState.SidebarModule.Bluetooth;
-            break;
-        case "notifications":
-            root.sidebarModule = GlobalState.SidebarModule.Notifications;
-            break;
-        case "volume":
-            root.sidebarModule = GlobalState.SidebarModule.Volume;
-            break;
-        case "network":
-            root.sidebarModule = GlobalState.SidebarModule.Network;
-            break;
-        }
-    }
-
     GlobalShortcut {
         name: "windows"
         description: "Toggle window switcher"

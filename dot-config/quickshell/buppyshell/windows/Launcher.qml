@@ -7,6 +7,7 @@ import QtQuick.Layouts
 import QtQuick.Effects
 import Quickshell.Hyprland
 import Quickshell.Wayland
+import Quickshell.Widgets
 import qs.services
 import qs.widgets
 import qs.modules.launcher
@@ -22,14 +23,10 @@ PanelWindow {
         root.monitor = Hyprland.focusedMonitor?.name ?? "";
     }
 
-    anchors {
-        top: true
-        right: true
-        bottom: true
-        left: true
-    }
+    implicitWidth: modelData.width * 0.5
+    implicitHeight: (Theme.margin * 4) + (Theme.blockHeight * 4) * 11
     visible: GlobalState.launcher && modelData.name === monitor
-    color: Theme.color.black
+    color: "transparent"
     exclusionMode: ExclusionMode.Ignore
     WlrLayershell.layer: WlrLayer.Top
     WlrLayershell.namespace: "buppyshell:launcher"
@@ -48,18 +45,26 @@ PanelWindow {
         visible: false
     }
 
-    MultiEffect {
-        autoPaddingEnabled: false
-        source: background
-        anchors.fill: background
-        blur: 1
-        blurMax: 64
-        blurEnabled: true
-    }
-
-    Rectangle {
+    ClippingRectangle {
         anchors.fill: parent
-        color: Theme.color.bgTranslucent
+        radius: Theme.radius
+        MultiEffect {
+            autoPaddingEnabled: false
+            source: background
+            width: background.width
+            height: background.height
+            blur: 1
+            blurMax: 64
+            blurEnabled: true
+        }
+
+        Rectangle {
+            anchors.fill: parent
+            color: Theme.color.bgTranslucent
+            radius: Theme.radius
+            border.color: Theme.color.blue
+            border.width: Theme.border
+        }
     }
 
     ColumnLayout {
@@ -67,14 +72,14 @@ PanelWindow {
 
         anchors {
             fill: parent
-            topMargin: spacing / 2
+            margins: Theme.margin
         }
-        spacing: parent.height / 24
+        spacing: Theme.margin
 
         Searchbar {
             id: searchbar
             Layout.preferredHeight: Theme.doubledBlockHeight
-            Layout.preferredWidth: column.width / 3
+            Layout.fillWidth: true
             Layout.alignment: Qt.AlignHCenter
             forwardTargets: [stackView.currentItem]
         }
@@ -86,7 +91,7 @@ PanelWindow {
 
             Layout.alignment: Qt.AlignHCenter
             Layout.fillHeight: true
-            Layout.preferredWidth: parent.width * 0.8
+            Layout.fillWidth: true
 
             onLauncherModuleChanged: {
                 switch (launcherModule) {
@@ -111,9 +116,14 @@ PanelWindow {
             }
         }
 
-        Taskbar {
+        Rectangle {
             Layout.preferredHeight: Theme.doubledBlockHeight
             Layout.fillWidth: true
+            radius: Theme.radius
+            color: Theme.color.bgalt
+            Tabs {
+                anchors.fill: parent
+            }
         }
     }
 }

@@ -13,24 +13,19 @@ RowLayout {
         id: repeater
         model: [
             {
-                _text: "󰂚",
-                sidebarModule: GlobalState.SidebarModule.Notifications,
+                _text: "󰵆",
+                launcherModule: GlobalState.LauncherModule.AppLauncher,
                 command: "notifications"
             },
             {
-                _text: "",
-                sidebarModule: GlobalState.SidebarModule.Volume,
+                _text: "󰖯",
+                launcherModule: GlobalState.LauncherModule.WindowSwitcher,
                 command: "volume"
             },
             {
-                _text: "󰂯",
-                sidebarModule: GlobalState.SidebarModule.Bluetooth,
+                _text: "󰐥",
+                launcherModule: GlobalState.LauncherModule.Logout,
                 command: "bluetooth"
-            },
-            {
-                _text: "󰖩",
-                sidebarModule: GlobalState.SidebarModule.Network,
-                command: "network"
             },
         ]
         delegate: StyledTabButton {
@@ -38,13 +33,13 @@ RowLayout {
 
             required property string _text
             required property string command
-            required property int sidebarModule
+            required property int launcherModule
 
             function tapped(): void {
-                GlobalState.sidebarModule = delegateButton.sidebarModule;
+                GlobalState.launcherModule = delegateButton.launcherModule;
             }
 
-            selected: GlobalState.sidebarModule == sidebarModule
+            selected: GlobalState.launcherModule == launcherModule
             text: delegateButton._text
             Layout.fillWidth: true
             Layout.fillHeight: true

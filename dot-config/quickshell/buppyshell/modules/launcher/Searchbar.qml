@@ -4,11 +4,28 @@ import qs.widgets
 
 StyledTextField {
     required property list<Item> forwardTargets
+
     focus: true
     onVisibleChanged: text = ""
     Keys.forwardTo: forwardTargets
     Keys.onEscapePressed: {
         GlobalState.launcher = false;
+    }
+    Keys.onTabPressed: {
+        var i = GlobalState.launcherModule;
+        i += 1;
+        if (i > 2) {
+            i = 0;
+        }
+        GlobalState.launcherModule = i;
+    }
+    Keys.onBacktabPressed: {
+        var i = GlobalState.launcherModule;
+        i -= 1;
+        if (i < 0) {
+            i = 2;
+        }
+        GlobalState.launcherModule = i;
     }
     Keys.onPressed: event => {
         if (event.modifiers === Qt.ControlModifier) {

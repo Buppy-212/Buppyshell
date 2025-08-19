@@ -7,11 +7,11 @@ import QtQuick.Layouts
 import qs.services
 import qs.widgets
 
-StyledGridView {
+StyledListView {
     id: root
+
     required property string search
-    cellHeight: height / 5
-    cellWidth: width / 9
+
     background: null
     Keys.onReturnPressed: root.currentItem.tapped()
     Keys.onPressed: event => {
@@ -22,8 +22,10 @@ StyledGridView {
     model: Apps.query(root.search)
     delegate: StyledButton {
         id: desktopEntry
+
         required property DesktopEntry modelData
         required property int index
+
         function tapped() {
             Quickshell.execDetached(["uwsm", "app", "--", `${desktopEntry.modelData.id}.desktop`]);
             GlobalState.launcher = false;
@@ -31,32 +33,33 @@ StyledGridView {
         function entered() {
             root.currentIndex = desktopEntry.index;
         }
+
         background: null
-        implicitWidth: root.cellWidth
-        implicitHeight: root.cellHeight
-        contentItem: ColumnLayout {
-            spacing: 0
+        implicitHeight: Theme.blockHeight * 4
+        implicitWidth: root.width
+        contentItem: RowLayout {
             anchors {
                 fill: parent
-                topMargin: parent.height / 20
-                rightMargin: parent.width / 20
-                bottomMargin: parent.height / 20
-                leftMargin: parent.width / 20
+                leftMargin: parent.width / 64
+                topMargin: parent.height / 32
+                bottomMargin: parent.height / 32
             }
+            spacing: anchors.leftMargin
+
             IconImage {
-                Layout.fillWidth: true
-                Layout.preferredHeight: parent.height * 0.6
+                Layout.fillHeight: true
                 Layout.preferredWidth: height
                 source: Quickshell.iconPath(desktopEntry.modelData.icon)
             }
+
             StyledText {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                anchors.fill: undefined
+                elide: Text.ElideRight
                 text: modelData.name
-                font.pixelSize: height / 4
-                wrapMode: Text.Wrap
-                color: desktopEntry.GridView.isCurrentItem ? Theme.color.accent : Theme.color.fg
+                font.pixelSize: Theme.font.size.doubled
+                color: desktopEntry.ListView.isCurrentItem ? Theme.color.accent : Theme.color.fg
+                horizontalAlignment: Text.AlignLeft
             }
         }
     }
