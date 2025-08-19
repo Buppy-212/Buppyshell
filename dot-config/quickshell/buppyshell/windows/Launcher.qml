@@ -84,10 +84,12 @@ PanelWindow {
 
             Searchbar {
                 id: searchbar
+
+                focus: true
                 Layout.preferredHeight: Theme.doubledBlockHeight
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter
-                forwardTargets: [stackView.currentItem]
+                Keys.forwardTo: [stackView.currentItem]
             }
 
             StackView {
