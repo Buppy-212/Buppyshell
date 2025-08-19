@@ -49,12 +49,6 @@ ListView {
         case Qt.Key_P:
             root.decrementCurrentIndex();
             break;
-        case Qt.Key_Tab:
-            root.incrementCurrentIndex();
-            break;
-        case Qt.Key_Backtab:
-            root.decrementCurrentIndex();
-            break;
         }
     }
     Loader {
