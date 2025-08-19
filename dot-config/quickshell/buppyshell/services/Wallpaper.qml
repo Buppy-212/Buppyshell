@@ -6,9 +6,12 @@ import Quickshell.Hyprland
 
 Singleton {
     id: root
+
     property url path
+
     Process {
         id: get
+
         command: ["readlink", "-n", `${Quickshell.env("XDG_STATE_HOME")}/wallpaper`]
         running: true
         stdout: StdioCollector {
@@ -17,6 +20,7 @@ Singleton {
             }
         }
     }
+
     GlobalShortcut {
         name: "wallpaper"
         description: "Refresh wallpaper"

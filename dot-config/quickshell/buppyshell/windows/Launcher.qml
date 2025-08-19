@@ -22,9 +22,12 @@ PanelWindow {
     onLauncherVisibleChanged: {
         root.monitor = Hyprland.focusedMonitor?.name ?? "";
     }
-
-    implicitWidth: modelData.width * 0.5
-    implicitHeight: (Theme.margin * 4) + (Theme.blockHeight * 4) * 11
+    anchors {
+        top: true
+        right: true
+        bottom: true
+        left: true
+    }
     visible: GlobalState.launcher && modelData.name === monitor
     color: "transparent"
     exclusionMode: ExclusionMode.Ignore
@@ -46,8 +49,13 @@ PanelWindow {
     }
 
     ClippingRectangle {
-        anchors.fill: parent
+        id: launcher
+
+        anchors.centerIn: parent
+        implicitWidth: modelData.width * 0.5
+        implicitHeight: (Theme.margin * 4) + (Theme.blockHeight * 4) * 11
         radius: Theme.radius
+
         MultiEffect {
             autoPaddingEnabled: false
             source: background
@@ -65,64 +73,69 @@ PanelWindow {
             border.color: Theme.color.blue
             border.width: Theme.border
         }
-    }
 
-    ColumnLayout {
-        id: column
+        ColumnLayout {
+            anchors {
+                fill: parent
+                margins: Theme.margin
+            }
+            spacing: Theme.margin
 
-        anchors {
-            fill: parent
-            margins: Theme.margin
-        }
-        spacing: Theme.margin
+            Searchbar {
+                id: searchbar
+                Layout.preferredHeight: Theme.doubledBlockHeight
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignHCenter
+                forwardTargets: [stackView.currentItem]
+            }
 
-        Searchbar {
-            id: searchbar
-            Layout.preferredHeight: Theme.doubledBlockHeight
-            Layout.fillWidth: true
-            Layout.alignment: Qt.AlignHCenter
-            forwardTargets: [stackView.currentItem]
-        }
+            StackView {
+                id: stackView
 
-        StackView {
-            id: stackView
+                readonly property int launcherModule: GlobalState.launcherModule
 
-            readonly property int launcherModule: GlobalState.launcherModule
+                Layout.alignment: Qt.AlignHCenter
+                Layout.fillHeight: true
+                Layout.fillWidth: true
 
-            Layout.alignment: Qt.AlignHCenter
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-
-            onLauncherModuleChanged: {
-                switch (launcherModule) {
-                case GlobalState.LauncherModule.AppLauncher:
-                    stackView.replaceCurrentItem(Quickshell.shellPath("modules/launcher/AppLauncher.qml"), {
-                        "search": Qt.binding(function () {
-                            return searchbar.text;
-                        })
-                    });
-                    break;
-                case GlobalState.LauncherModule.WindowSwitcher:
-                    stackView.replaceCurrentItem(Quickshell.shellPath("modules/launcher/WindowSwitcher.qml"), {
-                        "search": Qt.binding(function () {
-                            return searchbar.text;
-                        })
-                    });
-                    break;
-                case GlobalState.LauncherModule.Logout:
-                    stackView.replaceCurrentItem(Quickshell.shellPath("modules/launcher/Logout.qml"));
-                    break;
+                onLauncherModuleChanged: {
+                    switch (launcherModule) {
+                    case GlobalState.LauncherModule.AppLauncher:
+                        stackView.replaceCurrentItem(Quickshell.shellPath("modules/launcher/AppLauncher.qml"), {
+                            "search": Qt.binding(function () {
+                                return searchbar.text;
+                            })
+                        });
+                        break;
+                    case GlobalState.LauncherModule.WindowSwitcher:
+                        stackView.replaceCurrentItem(Quickshell.shellPath("modules/launcher/WindowSwitcher.qml"), {
+                            "search": Qt.binding(function () {
+                                return searchbar.text;
+                            })
+                        });
+                        break;
+                    case GlobalState.LauncherModule.BookmarkLauncher:
+                        stackView.replaceCurrentItem(Quickshell.shellPath("modules/launcher/BookmarkLauncher.qml"), {
+                            "search": Qt.binding(function () {
+                                return searchbar.text;
+                            })
+                        });
+                        break;
+                    case GlobalState.LauncherModule.Logout:
+                        stackView.replaceCurrentItem(Quickshell.shellPath("modules/launcher/Logout.qml"));
+                        break;
+                    }
                 }
             }
-        }
 
-        Rectangle {
-            Layout.preferredHeight: Theme.doubledBlockHeight
-            Layout.fillWidth: true
-            radius: Theme.radius
-            color: Theme.color.bgalt
-            Tabs {
-                anchors.fill: parent
+            Rectangle {
+                Layout.preferredHeight: Theme.doubledBlockHeight
+                Layout.fillWidth: true
+                radius: Theme.radius
+                color: Theme.color.bgalt
+                Tabs {
+                    anchors.fill: parent
+                }
             }
         }
     }

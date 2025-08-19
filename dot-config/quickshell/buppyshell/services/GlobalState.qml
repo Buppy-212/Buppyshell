@@ -20,6 +20,7 @@ Singleton {
     enum LauncherModule {
         AppLauncher,
         WindowSwitcher,
+        BookmarkLauncher,
         Logout
     }
 
@@ -31,6 +32,15 @@ Singleton {
     property bool locked: false
 
     GlobalShortcut {
+        name: "apps"
+        description: "Toggle application launcher"
+        appid: "buppyshell"
+        onPressed: {
+            root.launcherModule === GlobalState.LauncherModule.AppLauncher ? root.launcher = !root.launcher : root.launcher = true;
+            root.launcherModule = GlobalState.LauncherModule.AppLauncher;
+        }
+    }
+    GlobalShortcut {
         name: "windows"
         description: "Toggle window switcher"
         appid: "buppyshell"
@@ -40,21 +50,21 @@ Singleton {
         }
     }
     GlobalShortcut {
+        name: "bookmarks"
+        description: "Toggle bookmark launcher"
+        appid: "buppyshell"
+        onPressed: {
+            root.launcherModule === GlobalState.LauncherModule.BookmarkLauncher ? root.launcher = !root.launcher : root.launcher = true;
+            root.launcherModule = GlobalState.LauncherModule.BookmarkLauncher;
+        }
+    }
+    GlobalShortcut {
         name: "logout"
         description: "Toggle logout menu"
         appid: "buppyshell"
         onPressed: {
             root.launcherModule === GlobalState.LauncherModule.Logout ? root.launcher = !root.launcher : root.launcher = true;
             root.launcherModule = GlobalState.LauncherModule.Logout;
-        }
-    }
-    GlobalShortcut {
-        name: "apps"
-        description: "Toggle application launcher"
-        appid: "buppyshell"
-        onPressed: {
-            root.launcherModule === GlobalState.LauncherModule.AppLauncher ? root.launcher = !root.launcher : root.launcher = true;
-            root.launcherModule = GlobalState.LauncherModule.AppLauncher;
         }
     }
     GlobalShortcut {

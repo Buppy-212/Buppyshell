@@ -14,7 +14,7 @@ StyledTextField {
     Keys.onTabPressed: {
         var i = GlobalState.launcherModule;
         i += 1;
-        if (i > 2) {
+        if (i > 3) {
             i = 0;
         }
         GlobalState.launcherModule = i;
@@ -23,7 +23,7 @@ StyledTextField {
         var i = GlobalState.launcherModule;
         i -= 1;
         if (i < 0) {
-            i = 2;
+            i = 3;
         }
         GlobalState.launcherModule = i;
     }

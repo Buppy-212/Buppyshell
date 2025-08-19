@@ -23,6 +23,11 @@ RowLayout {
                 command: "volume"
             },
             {
+                _text: "󰃀",
+                launcherModule: GlobalState.LauncherModule.BookmarkLauncher,
+                command: "volume"
+            },
+            {
                 _text: "󰐥",
                 launcherModule: GlobalState.LauncherModule.Logout,
                 command: "bluetooth"
