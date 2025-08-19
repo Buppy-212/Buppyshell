@@ -2,7 +2,6 @@ pragma ComponentBehavior: Bound
 
 import Quickshell
 import QtQuick
-import QtQuick.Layouts
 import qs.services
 import qs.widgets
 
@@ -11,13 +10,23 @@ StyledListView {
 
     required property string search
 
-    background: null
     Keys.onReturnPressed: root.currentItem.tapped(undefined, Qt.LeftButton)
     Keys.onPressed: event => {
-        if (event.modifiers === Qt.ControlModifier && event.key === Qt.Key_O) {
-            root.currentItem.tapped(undefined, Qt.RightButton);
+        if (event.modifiers === Qt.ControlModifier) {
+            switch (event.key) {
+            case Qt.Key_O:
+                root.currentItem.tapped(undefined, Qt.RightButton);
+                break;
+            case Qt.Key_D:
+                root.currentItem.tapped(undefined, Qt.MiddleButton);
+                break;
+            case Qt.Key_I:
+                root.currentItem.tapped(undefined, Qt.LeftButton);
+                break;
+            }
         }
     }
+    background: null
     model: Bookmarks.query(root.search)
     delegate: StyledButton {
         id: bookmark
@@ -49,9 +58,7 @@ StyledListView {
         contentItem: StyledText {
             anchors {
                 fill: parent
-                leftMargin: parent.width / 64
-                topMargin: parent.height / 32
-                bottomMargin: parent.height / 32
+                margins: Theme.margin
             }
             elide: Text.ElideRight
             text: bookmark.modelData.name
