@@ -12,10 +12,10 @@ StyledListView {
     required property string search
 
     background: null
-    Keys.onReturnPressed: root.currentItem.tapped()
+    Keys.onReturnPressed: root.currentItem.tapped(undefined, Qt.LeftButton)
     Keys.onPressed: event => {
         if (event.modifiers === Qt.ControlModifier && event.key === Qt.Key_O) {
-            root.currentItem.tapped();
+            root.currentItem.tapped(undefined, Qt.RightButton);
         }
     }
     model: Bookmarks.query(root.search)
@@ -27,15 +27,15 @@ StyledListView {
 
         function tapped(pointEvent, button) {
             switch (button) {
-              case Qt.LeftButton:
-              Quickshell.execDetached(["uwsm", "app", "--", "zen-browser", bookmark.modelData.name]);
-              break;
-              case Qt.MiddleButton:
-              Quickshell.execDetached(["uwsm", "app", "--", "floatty", "nvim", `${Quickshell.env("XDG_STATE_HOME")}/bookmarks.txt`]);
-              break;
-              case Qt.RightButton:
-              Quickshell.execDetached(["uwsm", "app", "--", "zen.desktop", bookmark.modelData.name]);
-              break;
+            case Qt.LeftButton:
+                Quickshell.execDetached(["uwsm", "app", "--", "zen-browser", bookmark.modelData.name]);
+                break;
+            case Qt.MiddleButton:
+                Quickshell.execDetached(["uwsm", "app", "--", "floatty", "nvim", `${Quickshell.env("XDG_STATE_HOME")}/bookmarks.txt`]);
+                break;
+            case Qt.RightButton:
+                Quickshell.execDetached(["uwsm", "app", "--", "zen-browser", "-new-window", bookmark.modelData.name]);
+                break;
             }
             GlobalState.launcher = false;
         }
