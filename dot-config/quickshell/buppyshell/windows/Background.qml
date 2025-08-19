@@ -2,6 +2,7 @@ import Quickshell
 import QtQuick
 import Quickshell.Wayland
 import qs.services
+import qs.services.wallpaper
 import qs.modules.background
 
 PanelWindow {
@@ -22,8 +23,9 @@ PanelWindow {
 
     Image {
         anchors.fill: parent
+        cache: false
         fillMode: Image.PreserveAspectCrop
-        source: Wallpaper.path
+        source: Wallpapers.current
     }
 
     Date {}

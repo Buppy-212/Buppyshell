@@ -16,18 +16,31 @@ ScrollView {
             model: Hyprland.workspaces
             delegate: StyledTabButton {
                 id: workspace
+
                 required property HyprlandWorkspace modelData
+
+                function tapped(): void {
+                    if (!workspace.modelData.focused) {
+                        workspace.modelData.activate();
+                    }
+                }
+
+                function scrolled(event): void {
+                    if (event.angleDelta.y > 0) {
+                        Hyprland.dispatch("workspace m-1");
+                    } else {
+                        Hyprland.dispatch("workspace m+1");
+                    }
+                }
+
                 implicitHeight: (toplevelRepeater.count + 1) * Theme.blockWidth
                 implicitWidth: root.width
                 dragged: dropArea.containsDrag
                 borderSide: StyledTabButton.Right
                 selected: modelData?.focused
                 accentColor: Theme.color.accent
-                function tapped(): void {
-                    if (!workspace.modelData.focused) {
-                        workspace.modelData.activate();
-                    }
-                }
+                scrollable: true
+
                 DropArea {
                     id: dropArea
                     anchors.fill: parent

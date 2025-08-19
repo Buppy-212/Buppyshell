@@ -14,30 +14,29 @@ RowLayout {
         model: [
             {
                 _text: "󰵆",
-                launcherModule: GlobalState.LauncherModule.AppLauncher,
-                command: "notifications"
+                launcherModule: GlobalState.LauncherModule.AppLauncher
             },
             {
                 _text: "󰖯",
-                launcherModule: GlobalState.LauncherModule.WindowSwitcher,
-                command: "volume"
+                launcherModule: GlobalState.LauncherModule.WindowSwitcher
             },
             {
                 _text: "󰃀",
-                launcherModule: GlobalState.LauncherModule.BookmarkLauncher,
-                command: "volume"
+                launcherModule: GlobalState.LauncherModule.BookmarkLauncher
+            },
+            {
+                _text: "󰸉",
+                launcherModule: GlobalState.LauncherModule.WallpaperSwitcher
             },
             {
                 _text: "󰐥",
-                launcherModule: GlobalState.LauncherModule.Logout,
-                command: "bluetooth"
+                launcherModule: GlobalState.LauncherModule.Logout
             },
         ]
         delegate: StyledTabButton {
             id: delegateButton
 
             required property string _text
-            required property string command
             required property int launcherModule
 
             function tapped(): void {

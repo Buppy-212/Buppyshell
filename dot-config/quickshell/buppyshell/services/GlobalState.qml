@@ -21,6 +21,7 @@ Singleton {
         AppLauncher,
         WindowSwitcher,
         BookmarkLauncher,
+        WallpaperSwitcher,
         Logout
     }
 
@@ -40,6 +41,7 @@ Singleton {
             root.launcherModule = GlobalState.LauncherModule.AppLauncher;
         }
     }
+
     GlobalShortcut {
         name: "windows"
         description: "Toggle window switcher"
@@ -49,6 +51,7 @@ Singleton {
             root.launcherModule = GlobalState.LauncherModule.WindowSwitcher;
         }
     }
+
     GlobalShortcut {
         name: "bookmarks"
         description: "Toggle bookmark launcher"
@@ -58,6 +61,17 @@ Singleton {
             root.launcherModule = GlobalState.LauncherModule.BookmarkLauncher;
         }
     }
+
+    GlobalShortcut {
+        name: "wallpapers"
+        description: "Toggle wallpaper switcher"
+        appid: "buppyshell"
+        onPressed: {
+            root.launcherModule === GlobalState.LauncherModule.WallpaperSwitcher ? root.launcher = !root.launcher : root.launcher = true;
+            root.launcherModule = GlobalState.LauncherModule.WallpaperSwitcher;
+        }
+    }
+
     GlobalShortcut {
         name: "logout"
         description: "Toggle logout menu"
@@ -67,6 +81,7 @@ Singleton {
             root.launcherModule = GlobalState.LauncherModule.Logout;
         }
     }
+
     GlobalShortcut {
         name: "sidebar"
         description: "Toggle sidebar"
@@ -75,6 +90,7 @@ Singleton {
             root.sidebar = !root.sidebar;
         }
     }
+
     GlobalShortcut {
         name: "lock"
         description: "Reloads toplevels"

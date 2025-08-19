@@ -2,8 +2,9 @@ pragma ComponentBehavior: Bound
 
 import Quickshell
 import QtQuick
-import qs.services.bookmarks
+import QtQuick.Layouts
 import qs.services
+import qs.services.wallpaper
 import qs.widgets
 
 StyledListView {
@@ -18,9 +19,6 @@ StyledListView {
             case Qt.Key_O:
                 root.currentItem.tapped(undefined, Qt.RightButton);
                 break;
-            case Qt.Key_D:
-                root.currentItem.tapped(undefined, Qt.MiddleButton);
-                break;
             case Qt.Key_I:
                 root.currentItem.tapped(undefined, Qt.LeftButton);
                 break;
@@ -28,44 +26,56 @@ StyledListView {
         }
     }
     background: null
-    model: Bookmarks.query(root.search)
+    model: Wallpapers.query(root.search)
     delegate: StyledButton {
-        id: bookmark
+        id: wallpaper
 
-        required property Bookmark modelData
+        required property Wallpaper modelData
         required property int index
 
         function tapped(pointEvent, button) {
             switch (button) {
             case Qt.LeftButton:
-                bookmark.modelData.open();
-                break;
-            case Qt.MiddleButton:
-                bookmark.modelData.edit();
+                modelData.select()
                 break;
             case Qt.RightButton:
-                bookmark.modelData.openInNewWindow();
+                modelData.greeter()
                 break;
             }
             GlobalState.launcher = false;
         }
+
         function entered() {
-            root.currentIndex = bookmark.index;
+            root.currentIndex = wallpaper.index;
         }
 
         background: null
         implicitHeight: Theme.blockHeight * 4
         implicitWidth: root.width
-        contentItem: StyledText {
+        contentItem: RowLayout {
             anchors {
                 fill: parent
                 margins: Theme.margin
             }
-            elide: Text.ElideRight
-            text: bookmark.modelData.name
-            font.pixelSize: Theme.font.size.doubled
-            color: bookmark.ListView.isCurrentItem ? Theme.color.accent : Theme.color.fg
-            horizontalAlignment: Text.AlignLeft
+            spacing: Theme.margin
+
+            Image {
+                Layout.fillHeight: true
+                Layout.preferredWidth: height * 16 / 9
+                asynchronous: true
+                fillMode: Image.PreserveAspectCrop
+                source: wallpaper.modelData.url
+            }
+
+            StyledText {
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+                elide: Text.ElideRight
+                text: wallpaper.modelData.name
+                font.pixelSize: Theme.font.size.doubled
+                color: wallpaper.ListView.isCurrentItem ? Theme.color.accent : Theme.color.fg
+                horizontalAlignment: Text.AlignLeft
+            }
         }
     }
 }

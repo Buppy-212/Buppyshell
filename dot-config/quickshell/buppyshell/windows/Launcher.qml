@@ -9,6 +9,7 @@ import Quickshell.Hyprland
 import Quickshell.Wayland
 import Quickshell.Widgets
 import qs.services
+import qs.services.wallpaper
 import qs.widgets
 import qs.modules.launcher
 
@@ -44,7 +45,7 @@ PanelWindow {
         id: background
         anchors.fill: parent
         fillMode: Image.PreserveAspectCrop
-        source: Wallpaper.path
+        source: Wallpapers.current
         visible: false
     }
 
@@ -119,6 +120,13 @@ PanelWindow {
                         break;
                     case GlobalState.LauncherModule.BookmarkLauncher:
                         stackView.replaceCurrentItem(Quickshell.shellPath("modules/launcher/BookmarkLauncher.qml"), {
+                            "search": Qt.binding(function () {
+                                return searchbar.text;
+                            })
+                        });
+                        break;
+                    case GlobalState.LauncherModule.WallpaperSwitcher:
+                        stackView.replaceCurrentItem(Quickshell.shellPath("modules/launcher/WallpaperSwitcher.qml"), {
                             "search": Qt.binding(function () {
                                 return searchbar.text;
                             })

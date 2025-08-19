@@ -4,6 +4,7 @@ import QtQuick
 import Quickshell.Services.Pam
 import Quickshell.Wayland
 import qs.services
+import qs.services.wallpaper
 import qs.widgets
 import qs.modules.background
 
@@ -12,10 +13,10 @@ WlSessionLock {
 
     WlSessionLockSurface {
         Image {
-            id: image
+            cache: false
             anchors.fill: parent
             fillMode: Image.PreserveAspectCrop
-            source: Wallpaper.path
+            source: Wallpapers.current
         }
 
         Date {}
