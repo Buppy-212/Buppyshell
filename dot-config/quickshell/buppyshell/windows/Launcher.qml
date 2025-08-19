@@ -128,7 +128,7 @@ PanelWindow {
                 }
             }
 
-            Rectangle {
+            ClippingRectangle {
                 Layout.preferredHeight: Theme.doubledBlockHeight
                 Layout.fillWidth: true
                 radius: Theme.radius
