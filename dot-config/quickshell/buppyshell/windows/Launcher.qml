@@ -59,6 +59,7 @@ PanelWindow {
         MultiEffect {
             autoPaddingEnabled: false
             source: background
+            anchors.centerIn: parent
             width: background.width
             height: background.height
             blur: 1
