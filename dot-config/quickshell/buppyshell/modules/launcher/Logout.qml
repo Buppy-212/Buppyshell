@@ -27,8 +27,8 @@ StyledListView {
         required property int index
 
         function tapped(): void {
+            powerOption.modelData.action();
             GlobalState.launcher = false;
-            Hyprland.dispatch(command);
         }
         function entered(): void {
             root.currentIndex = powerOption.index;
