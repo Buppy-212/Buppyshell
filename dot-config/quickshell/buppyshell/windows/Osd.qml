@@ -97,8 +97,8 @@ PanelWindow {
             id: background
 
             anchors.fill: parent
-            sourceSize: Qt.size(root.screen.width, root.screen.height)
-            sourceClipRect: Qt.rect(root.screen.width / 2 - osd.width / 2, root.screen.height - osd.height - root.margins.bottom, osd.width, osd.height)
+            sourceSize: Qt.size(root.modelData.width, root.modelData.height)
+            sourceClipRect: Qt.rect(root.modelData.width / 2 - osd.width / 2, root.modelData.height - osd.height - root.margins.bottom, width, height)
         }
 
         MultiEffect {
