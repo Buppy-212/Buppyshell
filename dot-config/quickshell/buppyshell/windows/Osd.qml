@@ -86,20 +86,20 @@ PanelWindow {
         onTriggered: root.ready = false
     }
 
-    GlassBackground {
-        id: background
-
-        anchors.fill: parent
-        sourceSize: Qt.size(root.screen.width, root.screen.height)
-        sourceClipRect: Qt.rect(root.screen.width / 2 - osd.width / 2, root.screen.height - osd.height - root.margins.bottom, osd.width, osd.height)
-    }
-
     ClippingRectangle {
         id: osd
 
         anchors.fill: parent
         color: "transparent"
         radius: height / 3
+
+        GlassBackground {
+            id: background
+
+            anchors.fill: parent
+            sourceSize: Qt.size(root.screen.width, root.screen.height)
+            sourceClipRect: Qt.rect(root.screen.width / 2 - osd.width / 2, root.screen.height - osd.height - root.margins.bottom, osd.width, osd.height)
+        }
 
         MultiEffect {
             anchors.fill: parent
