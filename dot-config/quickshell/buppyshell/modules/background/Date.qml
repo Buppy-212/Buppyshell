@@ -1,9 +1,10 @@
 import QtQuick
-import qs.modules.bar
+import QtQuick.Layouts
+import Quickshell.Widgets
 import qs.services
 import qs.widgets
 
-Rectangle {
+ClippingRectangle {
     anchors {
         top: parent.top
         topMargin: parent.height / 50
@@ -11,15 +12,19 @@ Rectangle {
     }
     implicitHeight: parent.height / 10
     implicitWidth: parent.width / 10
-    color: Theme.color.bgTranslucent
+    color: "transparent"
     radius: height / 3
-    Column {
+
+    ColumnLayout {
         id: column
+
         anchors.fill: parent
-        topPadding: parent.height / 8
+        spacing: 0
+
         StyledText {
-            height: parent.height / 4
-            width: parent.width
+            Layout.topMargin: column.height / 8
+            Layout.fillWidth: true
+            Layout.preferredHeight: column.height / 4
             text: Time.date
             font {
                 pixelSize: width / 10
@@ -27,9 +32,11 @@ Rectangle {
                 italic: true
             }
         }
+
         StyledText {
-            height: parent.height / 2
-            width: parent.width
+            Layout.bottomMargin: column.height / 8
+            Layout.fillWidth: true
+            Layout.preferredHeight: column.height / 2
             text: Time.time
             font.pixelSize: width / 4
         }
