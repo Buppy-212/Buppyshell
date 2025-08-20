@@ -4,7 +4,6 @@ import QtQuick
 import QtQuick.Effects
 import QtQuick.Layouts
 import qs.services
-import qs.services.wallpaper
 import qs.widgets
 import qs.modules.bar
 
@@ -128,7 +127,7 @@ PanelWindow {
 
             Update {
                 Layout.fillWidth: true
-                Layout.preferredHeight: hovered ? Theme.doubledBlockHeight : Theme.blockHeight
+                Layout.preferredHeight: Theme.blockHeight
             }
 
             StyledText {
