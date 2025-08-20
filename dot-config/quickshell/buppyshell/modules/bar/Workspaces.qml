@@ -143,7 +143,7 @@ ScrollView {
 
                                             padding: Theme.margin
                                             anchors.fill: parent
-                                            text: toplevel.modelData.title
+                                            text: toplevel.modelData?.title ?? ""
                                         }
                                     }
                                 }
