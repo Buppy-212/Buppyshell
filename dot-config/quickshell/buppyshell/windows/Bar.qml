@@ -1,8 +1,10 @@
 import Quickshell
 import Quickshell.Wayland
 import QtQuick
+import QtQuick.Effects
 import QtQuick.Layouts
 import qs.services
+import qs.services.wallpaper
 import qs.widgets
 import qs.modules.bar
 
@@ -21,13 +23,37 @@ PanelWindow {
     implicitWidth: modelData.width
     color: "transparent"
     mask: Region {
-        item: rectangle
+        item: bar
     }
     exclusiveZone: Theme.barWidth
     WlrLayershell.namespace: "buppyshell:rightbar"
 
-    Rectangle {
-        id: rectangle
+    GlassBackground {
+        id: background
+
+        anchors.fill: parent
+    }
+
+    ShaderEffectSource {
+        id: effectSource
+
+        sourceItem: background
+        anchors.fill: border
+        sourceRect: Qt.rect(x, y, width, height)
+        visible: false
+    }
+
+    ShaderEffectSource {
+        id: effectSourceBar
+
+        sourceItem: background
+        anchors.fill: bar
+        sourceRect: Qt.rect(x, y, width, height)
+        visible: false
+    }
+
+    Item {
+        id: bar
 
         anchors {
             top: parent.top
@@ -36,7 +62,16 @@ PanelWindow {
             left: !Theme.barOnRight ? parent.left : undefined
         }
         implicitWidth: Theme.barWidth
-        color: Theme.color.black
+
+        MultiEffect {
+            anchors.fill: parent
+            source: effectSourceBar
+            autoPaddingEnabled: false
+            blur: 1
+            blurMultiplier: 2
+            blurMax: 48
+            blurEnabled: true
+        }
 
         ColumnLayout {
             anchors.fill: parent
@@ -108,28 +143,42 @@ PanelWindow {
             }
         }
     }
+    Item {
+        id: border
 
-    RoundCorner {
-        anchors.top: parent.top
-        anchors.left: Theme.barOnRight ? parent.left : rectangle.right
-        corner: RoundCorner.TopLeft
-    }
+        anchors {
+            top: parent.top
+            right: Theme.barOnRight ? bar.left : parent.right
+            bottom: parent.bottom
+            left: Theme.barOnRight ? parent.left : bar.right
+        }
 
-    RoundCorner {
-        anchors.bottom: parent.bottom
-        anchors.left: Theme.barOnRight ? parent.left : rectangle.right
-        corner: RoundCorner.BottomLeft
-    }
+        Item {
+            id: mask
 
-    RoundCorner {
-        anchors.bottom: parent.bottom
-        anchors.right: Theme.barOnRight ? rectangle.left : parent.right
-        corner: RoundCorner.BottomRight
-    }
+            anchors.fill: parent
+            layer.enabled: true
+            visible: false
 
-    RoundCorner {
-        anchors.top: parent.top
-        anchors.right: Theme.barOnRight ? rectangle.left : parent.right
-        corner: RoundCorner.TopRight
+            Rectangle {
+                anchors.fill: parent
+                radius: Theme.radius + 3
+            }
+        }
+
+        MultiEffect {
+            anchors.fill: parent
+            source: effectSource
+            maskEnabled: true
+            maskSource: mask
+            maskInverted: true
+            maskThresholdMin: 0.5
+            maskSpreadAtMin: 1
+            autoPaddingEnabled: false
+            blur: 1
+            blurMultiplier: 2
+            blurMax: 48
+            blurEnabled: true
+        }
     }
 }

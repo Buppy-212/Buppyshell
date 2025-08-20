@@ -41,11 +41,18 @@ PanelWindow {
         onTapped: GlobalState.launcher = false
     }
 
-    Image {
+    GlassBackground {
         id: background
+
         anchors.fill: parent
-        fillMode: Image.PreserveAspectCrop
-        source: Wallpapers.current
+    }
+
+    ShaderEffectSource {
+        id: effectSource
+
+        sourceItem: background
+        anchors.fill: launcher
+        sourceRect: Qt.rect(x, y, width, height)
         visible: false
     }
 
@@ -56,24 +63,17 @@ PanelWindow {
         implicitWidth: modelData.width * 0.5
         implicitHeight: (Theme.margin * 4) + (Theme.blockHeight * 4) * 11
         radius: Theme.radius
+        border.color: Theme.color.blue
+        border.width: Theme.border
 
         MultiEffect {
-            autoPaddingEnabled: false
-            source: background
-            anchors.centerIn: parent
-            width: background.width
-            height: background.height
-            blur: 1
-            blurMax: 64
-            blurEnabled: true
-        }
-
-        Rectangle {
             anchors.fill: parent
-            color: Theme.color.bgTranslucent
-            radius: Theme.radius
-            border.color: Theme.color.blue
-            border.width: Theme.border
+            source: effectSource
+            autoPaddingEnabled: false
+            blur: 1
+            blurMultiplier: 2
+            blurMax: 48
+            blurEnabled: true
         }
 
         ColumnLayout {
