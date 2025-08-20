@@ -1,93 +1,29 @@
 pragma ComponentBehavior: Bound
 
-import Quickshell
 import Quickshell.Hyprland
 import QtQuick
 import QtQuick.Layouts
 import qs.services
+import qs.services.power
 import qs.widgets
 
 StyledListView {
     id: root
 
-    interactive: false
+    required property string search
+
     Keys.onReturnPressed: root.currentItem.tapped()
     Keys.onPressed: event => {
-        if (event.modifiers === Qt.NoModifier) {
-            switch (event.key) {
-            case Qt.Key_S:
-                GlobalState.launcher = false;
-                Quickshell.execDetached(["systemctl", "poweroff"]);
-                break;
-            case Qt.Key_R:
-                GlobalState.launcher = false;
-                Quickshell.execDetached(["systemctl", "reboot"]);
-                break;
-            case Qt.Key_O:
-                GlobalState.launcher = false;
-                Quickshell.execDetached(["uwsm", "stop"]);
-                break;
-            case Qt.Key_L:
-                GlobalState.launcher = false;
-                GlobalState.locked = true;
-                break;
-            case Qt.Key_U:
-                GlobalState.launcher = false;
-                Quickshell.execDetached(["systemctl", "suspend"]);
-                break;
-            case Qt.Key_H:
-                GlobalState.launcher = false;
-                Quickshell.execDetached(["systemctl", "hibernate"]);
-                break;
-            }
+        if (event.modifiers === Qt.ControlModifier && event.key === Qt.Key_O) {
+            root.currentItem.tapped();
         }
     }
     background: null
-    model: [
-        {
-            icon: "power_settings_new",
-            color: Theme.color.red,
-            command: "exec systemctl poweroff",
-            text: "Shutdown"
-        },
-        {
-            icon: "restart_alt",
-            color: Theme.color.orange,
-            command: "exec systemctl reboot",
-            text: "Reboot"
-        },
-        {
-            icon: "logout",
-            color: Theme.color.green,
-            command: "exec uwsm stop",
-            text: "Logout"
-        },
-        {
-            icon: "lock",
-            color: Theme.color.cyan,
-            command: "global buppyshell:lock",
-            text: "Lock"
-        },
-        {
-            icon: "pause_circle",
-            color: Theme.color.blue,
-            command: "exec systemctl suspend",
-            text: "Suspend"
-        },
-        {
-            icon: "mode_standby",
-            color: Theme.color.magenta,
-            command: "exec systemctl hibernate",
-            text: "Hibernate"
-        },
-    ]
+    model: Power.query(root.search)
     delegate: StyledButton {
-        id: logoutDelegate
+        id: powerOption
 
-        required property string icon
-        required property string color
-        required property string command
-        required property string text
+        required property PowerOption modelData
         required property int index
 
         function tapped(): void {
@@ -95,7 +31,7 @@ StyledListView {
             Hyprland.dispatch(command);
         }
         function entered(): void {
-            root.currentIndex = logoutDelegate.index;
+            root.currentIndex = powerOption.index;
         }
 
         background: null
@@ -113,19 +49,19 @@ StyledListView {
 
                 Layout.fillHeight: true
                 Layout.preferredWidth: height
-                text: logoutDelegate.icon
+                text: powerOption.modelData.icon
                 font.family: Theme.font.family.material
                 font.pixelSize: height
-                color: logoutDelegate.color
+                color: powerOption.modelData.color
                 verticalAlignment: Text.AlignVCenter
             }
 
             StyledText {
-                text: logoutDelegate.text
+                text: powerOption.modelData.name
                 Layout.fillHeight: true
                 Layout.fillWidth: true
                 font.pixelSize: Theme.font.size.doubled
-                color: logoutDelegate.ListView.isCurrentItem ? Theme.color.accent : Theme.color.fg
+                color: powerOption.ListView.isCurrentItem ? Theme.color.accent : Theme.color.fg
                 horizontalAlignment: Text.AlignLeft
             }
         }

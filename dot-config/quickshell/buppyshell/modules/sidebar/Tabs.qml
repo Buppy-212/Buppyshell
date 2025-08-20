@@ -44,6 +44,23 @@ RowLayout {
                 GlobalState.sidebarModule = delegateButton.sidebarModule;
             }
 
+            function scrolled(event): void {
+                var i = GlobalState.sidebarModule;
+                if (event.angleDelta.y < 0) {
+                    i += 1;
+                    if (i > 3) {
+                        i = 0;
+                    }
+                } else {
+                    i -= 1;
+                    if (i < 0) {
+                        i = 3;
+                    }
+                }
+                GlobalState.sidebarModule = i;
+            }
+
+            scrollable: true
             selected: GlobalState.sidebarModule == sidebarModule
             text: delegateButton._text
             Layout.fillWidth: true

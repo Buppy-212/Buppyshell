@@ -133,7 +133,11 @@ PanelWindow {
                         });
                         break;
                     case GlobalState.LauncherModule.Logout:
-                        stackView.replaceCurrentItem(Quickshell.shellPath("modules/launcher/Logout.qml"));
+                        stackView.replaceCurrentItem(Quickshell.shellPath("modules/launcher/Logout.qml"), {
+                            "search": Qt.binding(function () {
+                                return searchbar.text;
+                            })
+                        });
                         break;
                     }
                 }

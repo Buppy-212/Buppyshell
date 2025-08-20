@@ -62,7 +62,7 @@ StyledListView {
                 margins: Theme.margin
             }
             elide: Text.ElideRight
-            text: bookmark.modelData.name
+            text: bookmark.modelData?.name ?? ""
             font.pixelSize: Theme.font.size.doubled
             color: bookmark.ListView.isCurrentItem ? Theme.color.accent : Theme.color.fg
             horizontalAlignment: Text.AlignLeft
