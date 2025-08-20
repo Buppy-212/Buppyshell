@@ -4,7 +4,9 @@ import Quickshell
 import Quickshell.Services.Pipewire
 import Quickshell.Hyprland
 import Quickshell.Wayland
+import Quickshell.Widgets
 import QtQuick
+import QtQuick.Effects
 import qs.services
 import qs.widgets
 
@@ -73,8 +75,9 @@ PanelWindow {
     visible: root.ready && modelData.name === Hyprland.focusedMonitor?.name
     color: "transparent"
     exclusionMode: ExclusionMode.Ignore
+    mask: Region {}
     WlrLayershell.layer: WlrLayer.Overlay
-    WlrLayershell.namespace: "buppyshell:slider"
+    WlrLayershell.namespace: "buppyshell:osd"
 
     Timer {
         id: timer
@@ -83,10 +86,30 @@ PanelWindow {
         onTriggered: root.ready = false
     }
 
-    Rectangle {
+    GlassBackground {
+        id: background
+
         anchors.fill: parent
-        color: Theme.color.bgTranslucent
+        sourceSize: Qt.size(root.screen.width, root.screen.height)
+        sourceClipRect: Qt.rect(root.screen.width / 2 - osd.width / 2, root.screen.height - osd.height - root.margins.bottom, osd.width, osd.height)
+    }
+
+    ClippingRectangle {
+        id: osd
+
+        anchors.fill: parent
+        color: "transparent"
         radius: height / 3
+
+        MultiEffect {
+            anchors.fill: parent
+            source: background
+            autoPaddingEnabled: false
+            blur: 1
+            blurMultiplier: 2
+            blurMax: 24
+            blurEnabled: true
+        }
 
         Column {
             anchors {

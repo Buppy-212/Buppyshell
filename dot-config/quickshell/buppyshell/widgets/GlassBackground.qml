@@ -12,6 +12,7 @@ Image {
 
     Rectangle {
         anchors.fill: parent
-        color: Theme.color.bgTranslucent
+        color: Theme.color.bg
+        opacity: 0.85
     }
 }

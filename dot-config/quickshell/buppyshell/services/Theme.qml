@@ -24,9 +24,7 @@ Singleton {
 
     component Color: QtObject {
         readonly property string bg: "#222436"
-        readonly property string bgTranslucent: "#aa222436"
         readonly property string bgalt: "#2a2c3d"
-        readonly property string bgdark: "#1e2030"
         readonly property string fg: "#e9e9ed"
         readonly property string grey: "#313345"
         readonly property string red: "#ff757f"
@@ -39,6 +37,7 @@ Singleton {
         readonly property string magenta: "#c099ff"
         readonly property string black: "#1b1d2b"
     }
+
     component FontFamily: QtObject {
         readonly property string sans: "Adwaita Sans"
         readonly property string mono: "JetBrainsMono Nerd Font Propo"

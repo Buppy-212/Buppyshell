@@ -9,7 +9,6 @@ import Quickshell.Hyprland
 import Quickshell.Wayland
 import Quickshell.Widgets
 import qs.services
-import qs.services.wallpaper
 import qs.widgets
 import qs.modules.launcher
 

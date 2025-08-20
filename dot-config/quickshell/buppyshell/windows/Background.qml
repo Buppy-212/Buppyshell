@@ -54,7 +54,7 @@ PanelWindow {
             autoPaddingEnabled: false
             blur: 1
             blurMultiplier: 2
-            blurMax: 48
+            blurMax: 24
             blurEnabled: true
         }
     }

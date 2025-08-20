@@ -1,8 +1,10 @@
 pragma ComponentBehavior: Bound
 
 import QtQuick
+import QtQuick.Effects
 import Quickshell.Services.Pam
 import Quickshell.Wayland
+import Quickshell.Widgets
 import qs.services
 import qs.services.wallpaper
 import qs.widgets
@@ -19,7 +21,43 @@ WlSessionLock {
             source: Wallpapers.current
         }
 
-        Date {}
+        GlassBackground {
+            id: background
+
+            anchors.fill: parent
+        }
+
+        ShaderEffectSource {
+            id: effectSourceDate
+
+            sourceItem: background
+            anchors.fill: date
+            sourceRect: Qt.rect(x, y, width, height)
+            visible: false
+        }
+
+        ShaderEffectSource {
+            id: effectSourcePassword
+
+            sourceItem: background
+            anchors.fill: password
+            sourceRect: Qt.rect(x, y, width, height)
+            visible: false
+        }
+
+        Date {
+            id: date
+            MultiEffect {
+                anchors.fill: parent
+                z: -1
+                source: effectSourceDate
+                autoPaddingEnabled: false
+                blur: 1
+                blurMultiplier: 2
+                blurMax: 48
+                blurEnabled: true
+            }
+        }
 
         PamContext {
             id: pam
@@ -41,12 +79,24 @@ WlSessionLock {
             }
         }
 
-        Rectangle {
+        ClippingRectangle {
+            id: password
+
             height: Screen.height / 10
             width: Screen.width / 6
-            color: Theme.color.bgTranslucent
+            color: "transparent"
             radius: height / 3
             anchors.centerIn: parent
+
+            MultiEffect {
+                anchors.fill: parent
+                source: effectSourcePassword
+                autoPaddingEnabled: false
+                blur: 1
+                blurMultiplier: 2
+                blurMax: 48
+                blurEnabled: true
+            }
 
             StyledTextField {
                 id: textField
