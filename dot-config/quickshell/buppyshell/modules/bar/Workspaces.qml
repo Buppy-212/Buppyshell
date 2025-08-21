@@ -36,7 +36,7 @@ ScrollView {
                 implicitHeight: (toplevelRepeater.count + 1) * Theme.blockWidth
                 implicitWidth: root.width
                 dragged: dropArea.containsDrag
-                borderSide: StyledTabButton.Right
+                borderSide: Theme.barOnRight ? StyledTabButton.Right : StyledTabButton.Left
                 selected: modelData?.focused
                 accentColor: Theme.color.accent
                 scrollable: true

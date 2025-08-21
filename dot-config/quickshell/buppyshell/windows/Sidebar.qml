@@ -74,14 +74,15 @@ Loader {
 
                 DragHandler {
                     cursorShape: Qt.ClosedHandCursor
-                    xAxis.minimum: 0
+                    xAxis.minimum: Theme.barOnRight ? 0 : -sidebar.width
+                    xAxis.maximum: Theme.barOnRight ? sidebar.width : 0
                     yAxis.enabled: false
                     onGrabChanged: (transition, point) => {
                         if (transition === PointerDevice.GrabExclusive) {
                             behavior.enabled = false;
                         } else if (transition === PointerDevice.UngrabExclusive && sidebar.x !== 0) {
                             behavior.enabled = true;
-                            sidebar.x = sidebar.width;
+                            Theme.barOnRight ? sidebar.x = sidebar.width : sidebar.x = -sidebar.width
                         }
                     }
                 }

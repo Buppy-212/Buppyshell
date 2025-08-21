@@ -8,8 +8,6 @@ import qs.widgets
 import qs.modules.bar
 
 PanelWindow {
-    id: root
-
     required property ShellScreen modelData
 
     screen: modelData
@@ -33,25 +31,37 @@ PanelWindow {
         anchors.fill: parent
     }
 
-    ShaderEffectSource {
-        id: effectSource
-
-        sourceItem: background
-        anchors.fill: border
-        sourceRect: Qt.rect(x, y, width, height)
-        visible: false
-    }
-
-    ShaderEffectSource {
-        id: effectSourceBar
-
-        sourceItem: background
-        anchors.fill: bar
-        sourceRect: Qt.rect(x, y, width, height)
-        visible: false
-    }
-
     Item {
+        id: mask
+
+        anchors.fill: parent
+        layer.enabled: true
+        visible: false
+
+        Rectangle {
+            anchors.fill: parent
+            anchors.rightMargin: Theme.barOnRight ? bar.width : 0
+            anchors.leftMargin: Theme.barOnRight ? 0 : bar.width
+            radius: Theme.radius
+        }
+    }
+
+    MultiEffect {
+        anchors.fill: parent
+        source: background
+        maskEnabled: true
+        maskSource: mask
+        maskInverted: true
+        maskThresholdMin: 0.5
+        maskSpreadAtMin: 1
+        autoPaddingEnabled: false
+        blur: 1
+        blurMultiplier: 2
+        blurMax: 48
+        blurEnabled: true
+    }
+
+    ColumnLayout {
         id: bar
 
         anchors {
@@ -60,124 +70,72 @@ PanelWindow {
             bottom: parent.bottom
             left: !Theme.barOnRight ? parent.left : undefined
         }
-        implicitWidth: Theme.barWidth
+        width: Theme.barWidth
+        spacing: Theme.spacing
 
-        MultiEffect {
-            anchors.fill: parent
-            source: effectSourceBar
-            autoPaddingEnabled: false
-            blur: 1
-            blurMultiplier: 2
-            blurMax: 48
-            blurEnabled: true
+        Os {
+            Layout.fillWidth: true
+            Layout.preferredHeight: Theme.blockHeight
         }
 
-        ColumnLayout {
-            anchors.fill: parent
-            spacing: Theme.spacing
-
-            Os {
-                Layout.fillWidth: true
-                Layout.preferredHeight: Theme.blockHeight
-            }
-
-            Bell {
-                Layout.fillWidth: true
-                Layout.preferredHeight: Theme.blockHeight
-            }
-
-            Workspaces {
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-            }
-
-            Tray {
-                Layout.fillWidth: true
-            }
-
-            Volume {
-                Layout.fillWidth: true
-                Layout.preferredHeight: Theme.blockHeight
-            }
-
-            Bluetooth {
-                Layout.fillWidth: true
-                Layout.preferredHeight: Theme.blockHeight
-            }
-
-            Inhibitor {
-                Layout.fillWidth: true
-                Layout.preferredHeight: Theme.blockHeight
-            }
-
-            Network {
-                Layout.fillWidth: true
-                Layout.preferredHeight: Theme.blockHeight
-            }
-
-            Battery {
-                Layout.fillWidth: true
-                Layout.preferredHeight: Theme.blockHeight
-            }
-
-            Light {
-                Layout.fillWidth: true
-                Layout.preferredHeight: Theme.blockHeight
-            }
-
-            Update {
-                Layout.fillWidth: true
-                Layout.preferredHeight: Theme.blockHeight
-            }
-
-            StyledText {
-                Layout.fillWidth: true
-                Layout.preferredHeight: Theme.doubledBlockHeight
-                text: Time.timeGrid
-            }
-
-            Power {
-                Layout.fillWidth: true
-                Layout.preferredHeight: Theme.blockHeight
-            }
-        }
-    }
-    Item {
-        id: border
-
-        anchors {
-            top: parent.top
-            right: Theme.barOnRight ? bar.left : parent.right
-            bottom: parent.bottom
-            left: Theme.barOnRight ? parent.left : bar.right
+        Bell {
+            Layout.fillWidth: true
+            Layout.preferredHeight: Theme.blockHeight
         }
 
-        Item {
-            id: mask
-
-            anchors.fill: parent
-            layer.enabled: true
-            visible: false
-
-            Rectangle {
-                anchors.fill: parent
-                radius: Theme.radius + 3
-            }
+        Workspaces {
+            Layout.fillWidth: true
+            Layout.fillHeight: true
         }
 
-        MultiEffect {
-            anchors.fill: parent
-            source: effectSource
-            maskEnabled: true
-            maskSource: mask
-            maskInverted: true
-            maskThresholdMin: 0.5
-            maskSpreadAtMin: 1
-            autoPaddingEnabled: false
-            blur: 1
-            blurMultiplier: 2
-            blurMax: 48
-            blurEnabled: true
+        Tray {
+            Layout.fillWidth: true
+        }
+
+        Volume {
+            Layout.fillWidth: true
+            Layout.preferredHeight: Theme.blockHeight
+        }
+
+        Bluetooth {
+            Layout.fillWidth: true
+            Layout.preferredHeight: Theme.blockHeight
+        }
+
+        Inhibitor {
+            Layout.fillWidth: true
+            Layout.preferredHeight: Theme.blockHeight
+        }
+
+        Network {
+            Layout.fillWidth: true
+            Layout.preferredHeight: Theme.blockHeight
+        }
+
+        Battery {
+            Layout.fillWidth: true
+            Layout.preferredHeight: Theme.blockHeight
+        }
+
+        Light {
+            Layout.fillWidth: true
+            Layout.preferredHeight: Theme.blockHeight
+        }
+
+        Update {
+            Layout.fillWidth: true
+            Layout.preferredHeight: Theme.blockHeight
+        }
+
+        StyledText {
+            Layout.fillWidth: true
+            Layout.preferredHeight: Theme.doubledBlockHeight
+            text: Time.timeGrid
+        }
+
+        Power {
+            Layout.fillWidth: true
+            Layout.preferredHeight: Theme.blockHeight
         }
     }
 }
