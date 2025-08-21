@@ -97,7 +97,6 @@ PanelWindow {
 
                 readonly property int launcherModule: GlobalState.launcherModule
 
-                Layout.alignment: Qt.AlignHCenter
                 Layout.fillHeight: true
                 Layout.fillWidth: true
 
