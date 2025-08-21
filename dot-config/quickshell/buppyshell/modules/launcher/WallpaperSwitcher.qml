@@ -36,10 +36,10 @@ StyledListView {
         function tapped(pointEvent, button) {
             switch (button) {
             case Qt.LeftButton:
-                modelData.select()
+                modelData.select();
                 break;
             case Qt.RightButton:
-                modelData.greeter()
+                modelData.greeter();
                 break;
             }
             GlobalState.launcher = false;
@@ -64,14 +64,14 @@ StyledListView {
                 Layout.preferredWidth: height * 16 / 9
                 asynchronous: true
                 fillMode: Image.PreserveAspectCrop
-                source: wallpaper.modelData.url
+                source: wallpaper.modelData?.url ?? ""
             }
 
             StyledText {
                 Layout.fillHeight: true
                 Layout.fillWidth: true
                 elide: Text.ElideRight
-                text: wallpaper.modelData.name
+                text: wallpaper.modelData?.name ?? ""
                 font.pixelSize: Theme.font.size.doubled
                 color: wallpaper.ListView.isCurrentItem ? Theme.color.accent : Theme.color.fg
                 horizontalAlignment: Text.AlignLeft

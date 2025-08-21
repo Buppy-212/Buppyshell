@@ -12,7 +12,6 @@ Searcher {
 
     property url current
     property list<string> urls
-    property FolderListModel foldermodel
 
     list: wallpapers.instances
 
@@ -28,22 +27,28 @@ Searcher {
         }
     }
 
+    FolderListModel {
+        id: folderModel
+
+        folder: `file:${Quickshell.env("HOME")}/Pictures/Wallpapers`
+        onCountChanged: {
+            root.urls = [];
+            root.urls = root.getFilePathsList();
+        }
+    }
+
+    function getFilePathsList() {
+        var pathsList = [];
+        for (var i = 0; i < folderModel.count; i++) {
+            pathsList.push(folderModel.get(i, "filePath"));
+        }
+        return pathsList;
+    }
+
     Variants {
         id: wallpapers
 
         model: root.urls
         delegate: Wallpaper {}
-    }
-
-    Process {
-        id: get
-
-        command: ["find", `${Quickshell.env("HOME")}/Pictures/Wallpapers`, "-type", "f"]
-        running: true
-        stdout: SplitParser {
-            onRead: data => {
-                root.urls.push(data);
-            }
-        }
     }
 }
