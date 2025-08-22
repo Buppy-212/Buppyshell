@@ -60,7 +60,7 @@ PanelWindow {
 
         anchors.centerIn: parent
         implicitWidth: modelData.width * 0.5
-        implicitHeight: (Theme.margin * 4) + (Theme.blockHeight * 4) * 11
+        implicitHeight: (Theme.margin * 4) + (Theme.blockHeight * 4) * 11 + 2*Theme.border
         radius: Theme.radius
         border.color: Theme.color.blue
         border.width: Theme.border
