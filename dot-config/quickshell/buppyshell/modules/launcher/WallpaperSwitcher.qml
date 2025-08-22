@@ -64,6 +64,7 @@ StyledListView {
                 Layout.preferredWidth: height * 16 / 9
                 asynchronous: true
                 fillMode: Image.PreserveAspectCrop
+                sourceSize: Qt.size(width, height)
                 source: wallpaper.modelData?.url ?? ""
             }
 
