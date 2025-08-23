@@ -31,7 +31,7 @@ PanelWindow {
     }
 
     Date {
-      height: parent.height > parent.width ? parent.width / 3 : parent.height / 3
-      width: height
+        height: parent.height > parent.width ? parent.width / 3 : parent.height / 3
+        width: height
     }
 }

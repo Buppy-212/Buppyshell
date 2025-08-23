@@ -31,8 +31,8 @@ Item {
             Text {
                 anchors {
                     fill: parent
-                    topMargin: Theme.margin
-                    leftMargin: Theme.margin
+                    topMargin: parent.height / 16
+                    leftMargin: parent.height / 16
                 }
                 text: parent.text
                 color: Theme.color.fg
@@ -66,8 +66,8 @@ Item {
             Text {
                 anchors {
                     fill: parent
-                    topMargin: Theme.margin
-                    leftMargin: Theme.margin
+                    topMargin: parent.height / 8
+                    leftMargin: parent.height / 8
                 }
                 text: parent.text
                 color: Theme.color.fg
@@ -102,7 +102,7 @@ Item {
             Text {
                 anchors {
                     fill: parent
-                    leftMargin: Theme.margin
+                    leftMargin: parent.height / 8
                 }
                 text: parent.text
                 color: Theme.color.fg
