@@ -44,8 +44,8 @@ StyledButton {
         menu: root.modelData.menu
         anchor {
             item: root
-            edges: Theme.barOnRight ? Edges.Left | Edges.Top : Edges.Right | Edges.Top
-            gravity: Theme.barOnRight ? Edges.Left | Edges.Bottom : Edges.Right | Edges.Bottom
+            edges: Edges.Left | Edges.Top
+            gravity: Edges.Left | Edges.Bottom
         }
     }
 }

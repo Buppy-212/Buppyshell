@@ -7,7 +7,6 @@ import QtQuick
 Singleton {
     id: root
 
-    readonly property bool barOnRight: true
     readonly property int radius: 8
     readonly property int margin: 8
     readonly property int border: 2

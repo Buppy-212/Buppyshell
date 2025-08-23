@@ -27,9 +27,8 @@ Loader {
     sourceComponent: PanelWindow {
         anchors {
             top: true
-            right: Theme.barOnRight
+            right: true
             bottom: true
-            left: !Theme.barOnRight
         }
         color: "transparent"
         implicitWidth: screen.width / 4
@@ -74,15 +73,14 @@ Loader {
 
                 DragHandler {
                     cursorShape: Qt.ClosedHandCursor
-                    xAxis.minimum: Theme.barOnRight ? 0 : -sidebar.width
-                    xAxis.maximum: Theme.barOnRight ? sidebar.width : 0
+                    xAxis.minimum: 0
                     yAxis.enabled: false
                     onGrabChanged: (transition, point) => {
                         if (transition === PointerDevice.GrabExclusive) {
                             behavior.enabled = false;
                         } else if (transition === PointerDevice.UngrabExclusive && sidebar.x !== 0) {
                             behavior.enabled = true;
-                            Theme.barOnRight ? sidebar.x = sidebar.width : sidebar.x = -sidebar.width
+                            sidebar.x = sidebar.width
                         }
                     }
                 }

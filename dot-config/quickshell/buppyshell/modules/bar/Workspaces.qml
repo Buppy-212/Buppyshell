@@ -36,7 +36,7 @@ ScrollView {
                 implicitHeight: (toplevelRepeater.count + 1) * Theme.blockWidth
                 implicitWidth: root.width
                 dragged: dropArea.containsDrag
-                borderSide: Theme.barOnRight ? StyledTabButton.Right : StyledTabButton.Left
+                borderSide: StyledTabButton.Right
                 selected: modelData?.focused
                 accentColor: Theme.color.accent
                 scrollable: true
@@ -123,8 +123,8 @@ ScrollView {
                                 component: PopupWindow {
                                     anchor {
                                         item: toplevel
-                                        edges: Theme.barOnRight ? Edges.Left : Edges.Right
-                                        gravity: Theme.barOnRight ? Edges.Left : Edges.Right
+                                        edges: Edges.Left
+                                        gravity: Edges.Left
                                     }
                                     implicitHeight: toplevel.height
                                     implicitWidth: title.implicitWidth

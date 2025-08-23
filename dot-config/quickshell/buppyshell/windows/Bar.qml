@@ -13,9 +13,8 @@ PanelWindow {
     screen: modelData
     anchors {
         top: true
-        right: Theme.barOnRight
+        right: true
         bottom: true
-        left: !Theme.barOnRight
     }
     implicitWidth: modelData.width
     color: "transparent"
@@ -40,8 +39,7 @@ PanelWindow {
 
         Rectangle {
             anchors.fill: parent
-            anchors.rightMargin: Theme.barOnRight ? bar.width : 0
-            anchors.leftMargin: Theme.barOnRight ? 0 : bar.width
+            anchors.rightMargin: bar.width
             radius: Theme.radius
         }
     }
@@ -66,9 +64,8 @@ PanelWindow {
 
         anchors {
             top: parent.top
-            right: Theme.barOnRight ? parent.right : undefined
+            right: parent.right
             bottom: parent.bottom
-            left: !Theme.barOnRight ? parent.left : undefined
         }
         width: Theme.barWidth
         spacing: Theme.spacing
