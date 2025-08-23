@@ -36,7 +36,10 @@ WlSessionLock {
             visible: false
         }
 
-        Date {}
+        Date {
+            height: parent.height > parent.width ? parent.width / 3 : parent.height / 3
+            width: height
+        }
 
         PamContext {
             id: pam

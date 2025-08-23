@@ -5,25 +5,25 @@ import qs.widgets
 Item {
     id: root
 
-    implicitHeight: parent.height / 4
-    implicitWidth: parent.width
-
     Column {
         anchors.fill: parent
+        anchors.leftMargin: root.height / 12
         Text {
+            id: shortDate
+
             height: parent.height / 3
-            text: `\t${Time.date}`
+            text: `${Time.date}`
             color: "black"
             transform: Rotation {
                 origin.x: 0
-                origin.y: root.height / 2
+                origin.y: shortDate.height
                 angle: 45
                 axis.x: -1
                 axis.y: 1
                 axis.z: 0
             }
             font {
-                pixelSize: root.height / 2
+                pixelSize: height * 4/3
                 family: Theme.font.family.sans
                 weight: Font.Black
             }
@@ -42,19 +42,21 @@ Item {
         }
 
         Text {
+            id: day
+
             text: Time.day
             color: "black"
-            height: parent.height / 6
+            height: parent.height / 8
             transform: Rotation {
                 origin.x: 0
-                origin.y: root.height / 2
-                angle: 54
+                origin.y: 0
+                angle: 45
                 axis.x: -1
                 axis.y: 1
                 axis.z: 0
             }
             font {
-                pixelSize: root.height / 4
+                pixelSize: height * 16/9
                 family: Theme.font.family.sans
                 weight: Font.Black
             }
@@ -72,9 +74,13 @@ Item {
             }
         }
         Text {
+            id: time
+
             text: `${Time.time}`
             x: width
+            height: parent.height / 10
             color: "black"
+            horizontalAlignment: Font.AlignRight
             transform: Rotation {
                 origin.x: 0
                 origin.y: 0
@@ -84,7 +90,7 @@ Item {
                 axis.z: -1
             }
             font {
-                pixelSize: root.height / 5
+                pixelSize: height * 3/2
                 family: Theme.font.family.mono
                 weight: Font.Black
             }
@@ -93,6 +99,7 @@ Item {
                     fill: parent
                     leftMargin: Theme.margin
                 }
+                horizontalAlignment: Font.AlignRight
                 text: parent.text
                 color: Theme.color.fg
                 style: Text.Outline
