@@ -91,7 +91,6 @@ Item {
             Text {
                 anchors {
                     fill: parent
-                    topMargin: Theme.margin
                     leftMargin: Theme.margin
                 }
                 text: parent.text
