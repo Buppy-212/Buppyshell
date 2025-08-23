@@ -30,32 +30,5 @@ PanelWindow {
         source: Wallpapers.current
     }
 
-    GlassBackground {
-        id: background
-
-        anchors.fill: parent
-    }
-
-    ShaderEffectSource {
-        id: effectSource
-
-        sourceItem: background
-        anchors.fill: date
-        sourceRect: Qt.rect(x, y, width, height)
-        visible: false
-    }
-
-    Date {
-        id: date
-        MultiEffect {
-            anchors.fill: parent
-            z: -1
-            source: effectSource
-            autoPaddingEnabled: false
-            blur: 1
-            blurMultiplier: 2
-            blurMax: 24
-            blurEnabled: true
-        }
-    }
+    Date {}
 }

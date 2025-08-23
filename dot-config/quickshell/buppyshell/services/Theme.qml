@@ -42,7 +42,6 @@ Singleton {
         readonly property string sans: "Adwaita Sans"
         readonly property string mono: "JetBrainsMono Nerd Font Propo"
         readonly property string material: "Material Symbols Rounded"
-        readonly property string handwritten: "Indie Flower"
     }
     component FontSize: QtObject {
         readonly property int normal: 17

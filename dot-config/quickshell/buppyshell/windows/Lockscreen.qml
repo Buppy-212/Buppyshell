@@ -28,15 +28,6 @@ WlSessionLock {
         }
 
         ShaderEffectSource {
-            id: effectSourceDate
-
-            sourceItem: background
-            anchors.fill: date
-            sourceRect: Qt.rect(x, y, width, height)
-            visible: false
-        }
-
-        ShaderEffectSource {
             id: effectSourcePassword
 
             sourceItem: background
@@ -45,19 +36,7 @@ WlSessionLock {
             visible: false
         }
 
-        Date {
-            id: date
-            MultiEffect {
-                anchors.fill: parent
-                z: -1
-                source: effectSourceDate
-                autoPaddingEnabled: false
-                blur: 1
-                blurMultiplier: 2
-                blurMax: 24
-                blurEnabled: true
-            }
-        }
+        Date {}
 
         PamContext {
             id: pam
