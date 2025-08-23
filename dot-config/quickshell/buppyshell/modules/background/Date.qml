@@ -12,7 +12,7 @@ Item {
             id: shortDate
 
             height: parent.height / 3
-            text: `${Time.date}`
+            text: Time.date
             color: "black"
             renderType: Text.QtRendering
             transform: Rotation {
@@ -44,8 +44,6 @@ Item {
         }
 
         Text {
-            id: day
-
             height: parent.height / 8
             text: Time.day
             color: "black"
@@ -78,11 +76,9 @@ Item {
             }
         }
         Text {
-            id: time
-
             height: parent.height / 10
             x: width
-            text: `${Time.time}`
+            text: Time.time
             color: "black"
             renderType: Text.QtRendering
             horizontalAlignment: Font.AlignRight
