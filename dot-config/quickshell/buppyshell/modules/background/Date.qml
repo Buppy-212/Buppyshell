@@ -14,6 +14,7 @@ Item {
             height: parent.height / 3
             text: `${Time.date}`
             color: "black"
+            renderType: Text.QtRendering
             transform: Rotation {
                 origin.x: 0
                 origin.y: shortDate.height
@@ -33,8 +34,9 @@ Item {
                     topMargin: Theme.margin
                     leftMargin: Theme.margin
                 }
-                color: Theme.color.fg
                 text: parent.text
+                color: Theme.color.fg
+                renderType: Text.QtRendering
                 style: Text.Outline
                 styleColor: "black"
                 font: parent.font
@@ -44,9 +46,10 @@ Item {
         Text {
             id: day
 
+            height: parent.height / 8
             text: Time.day
             color: "black"
-            height: parent.height / 8
+            renderType: Text.QtRendering
             transform: Rotation {
                 origin.x: 0
                 origin.y: 0
@@ -68,6 +71,7 @@ Item {
                 }
                 text: parent.text
                 color: Theme.color.fg
+                renderType: Text.QtRendering
                 style: Text.Outline
                 styleColor: "black"
                 font: parent.font
@@ -76,10 +80,11 @@ Item {
         Text {
             id: time
 
-            text: `${Time.time}`
-            x: width
             height: parent.height / 10
+            x: width
+            text: `${Time.time}`
             color: "black"
+            renderType: Text.QtRendering
             horizontalAlignment: Font.AlignRight
             transform: Rotation {
                 origin.x: 0
@@ -99,11 +104,12 @@ Item {
                     fill: parent
                     leftMargin: Theme.margin
                 }
-                horizontalAlignment: Font.AlignRight
                 text: parent.text
                 color: Theme.color.fg
+                renderType: Text.QtRendering
                 style: Text.Outline
                 styleColor: "black"
+                horizontalAlignment: Font.AlignRight
                 font: parent.font
             }
         }
