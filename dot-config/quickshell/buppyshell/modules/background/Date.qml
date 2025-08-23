@@ -23,7 +23,7 @@ Item {
                 axis.z: 0
             }
             font {
-                pixelSize: height * 4/3
+                pixelSize: height * 4 / 3
                 family: Theme.font.family.sans
                 weight: Font.Black
             }
@@ -56,7 +56,7 @@ Item {
                 axis.z: 0
             }
             font {
-                pixelSize: height * 16/9
+                pixelSize: height * 16 / 9
                 family: Theme.font.family.sans
                 weight: Font.Black
             }
@@ -90,7 +90,7 @@ Item {
                 axis.z: -1
             }
             font {
-                pixelSize: height * 3/2
+                pixelSize: height * 3 / 2
                 family: Theme.font.family.mono
                 weight: Font.Black
             }
