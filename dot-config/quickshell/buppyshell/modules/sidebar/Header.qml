@@ -4,6 +4,7 @@ import qs.widgets
 
 Item {
     id: root
+
     implicitHeight: Theme.doubledBlockHeight
     property alias title: title.text
     property alias leftButtonText: leftButton.text
@@ -14,8 +15,10 @@ Item {
     }
     function rightButtonTapped(): void {
     }
+
     StyledButton {
         id: leftButton
+
         function tapped() {
             root.leftButtonTapped();
         }
@@ -30,6 +33,7 @@ Item {
     }
     StyledText {
         id: title
+
         anchors {
             top: parent.top
             right: rightButton.left
@@ -41,6 +45,7 @@ Item {
     }
     StyledButton {
         id: rightButton
+
         function tapped() {
             root.rightButtonTapped();
         }

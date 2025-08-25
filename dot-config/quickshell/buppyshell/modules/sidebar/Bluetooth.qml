@@ -1,4 +1,5 @@
 pragma ComponentBehavior: Bound
+
 import Quickshell
 import Quickshell.Bluetooth
 import Quickshell.Widgets

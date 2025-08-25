@@ -6,7 +6,6 @@ import qs.widgets
 
 Item {
     id: root
-    implicitHeight: Theme.blockHeight * 5
 
     property int currentIndex: findPlayerctld()
 
@@ -17,6 +16,8 @@ Item {
             }
         }
     }
+
+    implicitHeight: Theme.blockHeight * 5
 
     StyledButton {
         id: backButton
