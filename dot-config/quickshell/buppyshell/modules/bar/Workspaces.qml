@@ -37,7 +37,7 @@ ScrollView {
                 implicitWidth: root.width
                 dragged: dropArea.containsDrag
                 borderSide: StyledTabButton.Right
-                selected: modelData?.focused
+                selected: modelData?.focused ?? false
                 accentColor: Theme.color.accent
                 scrollable: true
 
@@ -57,14 +57,14 @@ ScrollView {
                     anchors.fill: parent
                     spacing: 0
                     StyledText {
-                        text: workspace.modelData.id === 10 ? 0 : workspace.modelData.id
+                        text: workspace.modelData?.id === 10 ? 0 : workspace.modelData?.id ?? ""
                         width: column.width
                         height: Theme.blockWidth
                         color: workspace.buttonColor
                     }
                     Repeater {
                         id: toplevelRepeater
-                        model: workspace.modelData.toplevels
+                        model: workspace.modelData?.toplevels ?? []
                         delegate: IconImage {
                             id: toplevel
                             required property HyprlandToplevel modelData
