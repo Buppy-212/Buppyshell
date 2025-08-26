@@ -31,8 +31,8 @@ Item {
             ctx.fillStyle = Theme.color.fg;
             ctx.lineWidth = shortDate.height / 5;
             ctx.clearRect(0, 0, width, height);
-            ctx.strokeText(root.date, shortDate.height / 8, shortDate.height * 0.8);
-            ctx.fillText(root.date, shortDate.height / 8, shortDate.height * 0.8);
+            ctx.strokeText(root.date, shortDate.height / 6, shortDate.height * 0.8);
+            ctx.fillText(root.date, shortDate.height / 6, shortDate.height * 0.8);
         }
     }
     Canvas {
@@ -55,8 +55,8 @@ Item {
             ctx.fillStyle = Theme.color.fg;
             ctx.lineWidth = day.height / 5;
             ctx.clearRect(0, 0, width, height);
-            ctx.strokeText(root.day, day.height / 8, day.height * 0.7);
-            ctx.fillText(root.day, day.height / 8, day.height * 0.7);
+            ctx.strokeText(root.day, day.height / 5, day.height * 0.7);
+            ctx.fillText(root.day, day.height / 5, day.height * 0.7);
         }
     }
     Canvas {
