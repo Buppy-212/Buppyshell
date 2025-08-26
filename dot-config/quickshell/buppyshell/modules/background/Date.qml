@@ -30,6 +30,7 @@ Item {
             ctx.font = `900 ${shortDate.height * 0.8}px '${Theme.font.family.sans}'`;
             ctx.fillStyle = Theme.color.fg;
             ctx.lineWidth = shortDate.height / 5;
+            ctx.clearRect(0, 0, width, height);
             ctx.strokeText(root.date, shortDate.height / 8, shortDate.height * 0.8);
             ctx.fillText(root.date, shortDate.height / 8, shortDate.height * 0.8);
         }
@@ -53,6 +54,7 @@ Item {
             ctx.font = `900 ${day.height * 0.8}px '${Theme.font.family.sans}'`;
             ctx.fillStyle = Theme.color.fg;
             ctx.lineWidth = day.height / 5;
+            ctx.clearRect(0, 0, width, height);
             ctx.strokeText(root.day, day.height / 8, day.height * 0.7);
             ctx.fillText(root.day, day.height / 8, day.height * 0.7);
         }
@@ -77,6 +79,7 @@ Item {
             ctx.font = `900 ${time.height * 0.8}px '${Theme.font.family.mono}'`;
             ctx.fillStyle = Theme.color.fg;
             ctx.lineWidth = time.height / 5;
+            ctx.clearRect(0, 0, width, height);
             ctx.strokeText(root.time, time.height / 8, time.height * 0.7);
             ctx.fillText(root.time, time.height / 8, time.height * 0.7);
         }
