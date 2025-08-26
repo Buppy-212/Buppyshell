@@ -1,6 +1,5 @@
 import Quickshell
 import QtQuick
-import QtQuick.Effects
 import Quickshell.Wayland
 import qs.services
 import qs.widgets
@@ -32,6 +31,6 @@ PanelWindow {
 
     Date {
         height: parent.height > parent.width ? parent.width / 3 : parent.height / 3
-        width: height
+        width: height * 2
     }
 }

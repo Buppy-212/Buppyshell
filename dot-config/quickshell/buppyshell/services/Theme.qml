@@ -38,7 +38,7 @@ Singleton {
     }
 
     component FontFamily: QtObject {
-        readonly property string sans: "Adwaita Sans"
+        readonly property string sans: "Inter Display"
         readonly property string mono: "JetBrainsMono Nerd Font Propo"
         readonly property string material: "Material Symbols Rounded"
     }
