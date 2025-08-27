@@ -1,8 +1,6 @@
 import Quickshell
 import QtQuick
 import Quickshell.Wayland
-import qs.services
-import qs.widgets
 import qs.services.wallpaper
 import qs.modules.background
 

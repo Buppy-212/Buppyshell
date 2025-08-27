@@ -36,19 +36,21 @@ ListView {
         }
     }
     Keys.onPressed: event => {
-        switch (event.key) {
-        case Qt.Key_J:
-            root.incrementCurrentIndex();
-            break;
-        case Qt.Key_K:
-            root.decrementCurrentIndex();
-            break;
-        case Qt.Key_N:
-            root.incrementCurrentIndex();
-            break;
-        case Qt.Key_P:
-            root.decrementCurrentIndex();
-            break;
+        if (event.modifiers === Qt.ControlModifier) {
+            switch (event.key) {
+            case Qt.Key_J:
+                root.incrementCurrentIndex();
+                break;
+            case Qt.Key_K:
+                root.decrementCurrentIndex();
+                break;
+            case Qt.Key_N:
+                root.incrementCurrentIndex();
+                break;
+            case Qt.Key_P:
+                root.decrementCurrentIndex();
+                break;
+            }
         }
     }
     Loader {
