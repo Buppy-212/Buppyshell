@@ -75,11 +75,6 @@ PanelWindow {
             Layout.preferredHeight: Theme.blockHeight
         }
 
-        Bell {
-            Layout.fillWidth: true
-            Layout.preferredHeight: Theme.blockHeight
-        }
-
         Workspaces {
             Layout.fillWidth: true
             Layout.fillHeight: true
@@ -87,6 +82,11 @@ PanelWindow {
 
         Tray {
             Layout.fillWidth: true
+        }
+
+        Bell {
+            Layout.fillWidth: true
+            Layout.preferredHeight: Theme.blockHeight
         }
 
         Volume {
