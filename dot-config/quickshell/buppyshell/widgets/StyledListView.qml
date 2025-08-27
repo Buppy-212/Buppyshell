@@ -6,6 +6,7 @@ ListView {
     id: root
 
     property alias background: background.sourceComponent
+    property bool controlless: false
     required model
     required delegate
 
@@ -36,7 +37,7 @@ ListView {
         }
     }
     Keys.onPressed: event => {
-        if (event.modifiers === Qt.ControlModifier) {
+        if (event.modifiers === Qt.ControlModifier || root.controlless) {
             switch (event.key) {
             case Qt.Key_J:
                 root.incrementCurrentIndex();

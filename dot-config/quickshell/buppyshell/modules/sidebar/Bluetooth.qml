@@ -58,6 +58,7 @@ ColumnLayout {
         Layout.fillHeight: true
         Layout.rightMargin: root.width / 16
         Layout.leftMargin: root.width / 16
+        controlless: true
         model: Bluetooth.devices
         delegate: StyledTabButton {
             id: delegate
