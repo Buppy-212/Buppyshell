@@ -2,7 +2,6 @@ pragma Singleton
 
 import Quickshell
 import Quickshell.Io
-import Quickshell.Hyprland
 import QtQuick
 import Qt.labs.folderlistmodel
 import qs.utils
@@ -13,7 +12,7 @@ Searcher {
     property url current
     property list<string> urls
 
-    list: wallpapers.instances
+    list: wallpapers.instances.map(a => a).sort((a, b) => a.name.localeCompare(b.name))
 
     Process {
         id: load
@@ -31,10 +30,7 @@ Searcher {
         id: folderModel
 
         folder: `file:${Quickshell.env("HOME")}/Pictures/Wallpapers`
-        onCountChanged: {
-            root.urls = [];
-            root.urls = root.getFilePathsList();
-        }
+        onCountChanged: root.urls = root.getFilePathsList()
     }
 
     function getFilePathsList() {

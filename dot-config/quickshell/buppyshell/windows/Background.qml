@@ -14,7 +14,7 @@ PanelWindow {
         left: true
         bottom: true
     }
-    color: Theme.color.black
+    color: "black"
     mask: Region {}
     exclusionMode: ExclusionMode.Ignore
     WlrLayershell.layer: WlrLayer.Background

@@ -9,19 +9,29 @@ import Quickshell.Io
 Searcher {
     id: root
 
-    list: bookmarks.instances
+    function add(text: string): void {
+        var newBookmarkList = bookmarks.instances.map(a => a.name).filter(a => a !== "");
+        newBookmarkList.push(text);
+        newBookmarkList.sort((a, b) => a.localeCompare(b));
+        fileView.setText(newBookmarkList);
+    }
+
+    function remove(bookmark: Bookmark): void {
+        fileView.setText(bookmarks.instances.filter(a => a !== bookmark).map(a => a.name));
+    }
+
+    list: bookmarks.instances.map(a => a).sort((a, b) => a.name.localeCompare(b.name))
 
     FileView {
         id: fileView
 
         path: `${Quickshell.env("XDG_STATE_HOME")}/bookmarks.txt`
-        watchChanges: true
     }
 
     Variants {
         id: bookmarks
 
-        model: fileView.text().trim().split("\n")
+        model: fileView.text().trim().split(",")
         delegate: Bookmark {}
     }
 }

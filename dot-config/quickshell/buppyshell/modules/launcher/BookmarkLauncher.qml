@@ -10,7 +10,14 @@ StyledListView {
 
     required property string search
 
-    Keys.onReturnPressed: root.currentItem.tapped(undefined, Qt.LeftButton)
+    Keys.onReturnPressed: {
+      if (root.currentItem) {
+        root.currentItem.tapped(undefined, Qt.LeftButton)
+      } else {
+        Bookmarks.add(root.search)
+        GlobalState.launcher = false;
+      }
+    }
     Keys.onPressed: event => {
         if (event.modifiers === Qt.ControlModifier) {
             switch (event.key) {
@@ -38,15 +45,16 @@ StyledListView {
             switch (button) {
             case Qt.LeftButton:
                 bookmark.modelData.open();
+                GlobalState.launcher = false;
                 break;
             case Qt.MiddleButton:
-                bookmark.modelData.edit();
+                Bookmarks.remove(modelData);
                 break;
             case Qt.RightButton:
                 bookmark.modelData.openInNewWindow();
+                GlobalState.launcher = false;
                 break;
             }
-            GlobalState.launcher = false;
         }
         function entered() {
             root.currentIndex = bookmark.index;

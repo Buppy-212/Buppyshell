@@ -8,9 +8,6 @@ QtObject {
     function open(): void {
         Quickshell.execDetached(["uwsm", "app", "--", "zen-browser", name])
     }
-    function edit(): void {
-        Quickshell.execDetached(["uwsm", "app", "--", "floatty", "nvim", `${Quickshell.env("XDG_STATE_HOME")}/bookmarks.txt`]);
-    }
     function openInNewWindow(): void {
         Quickshell.execDetached(["uwsm", "app", "--", "zen-browser", "-new-window", name])
     }
