@@ -12,7 +12,7 @@ Searcher {
     property url current
     property list<string> urls
 
-    list: wallpapers.instances.map(a => a).sort((a, b) => a.name.localeCompare(b.name))
+    list: wallpapers.instances
 
     Process {
         id: load

@@ -20,7 +20,7 @@ Searcher {
         fileView.setText(bookmarks.instances.filter(a => a !== bookmark).map(a => a.name));
     }
 
-    list: bookmarks.instances.map(a => a).sort((a, b) => a.name.localeCompare(b.name))
+    list: bookmarks.instances
 
     FileView {
         id: fileView

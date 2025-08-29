@@ -23,7 +23,7 @@ Singleton {
     function query(search: string): list<var> {
         search = transformSearch(search);
         if (!search)
-            return [...list];
+            return [...list].sort((a, b) => selector(a).localeCompare(selector(b)));
 
         return fzf.find(search).sort((a, b) => {
             if (a.score === b.score)
