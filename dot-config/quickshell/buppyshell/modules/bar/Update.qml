@@ -1,11 +1,22 @@
 import Quickshell
 import qs.services
+import qs.services.updates
 import qs.widgets
 
 StyledButton {
-    visible: Updates.updates === 0 ? false : true
-    text: hovered ? Updates.updates : ``
-    function tapped(): void {
-        Quickshell.execDetached(["floatty", "update"]);
+    function tapped(eventPoint, button): void {
+        switch (button) {
+        case Qt.LeftButton:
+            Quickshell.execDetached(["floatty", "update", "tmux"]);
+            break;
+        default:
+            if (GlobalState.sidebarModule === GlobalState.SidebarModule.updates || !GlobalState.sidebar) {
+                GlobalState.sidebar = !GlobalState.sidebar;
+            }
+            GlobalState.sidebarModule = GlobalState.SidebarModule.updates;
+        }
     }
+
+    visible: Updates.updates.length === 0 ? false : true
+    text: hovered ? Updates.updates.length : ``
 }

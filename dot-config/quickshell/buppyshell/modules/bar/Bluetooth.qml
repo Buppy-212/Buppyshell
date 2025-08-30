@@ -9,7 +9,6 @@ StyledButton {
     function tapped(): void {
         if (GlobalState.sidebarModule === GlobalState.SidebarModule.Bluetooth || !GlobalState.sidebar) {
             GlobalState.sidebar = !GlobalState.sidebar;
-            GlobalState.player = false;
         }
         GlobalState.sidebarModule = GlobalState.SidebarModule.Bluetooth;
     }

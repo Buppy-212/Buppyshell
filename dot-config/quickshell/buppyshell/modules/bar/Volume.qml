@@ -17,7 +17,6 @@ StyledButton {
         default:
             if (GlobalState.sidebarModule === GlobalState.SidebarModule.Volume || !GlobalState.sidebar) {
                 GlobalState.sidebar = !GlobalState.sidebar;
-                GlobalState.player = false;
             }
             GlobalState.sidebarModule = GlobalState.SidebarModule.Volume;
         }

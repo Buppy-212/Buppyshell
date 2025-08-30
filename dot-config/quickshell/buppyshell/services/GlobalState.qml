@@ -14,7 +14,8 @@ Singleton {
         Notifications,
         Volume,
         Bluetooth,
-        Network
+        Network,
+        Updates
     }
 
     enum LauncherModule {

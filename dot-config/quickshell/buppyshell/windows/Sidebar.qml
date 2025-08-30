@@ -80,7 +80,7 @@ Loader {
                             behavior.enabled = false;
                         } else if (transition === PointerDevice.UngrabExclusive && sidebar.x !== 0) {
                             behavior.enabled = true;
-                            sidebar.x = sidebar.width
+                            sidebar.x = sidebar.width;
                         }
                     }
                 }
@@ -108,7 +108,7 @@ Loader {
                     Keys.onTabPressed: {
                         var i = GlobalState.sidebarModule;
                         i += 1;
-                        if (i > 3) {
+                        if (i > 4) {
                             i = 0;
                         }
                         GlobalState.sidebarModule = i;
@@ -117,7 +117,7 @@ Loader {
                         var i = GlobalState.sidebarModule;
                         i -= 1;
                         if (i < 0) {
-                            i = 3;
+                            i = 4;
                         }
                         GlobalState.sidebarModule = i;
                     }
@@ -150,6 +150,9 @@ Loader {
                                 break;
                             case GlobalState.SidebarModule.Network:
                                 stackView.replaceCurrentItem(Quickshell.shellPath("modules/sidebar/Network.qml"));
+                                break;
+                            case GlobalState.SidebarModule.Updates:
+                                stackView.replaceCurrentItem(Quickshell.shellPath("modules/sidebar/Updates.qml"));
                                 break;
                             }
                         }

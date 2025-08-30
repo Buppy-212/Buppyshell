@@ -13,31 +13,30 @@ RowLayout {
         id: repeater
         model: [
             {
-                _text: "󰂚",
-                sidebarModule: GlobalState.SidebarModule.Notifications,
-                command: "notifications"
+                icon: "󰂚",
+                sidebarModule: GlobalState.SidebarModule.Notifications
             },
             {
-                _text: "",
-                sidebarModule: GlobalState.SidebarModule.Volume,
-                command: "volume"
+                icon: "",
+                sidebarModule: GlobalState.SidebarModule.Volume
             },
             {
-                _text: "󰂯",
-                sidebarModule: GlobalState.SidebarModule.Bluetooth,
-                command: "bluetooth"
+                icon: "󰂯",
+                sidebarModule: GlobalState.SidebarModule.Bluetooth
             },
             {
-                _text: "󰖩",
-                sidebarModule: GlobalState.SidebarModule.Network,
-                command: "network"
+                icon: "󰖩",
+                sidebarModule: GlobalState.SidebarModule.Network
+            },
+            {
+                icon: "",
+                sidebarModule: GlobalState.SidebarModule.Updates
             },
         ]
         delegate: StyledTabButton {
             id: delegateButton
 
-            required property string _text
-            required property string command
+            required property string icon
             required property int sidebarModule
 
             function tapped(): void {
@@ -48,21 +47,21 @@ RowLayout {
                 var i = GlobalState.sidebarModule;
                 if (event.angleDelta.y < 0) {
                     i += 1;
-                    if (i > 3) {
+                    if (i > repeater.count - 1) {
                         i = 0;
                     }
                 } else {
                     i -= 1;
                     if (i < 0) {
-                        i = 3;
+                        i = repeater.count - 1;
                     }
                 }
                 GlobalState.sidebarModule = i;
             }
 
             scrollable: true
-            selected: GlobalState.sidebarModule == sidebarModule
-            text: delegateButton._text
+            selected: GlobalState.sidebarModule === sidebarModule
+            text: delegateButton.icon
             Layout.fillWidth: true
             Layout.fillHeight: true
             font.pixelSize: Theme.font.size.doubled

@@ -8,7 +8,6 @@ StyledButton {
     function tapped(): void {
         if (GlobalState.sidebarModule === GlobalState.SidebarModule.Network || !GlobalState.sidebar) {
             GlobalState.sidebar = !GlobalState.sidebar;
-            GlobalState.player = false;
         }
         GlobalState.sidebarModule = GlobalState.SidebarModule.Network;
     }

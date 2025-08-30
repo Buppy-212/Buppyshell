@@ -11,7 +11,6 @@ StyledButton {
     function tapped(eventPoint, button): void {
         if (GlobalState.sidebarModule === GlobalState.SidebarModule.Notifications || !GlobalState.sidebar) {
             GlobalState.sidebar = !GlobalState.sidebar;
-            GlobalState.player = false;
         }
         GlobalState.sidebarModule = GlobalState.SidebarModule.Notifications;
     }
