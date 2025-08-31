@@ -13,9 +13,13 @@ ColumnLayout {
     Header {
         title: "Updates"
         Layout.fillWidth: true
+        leftButtonText: ""
+        function leftButtonTapped(): void {
+            Quickshell.execDetached(["update", "--check"]);
+        }
         rightButtonText: Updates.updates.length ? "" : ""
         function rightButtonTapped(): void {
-            GlobalState.sidebar = false
+            GlobalState.sidebar = false;
             Quickshell.execDetached(["floatty", "update", "tmux"]);
         }
     }
