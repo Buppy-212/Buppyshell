@@ -25,7 +25,7 @@ Searcher {
     FileView {
         id: fileView
 
-        path: `${Quickshell.env("XDG_STATE_HOME")}/buppyshell/bookmarks.txt`
+        path: `${Quickshell.env("XDG_STATE_HOME")}/bookmarks.txt`
     }
 
     Variants {

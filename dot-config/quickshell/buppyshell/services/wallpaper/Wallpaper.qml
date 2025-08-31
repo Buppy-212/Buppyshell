@@ -8,7 +8,7 @@ QtObject {
 
     function select(): void {
         Wallpapers.current = url;
-        Quickshell.execDetached(["ln", "-sf", url, `${Quickshell.env("XDG_STATE_HOME")}/buppyshell/wallpaper`]);
+        Quickshell.execDetached(["ln", "-sf", url, `${Quickshell.env("XDG_STATE_HOME")}/wallpaper`]);
     }
 
     function greeter(): void {

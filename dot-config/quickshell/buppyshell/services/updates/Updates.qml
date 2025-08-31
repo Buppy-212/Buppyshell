@@ -11,7 +11,7 @@ Singleton {
     FileView {
         id: fileView
 
-        path: `${Quickshell.env("XDG_STATE_HOME")}/buppyshell/updates.txt`
+        path: `${Quickshell.env("XDG_STATE_HOME")}/updates.txt`
         watchChanges: true
         onFileChanged: this.reload()
     }

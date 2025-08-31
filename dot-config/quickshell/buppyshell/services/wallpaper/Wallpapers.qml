@@ -17,7 +17,7 @@ Searcher {
     Process {
         id: load
 
-        command: ["readlink", "-n", `${Quickshell.env("XDG_STATE_HOME")}/buppyshell/wallpaper`]
+        command: ["readlink", "-n", `${Quickshell.env("XDG_STATE_HOME")}/wallpaper`]
         running: true
         stdout: StdioCollector {
             onStreamFinished: {
