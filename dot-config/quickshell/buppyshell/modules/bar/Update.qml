@@ -10,10 +10,10 @@ StyledButton {
             Quickshell.execDetached(["floatty", "update", "tmux"]);
             break;
         default:
-            if (GlobalState.sidebarModule === GlobalState.SidebarModule.updates || !GlobalState.sidebar) {
+            if (GlobalState.sidebarModule === GlobalState.SidebarModule.Updates || !GlobalState.sidebar) {
                 GlobalState.sidebar = !GlobalState.sidebar;
             }
-            GlobalState.sidebarModule = GlobalState.SidebarModule.updates;
+            GlobalState.sidebarModule = GlobalState.SidebarModule.Updates;
         }
     }
 
