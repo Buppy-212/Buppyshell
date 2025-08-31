@@ -2,6 +2,8 @@ pragma ComponentBehavior: Bound
 
 import QtQuick
 import QtQuick.Effects
+import QtQuick.Layouts
+import Quickshell
 import Quickshell.Services.Pam
 import Quickshell.Wayland
 import Quickshell.Widgets
@@ -12,13 +14,19 @@ import qs.modules.background
 
 WlSessionLock {
     locked: GlobalState.locked
+    surface: WlSessionLockSurface {
+        PamContext {
+            id: pam
 
-    WlSessionLockSurface {
-        Image {
-            cache: false
-            anchors.fill: parent
-            fillMode: Image.PreserveAspectCrop
-            source: Wallpapers.current
+            active: true
+            onCompleted: function (result) {
+                if (result === PamResult.Success) {
+                    GlobalState.locked = false;
+                } else {
+                    pam.active = true;
+                    pam.start();
+                }
+            }
         }
 
         GlassBackground {
@@ -27,13 +35,14 @@ WlSessionLock {
             anchors.fill: parent
         }
 
-        ShaderEffectSource {
-            id: effectSourcePassword
-
-            sourceItem: background
-            anchors.fill: password
-            sourceRect: Qt.rect(x, y, width, height)
-            visible: false
+        MultiEffect {
+            anchors.fill: parent
+            source: background
+            autoPaddingEnabled: false
+            blur: 1
+            blurMultiplier: 2
+            blurMax: 48
+            blurEnabled: true
         }
 
         Date {
@@ -41,62 +50,41 @@ WlSessionLock {
             width: height * 2
         }
 
-        PamContext {
-            id: pam
-            active: true
-            onPamMessage: {
-                textFieldBackground.border.color = Theme.color.blue;
-                if (responseRequired) {
-                    textField.echoMode = responseVisible ? TextInput.Normal : TextInput.Password;
-                }
-            }
-            onCompleted: function (result) {
-                if (result === PamResult.Success) {
-                    GlobalState.locked = false;
-                } else {
-                    textFieldBackgroune.border.color = Theme.color.red;
-                    pam.active = true;
-                    pam.start();
-                }
-            }
-        }
-
-        ClippingRectangle {
+        ColumnLayout {
             id: password
 
-            height: Screen.height / 10
-            width: Screen.width / 6
-            color: "transparent"
-            radius: height / 3
+            height: parent.height / 2
+            width: parent.width / 4
+            spacing: height / 8
             anchors.centerIn: parent
 
-            MultiEffect {
-                anchors.fill: parent
-                source: effectSourcePassword
-                autoPaddingEnabled: false
-                blur: 1
-                blurMultiplier: 2
-                blurMax: 48
-                blurEnabled: true
+            StyledText {
+                Layout.fillWidth: true
+                Layout.preferredHeight: parent.height / 8
+                font.pixelSize: height
+                text: Quickshell.env("USER")
+            }
+
+            ClippingRectangle {
+                color: "transparent"
+                Layout.preferredHeight: parent.height / 3
+                Layout.preferredWidth: height
+                Layout.alignment: Qt.AlignHCenter
+                radius: height / 2
+                Image {
+                    anchors.fill: parent
+                    asynchronous: true
+                    fillMode: Image.PreserveAspectCrop
+                    source: `${Quickshell.env("XDG_DATA_HOME")}/face`
+                }
             }
 
             StyledTextField {
-                id: textField
+                Layout.preferredHeight: parent.height / 8
+                Layout.fillWidth: true
+                echoMode: TextInput.Password
+                font.letterSpacing: 4
                 focus: true
-                anchors {
-                    fill: parent
-                    margins: parent.height / 4
-                }
-                placeholderText: "Password"
-                background: Rectangle {
-                    id: textFieldBackground
-                    border {
-                        width: 2
-                        color: Theme.color.blue
-                    }
-                    radius: height / 3
-                    color: Theme.color.bg
-                }
                 onAccepted: {
                     if (pam.responseRequired) {
                         pam.respond(text);

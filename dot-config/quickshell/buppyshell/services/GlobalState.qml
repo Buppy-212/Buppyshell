@@ -94,7 +94,7 @@ Singleton {
 
     GlobalShortcut {
         name: "lock"
-        description: "Reloads toplevels"
+        description: "Locks session"
         appid: "buppyshell"
         onPressed: root.locked = true
     }
