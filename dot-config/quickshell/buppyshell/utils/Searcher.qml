@@ -5,6 +5,7 @@ import QtQuick
 
 Singleton {
     required property list<QtObject> list
+    property bool sort: true
     property string key: "name"
     property var extraOpts: ({})
 
@@ -22,9 +23,12 @@ Singleton {
 
     function query(search: string): list<var> {
         search = transformSearch(search);
-        if (!search)
-            return [...list].sort((a, b) => selector(a).localeCompare(selector(b)));
-
+        if (!search) {
+            if (sort) {
+                return [...list].sort((a, b) => selector(a).localeCompare(selector(b)));
+            }
+            return [...list];
+        }
         return fzf.find(search).sort((a, b) => {
             if (a.score === b.score)
                 return selector(a.item).trim().length - selector(b.item).trim().length;

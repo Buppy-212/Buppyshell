@@ -8,10 +8,9 @@ import qs.utils
 Searcher {
     id: root
 
-    key: "sortName"
+    sort: false
     list: [
         PowerOption {
-            sortName: "1 Shutdown"
             name: "Shutdown"
             icon: "power_settings_new"
             color: Theme.color.red
@@ -20,7 +19,6 @@ Searcher {
             }
         },
         PowerOption {
-            sortName: "2 Reboot"
             name: "Reboot"
             icon: "restart_alt"
             color: Theme.color.orange
@@ -29,7 +27,6 @@ Searcher {
             }
         },
         PowerOption {
-            sortName: "3 Logout"
             name: "Logout"
             icon: "logout"
             color: Theme.color.green
@@ -38,7 +35,6 @@ Searcher {
             }
         },
         PowerOption {
-            sortName: "4 Suspend"
             name: "Suspend"
             icon: "pause_circle"
             color: Theme.color.blue
@@ -47,7 +43,6 @@ Searcher {
             }
         },
         PowerOption {
-            sortName: "5 Lock"
             name: "Lock"
             icon: "lock"
             color: Theme.color.cyan
@@ -56,7 +51,6 @@ Searcher {
             }
         },
         PowerOption {
-            sortName: "6 Hibernate"
             name: "Hibernate"
             icon: "mode_standby"
             color: Theme.color.magenta
