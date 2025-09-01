@@ -7,15 +7,7 @@ import qs.widgets
 Item {
     id: root
 
-    property int currentIndex: findPlayerctld()
-
-    function findPlayerctld(): int {
-        for (var i = 0; i < Mpris.players.values.length; i++) {
-            if (Mpris.players.values[i].dbusName === "org.mpris.MediaPlayer2.playerctld") {
-                return i;
-            }
-        }
-    }
+    property int currentIndex: 0
 
     implicitHeight: Theme.blockHeight * 5
 
@@ -80,7 +72,6 @@ Item {
                 implicitHeight: parent.height
                 implicitWidth: implicitHeight
                 text: Mpris.players.values[root.currentIndex]?.isPlaying ? "" : ""
-                color: Mpris.players.values[root.currentIndex]?.dbusName === "org.mpris.MediaPlayer2.playerctld" ? Theme.color.red : Theme.color.fg
                 font.pixelSize: Theme.font.size.doubled
                 function tapped(eventPoint, button) {
                     switch (button) {
