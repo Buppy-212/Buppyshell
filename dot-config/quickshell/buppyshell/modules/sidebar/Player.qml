@@ -5,31 +5,46 @@ import qs.services
 import qs.widgets
 
 Item {
-    id: root
-
-    property int currentIndex: 0
-
     implicitHeight: Theme.blockHeight * 5
 
     StyledButton {
         id: backButton
 
+        function tapped() {
+            if (stack.currentIndex > 0) {
+                stack.currentIndex -= 1;
+            } else {
+                (stack.currentIndex = stack.count - 1);
+            }
+        }
         implicitHeight: parent.height
-        implicitWidth: root.width / 8
+        implicitWidth: parent.width / 8
         anchors.left: parent.left
         text: ""
         font.pixelSize: Theme.font.size.doubled
-        function tapped() {
-            if (root.currentIndex > 0) {
-                root.currentIndex -= 1;
-            } else {
-                (root.currentIndex = Mpris.players.values.length - 1);
-            }
-        }
     }
 
-    ColumnLayout {
-        spacing: height / 10
+    StyledButton {
+        id: forwardButton
+
+        function tapped() {
+            if (stack.currentIndex < stack.count - 1) {
+                stack.currentIndex += 1;
+            } else {
+                stack.currentIndex = 0;
+            }
+        }
+
+        implicitHeight: parent.height
+        implicitWidth: parent.width / 8
+        anchors.right: parent.right
+        text: ""
+        font.pixelSize: Theme.font.size.doubled
+    }
+
+    StackLayout {
+        id: stack
+
         anchors {
             top: parent.top
             right: forwardButton.left
@@ -37,90 +52,82 @@ Item {
             left: backButton.right
         }
 
-        StyledText {
-            text: Mpris.players.values[root.currentIndex]?.trackTitle ?? false ? Mpris.players.values[root.currentIndex].trackTitle : "No Track"
-            Layout.fillWidth: true
-            Layout.preferredHeight: parent.height / 5
-            font.pixelSize: Theme.font.size.doubled
-            elide: Text.ElideRight
-        }
+        Repeater {
+            model: Mpris.players.values.filter(a => a.dbusName !== "org.mpris.MediaPlayer2.playerctld")
+            delegate: ColumnLayout {
+                id: player
 
-        Row {
-            id: playbackControls
+                required property MprisPlayer modelData
 
-            Layout.fillHeight: true
-            Layout.alignment: Qt.AlignHCenter
-            spacing: Theme.blockHeight / 2
+                spacing: height / 10
 
-            Behavior on anchors.bottomMargin {
-                animation: Theme.animation.elementMove.numberAnimation.createObject(this)
-            }
+                StyledText {
+                    text: player.modelData?.trackTitle ?? false ? player.modelData.trackTitle : player.modelData.dbusName.slice(23)
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: parent.height / 5
+                    font.pixelSize: Theme.font.size.doubled
+                    elide: Text.ElideRight
+                }
 
-            StyledButton {
-                implicitHeight: parent.height
-                implicitWidth: implicitHeight
-                text: ""
-                font.pixelSize: Theme.font.size.doubled
-                function tapped() {
-                    if (Mpris.players.values[root.currentIndex].canGoPrevious) {
-                        Mpris.players.values[root.currentIndex].previous();
+                Row {
+                    Layout.fillHeight: true
+                    Layout.alignment: Qt.AlignHCenter
+                    spacing: Theme.blockHeight / 2
+
+                    StyledButton {
+                        function tapped() {
+                            if (player.modelData.canGoPrevious) {
+                                player.modelData.previous();
+                            }
+                        }
+
+                        implicitHeight: parent.height
+                        implicitWidth: implicitHeight
+                        text: ""
+                        font.pixelSize: Theme.font.size.doubled
+                    }
+
+                    StyledButton {
+                        function tapped(eventPoint, button) {
+                            switch (button) {
+                            case Qt.LeftButton:
+                                player.modelData.togglePlaying();
+                                break;
+                            case Qt.MiddleButton:
+                                player.modelData.stop();
+                                break;
+                            case Qt.RightButton:
+                                player.modelData.togglePlaying();
+                                break;
+                            }
+                        }
+
+                        implicitHeight: parent.height
+                        implicitWidth: implicitHeight
+                        text: player.modelData?.isPlaying ?? false ? "" : ""
+                        font.pixelSize: Theme.font.size.doubled
+                    }
+
+                    StyledButton {
+                        function tapped() {
+                            if (player.modelData.canGoNext) {
+                                player.modelData.next();
+                            }
+                        }
+
+                        implicitHeight: parent.height
+                        implicitWidth: implicitHeight
+                        text: ""
+                        font.pixelSize: Theme.font.size.doubled
                     }
                 }
-            }
-
-            StyledButton {
-                implicitHeight: parent.height
-                implicitWidth: implicitHeight
-                text: Mpris.players.values[root.currentIndex]?.isPlaying ? "" : ""
-                font.pixelSize: Theme.font.size.doubled
-                function tapped(eventPoint, button) {
-                    switch (button) {
-                    case Qt.LeftButton:
-                        Mpris.players.values[root.currentIndex].togglePlaying();
-                        break;
-                    case Qt.MiddleButton:
-                        Mpris.players.values[root.currentIndex].stop();
-                        break;
-                    case Qt.RightButton:
-                        Mpris.players.values[root.currentIndex].togglePlaying();
-                        break;
-                    }
+                StyledText {
+                    text: player.modelData?.trackAlbum ?? false ? `${player.modelData.trackAlbum} - ${player.modelData.trackArtist}` : player.modelData?.trackArtist ?? ""
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: parent.height * 0.15
+                    Layout.bottomMargin: parent.height / 20
+                    elide: Text.ElideMiddle
                 }
-            }
-
-            StyledButton {
-                implicitHeight: parent.height
-                implicitWidth: implicitHeight
-                text: ""
-                font.pixelSize: Theme.font.size.doubled
-                function tapped() {
-                    if (Mpris.players.values[root.currentIndex].canGoNext) {
-                        Mpris.players.values[root.currentIndex].next();
-                    }
-                }
-            }
-        }
-        StyledText {
-            text: Mpris.players.values[root.currentIndex]?.trackAlbum ? `${Mpris.players.values[root.currentIndex]?.trackAlbum} - ${Mpris.players.values[root.currentIndex]?.trackArtist}` : Mpris.players.values[root.currentIndex]?.trackArtist ?? ""
-            Layout.fillWidth: true
-            Layout.preferredHeight: parent.height * 0.15
-            Layout.bottomMargin: parent.height / 20
-            elide: Text.ElideMiddle
-        }
-    }
-    StyledButton {
-        id: forwardButton
-
-        implicitHeight: parent.height
-        implicitWidth: root.width / 8
-        anchors.right: parent.right
-        text: ""
-        font.pixelSize: Theme.font.size.doubled
-        function tapped() {
-            if (root.currentIndex < Mpris.players.values.length - 1) {
-                root.currentIndex += 1;
-            } else {
-                root.currentIndex = 0;
             }
         }
     }
