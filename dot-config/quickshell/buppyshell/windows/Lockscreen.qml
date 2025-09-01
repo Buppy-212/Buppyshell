@@ -13,21 +13,44 @@ import qs.widgets
 import qs.modules.background
 
 Scope {
+    id: root
+
+    property string statusText
+
     PamContext {
         id: pam
 
-        active: true
+        onPamMessage: {
+            if (messageIsError) {
+                root.statusText = message;
+            }
+        }
         onCompleted: result => {
-            if (result === PamResult.Success) {
+            switch (result) {
+            case PamResult.Success:
                 GlobalState.locked = false;
-            } else {
+                break;
+            default:
+                root.statusText = PamResult.toString(result);
                 pam.start();
             }
         }
     }
     WlSessionLock {
         locked: GlobalState.locked
+        onSecureChanged: {
+            if (secure) {
+                root.statusText = "";
+                pam.start();
+            }
+        }
         surface: WlSessionLockSurface {
+            Image {
+                anchors.fill: parent
+                asynchronous: true
+                fillMode: Image.PreserveAspectCrop
+                source: Wallpapers.current
+            }
 
             GlassBackground {
                 id: background
@@ -55,21 +78,20 @@ Scope {
 
                 height: parent.height / 2
                 width: parent.width / 6
-                spacing: height / 10
+                spacing: 0
                 anchors.centerIn: parent
 
                 StyledText {
                     Layout.fillWidth: true
-                    Layout.topMargin: column.height / 10
-                    Layout.preferredHeight: column.height / 10
-                    font.pixelSize: height
+                    Layout.fillHeight: true
+                    font.pixelSize: height / 2
                     text: Quickshell.env("USER")
                 }
 
                 ClippingRectangle {
                     color: "transparent"
-                    Layout.preferredHeight: column.height / 2
-                    Layout.preferredWidth: height
+                    Layout.preferredHeight: width
+                    Layout.fillWidth: true
                     Layout.alignment: Qt.AlignHCenter
                     radius: height / 2
                     Image {
@@ -78,6 +100,12 @@ Scope {
                         fillMode: Image.PreserveAspectCrop
                         source: `${Quickshell.env("XDG_STATE_HOME")}/wallpaper`
                     }
+                }
+
+                StyledText {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    text: root.statusText
                 }
 
                 StyledTextField {
@@ -90,6 +118,7 @@ Scope {
                     focus: true
                     onAccepted: {
                         if (pam.responseRequired) {
+                            root.statusText = "Authenticating";
                             pam.respond(text);
                             text = "";
                         }
