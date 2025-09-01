@@ -31,7 +31,7 @@ Singleton {
     property int launcherModule: GlobalState.LauncherModule.WindowSwitcher
     property bool launcher: false
     property bool sidebar: false
-    property bool locked: true
+    property bool locked: false
 
     GlobalShortcut {
         name: "apps"
