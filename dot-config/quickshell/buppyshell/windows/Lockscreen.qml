@@ -51,23 +51,24 @@ WlSessionLock {
         }
 
         ColumnLayout {
-            id: password
+            id: column
 
             height: parent.height / 2
-            width: parent.width / 4
-            spacing: height / 8
+            width: parent.width / 6
+            spacing: height / 10
             anchors.centerIn: parent
 
             StyledText {
                 Layout.fillWidth: true
-                Layout.preferredHeight: parent.height / 8
+                Layout.topMargin: column.height / 10
+                Layout.preferredHeight: column.height / 10
                 font.pixelSize: height
                 text: Quickshell.env("USER")
             }
 
             ClippingRectangle {
                 color: "transparent"
-                Layout.preferredHeight: parent.height / 3
+                Layout.preferredHeight: column.height / 2
                 Layout.preferredWidth: height
                 Layout.alignment: Qt.AlignHCenter
                 radius: height / 2
@@ -75,12 +76,14 @@ WlSessionLock {
                     anchors.fill: parent
                     asynchronous: true
                     fillMode: Image.PreserveAspectCrop
-                    source: `${Quickshell.env("XDG_DATA_HOME")}/face`
+                    source: `${Quickshell.env("XDG_STATE_HOME")}/wallpaper`
                 }
             }
 
             StyledTextField {
-                Layout.preferredHeight: parent.height / 8
+                id: textField
+
+                Layout.preferredHeight: column.height / 10
                 Layout.fillWidth: true
                 echoMode: TextInput.Password
                 font.letterSpacing: 4
@@ -90,6 +93,20 @@ WlSessionLock {
                         pam.respond(text);
                         text = "";
                     }
+                }
+                StyledButton {
+                    function tapped(): void {
+                        textField.echoMode === TextInput.Password ? textField.echoMode = TextInput.Normal : textField.echoMode = TextInput.Password;
+                    }
+
+                    anchors {
+                        top: parent.top
+                        right: parent.right
+                        bottom: parent.bottom
+                    }
+                    width: height
+                    font.pixelSize: height / 2
+                    text: textField.echoMode === TextInput.Password ? "" : ""
                 }
             }
         }
