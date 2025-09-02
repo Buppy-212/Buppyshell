@@ -39,6 +39,7 @@ ColumnLayout {
             width: listView.width
             height: Theme.doubledBlockHeight
             text: modelData
+            padding: Theme.margin
             horizontalAlignment: Text.AlignLeft
             font.pixelSize: Theme.font.size.large
             fontSizeMode: Text.Fit
