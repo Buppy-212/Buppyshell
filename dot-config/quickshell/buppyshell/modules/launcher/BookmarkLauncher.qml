@@ -11,12 +11,12 @@ StyledListView {
     required property string search
 
     Keys.onReturnPressed: {
-      if (root.currentItem) {
-        root.currentItem.tapped(undefined, Qt.LeftButton)
-      } else {
-        Bookmarks.add(root.search)
-        GlobalState.launcher = false;
-      }
+        if (root.currentItem) {
+            root.currentItem.tapped(undefined, Qt.LeftButton);
+        } else {
+            Bookmarks.add(root.search);
+            GlobalState.launcher = false;
+        }
     }
     Keys.onPressed: event => {
         if (event.modifiers === Qt.ControlModifier) {

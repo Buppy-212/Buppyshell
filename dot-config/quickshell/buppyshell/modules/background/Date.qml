@@ -14,6 +14,7 @@ Canvas {
         ctx.font = `900 ${height * 0.4}px '${Theme.font.family.sans}'`;
         ctx.fillStyle = Theme.color.fg;
         ctx.lineWidth = height / 10;
+        ctx.lineJoin = "round"
         ctx.resetTransform();
         ctx.clearRect(0, 0, width, height);
         ctx.setTransform(0.9, -0.15, -0.2, 1, height * 0.05, height * 0.5);

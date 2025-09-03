@@ -75,7 +75,7 @@ ScrollView {
                             Drag.active: mouseArea.drag.active
                             Drag.hotSpot: Qt.point(width / 2, height / 2)
                             source: {
-                                if (modelData?.wayland?.appId.startsWith("steam_app")) {
+                                if (modelData?.wayland?.appId.startsWith("steam_app") || modelData?.wayland?.appId.startsWith("Minecraft")) {
                                     return Quickshell.iconPath("input-gaming");
                                 } else {
                                     return Quickshell.iconPath(modelData?.wayland?.appId?.toLowerCase() ?? "image-loading", modelData?.wayland?.appId);
