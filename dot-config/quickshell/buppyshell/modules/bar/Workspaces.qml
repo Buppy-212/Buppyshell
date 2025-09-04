@@ -74,13 +74,7 @@ ScrollView {
                             implicitSize: height
                             Drag.active: mouseArea.drag.active
                             Drag.hotSpot: Qt.point(width / 2, height / 2)
-                            source: {
-                                if (modelData?.wayland?.appId.startsWith("steam_app") || modelData?.wayland?.appId.startsWith("Minecraft")) {
-                                    return Quickshell.iconPath("input-gaming");
-                                } else {
-                                    return Quickshell.iconPath(modelData?.wayland?.appId?.toLowerCase() ?? "image-loading", modelData?.wayland?.appId);
-                                }
-                            }
+                            source: Quickshell.iconPath(modelData?.wayland?.appId?.toLowerCase() ?? "image-loading", "input-gaming")
                             states: State {
                                 when: mouseArea.drag.active
                                 ParentChange {

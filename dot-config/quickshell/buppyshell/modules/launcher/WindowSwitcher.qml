@@ -68,13 +68,7 @@ StyledListView {
             IconImage {
                 Layout.fillHeight: true
                 Layout.preferredWidth: height
-                source: {
-                    if (toplevel?.modelData?.appId?.startsWith("steam_app") || toplevel?.modelData?.wayland?.appId.startsWith("Minecraft")) {
-                        return Quickshell.iconPath("input-gaming");
-                    } else {
-                        return Quickshell.iconPath(toplevel?.modelData?.appId?.toLowerCase() ?? "image-loading", toplevel?.modelData?.appId);
-                    }
-                }
+                source: Quickshell.iconPath(toplevel.modelData?.appId?.toLowerCase() ?? "image-loading", "input-gaming")
             }
             StyledText {
                 Layout.fillHeight: true
