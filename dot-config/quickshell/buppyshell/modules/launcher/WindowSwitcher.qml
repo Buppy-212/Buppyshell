@@ -68,7 +68,7 @@ StyledListView {
             IconImage {
                 Layout.fillHeight: true
                 Layout.preferredWidth: height
-                source: Quickshell.iconPath(toplevel.modelData?.appId?.toLowerCase() ?? "image-loading", "input-gaming")
+                source: Quickshell.iconPath(toplevel.modelData?.appId ?? "image-loading", "input-gaming")
             }
             StyledText {
                 Layout.fillHeight: true

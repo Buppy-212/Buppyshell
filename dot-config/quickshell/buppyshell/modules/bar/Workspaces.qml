@@ -74,7 +74,7 @@ ScrollView {
                             implicitSize: height
                             Drag.active: mouseArea.drag.active
                             Drag.hotSpot: Qt.point(width / 2, height / 2)
-                            source: Quickshell.iconPath(modelData?.wayland?.appId?.toLowerCase() ?? "image-loading", "input-gaming")
+                            source: Quickshell.iconPath(modelData?.wayland?.appId ?? "image-loading", "input-gaming")
                             states: State {
                                 when: mouseArea.drag.active
                                 ParentChange {
